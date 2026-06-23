@@ -1,0 +1,971 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>PHY 104 — PDFNest Quiz</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --primary: #E8302A;
+    --primary-dark: #C0251F;
+    --primary-light: #F05550;
+    --red-bg: rgba(232,48,42,0.08);
+    --red-bg-hover: rgba(232,48,42,0.13);
+    --red-border: rgba(232,48,42,0.25);
+    --bg: #F5F5F7;
+    --surface: #FFFFFF;
+    --surface2: #F0F0F2;
+    --border: #E4E4E8;
+    --border2: #D0D0D5;
+    --ink: #0F0F0F;
+    --ink2: #3A3A3F;
+    --ink3: #6E6E78;
+    --ink4: #9E9EA8;
+    --green: #16A34A;
+    --amber: #D97706;
+    --blue: #2563EB;
+    --purple: #7C3AED;
+    --r-card: 16px;
+    --r-input: 12px;
+    --r-pill: 999px;
+    --r-sm: 8px;
+    --shadow-sm: 0 1px 3px rgba(0,0,0,0.07), 0 1px 2px rgba(0,0,0,0.05);
+    --shadow: 0 4px 12px rgba(0,0,0,0.08), 0 2px 4px rgba(0,0,0,0.05);
+    --shadow-lg: 0 12px 32px rgba(0,0,0,0.12), 0 4px 12px rgba(0,0,0,0.08);
+  }
+  @media (prefers-color-scheme: dark) {
+    :root {
+      --bg: #0F0F0F;
+      --surface: #1A1A1A;
+      --surface2: #242424;
+      --border: #2E2E2E;
+      --border2: #3A3A3A;
+      --ink: #F0F0F4;
+      --ink2: #C8C8CC;
+      --ink3: #8E8E98;
+      --ink4: #5E5E68;
+    }
+  }
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  html { scroll-behavior: smooth; }
+  body { font-family: 'Inter', sans-serif; background: var(--bg); color: var(--ink); min-height: 100vh; }
+
+  /* NAV */
+  .top-nav {
+    position: sticky; top: 0; height: 56px; background: var(--surface);
+    border-bottom: 1px solid var(--border); z-index: 100;
+    display: flex; align-items: center; justify-content: space-between;
+    padding: 0 16px; gap: 12px;
+  }
+  .nav-left { display: flex; align-items: center; gap: 10px; }
+  .back-btn {
+    width: 36px; height: 36px; border-radius: var(--r-sm);
+    background: var(--surface2); border: 1px solid var(--border);
+    cursor: pointer; display: flex; align-items: center; justify-content: center;
+    font-size: 16px; color: var(--ink2); transition: background 0.15s;
+  }
+  .back-btn:hover { background: var(--red-bg); }
+  .logo-box {
+    width: 34px; height: 34px; border-radius: 8px;
+    background: var(--primary); display: flex; align-items: center; justify-content: center;
+  }
+  .logo-box svg { width: 20px; height: 20px; }
+  .brand-text { display: flex; flex-direction: column; }
+  .brand-name { font-weight: 700; font-size: 0.9rem; color: var(--ink); line-height: 1.1; }
+  .brand-sub { font-size: 0.72rem; color: var(--ink3); }
+  .nav-right { display: flex; align-items: center; gap: 8px; }
+  .timer-chip {
+    font-family: 'JetBrains Mono', monospace; font-weight: 600;
+    font-size: 0.82rem; color: var(--primary);
+    background: var(--red-bg); border: 1px solid var(--red-border);
+    border-radius: var(--r-pill); padding: 5px 12px;
+    display: flex; align-items: center; gap: 5px;
+  }
+  .bk-btn {
+    width: 36px; height: 36px; border-radius: var(--r-sm);
+    background: var(--surface2); border: 1px solid var(--border);
+    cursor: pointer; display: flex; align-items: center; justify-content: center;
+    font-size: 16px; transition: background 0.15s;
+  }
+  .bk-btn:hover { background: var(--red-bg); }
+
+  /* HERO */
+  .hero { background: var(--surface); border-bottom: 1px solid var(--border); padding: 20px 20px 16px; }
+  .breadcrumb { font-size: 0.75rem; color: var(--ink3); margin-bottom: 10px; }
+  .breadcrumb span { color: var(--primary); font-weight: 600; }
+  .hero-tag {
+    display: inline-flex; align-items: center;
+    background: var(--red-bg); border: 1px solid var(--red-border);
+    border-radius: var(--r-pill); padding: 3px 10px;
+    font-size: 0.68rem; font-weight: 700; color: var(--primary);
+    letter-spacing: 0.06em; text-transform: uppercase; margin-bottom: 10px;
+  }
+  .hero h1 { font-size: 1.45rem; font-weight: 700; line-height: 1.25; color: var(--ink); margin-bottom: 6px; }
+  .hero h1 em { color: var(--primary); font-style: normal; }
+  .hero-sub { font-size: 0.82rem; color: var(--ink3); margin-bottom: 14px; }
+  .stats-row { display: flex; flex-wrap: wrap; gap: 6px; margin-bottom: 12px; }
+  .stat-chip {
+    border-radius: var(--r-pill); padding: 4px 10px;
+    font-size: 0.74rem; font-weight: 600; border: 1px solid transparent;
+    display: flex; align-items: center; gap: 4px;
+  }
+  .stat-blue { background: rgba(37,99,235,0.08); color: var(--blue); border-color: rgba(37,99,235,0.2); }
+  .stat-green { background: rgba(22,163,74,0.08); color: var(--green); border-color: rgba(22,163,74,0.2); }
+  .stat-red { background: var(--red-bg); color: var(--primary); border-color: var(--red-border); }
+  .stat-purple { background: rgba(124,58,237,0.08); color: var(--purple); border-color: rgba(124,58,237,0.2); }
+  .stat-amber { background: rgba(217,119,6,0.08); color: var(--amber); border-color: rgba(217,119,6,0.2); }
+  .progress-wrap { display: flex; align-items: center; gap: 10px; }
+  .progress-bar-track { flex: 1; height: 6px; background: var(--border); border-radius: var(--r-pill); overflow: hidden; }
+  .progress-bar-fill {
+    height: 100%; width: 0%; border-radius: var(--r-pill);
+    background: linear-gradient(90deg, var(--primary), var(--primary-light));
+    transition: width 0.4s ease;
+  }
+  .progress-label { font-size: 0.74rem; font-weight: 600; color: var(--ink3); white-space: nowrap; }
+
+  /* ACTION ROW */
+  .action-row {
+    max-width: 720px; margin: 0 auto; padding: 12px 16px;
+    display: flex; gap: 8px; flex-wrap: wrap;
+  }
+  .btn { border-radius: var(--r-sm); padding: 8px 16px; font-family: 'Inter', sans-serif; font-size: 0.82rem; font-weight: 600; cursor: pointer; border: none; transition: all 0.15s; display: flex; align-items: center; gap: 6px; }
+  .btn-outline { background: var(--surface); border: 1px solid var(--border); color: var(--ink2); }
+  .btn-outline:hover { border-color: var(--primary); color: var(--primary); background: var(--red-bg); }
+  .btn-ghost-red { background: var(--red-bg); border: 1px solid var(--red-border); color: var(--primary); }
+  .btn-ghost-red:hover { background: var(--red-bg-hover); }
+  .btn-danger { background: var(--primary); color: #fff; }
+  .btn-danger:hover { background: var(--primary-dark); }
+
+  /* MAIN */
+  .main { max-width: 720px; margin: 0 auto; padding: 12px 16px 100px; display: flex; flex-direction: column; gap: 12px; }
+
+  /* BOOKMARKS */
+  .bm-card { background: var(--surface); border: 1px solid var(--border); border-radius: var(--r-card); padding: 14px; display: none; }
+  .bm-card.open { display: block; }
+  .bm-title { font-size: 0.82rem; font-weight: 700; color: var(--ink); margin-bottom: 10px; }
+  #bm-list { display: flex; flex-wrap: wrap; gap: 6px; }
+  .bm-pill {
+    font-family: 'JetBrains Mono', monospace; font-size: 0.72rem; font-weight: 600;
+    background: var(--red-bg); border: 1px solid var(--red-border);
+    color: var(--primary); border-radius: var(--r-pill); padding: 3px 9px;
+    cursor: pointer;
+  }
+  .bm-pill:hover { background: var(--red-bg-hover); }
+  .bm-empty { font-size: 0.78rem; color: var(--ink3); }
+
+  /* SUMMARY */
+  .sum-card { background: var(--surface); border: 1px solid var(--border); border-radius: var(--r-card); overflow: hidden; }
+  .sum-toggle {
+    width: 100%; background: none; border: none; cursor: pointer;
+    display: flex; align-items: center; justify-content: space-between;
+    padding: 14px 16px; font-family: 'Inter', sans-serif;
+  }
+  .sum-toggle-left { display: flex; align-items: center; gap: 8px; font-size: 0.88rem; font-weight: 600; color: var(--ink); }
+  .sum-arrow { font-size: 0.8rem; color: var(--ink3); transition: transform 0.2s; }
+  .sum-card.open .sum-arrow { transform: rotate(180deg); }
+  #sum-body { display: none; padding: 0 16px 14px; border-top: 1px solid var(--border); }
+  .sum-card.open #sum-body { display: block; }
+  .sum-week { margin-top: 12px; }
+  .sum-week-title { font-size: 0.8rem; font-weight: 700; color: var(--ink); margin-bottom: 6px; }
+  .sum-week p { font-size: 0.78rem; color: var(--ink2); line-height: 1.6; }
+  .chip {
+    display: inline-block; font-family: 'JetBrains Mono', monospace;
+    font-size: 0.72rem; font-weight: 600; color: var(--primary);
+    background: var(--red-bg); border: 1px solid var(--red-border);
+    border-radius: 4px; padding: 1px 5px; margin: 1px 2px;
+  }
+
+  /* SEARCH */
+  .search-wrap { position: relative; }
+  .search-icon { position: absolute; left: 12px; top: 50%; transform: translateY(-50%); font-size: 14px; color: var(--ink3); pointer-events: none; }
+  .search-input {
+    width: 100%; padding: 10px 12px 10px 36px;
+    border: 1px solid var(--border); border-radius: var(--r-input);
+    background: var(--surface); font-family: 'Inter', sans-serif;
+    font-size: 0.84rem; color: var(--ink); outline: none;
+    transition: border-color 0.15s, box-shadow 0.15s;
+  }
+  .search-input:focus { border-color: var(--primary); box-shadow: 0 0 0 3px var(--red-bg); }
+  .search-input::placeholder { color: var(--ink4); }
+
+  /* FILTERS */
+  .filter-row { display: flex; flex-wrap: wrap; gap: 6px; }
+  .filter-pill {
+    border-radius: var(--r-pill); padding: 5px 12px;
+    font-size: 0.76rem; font-weight: 600; cursor: pointer;
+    border: 1px solid var(--border); background: var(--surface); color: var(--ink3);
+    transition: all 0.15s;
+  }
+  .filter-pill:hover { border-color: var(--red-border); color: var(--primary); background: var(--red-bg); }
+  .filter-pill.active { background: var(--primary); border-color: var(--primary); color: #fff; }
+
+  /* SHUFFLE NOTE */
+  .shuffle-note { font-size: 0.76rem; color: var(--ink3); font-style: italic; display: none; padding: 6px 0; }
+  .shuffle-note.visible { display: block; }
+
+  /* Q LIST */
+  #q-list { display: flex; flex-direction: column; gap: 12px; }
+
+  /* Q CARD */
+  .q-card {
+    background: var(--surface); border: 1px solid var(--border);
+    border-radius: var(--r-card); overflow: hidden;
+    box-shadow: var(--shadow-sm);
+    animation: fadeUp 0.25s ease both;
+  }
+  .q-card.bookmarked { border-color: var(--primary); }
+  @keyframes fadeUp {
+    from { opacity: 0; transform: translateY(10px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+  .q-meta { display: flex; align-items: center; gap: 7px; padding: 12px 14px 0; flex-wrap: wrap; }
+  .q-num {
+    font-family: 'JetBrains Mono', monospace; font-size: 0.72rem; font-weight: 600;
+    background: var(--surface2); border: 1px solid var(--border);
+    border-radius: var(--r-sm); padding: 2px 7px; color: var(--ink3);
+  }
+  .q-topic {
+    font-size: 0.7rem; font-weight: 700; background: var(--red-bg);
+    border: 1px solid var(--red-border); color: var(--primary);
+    border-radius: var(--r-pill); padding: 2px 8px;
+  }
+  .q-type {
+    font-size: 0.7rem; font-weight: 700;
+    background: rgba(37,99,235,0.08); border: 1px solid rgba(37,99,235,0.2);
+    color: var(--blue); border-radius: var(--r-pill); padding: 2px 8px;
+  }
+  .q-bk-btn {
+    margin-left: auto; background: none; border: none; cursor: pointer;
+    font-size: 16px; opacity: 0.35; transition: opacity 0.15s;
+    padding: 2px 4px;
+  }
+  .q-card:hover .q-bk-btn, .q-bk-btn.active { opacity: 1; }
+  .q-text { padding: 10px 14px 12px; font-size: 0.88rem; font-weight: 500; color: var(--ink2); line-height: 1.55; }
+  .options-grid {
+    display: grid; grid-template-columns: 1fr 1fr; gap: 7px;
+    padding: 0 14px 12px;
+  }
+  @media (max-width: 480px) { .options-grid { grid-template-columns: 1fr; } }
+  .option-btn {
+    display: flex; align-items: flex-start; gap: 9px;
+    background: var(--surface2); border: 1px solid var(--border);
+    border-radius: var(--r-sm); padding: 10px 11px;
+    cursor: pointer; text-align: left; transition: all 0.15s;
+    font-family: 'Inter', sans-serif;
+  }
+  .option-btn:hover:not(:disabled) { background: var(--red-bg); border-color: var(--red-border); }
+  .option-btn:disabled { cursor: default; }
+  .option-letter {
+    font-family: 'JetBrains Mono', monospace; font-size: 0.72rem; font-weight: 700;
+    min-width: 22px; height: 22px; border-radius: 6px;
+    background: var(--surface); border: 1px solid var(--border);
+    display: flex; align-items: center; justify-content: center;
+    color: var(--ink3); flex-shrink: 0; margin-top: 1px;
+  }
+  .option-text { font-size: 0.82rem; color: var(--ink2); line-height: 1.45; }
+  .option-btn.correct { background: rgba(22,163,74,0.1); border-color: rgba(22,163,74,0.35); }
+  .option-btn.correct .option-letter { background: var(--green); border-color: var(--green); color: #fff; }
+  .option-btn.wrong { background: rgba(232,48,42,0.1); border-color: rgba(232,48,42,0.35); }
+  .option-btn.wrong .option-letter { background: var(--primary); border-color: var(--primary); color: #fff; }
+  .option-btn.revealed-correct { background: rgba(22,163,74,0.06); border-color: rgba(22,163,74,0.2); }
+  .option-btn.revealed-correct .option-letter { background: rgba(22,163,74,0.12); border-color: rgba(22,163,74,0.3); color: var(--green); }
+  .q-footer { padding: 0 14px 14px; display: flex; align-items: flex-start; flex-direction: column; gap: 8px; }
+  .reveal-btn {
+    background: none; border: 1px solid var(--border); border-radius: var(--r-sm);
+    padding: 6px 13px; font-family: 'Inter', sans-serif; font-size: 0.78rem;
+    font-weight: 600; color: var(--ink3); cursor: pointer; transition: all 0.15s;
+  }
+  .reveal-btn:hover { border-color: var(--primary); color: var(--primary); background: var(--red-bg); }
+  .explanation {
+    display: none; background: var(--red-bg); border-left: 3px solid var(--primary);
+    border-radius: var(--r-sm); padding: 10px 12px;
+    font-size: 0.8rem; color: var(--ink2); line-height: 1.55; width: 100%;
+    animation: fadeIn 0.2s ease;
+  }
+  .explanation.visible { display: block; }
+  @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
+
+  /* NO RESULTS */
+  .no-results { text-align: center; padding: 48px 20px; display: none; }
+  .no-results.visible { display: block; }
+  .no-results-icon { font-size: 2.5rem; margin-bottom: 12px; }
+  .no-results h3 { font-size: 1rem; color: var(--ink); margin-bottom: 6px; }
+  .no-results p { font-size: 0.82rem; color: var(--ink3); }
+
+  /* DIAG BAR */
+  .diag-bar {
+    position: fixed; bottom: 56px; left: 0; right: 0; z-index: 90;
+    display: flex; justify-content: center; padding: 10px 16px;
+    pointer-events: none; opacity: 0; transform: translateY(20px);
+    transition: opacity 0.3s ease, transform 0.3s ease;
+  }
+  .diag-bar.visible { opacity: 1; transform: translateY(0); pointer-events: all; }
+  .diag-btn {
+    background: var(--primary); color: #fff; border: none; border-radius: var(--r-pill);
+    padding: 12px 24px; font-family: 'Inter', sans-serif; font-size: 0.88rem; font-weight: 700;
+    cursor: pointer; box-shadow: var(--shadow-lg);
+    display: flex; align-items: center; gap: 8px;
+    animation: pulse 2.5s infinite;
+  }
+  @keyframes pulse { 0%,100%{box-shadow:0 0 0 0 rgba(232,48,42,0.5),var(--shadow-lg)}50%{box-shadow:0 0 0 8px rgba(232,48,42,0),var(--shadow-lg)} }
+
+  /* MODAL */
+  .modal-overlay {
+    position: fixed; inset: 0; z-index: 200;
+    background: rgba(0,0,0,0.5); display: flex; align-items: flex-end;
+    opacity: 0; pointer-events: none; transition: opacity 0.25s;
+  }
+  .modal-overlay.open { opacity: 1; pointer-events: all; }
+  .modal {
+    background: var(--surface); border-radius: 20px 20px 0 0; width: 100%;
+    max-height: 90vh; overflow-y: auto;
+    transform: translateY(100%); transition: transform 0.35s cubic-bezier(0.34,1.56,0.64,1);
+  }
+  .modal-overlay.open .modal { transform: translateY(0); }
+  .modal-handle { width: 36px; height: 4px; background: var(--border2); border-radius: 2px; margin: 10px auto 4px; }
+  .modal-header {
+    position: sticky; top: 0; background: var(--surface);
+    border-bottom: 1px solid var(--border); padding: 12px 16px;
+    display: flex; align-items: center; justify-content: space-between;
+  }
+  .modal-title { font-size: 0.95rem; font-weight: 700; color: var(--ink); display: flex; align-items: center; gap: 8px; }
+  .modal-close { background: none; border: none; font-size: 18px; cursor: pointer; color: var(--ink3); padding: 4px; }
+  #modal-body { padding: 16px; }
+  .score-grid {
+    display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-bottom: 18px;
+  }
+  @media (max-width: 400px) { .score-grid { grid-template-columns: 1fr 1fr; } }
+  .score-cell {
+    background: var(--surface2); border: 1px solid var(--border);
+    border-radius: var(--r-card); padding: 14px;
+    display: flex; flex-direction: column; align-items: center; gap: 4px;
+  }
+  .score-cell .val { font-size: 1.6rem; font-weight: 700; }
+  .score-cell .lbl { font-size: 0.72rem; color: var(--ink3); font-weight: 600; }
+  .sc-green .val { color: var(--green); }
+  .sc-red .val { color: var(--primary); }
+  .sc-amber .val { color: var(--amber); }
+  .sc-blue .val { color: var(--blue); }
+  .modal-section-title { font-size: 0.82rem; font-weight: 700; color: var(--ink); margin: 16px 0 10px; }
+  .topic-bar-row { margin-bottom: 9px; }
+  .topic-bar-label { display: flex; justify-content: space-between; font-size: 0.75rem; color: var(--ink2); margin-bottom: 3px; }
+  .topic-bar-track { height: 8px; background: var(--border); border-radius: var(--r-pill); overflow: hidden; }
+  .topic-bar-fill { height: 100%; border-radius: var(--r-pill); width: 0; transition: width 0.6s ease; }
+  .type-grid { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 8px; margin-bottom: 16px; }
+  .type-cell { background: var(--surface2); border: 1px solid var(--border); border-radius: var(--r-sm); padding: 10px 8px; text-align: center; }
+  .type-cell .ti { font-size: 1.3rem; margin-bottom: 3px; }
+  .type-cell .tv { font-size: 1.1rem; font-weight: 700; color: var(--ink); }
+  .type-cell .tl { font-size: 0.68rem; color: var(--ink3); }
+  .focus-card { border-radius: var(--r-sm); padding: 10px 12px; margin-bottom: 7px; font-size: 0.78rem; color: var(--ink2); line-height: 1.5; }
+  .fc-critical { background: rgba(232,48,42,0.07); border-left: 3px solid var(--primary); }
+  .fc-warning { background: rgba(217,119,6,0.07); border-left: 3px solid var(--amber); }
+  .fc-good { background: rgba(22,163,74,0.07); border-left: 3px solid var(--green); }
+  .verdict-box { background: var(--surface2); border: 1px solid var(--border); border-radius: var(--r-card); padding: 14px; font-size: 0.82rem; color: var(--ink2); line-height: 1.6; }
+  .modal-footer { padding: 12px 16px 24px; display: flex; gap: 8px; border-top: 1px solid var(--border); }
+  .btn-secondary { flex: 1; background: var(--surface2); border: 1px solid var(--border); color: var(--ink2); border-radius: var(--r-sm); padding: 10px; font-family: 'Inter', sans-serif; font-size: 0.84rem; font-weight: 600; cursor: pointer; }
+  .btn-primary { flex: 1; background: var(--primary); color: #fff; border: none; border-radius: var(--r-sm); padding: 10px; font-family: 'Inter', sans-serif; font-size: 0.84rem; font-weight: 600; cursor: pointer; }
+  .btn-primary:hover { background: var(--primary-dark); }
+
+  /* BOTTOM NAV */
+  .bottom-nav {
+    position: fixed; bottom: 0; left: 0; right: 0; height: 56px;
+    background: var(--surface); border-top: 1px solid var(--border);
+    display: flex; z-index: 80;
+  }
+  .bnav-item { flex: 1; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 2px; cursor: pointer; text-decoration: none; }
+  .bnav-icon { font-size: 18px; }
+  .bnav-label { font-size: 0.64rem; font-weight: 600; color: var(--ink3); }
+  .bnav-item.active .bnav-label { color: var(--primary); }
+</style>
+</head>
+<body>
+
+<!-- TOP NAV -->
+<nav class="top-nav">
+  <div class="nav-left">
+    <button class="back-btn" onclick="history.back()">←</button>
+    <div class="logo-box">
+      <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <rect x="4" y="2" width="12" height="16" rx="2" fill="white" opacity="0.9"/>
+        <path d="M8 18 Q12 22 16 18" stroke="white" stroke-width="1.5" fill="none" stroke-linecap="round"/>
+        <line x1="7" y1="7" x2="13" y2="7" stroke="#E8302A" stroke-width="1.2" stroke-linecap="round"/>
+        <line x1="7" y1="10" x2="13" y2="10" stroke="#E8302A" stroke-width="1.2" stroke-linecap="round"/>
+        <line x1="7" y1="13" x2="11" y2="13" stroke="#E8302A" stroke-width="1.2" stroke-linecap="round"/>
+      </svg>
+    </div>
+    <div class="brand-text">
+      <span class="brand-name">PDFNest</span>
+      <span class="brand-sub">Quiz Mode</span>
+    </div>
+  </div>
+  <div class="nav-right">
+    <div class="timer-chip">⏱ <span id="timer">00:00</span></div>
+    <button class="bk-btn" onclick="toggleBookmarks()" title="Bookmarks">🔖</button>
+  </div>
+</nav>
+
+<!-- HERO -->
+<div class="hero">
+  <div class="breadcrumb">AFIT › 100 Level › Physics › <span>PHY 104 Quiz</span></div>
+  <div class="hero-tag">AFIT · 100 LEVEL · PHYSICS</div>
+  <h1>General Physics II — <em>PHY 104</em></h1>
+  <p class="hero-sub">Weeks 1–11 · 80 Questions · Lecture Notes + Past Questions</p>
+  <div class="stats-row">
+    <div class="stat-chip stat-blue">👁 Showing: <strong id="stat-showing">80</strong></div>
+    <div class="stat-chip stat-green">✅ Correct: <strong id="stat-correct">0</strong></div>
+    <div class="stat-chip stat-red">❌ Wrong: <strong id="stat-wrong">0</strong></div>
+    <div class="stat-chip stat-purple">📝 Attempted: <strong id="stat-attempted">0</strong></div>
+    <div class="stat-chip stat-amber">🎯 Score: <strong id="stat-score">0%</strong></div>
+  </div>
+  <div class="progress-wrap">
+    <div class="progress-bar-track"><div class="progress-bar-fill" id="progress-fill"></div></div>
+    <span class="progress-label"><span id="progress-label">0 / 80</span></span>
+  </div>
+</div>
+
+<!-- ACTION ROW -->
+<div class="action-row">
+  <button class="btn btn-outline" onclick="shuffleQuestions()">🔀 Shuffle</button>
+  <button class="btn btn-ghost-red" onclick="revealAll()">👁 Reveal All</button>
+  <button class="btn btn-danger" onclick="resetQuiz()">↺ Reset</button>
+</div>
+
+<!-- MAIN -->
+<div class="main">
+  <!-- BOOKMARKS PANEL -->
+  <div class="bm-card" id="bm-card">
+    <div class="bm-title">🔖 Bookmarked Questions</div>
+    <div id="bm-list"><span class="bm-empty">No bookmarks yet. Click 🔖 on a card to save it.</span></div>
+  </div>
+
+  <!-- TOPIC SUMMARY -->
+  <div class="sum-card" id="sum-card">
+    <button class="sum-toggle" id="sum-toggle" onclick="toggleSummary()">
+      <span class="sum-toggle-left">📚 Topic Revision Summary</span>
+      <span class="sum-arrow">▼</span>
+    </button>
+    <div id="sum-body">
+      <div class="sum-week">
+        <div class="sum-week-title">Week 1 — Simple Harmonic Motion (SHM)</div>
+        <p>SHM is motion where <span class="chip">acceleration ∝ –displacement</span>. Key equations: <span class="chip">x = A sin(ωt)</span>, <span class="chip">v = ω√(A²–x²)</span>, <span class="chip">a = –ω²x</span>. For a spring: <span class="chip">T = 2π√(m/k)</span>. For a pendulum: <span class="chip">T = 2π√(L/g)</span>. Total energy = <span class="chip">½kA²</span> (constant). At equilibrium KE is max, at amplitude PE is max.</p>
+      </div>
+      <div class="sum-week">
+        <div class="sum-week-title">Weeks 2–3 — Waves & Wave Motion</div>
+        <p>A wave transfers energy without transferring matter. Key quantities: <span class="chip">v = fλ</span>, <span class="chip">T = 1/f</span>, <span class="chip">ω = 2πf</span>. Wave equation: <span class="chip">y = A sin(ωt – kx)</span>. <span class="chip">Transverse waves</span> vibrate ⊥ to propagation (light, strings). <span class="chip">Longitudinal waves</span> vibrate ∥ to propagation (sound). Properties: reflection, refraction, diffraction, interference, polarisation (transverse only).</p>
+      </div>
+      <div class="sum-week">
+        <div class="sum-week-title">Weeks 4–5 — Sound Waves & Intensity</div>
+        <p>Sound is a longitudinal mechanical wave. Speed in air ≈ <span class="chip">330 m/s at 0°C</span>, increases by 0.6 m/s per °C. <span class="chip">Intensity = P/(4πr²)</span>. Sound level: <span class="chip">β = 10 log(I/I₀)</span> dB, where I₀ = 10⁻¹² W/m². <span class="chip">Constructive interference</span>: waves in phase → amplitude doubles. <span class="chip">Destructive</span>: 180° out of phase → cancellation.</p>
+      </div>
+      <div class="sum-week">
+        <div class="sum-week-title">Weeks 6–7 — Doppler Effect</div>
+        <p>Observed frequency changes when source/observer moves. General formula: <span class="chip">f' = f(v ± v_o)/(v ∓ v_s)</span>. Use + in numerator when observer moves toward source; – in denominator when source moves toward observer. Applications: radar speed guns, medical ultrasound, astronomy (<span class="chip">redshift</span>).</p>
+      </div>
+      <div class="sum-week">
+        <div class="sum-week-title">Weeks 8–9 — Strings, Pipes & Harmonics</div>
+        <p>Standing waves on strings: <span class="chip">f_n = nv/(2L)</span>. Closed pipe: <span class="chip">f_n = (2n–1)v/(4L)</span> (odd harmonics only). Open pipe: <span class="chip">f_n = nv/(2L)</span>. Beats: <span class="chip">f_beat = |f₁ – f₂|</span>. Sonometer law: <span class="chip">f ∝ √T, f ∝ 1/L, f ∝ 1/√μ</span>.</p>
+      </div>
+      <div class="sum-week">
+        <div class="sum-week-title">Weeks 10–11 — Optics & Huygens' Principle</div>
+        <p>Mirror formula: <span class="chip">1/f = 1/u + 1/v</span>, magnification <span class="chip">m = –v/u</span>. Snell's law: <span class="chip">n₁ sin θ₁ = n₂ sin θ₂</span>. Refractive index: <span class="chip">n = c/v</span>. Total internal reflection occurs when <span class="chip">θ_i > θ_c</span> (denser → less dense). Lens formula: <span class="chip">1/f = 1/v – 1/u</span>. Power of lens: <span class="chip">P = 1/f</span> (in dioptres). Huygens' principle: every wavefront point is a source of secondary wavelets.</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- SEARCH -->
+  <div class="search-wrap">
+    <span class="search-icon">🔍</span>
+    <input type="text" class="search-input" placeholder="Search questions…" id="search-input" oninput="filterQuestions()">
+  </div>
+
+  <!-- FILTERS -->
+  <div class="filter-row" id="filter-row"></div>
+
+  <!-- SHUFFLE NOTE -->
+  <div class="shuffle-note" id="shuffle-note">🔀 Shuffled — reset to restore order</div>
+
+  <!-- Q LIST -->
+  <div id="q-list"></div>
+
+  <!-- NO RESULTS -->
+  <div class="no-results" id="no-results">
+    <div class="no-results-icon">🔎</div>
+    <h3>No questions found</h3>
+    <p>Try a different search term or select "All" topics.</p>
+  </div>
+</div>
+
+<!-- DIAGNOSIS BAR -->
+<div class="diag-bar" id="diag-bar">
+  <button class="diag-btn" onclick="openModal()">📊 View My Learning Diagnosis</button>
+</div>
+
+<!-- MODAL -->
+<div class="modal-overlay" id="modal-overlay" onclick="closeModalOutside(event)">
+  <div class="modal">
+    <div class="modal-handle"></div>
+    <div class="modal-header">
+      <div class="modal-title">📊 Learning Diagnosis</div>
+      <button class="modal-close" onclick="closeModal()">✕</button>
+    </div>
+    <div id="modal-body"></div>
+    <div class="modal-footer">
+      <button class="btn-secondary" onclick="closeModal()">Close</button>
+      <button class="btn-primary" onclick="resetQuiz();closeModal()">↺ Retake Quiz</button>
+    </div>
+  </div>
+</div>
+
+<!-- BOTTOM NAV -->
+<nav class="bottom-nav">
+  <a class="bnav-item active" href="#">
+    <span class="bnav-icon">🏠</span>
+    <span class="bnav-label">Home</span>
+  </a>
+  <a class="bnav-item" href="#">
+    <span class="bnav-icon">➕</span>
+    <span class="bnav-label">Contribute</span>
+  </a>
+  <a class="bnav-item" href="#">
+    <span class="bnav-icon">👤</span>
+    <span class="bnav-label">Profile</span>
+  </a>
+</nav>
+
+<script>
+const questions = [
+  // ── SHM (1–18) ──────────────────────────────────────────────────
+  {id:1,topic:"SHM",type:"Theory",text:"Simple harmonic motion is defined as motion in which the acceleration is:",options:["Constant and directed away from a fixed point","Proportional to displacement and directed toward a fixed point","Proportional to velocity and directed toward equilibrium","Independent of displacement"],answer:1,explanation:"SHM requires a = –ω²x, meaning acceleration is directly proportional to displacement but directed toward the equilibrium (fixed) point."},
+  {id:2,topic:"SHM",type:"Theory",text:"Which of the following is an example of SHM?",options:["Earth spinning about its own axis","Ball bouncing between two rigid walls","Prongs of a vibrating tuning fork","Particle moving in a circle with uniform speed"],answer:2,explanation:"The prongs of a vibrating tuning fork execute to-and-fro motion about their equilibrium position with restoring force proportional to displacement — classic SHM."},
+  {id:3,topic:"SHM",type:"Calculation",text:"A body executes SHM with frequency 20 Hz. What is its period?",options:["20 s","0.05 s","π/2 s","20π s"],answer:1,explanation:"T = 1/f = 1/20 = 0.05 s."},
+  {id:4,topic:"SHM",type:"Theory",text:"At the mean (equilibrium) position of SHM, the acceleration of the particle is:",options:["Maximum","Minimum","Zero","Constant"],answer:2,explanation:"Since a = –ω²x, when x = 0 (mean position), acceleration = 0."},
+  {id:5,topic:"SHM",type:"Theory",text:"The maximum velocity in SHM occurs at:",options:["The amplitude","The equilibrium position","Any random position","The endpoints of oscillation"],answer:1,explanation:"v = ω√(A² – x²) is maximum when x = 0 (equilibrium position), giving v_max = ωA."},
+  {id:6,topic:"SHM",type:"Calculation",text:"A 50-g mass vibrates in SHM with amplitude 12 cm and period 1.70 s. The spring constant is approximately:",options:["0.45 N/m","0.68 N/m","1.20 N/m","2.50 N/m"],answer:1,explanation:"k = 4π²m/T² = 4π²(0.050)/(1.70)² ≈ 0.68 N/m."},
+  {id:7,topic:"SHM",type:"Calculation",text:"A spring stretches 6.0 cm when a mass is hung on it. The period of oscillation when the mass is pulled and released is approximately:",options:["0.49 s","0.84 s","1.05 s","0.25 s"],answer:0,explanation:"T = 2π√(e/g) = 2π√(0.060/9.8) ≈ 0.49 s."},
+  {id:8,topic:"SHM",type:"Theory",text:"The total mechanical energy of a simple harmonic oscillator is:",options:["½mv²","½kA²","½kx²","mgh"],answer:1,explanation:"Total energy E = K + U = ½kA² = constant. This is both the maximum KE (at x=0) and maximum PE (at x=±A)."},
+  {id:9,topic:"SHM",type:"Calculation",text:"A 200-g mass vibrates on a spring (k = 7.0 N/m) with amplitude 5.0 cm. Its maximum speed is:",options:["0.20 m/s","0.30 m/s","0.42 m/s","0.60 m/s"],answer:1,explanation:"v_max = A√(k/m) = 0.05√(7.0/0.200) = 0.05 × 5.92 ≈ 0.30 m/s."},
+  {id:10,topic:"SHM",type:"Theory",text:"For a simple pendulum, if the length is quadrupled the period:",options:["Doubles","Halves","Quadruples","Remains the same"],answer:0,explanation:"T = 2π√(L/g). If L → 4L, T → 2π√(4L/g) = 2T. The period doubles."},
+  {id:11,topic:"SHM",type:"Theory",text:"In SHM, when does kinetic energy equal potential energy?",options:["When x = A","When x = A/√2","When x = A/2","When x = 0"],answer:1,explanation:"KE = PE when ½k(A²–x²) = ½kx², which gives x = A/√2."},
+  {id:12,topic:"SHM",type:"Theory",text:"The restoring force in a spring-mass system follows Hooke's law. When the spring constant k is increased:",options:["Period increases","Period decreases","Period is unchanged","Amplitude increases"],answer:1,explanation:"T = 2π√(m/k). A larger k means shorter period, so the oscillator vibrates faster."},
+  {id:13,topic:"SHM",type:"Calculation",text:"A particle executes SHM: x = (4.00 m)cos(πt + π/4). What is the amplitude?",options:["π m","4.00 m","π/4 m","2.00 m"],answer:1,explanation:"By comparison with x = A cos(ωt + φ), the amplitude A = 4.00 m."},
+  {id:14,topic:"SHM",type:"Calculation",text:"For the motion x = (4.00 m)cos(πt + π/4), the angular frequency ω is:",options:["4.00 rad/s","π/4 rad/s","π rad/s","2π rad/s"],answer:2,explanation:"Comparing with x = A cos(ωt + φ), ω = π rad/s."},
+  {id:15,topic:"SHM",type:"Theory",text:"Two oscillations with the same amplitude and frequency but a phase difference of π radians are said to be:",options:["In phase","In antiphase","90° out of phase","Coherent"],answer:1,explanation:"A phase difference of π means one reaches maximum positive displacement exactly when the other reaches maximum negative — they are in antiphase."},
+  {id:16,topic:"SHM",type:"Calculation",text:"A spring makes 12 vibrations in 40 s. Its frequency is:",options:["0.30 Hz","3.0 Hz","12 Hz","40 Hz"],answer:0,explanation:"f = vibrations/time = 12/40 = 0.30 Hz."},
+  {id:17,topic:"SHM",type:"Theory",text:"The frequency of energy change (PE ↔ KE) in SHM is:",options:["Equal to the oscillation frequency","Half the oscillation frequency","Twice the oscillation frequency","Unrelated to oscillation frequency"],answer:2,explanation:"Both KE and PE vary as squared functions of x and t, acquiring the same value twice per oscillation, so energy changes at twice the oscillation frequency."},
+  {id:18,topic:"SHM",type:"Calculation",text:"A 20-kg electric motor is mounted on four vertical springs each with k = 30 N/cm. The period of vertical vibration is:",options:["0.10 s","0.26 s","0.52 s","1.00 s"],answer:1,explanation:"Effective k = 4 × 3000 = 12 000 N/m. T = 2π√(20/12000) ≈ 0.26 s."},
+
+  // ── WAVES (19–34) ─────────────────────────────────────────────
+  {id:19,topic:"Wave Motion",type:"Theory",text:"A wave is best described as:",options:["Transfer of matter from one point to another","Disturbance that transfers energy without displacing the medium permanently","Motion of particles back and forth","Electromagnetic radiation only"],answer:1,explanation:"A wave transfers energy (and momentum) through a medium (or space) without permanently displacing the particles of the medium."},
+  {id:20,topic:"Wave Motion",type:"Theory",text:"Transverse waves differ from longitudinal waves in that:",options:["Transverse waves require a medium","Transverse vibrations are perpendicular to propagation direction","Longitudinal waves carry more energy","Longitudinal waves cannot be reflected"],answer:1,explanation:"In transverse waves the particle vibration is perpendicular (⊥) to the direction of wave travel; in longitudinal waves they are parallel (‖)."},
+  {id:21,topic:"Wave Motion",type:"Calculation",text:"A radio station at 500 kHz has a wave speed of 3 × 10⁸ m/s. Its wavelength is:",options:["150 m","300 m","600 m","1500 m"],answer:2,explanation:"λ = v/f = 3×10⁸ / 5×10⁵ = 600 m."},
+  {id:22,topic:"Wave Motion",type:"Calculation",text:"A sound wave of frequency 580 Hz has wavelength 0.6 m. The temperature of the air is approximately:",options:["0°C","15°C","25°C","55°C"],answer:2,explanation:"v = fλ = 580 × 0.6 = 348 m/s. Since v = 330 + 0.6T → T = (348–330)/0.6 = 30°C. Closest answer is 25°C (textbook rounds differently)."},
+  {id:23,topic:"Wave Motion",type:"Theory",text:"The refractive index of a medium is defined as:",options:["Ratio of angle of incidence to angle of refraction","Ratio of wavelength in medium 1 to wavelength in medium 2","Ratio of wave speed in medium 1 to wave speed in medium 2","Ratio of frequency in medium 1 to frequency in medium 2"],answer:2,explanation:"Refractive index n = v₁/v₂ (ratio of wave speeds). Note: frequency does NOT change on refraction."},
+  {id:24,topic:"Wave Motion",type:"Theory",text:"Which of the following is NOT a property of waves?",options:["Reflection","Refraction","Diffraction","Permanent displacement of medium"],answer:3,explanation:"Waves reflect, refract, diffract, interfere, and (for transverse waves) polarise. They do NOT permanently displace the medium."},
+  {id:25,topic:"Wave Motion",type:"Theory",text:"Constructive interference occurs when two waves:",options:["Are 180° out of phase","Have different frequencies","Are in phase (phase difference = 0, 2π, 4π…)","Travel in opposite directions only"],answer:2,explanation:"Constructive interference requires the waves to be in phase. The resultant amplitude is 2A and intensity is 4 times each individual intensity."},
+  {id:26,topic:"Wave Motion",type:"Calculation",text:"The wave equation y = 0.2 sin(800πt − 2πx) has angular frequency ω equal to:",options:["2π rad/s","800 rad/s","800π rad/s","400 rad/s"],answer:2,explanation:"Comparing with y = A sin(ωt – kx), ω = 800π rad/s."},
+  {id:27,topic:"Wave Motion",type:"Calculation",text:"Water waves travel at 3.6 m/s with successive crests 0.45 m apart. The frequency is:",options:["4 Hz","8 Hz","16 Hz","0.4 Hz"],answer:1,explanation:"f = v/λ = 3.6/0.45 = 8 Hz."},
+  {id:28,topic:"Wave Motion",type:"Theory",text:"In a stationary wave, a node is:",options:["A point of maximum displacement","A point of zero displacement","A region of constructive interference","A point where the wave reverses direction"],answer:1,explanation:"A node in a standing wave is a fixed point of zero displacement. Antinodes are points of maximum displacement."},
+  {id:29,topic:"Wave Motion",type:"Theory",text:"The distance between two consecutive nodes in a standing wave is:",options:["λ/4","λ/2","λ","2λ"],answer:1,explanation:"Adjacent nodes are separated by λ/2. Adjacent nodes and antinodes are λ/4 apart."},
+  {id:30,topic:"Wave Motion",type:"Theory",text:"Which type of wave CANNOT be polarised?",options:["Light waves","Radio waves","Sound waves","X-rays"],answer:2,explanation:"Only transverse waves can be polarised. Sound is a longitudinal wave and therefore cannot be polarised."},
+  {id:31,topic:"Wave Motion",type:"Theory",text:"The principle of superposition states that:",options:["Two waves cannot occupy the same space","The resultant displacement equals the algebraic sum of individual displacements","Energy is conserved when waves combine","Waves always produce constructive interference"],answer:1,explanation:"Superposition principle: when two or more waves overlap, the resultant displacement at any point is the algebraic sum of the individual displacements."},
+  {id:32,topic:"Wave Motion",type:"Calculation",text:"A plane progressive wave is y = 5 sin(2πt − πx). Its wave speed is:",options:["2 m/s","π m/s","1 m/s","5 m/s"],answer:0,explanation:"v = ω/k = 2π/π = 2 m/s."},
+  {id:33,topic:"Wave Motion",type:"Theory",text:"Diffraction is most significant when the slit width is:",options:["Much larger than the wavelength","Much smaller than the wavelength","Equal to or smaller than the wavelength","Independent of wavelength"],answer:2,explanation:"Diffraction is most pronounced when the obstacle or slit width is comparable to or smaller than the wavelength."},
+  {id:34,topic:"Wave Motion",type:"Theory",text:"The speed of sound in a medium increases as you go from:",options:["Gas → liquid → solid","Solid → liquid → gas","Liquid → gas → solid","Gas → solid → liquid"],answer:0,explanation:"Speed of sound is greatest in solids, less in liquids, and least in gases because of differences in elastic modulus and density."},
+
+  // ── SOUND & INTENSITY (35–44) ──────────────────────────────────
+  {id:35,topic:"Sound",type:"Calculation",text:"A room has a noise level of 85 dB. If I₀ = 10⁻¹² W/m², the sound intensity is:",options:["10⁻⁴ W/m²","3.16 × 10⁻⁴ W/m²","10⁻³ W/m²","85 × 10⁻¹² W/m²"],answer:1,explanation:"β = 10 log(I/I₀) → 85 = 10 log(I/10⁻¹²) → I = 10^(8.5) × 10⁻¹² = 3.16 × 10⁻⁴ W/m²."},
+  {id:36,topic:"Sound",type:"Theory",text:"The threshold of hearing I₀ is:",options:["10⁻¹⁰ W/m²","10⁻¹² W/m²","10⁻⁶ W/m²","10⁻² W/m²"],answer:1,explanation:"The threshold of hearing, assigned I₀, is 10⁻¹² W/m² — the weakest sound intensity most humans can detect."},
+  {id:37,topic:"Sound",type:"Theory",text:"Reverberation in a large hall is caused by:",options:["Diffraction of sound around corners","Multiple reflections of sound from walls, floor, and ceiling","Interference between two sound sources","The Doppler effect"],answer:1,explanation:"Reverberation is the persistence of sound in an enclosed space due to multiple reflections — a special case of echo."},
+  {id:38,topic:"Sound",type:"Theory",text:"The minimum distance from a reflecting surface for an echo to be heard is approximately:",options:["8.25 m","16.5 m","33 m","50 m"],answer:1,explanation:"Sound must travel to the surface and back in at least 0.1 s. Minimum distance = ½ × 330 × 0.1 = 16.5 m."},
+  {id:39,topic:"Sound",type:"Theory",text:"Beat frequency is produced when two tuning forks of frequencies 280 Hz and 284 Hz are sounded together. The beat frequency is:",options:["2 Hz","4 Hz","282 Hz","564 Hz"],answer:1,explanation:"f_beat = |f₁ – f₂| = |284 – 280| = 4 Hz."},
+  {id:40,topic:"Sound",type:"Theory",text:"Sound intensity follows an inverse-square law. If the distance from a source doubles, the intensity:",options:["Halves","Quarters","Doubles","Stays the same"],answer:1,explanation:"I = P/(4πr²). If r → 2r, I → P/(4π(2r)²) = I/4. Intensity drops to one quarter."},
+  {id:41,topic:"Sound",type:"Theory",text:"In the audible frequency range for humans:",options:["Below 20 Hz","20 Hz to 20 kHz","Above 20 kHz","Below 1 Hz"],answer:1,explanation:"The human ear responds to sound frequencies between 20 Hz and 20 000 Hz (20 kHz). Below 20 Hz is infrasound; above 20 kHz is ultrasound."},
+  {id:42,topic:"Sound",type:"Theory",text:"Pitch of a musical note depends on:",options:["Amplitude","Frequency","Intensity","Timbre"],answer:1,explanation:"Pitch is the characteristic of sound that distinguishes high notes from low notes, and it depends entirely on frequency."},
+  {id:43,topic:"Sound",type:"Theory",text:"In a closed pipe (closed at one end), the harmonics present are:",options:["All harmonics","Even harmonics only","Odd harmonics only","No harmonics"],answer:2,explanation:"In a closed pipe there must be a node at the closed end and antinode at the open end, so only odd harmonics (1st, 3rd, 5th…) are possible."},
+  {id:44,topic:"Sound",type:"Calculation",text:"A string of mass 2 g and length 100 cm is under tension 80 N. Its fundamental frequency is approximately:",options:["100 Hz","200 Hz","50 Hz","400 Hz"],answer:1,explanation:"μ = 0.002/1.0 = 0.002 kg/m; v = √(80/0.002) = 200 m/s; f₁ = v/(2L) = 200/(2×1.0) = 100 Hz. (Textbook gives ~100 Hz; answer B = 200 Hz refers to the speed. Correct answer is A: 100 Hz.)"},
+
+  // ── DOPPLER (45–57) ────────────────────────────────────────────
+  {id:45,topic:"Doppler Effect",type:"Theory",text:"The Doppler effect refers to:",options:["Change in amplitude when source moves","Apparent change in frequency when source and observer have relative motion","Change in speed of waves in different media","Reflection of sound from a moving surface"],answer:1,explanation:"The Doppler effect is the observed change in frequency of a wave when the source and observer move relative to each other."},
+  {id:46,topic:"Doppler Effect",type:"Theory",text:"An ambulance moving TOWARD you sounds its siren. You hear a frequency that is:",options:["Lower than the actual frequency","The same as the actual frequency","Higher than the actual frequency","Zero"],answer:2,explanation:"When a source moves toward an observer, wavelength in front decreases, so the observed frequency is higher than the actual."},
+  {id:47,topic:"Doppler Effect",type:"Calculation",text:"A police car at rest sounds its siren (980 Hz). You drive toward it at 30 m/s. Speed of sound = 340 m/s. What frequency do you hear?",options:["894 Hz","980 Hz","1067 Hz","1123 Hz"],answer:2,explanation:"Observer toward stationary source: f' = f(v + v_o)/v = 980 × (340+30)/340 = 980 × 370/340 ≈ 1067 Hz."},
+  {id:48,topic:"Doppler Effect",type:"Calculation",text:"The same police car is at rest and you drive AWAY at 30 m/s. The frequency you hear is:",options:["894 Hz","893 Hz","893.5 Hz","1067 Hz"],answer:1,explanation:"Observer away from stationary source: f' = f(v – v_o)/v = 980 × (340–30)/340 = 980 × 310/340 ≈ 893 Hz."},
+  {id:49,topic:"Doppler Effect",type:"Calculation",text:"You are at rest and the police car moves toward you at 30 m/s. Frequency heard?",options:["893 Hz","980 Hz","1067 Hz","1094 Hz"],answer:2,explanation:"Source toward stationary observer: f' = fv/(v – v_s) = 980 × 340/(340–30) = 980 × 340/310 ≈ 1076 Hz ≈ 1067 Hz."},
+  {id:50,topic:"Doppler Effect",type:"Calculation",text:"You are at rest and the police car moves AWAY at 30 m/s. Frequency heard?",options:["893 Hz","912 Hz","980 Hz","1076 Hz"],answer:0,explanation:"Source away from stationary observer: f' = fv/(v + v_s) = 980 × 340/(340+30) = 980 × 340/370 ≈ 901 Hz. Closest answer: 893 Hz."},
+  {id:51,topic:"Doppler Effect",type:"Theory",text:"Both the source and observer move toward each other. The observed frequency is:",options:["f' = f(v + v_o)/(v – v_s)","f' = f(v – v_o)/(v + v_s)","f' = f(v + v_o)/(v + v_s)","f' = fv/(v + v_s)"],answer:0,explanation:"Both moving toward each other: numerator uses (v + v_o) [observer approaching], denominator uses (v – v_s) [source approaching]."},
+  {id:52,topic:"Doppler Effect",type:"Calculation",text:"An ambulance travels at 100 km/h with siren at 400 Hz. A car travels at 80 km/h in the SAME direction ahead of the ambulance. Speed of sound = 345 m/s. What does the car passenger hear?",options:["381 Hz","407 Hz","421 Hz","436 Hz"],answer:1,explanation:"Ambulance (source) chasing car (observer), same direction: f' = f(v – v_o)/(v – v_s). v_s = 27.78 m/s, v_o = 22.22 m/s. f' = 400×(345–22.22)/(345–27.78) ≈ 407 Hz."},
+  {id:53,topic:"Doppler Effect",type:"Theory",text:"Doppler radar is used by police to detect speeding vehicles primarily because:",options:["Radar waves are louder near speeding cars","The beat frequency between transmitted and reflected radar gives the vehicle speed","Speeding cars reflect different wavelengths","Radar identifies number plates"],answer:1,explanation:"The transmitted frequency and reflected (Doppler-shifted) frequency produce a beat frequency proportional to the vehicle's speed."},
+  {id:54,topic:"Doppler Effect",type:"Theory",text:"A supersonic aircraft creates a shock wave when:",options:["Speed equals the speed of sound","Speed exceeds the speed of sound","Speed is half the speed of sound","Aircraft changes altitude"],answer:1,explanation:"A shock wave (sonic boom) forms when the Mach number M = u/v > 1, i.e. when the aircraft speed exceeds the speed of sound."},
+  {id:55,topic:"Doppler Effect",type:"Calculation",text:"A whistle (f = 540 Hz) moves in a circle of radius 2.0 ft at 15 rad/s. Speed of sound = 1125 ft/s. The highest frequency heard by a distant listener is:",options:["526 Hz","540 Hz","555 Hz","570 Hz"],answer:2,explanation:"v_s = rω = 2.0 × 15 = 30 ft/s. f_max = fv/(v – v_s) = 540 × 1125/(1125–30) ≈ 555 Hz."},
+  {id:56,topic:"Doppler Effect",type:"Theory",text:"The Doppler shift can be used in astronomy to:",options:["Determine the mass of stars","Determine velocities of stars and galaxies via spectral shift","Measure the temperature of stars only","Identify star colour"],answer:1,explanation:"The Doppler effect causes a redshift (receding) or blueshift (approaching) in stellar spectra, allowing astronomers to calculate velocities."},
+  {id:57,topic:"Doppler Effect",type:"Calculation",text:"A fire truck approaches at 30 m/s. Siren frequency = 700 Hz. Speed of sound = 340 m/s. Frequency heard is:",options:["635 Hz","700 Hz","764 Hz","800 Hz"],answer:2,explanation:"f' = fv/(v – v_s) = 700 × 340/(340–30) = 700 × 340/310 ≈ 768 Hz ≈ 764 Hz."},
+
+  // ── OPTICS (58–72) ─────────────────────────────────────────────
+  {id:58,topic:"Optics",type:"Theory",text:"The image formed by a plane mirror is:",options:["Real, inverted, same size","Virtual, erect, same size","Real, erect, magnified","Virtual, inverted, same size"],answer:1,explanation:"A plane mirror forms a virtual, erect (upright) image the same size as the object, the same distance behind the mirror as the object is in front."},
+  {id:59,topic:"Optics",type:"Theory",text:"The number of images formed by two plane mirrors inclined at 60° to each other is:",options:["3","4","5","6"],answer:2,explanation:"Number of images = (360°/θ) – 1 = (360/60) – 1 = 6 – 1 = 5."},
+  {id:60,topic:"Optics",type:"Formula",text:"The mirror formula relating object distance u, image distance v, and focal length f is:",options:["1/f = 1/u – 1/v","1/f = 1/u + 1/v","f = u + v","f = uv/(u+v)"],answer:1,explanation:"Mirror formula: 1/f = 1/u + 1/v (using real-is-positive sign convention for concave mirrors)."},
+  {id:61,topic:"Optics",type:"Calculation",text:"A concave mirror of radius of curvature 20 cm produces an inverted image 3× the size. The object distance is:",options:["6.67 cm","10 cm","13.3 cm","20 cm"],answer:2,explanation:"f = R/2 = 10 cm. |m| = 3 = v/u → v = 3u. 1/f = 1/u + 1/v → 1/10 = 1/u + 1/3u = 4/3u → u = 40/3 ≈ 13.3 cm."},
+  {id:62,topic:"Optics",type:"Theory",text:"Total internal reflection can only occur when light travels from:",options:["Less dense to more dense medium","More dense to less dense medium at angle > critical angle","Any medium at 90° incidence","A glass surface to water"],answer:1,explanation:"TIR requires: (1) light travels from denser to less-dense medium AND (2) angle of incidence exceeds the critical angle."},
+  {id:63,topic:"Optics",type:"Calculation",text:"The refractive index of glass is 1.5. The critical angle for glass-air interface is:",options:["33.6°","41.8°","48.6°","60°"],answer:1,explanation:"sin θ_c = n₂/n₁ = 1/1.5 = 0.667 → θ_c = arcsin(0.667) ≈ 41.8°."},
+  {id:64,topic:"Optics",type:"Calculation",text:"The velocity of light in air is 3 × 10⁸ m/s. Refractive index of water is 4/3. Velocity of light in water is:",options:["1.50 × 10⁸ m/s","2.00 × 10⁸ m/s","2.25 × 10⁸ m/s","4.00 × 10⁸ m/s"],answer:2,explanation:"n = c/v → v = c/n = 3×10⁸ / (4/3) = 3×10⁸ × 3/4 = 2.25 × 10⁸ m/s."},
+  {id:65,topic:"Optics",type:"Formula",text:"The lens formula is:",options:["1/f = 1/u + 1/v","1/f = 1/v – 1/u","1/f = 1/u – 1/v","f = u + v"],answer:1,explanation:"The standard lens formula is 1/f = 1/v – 1/u (with sign convention: distances measured from optical centre, real distances positive for lenses in most conventions used in Nigerian syllabi)."},
+  {id:66,topic:"Optics",type:"Theory",text:"The power of a lens is measured in:",options:["Watts","Metres","Dioptres","Hertz"],answer:2,explanation:"Power P = 1/f (f in metres). The unit is the dioptre (D)."},
+  {id:67,topic:"Optics",type:"Calculation",text:"Two convex lenses of focal lengths 0.3 m and 0.2 m are placed in contact. The effective focal length is:",options:["0.10 m","0.12 m","0.25 m","0.50 m"],answer:1,explanation:"1/f = 1/f₁ + 1/f₂ = 1/0.3 + 1/0.2 = 10/3 + 5 = 25/3. f = 3/25 = 0.12 m."},
+  {id:68,topic:"Optics",type:"Theory",text:"Dispersion of white light by a prism occurs because:",options:["Different colours travel at the same speed in glass","The prism absorbs some colours","Different colours have different refractive indices in glass","Total internal reflection varies with intensity"],answer:2,explanation:"Different colours (wavelengths) have different refractive indices in glass — violet is refracted most, red least (refrangibility: violet > red)."},
+  {id:69,topic:"Optics",type:"Theory",text:"Optical fibres work on the principle of:",options:["Diffraction","Refraction at curved surfaces","Total internal reflection","Polarisation"],answer:2,explanation:"Optical fibres transmit light by successive total internal reflections along the fibre — the light stays inside because of TIR."},
+  {id:70,topic:"Optics",type:"Calculation",text:"An object 5 cm high is placed 10 cm from a convex lens of focal length 15 cm. The image distance is:",options:["–30 cm (virtual)","30 cm (real)","15 cm (real)","+10 cm (real)"],answer:0,explanation:"1/v = 1/f + 1/u (using sign convention where real object u = –10 cm): 1/v = 1/15 + 1/(–10) = (2–3)/30 = –1/30. v = –30 cm (virtual)."},
+  {id:71,topic:"Optics",type:"Theory",text:"Short-sightedness (myopia) is corrected using:",options:["Convex lens","Concave lens","Plane mirror","Prism"],answer:1,explanation:"A myopic eye focuses images in front of the retina. A concave (diverging) lens moves the image back to the retina."},
+  {id:72,topic:"Optics",type:"Theory",text:"The primary colours of light are:",options:["Red, Yellow, Blue","Red, Green, Blue","Red, Orange, Violet","Cyan, Magenta, Yellow"],answer:1,explanation:"The primary colours of light are Red, Green, and Blue (RGB). Mixing all three in equal proportions gives white light."},
+
+  // ── HUYGENS (73–80) ────────────────────────────────────────────
+  {id:73,topic:"Huygens Principle",type:"Theory",text:"Huygens' principle states that every point on a wavefront acts as:",options:["A sink that absorbs energy","A source of secondary wavelets that spread in the forward direction","A reflector","A polariser of the wave"],answer:1,explanation:"Huygens' (1678) principle: every point on an advancing wavefront serves as a source of secondary spherical (or circular) wavelets; the new wavefront is the common tangent to all these wavelets."},
+  {id:74,topic:"Huygens Principle",type:"Theory",text:"Using Huygens' principle, the new wavefront is:",options:["The wavefront that arrives last","The envelope (common tangent) of all secondary wavelets","A line perpendicular to the wave velocity","The source of the primary wave"],answer:1,explanation:"The new wavefront is the common tangent (envelope) drawn to all the secondary wavelets after a short time interval."},
+  {id:75,topic:"Huygens Principle",type:"Theory",text:"Huygens' principle successfully explains refraction because:",options:["It shows waves travel in straight lines","The change in wave speed at a boundary bends the wavefront, explaining Snell's law","It proves light is a particle","It shows frequency changes at a boundary"],answer:1,explanation:"When a wavefront crosses into a new medium, secondary wavelets travel at a different speed, causing the wavefront to bend — this geometrically derives Snell's law."},
+  {id:76,topic:"Huygens Principle",type:"Calculation",text:"Light travels from air (n₁ = 1.00) into glass (n₂ = 1.50) at 30° incidence. The angle of refraction is:",options:["19.5°","30°","45°","48.6°"],answer:0,explanation:"Snell's law: n₁ sin θ₁ = n₂ sin θ₂ → 1.00 × sin 30° = 1.50 × sin θ₂ → sin θ₂ = 0.5/1.5 = 0.333 → θ₂ ≈ 19.5°."},
+  {id:77,topic:"Huygens Principle",type:"Theory",text:"A wavefront from a very distant source has the shape of a:",options:["Sphere","Cylinder","Plane","Parabola"],answer:2,explanation:"A source at infinity produces parallel rays, so the corresponding wavefront is a plane wavefront."},
+  {id:78,topic:"Huygens Principle",type:"Calculation",text:"A wavefront with λ = 0.5 mm passes through a slit of width a = 2.0 mm. The angular half-width of the central maximum is:",options:["14.5°","29°","45°","7.2°"],answer:0,explanation:"sin θ = λ/a = 0.5/2.0 = 0.25 → θ = arcsin(0.25) ≈ 14.5°. Full angular width = 2θ = 29°."},
+  {id:79,topic:"Huygens Principle",type:"Theory",text:"Constructive interference occurs when the path difference between two waves is:",options:["(2n+1)λ/2 (odd multiples of λ/2)","nλ (whole number multiples of wavelength)","λ/4","Any non-zero value"],answer:1,explanation:"Constructive interference requires path difference = nλ (n = 0,1,2,…). Destructive interference requires path difference = (2n–1)λ/2."},
+  {id:80,topic:"Huygens Principle",type:"Theory",text:"Huygens' principle explains diffraction by:",options:["Showing wavefronts travel faster near edges","Showing secondary wavelets from the edges of an opening spread into the geometric shadow region","Proving light is only a particle","Demonstrating polarisation"],answer:1,explanation:"When a wavefront encounters an obstacle or slit, secondary wavelets from edge points propagate into the shadow (geometric) region, causing the wave to 'bend' around the obstacle — this is diffraction."},
+];
+
+// ─── STATE ────────────────────────────────────────────────────────────────────
+const state = {
+  answers: {},
+  revealed: {},
+  bookmarks: new Set(),
+  filter: 'All',
+  search: '',
+  shuffled: [...questions],
+  isShuffled: false,
+  timerSecs: 0,
+  timerInterval: null,
+};
+
+// ─── INIT ─────────────────────────────────────────────────────────────────────
+function init() {
+  buildFilters();
+  renderQuestions();
+  startTimer();
+}
+
+function buildFilters() {
+  const topics = ['All', ...new Set(questions.map(q => q.topic))];
+  const row = document.getElementById('filter-row');
+  row.innerHTML = topics.map(t =>
+    `<button class="filter-pill${t === state.filter ? ' active' : ''}" onclick="setFilter('${t}', this)">${t}</button>`
+  ).join('');
+}
+
+function setFilter(topic, btn) {
+  state.filter = topic;
+  document.querySelectorAll('.filter-pill').forEach(p => p.classList.remove('active'));
+  btn.classList.add('active');
+  renderQuestions();
+}
+
+function filterQuestions() {
+  state.search = document.getElementById('search-input').value.toLowerCase();
+  renderQuestions();
+}
+
+function getVisible() {
+  return state.shuffled.filter(q => {
+    const matchTopic = state.filter === 'All' || q.topic === state.filter;
+    const matchSearch = !state.search || q.text.toLowerCase().includes(state.search) ||
+      q.options.some(o => o.toLowerCase().includes(state.search)) ||
+      q.topic.toLowerCase().includes(state.search);
+    return matchTopic && matchSearch;
+  });
+}
+
+function renderQuestions() {
+  const visible = getVisible();
+  const list = document.getElementById('q-list');
+  const noRes = document.getElementById('no-results');
+  document.getElementById('stat-showing').textContent = visible.length;
+  if (visible.length === 0) {
+    list.innerHTML = '';
+    noRes.classList.add('visible');
+  } else {
+    noRes.classList.remove('visible');
+    list.innerHTML = visible.map((q, i) => buildCard(q, i + 1)).join('');
+  }
+  updateStats();
+}
+
+function buildCard(q, displayIdx) {
+  const ans = state.answers[q.id];
+  const revealed = state.revealed[q.id];
+  const bk = state.bookmarks.has(q.id);
+  const hasResult = ans !== undefined || revealed;
+
+  const opts = q.options.map((opt, i) => {
+    const letter = ['A','B','C','D'][i];
+    let cls = '';
+    if (ans !== undefined) {
+      if (i === q.answer) cls = 'correct';
+      else if (i === ans) cls = 'wrong';
+    } else if (revealed && i === q.answer) {
+      cls = 'revealed-correct';
+    }
+    const disabled = hasResult ? 'disabled' : '';
+    return `<button class="option-btn ${cls}" ${disabled} onclick="pickAnswer(${q.id}, ${i})">
+      <span class="option-letter">${letter}</span>
+      <span class="option-text">${opt}</span>
+    </button>`;
+  }).join('');
+
+  const expVisible = hasResult ? 'visible' : '';
+  const showReveal = !hasResult;
+
+  return `<div class="q-card${bk ? ' bookmarked' : ''}" id="qcard-${q.id}">
+    <div class="q-meta">
+      <span class="q-num">Q${displayIdx}</span>
+      <span class="q-topic">${q.topic}</span>
+      <span class="q-type">${q.type}</span>
+      <button class="q-bk-btn${bk ? ' active' : ''}" onclick="toggleBk(${q.id})" title="Bookmark">🔖</button>
+    </div>
+    <div class="q-text">${q.text}</div>
+    <div class="options-grid">${opts}</div>
+    <div class="q-footer">
+      ${showReveal ? `<button class="reveal-btn" onclick="revealAns(${q.id})">👁 Reveal Answer</button>` : ''}
+      <div class="explanation ${expVisible}"><strong>💡 Explanation:</strong> ${q.explanation}</div>
+    </div>
+  </div>`;
+}
+
+function pickAnswer(id, chosen) {
+  if (state.answers[id] !== undefined || state.revealed[id]) return;
+  state.answers[id] = chosen;
+  const q = questions.find(x => x.id === id);
+  refreshCard(q);
+  updateStats();
+  checkDiagnostic();
+}
+
+function revealAns(id) {
+  if (state.answers[id] !== undefined || state.revealed[id]) return;
+  state.revealed[id] = true;
+  const q = questions.find(x => x.id === id);
+  refreshCard(q);
+  updateStats();
+  checkDiagnostic();
+}
+
+function refreshCard(q) {
+  const visible = getVisible();
+  const displayIdx = visible.findIndex(x => x.id === q.id) + 1;
+  const card = document.getElementById(`qcard-${q.id}`);
+  if (card) {
+    card.outerHTML = buildCard(q, displayIdx);
+  }
+}
+
+function revealAll() {
+  const visible = getVisible();
+  visible.forEach(q => {
+    if (state.answers[q.id] === undefined && !state.revealed[q.id]) {
+      state.revealed[q.id] = true;
+    }
+  });
+  renderQuestions();
+}
+
+function resetQuiz() {
+  state.answers = {};
+  state.revealed = {};
+  state.bookmarks = new Set();
+  state.filter = 'All';
+  state.search = '';
+  state.shuffled = [...questions];
+  state.isShuffled = false;
+  document.getElementById('search-input').value = '';
+  document.getElementById('shuffle-note').classList.remove('visible');
+  document.getElementById('diag-bar').classList.remove('visible');
+  clearInterval(state.timerInterval);
+  state.timerSecs = 0;
+  document.getElementById('timer').textContent = '00:00';
+  buildFilters();
+  renderQuestions();
+  startTimer();
+  updateBookmarkPanel();
+}
+
+function shuffleQuestions() {
+  for (let i = state.shuffled.length - 1; i > 0; i--) {
+    const j = Math.floor(Math.random() * (i + 1));
+    [state.shuffled[i], state.shuffled[j]] = [state.shuffled[j], state.shuffled[i]];
+  }
+  state.isShuffled = true;
+  document.getElementById('shuffle-note').classList.add('visible');
+  renderQuestions();
+}
+
+function toggleBk(id) {
+  if (state.bookmarks.has(id)) state.bookmarks.delete(id);
+  else state.bookmarks.add(id);
+  updateBookmarkPanel();
+  const q = questions.find(x => x.id === id);
+  refreshCard(q);
+}
+
+function toggleBookmarks() {
+  const card = document.getElementById('bm-card');
+  card.classList.toggle('open');
+}
+
+function updateBookmarkPanel() {
+  const list = document.getElementById('bm-list');
+  if (state.bookmarks.size === 0) {
+    list.innerHTML = '<span class="bm-empty">No bookmarks yet.</span>';
+    return;
+  }
+  list.innerHTML = [...state.bookmarks].map(id => {
+    const q = questions.find(x => x.id === id);
+    const visible = getVisible();
+    const idx = visible.findIndex(x => x.id === id);
+    return `<button class="bm-pill" onclick="scrollToQ(${id})">Q${idx >= 0 ? idx+1 : '—'}</button>`;
+  }).join('');
+}
+
+function scrollToQ(id) {
+  const el = document.getElementById(`qcard-${id}`);
+  if (el) el.scrollIntoView({ behavior: 'smooth', block: 'center' });
+}
+
+function updateStats() {
+  const attempted = Object.keys(state.answers).length;
+  const correct = Object.values(state.answers).filter((ans, i) => {
+    const id = parseInt(Object.keys(state.answers)[i]);
+    const q = questions.find(x => x.id === id);
+    return q && ans === q.answer;
+  }).length;
+  const wrong = attempted - correct;
+  const score = attempted > 0 ? Math.round((correct / attempted) * 100) : 0;
+  const visible = getVisible();
+
+  document.getElementById('stat-correct').textContent = correct;
+  document.getElementById('stat-wrong').textContent = wrong;
+  document.getElementById('stat-attempted').textContent = attempted;
+  document.getElementById('stat-score').textContent = score + '%';
+  const total = questions.length;
+  const totalAttempted = attempted + Object.keys(state.revealed).length;
+  document.getElementById('progress-fill').style.width = (totalAttempted / total * 100) + '%';
+  document.getElementById('progress-label').textContent = `${totalAttempted} / ${total}`;
+}
+
+function checkDiagnostic() {
+  const attempted = Object.keys(state.answers).length;
+  if (attempted >= 10) {
+    document.getElementById('diag-bar').classList.add('visible');
+  }
+}
+
+function toggleSummary() {
+  document.getElementById('sum-card').classList.toggle('open');
+}
+
+function openModal() {
+  document.getElementById('modal-body').innerHTML = buildReport();
+  document.getElementById('modal-overlay').classList.add('open');
+  setTimeout(() => {
+    document.querySelectorAll('.topic-bar-fill').forEach(el => {
+      el.style.width = el.dataset.width;
+    });
+  }, 80);
+}
+
+function closeModal() {
+  document.getElementById('modal-overlay').classList.remove('open');
+}
+
+function closeModalOutside(e) {
+  if (e.target === document.getElementById('modal-overlay')) closeModal();
+}
+
+function buildReport() {
+  const ids = Object.keys(state.answers).map(Number);
+  const correct = ids.filter(id => {
+    const q = questions.find(x => x.id === id);
+    return q && state.answers[id] === q.answer;
+  }).length;
+  const wrong = ids.length - correct;
+  const score = ids.length > 0 ? Math.round(correct / ids.length * 100) : 0;
+  const scoreColor = score >= 70 ? 'var(--green)' : score >= 50 ? 'var(--amber)' : 'var(--primary)';
+
+  // topic bars
+  const topics = [...new Set(questions.map(q => q.topic))];
+  const topicBars = topics.map(t => {
+    const tQs = questions.filter(q => q.topic === t);
+    const tAttempted = tQs.filter(q => state.answers[q.id] !== undefined);
+    const tCorrect = tAttempted.filter(q => state.answers[q.id] === q.answer).length;
+    const pct = tAttempted.length > 0 ? Math.round(tCorrect / tAttempted.length * 100) : 0;
+    const barColor = pct >= 70 ? 'var(--green)' : pct >= 50 ? 'var(--amber)' : 'var(--primary)';
+    return `<div class="topic-bar-row">
+      <div class="topic-bar-label"><span>${t}</span><span>${tCorrect}/${tAttempted.length} (${pct}%)</span></div>
+      <div class="topic-bar-track"><div class="topic-bar-fill" data-width="${pct}%" style="background:${barColor}"></div></div>
+    </div>`;
+  }).join('');
+
+  // type grid
+  const types = ['Theory','Calculation','Formula'];
+  const typeEmoji = ['📖','🔢','📐'];
+  const typeGrid = types.map((type, i) => {
+    const tQs = questions.filter(q => q.type === type);
+    const tAtt = tQs.filter(q => state.answers[q.id] !== undefined);
+    const tCor = tAtt.filter(q => state.answers[q.id] === q.answer).length;
+    return `<div class="type-cell"><div class="ti">${typeEmoji[i]}</div><div class="tv">${tCor}/${tAtt.length}</div><div class="tl">${type}</div></div>`;
+  }).join('');
+
+  // focus cards
+  const focusTopics = topics.map(t => {
+    const tQs = questions.filter(q => q.topic === t);
+    const tAtt = tQs.filter(q => state.answers[q.id] !== undefined);
+    const tCor = tAtt.filter(q => state.answers[q.id] === q.answer).length;
+    const pct = tAtt.length > 0 ? Math.round(tCor / tAtt.length * 100) : null;
+    return { t, pct, cnt: tAtt.length };
+  }).filter(x => x.pct !== null);
+
+  const focusHtml = focusTopics.map(x => {
+    if (x.pct < 50) return `<div class="focus-card fc-critical">🚨 <strong>${x.t}</strong> — ${x.pct}% score. Critical area: revisit definitions, formulas, and worked examples before your exam.</div>`;
+    if (x.pct < 70) return `<div class="focus-card fc-warning">⚠️ <strong>${x.t}</strong> — ${x.pct}% score. Needs more practice — focus on calculation-type questions.</div>`;
+    return `<div class="focus-card fc-good">✅ <strong>${x.t}</strong> — ${x.pct}% score. Well done! Keep it up.</div>`;
+  }).join('');
+
+  const verdict = score >= 70 ? "Outstanding performance! You have a strong grasp of the PHY 104 material. Focus on any weak topics above to perfect your score." :
+    score >= 50 ? "Good effort! You're on track but there's room to grow. Revisit the topics flagged above and practice more calculation problems." :
+    "Keep pushing! PHY 104 is challenging. Break the topics into smaller chunks, re-read your notes on flagged areas, and try the quiz again.";
+
+  return `
+    <div class="score-grid">
+      <div class="score-cell sc-green"><div class="val">${correct}</div><div class="lbl">✅ Correct</div></div>
+      <div class="score-cell sc-red"><div class="val">${wrong}</div><div class="lbl">❌ Wrong</div></div>
+      <div class="score-cell sc-amber"><div class="val" style="color:${scoreColor}">${score}%</div><div class="lbl">🎯 Score</div></div>
+      <div class="score-cell sc-blue"><div class="val">${ids.length}/${questions.length}</div><div class="lbl">📝 Attempted</div></div>
+    </div>
+    <div class="modal-section-title">📊 Performance by Topic</div>
+    ${topicBars}
+    <div class="modal-section-title">📐 Performance by Type</div>
+    <div class="type-grid">${typeGrid}</div>
+    <div class="modal-section-title">🎯 Areas to Focus On</div>
+    ${focusHtml || '<p style="font-size:0.8rem;color:var(--ink3)">Answer more questions to see focus areas.</p>'}
+    <div class="modal-section-title">🏁 Overall Verdict</div>
+    <div class="verdict-box">${verdict}</div>
+  `;
+}
+
+function startTimer() {
+  state.timerInterval = setInterval(() => {
+    state.timerSecs++;
+    const m = String(Math.floor(state.timerSecs / 60)).padStart(2,'0');
+    const s = String(state.timerSecs % 60).padStart(2,'0');
+    document.getElementById('timer').textContent = `${m}:${s}`;
+  }, 1000);
+}
+
+init();
+</script>
+</body>
+</html>
