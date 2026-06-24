@@ -3,634 +3,610 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>PHY 104 — PDFNest Quiz</title>
+<title>CSC 114 — PDFNest Quiz</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600;700&display=swap" rel="stylesheet">
 <style>
-  :root {
-    --primary: #E8302A;
-    --primary-dark: #C0251F;
-    --primary-light: #F05550;
-    --red-bg: rgba(232,48,42,0.08);
-    --red-bg-hover: rgba(232,48,42,0.13);
-    --red-border: rgba(232,48,42,0.25);
-    --bg: #F5F5F7;
-    --surface: #FFFFFF;
-    --surface2: #F0F0F2;
-    --border: #E4E4E8;
-    --border2: #D0D0D5;
-    --ink: #0F0F0F;
-    --ink2: #3A3A3F;
-    --ink3: #6E6E78;
-    --ink4: #9E9EA8;
-    --green: #16A34A;
-    --amber: #D97706;
-    --blue: #2563EB;
-    --purple: #7C3AED;
-    --r-card: 16px;
-    --r-input: 12px;
-    --r-pill: 999px;
-    --r-sm: 8px;
-    --shadow-sm: 0 1px 3px rgba(0,0,0,0.07), 0 1px 2px rgba(0,0,0,0.05);
-    --shadow: 0 4px 12px rgba(0,0,0,0.08), 0 2px 4px rgba(0,0,0,0.05);
-    --shadow-lg: 0 12px 32px rgba(0,0,0,0.12), 0 4px 12px rgba(0,0,0,0.08);
+:root{
+  --red:#E8302A; --red-dark:#C0251F; --red-light:#F05550;
+  --red-bg:rgba(232,48,42,0.08); --red-bg-hover:rgba(232,48,42,0.13); --red-border:rgba(232,48,42,0.25);
+  --bg:#F5F5F7; --surface:#FFFFFF; --surface2:#F0F0F2;
+  --border:#E4E4E8; --border2:#D0D0D5;
+  --ink:#0F0F0F; --ink2:#3A3A3F; --ink3:#6E6E78; --ink4:#9E9EA8;
+  --green:#16A34A; --amber:#D97706; --blue:#2563EB; --purple:#7C3AED;
+  --green-bg:rgba(22,163,74,0.10); --amber-bg:rgba(217,119,6,0.10); --blue-bg:rgba(37,99,235,0.10); --purple-bg:rgba(124,58,237,0.10);
+  --r-card:16px; --r-input:12px; --r-pill:999px; --r-sm:8px;
+  --shadow-sm:0 1px 2px rgba(0,0,0,0.04);
+  --shadow:0 4px 12px rgba(0,0,0,0.08);
+  --shadow-lg:0 12px 32px rgba(0,0,0,0.16);
+  --font-body:'Inter',sans-serif;
+  --font-mono:'JetBrains Mono',monospace;
+}
+@media (prefers-color-scheme: dark){
+  :root{
+    --bg:#0F0F0F; --surface:#1A1A1A; --surface2:#222226;
+    --border:#2C2C30; --border2:#3A3A3F;
+    --ink:#F0F0F4; --ink2:#D4D4D9; --ink3:#9E9EA8; --ink4:#6E6E78;
+    --red-bg:rgba(232,48,42,0.14); --red-bg-hover:rgba(232,48,42,0.20); --red-border:rgba(232,48,42,0.35);
+    --green-bg:rgba(22,163,74,0.16); --amber-bg:rgba(217,119,6,0.16); --blue-bg:rgba(37,99,235,0.16); --purple-bg:rgba(124,58,237,0.16);
+    --shadow-sm:0 1px 2px rgba(0,0,0,0.3);
+    --shadow:0 4px 16px rgba(0,0,0,0.4);
+    --shadow-lg:0 16px 40px rgba(0,0,0,0.55);
   }
-  @media (prefers-color-scheme: dark) {
-    :root {
-      --bg: #0F0F0F;
-      --surface: #1A1A1A;
-      --surface2: #242424;
-      --border: #2E2E2E;
-      --border2: #3A3A3A;
-      --ink: #F0F0F4;
-      --ink2: #C8C8CC;
-      --ink3: #8E8E98;
-      --ink4: #5E5E68;
-    }
-  }
-  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-  html { scroll-behavior: smooth; }
-  body { font-family: 'Inter', sans-serif; background: var(--bg); color: var(--ink); min-height: 100vh; }
+}
+*{box-sizing:border-box; margin:0; padding:0;}
+body{
+  font-family:var(--font-body); background:var(--bg); color:var(--ink);
+  -webkit-font-smoothing:antialiased; padding-bottom:64px;
+}
+button{font-family:inherit; cursor:pointer; border:none; background:none; color:inherit;}
+input{font-family:inherit;}
 
-  /* NAV */
-  .top-nav {
-    position: sticky; top: 0; height: 56px; background: var(--surface);
-    border-bottom: 1px solid var(--border); z-index: 100;
-    display: flex; align-items: center; justify-content: space-between;
-    padding: 0 16px; gap: 12px;
-  }
-  .nav-left { display: flex; align-items: center; gap: 10px; }
-  .back-btn {
-    width: 36px; height: 36px; border-radius: var(--r-sm);
-    background: var(--surface2); border: 1px solid var(--border);
-    cursor: pointer; display: flex; align-items: center; justify-content: center;
-    font-size: 16px; color: var(--ink2); transition: background 0.15s;
-  }
-  .back-btn:hover { background: var(--red-bg); }
-  .logo-box {
-    width: 34px; height: 34px; border-radius: 8px;
-    background: var(--primary); display: flex; align-items: center; justify-content: center;
-  }
-  .logo-box svg { width: 20px; height: 20px; }
-  .brand-text { display: flex; flex-direction: column; }
-  .brand-name { font-weight: 700; font-size: 0.9rem; color: var(--ink); line-height: 1.1; }
-  .brand-sub { font-size: 0.72rem; color: var(--ink3); }
-  .nav-right { display: flex; align-items: center; gap: 8px; }
-  .timer-chip {
-    font-family: 'JetBrains Mono', monospace; font-weight: 600;
-    font-size: 0.82rem; color: var(--primary);
-    background: var(--red-bg); border: 1px solid var(--red-border);
-    border-radius: var(--r-pill); padding: 5px 12px;
-    display: flex; align-items: center; gap: 5px;
-  }
-  .bk-btn {
-    width: 36px; height: 36px; border-radius: var(--r-sm);
-    background: var(--surface2); border: 1px solid var(--border);
-    cursor: pointer; display: flex; align-items: center; justify-content: center;
-    font-size: 16px; transition: background 0.15s;
-  }
-  .bk-btn:hover { background: var(--red-bg); }
+/* ---------- TOP NAV ---------- */
+.top-nav{
+  position:sticky; top:0; z-index:100; height:56px;
+  background:var(--surface); border-bottom:1px solid var(--border);
+  display:flex; align-items:center; justify-content:space-between;
+  padding:0 14px;
+}
+.nav-left{display:flex; align-items:center; gap:10px;}
+.back-btn{
+  width:36px; height:36px; border-radius:var(--r-sm); background:var(--surface2);
+  display:flex; align-items:center; justify-content:center; font-size:18px; color:var(--ink2);
+  flex-shrink:0;
+}
+.back-btn:hover{background:var(--border);}
+.logo-box{
+  width:34px; height:34px; border-radius:10px; background:var(--surface2);
+  display:flex; align-items:center; justify-content:center; flex-shrink:0;
+  border:1px solid var(--border);
+}
+.brand-text{line-height:1.15;}
+.brand-text .b1{font-weight:700; font-size:0.92rem; color:var(--ink);}
+.brand-text .b2{font-size:0.68rem; color:var(--ink3);}
+.nav-right{display:flex; align-items:center; gap:8px;}
+.timer-chip{
+  font-family:var(--font-mono); font-size:0.78rem; font-weight:600;
+  color:var(--red); background:var(--red-bg); padding:6px 12px; border-radius:var(--r-pill);
+  display:flex; align-items:center; gap:5px; white-space:nowrap;
+}
+.bk-toggle-btn{
+  width:36px; height:36px; border-radius:var(--r-sm); background:var(--surface2);
+  display:flex; align-items:center; justify-content:center; font-size:16px;
+}
+.bk-toggle-btn:hover{background:var(--border);}
+.bk-toggle-btn.active{background:var(--red-bg); color:var(--red);}
 
-  /* HERO */
-  .hero { background: var(--surface); border-bottom: 1px solid var(--border); padding: 20px 20px 16px; }
-  .breadcrumb { font-size: 0.75rem; color: var(--ink3); margin-bottom: 10px; }
-  .breadcrumb span { color: var(--primary); font-weight: 600; }
-  .hero-tag {
-    display: inline-flex; align-items: center;
-    background: var(--red-bg); border: 1px solid var(--red-border);
-    border-radius: var(--r-pill); padding: 3px 10px;
-    font-size: 0.68rem; font-weight: 700; color: var(--primary);
-    letter-spacing: 0.06em; text-transform: uppercase; margin-bottom: 10px;
-  }
-  .hero h1 { font-size: 1.45rem; font-weight: 700; line-height: 1.25; color: var(--ink); margin-bottom: 6px; }
-  .hero h1 em { color: var(--primary); font-style: normal; }
-  .hero-sub { font-size: 0.82rem; color: var(--ink3); margin-bottom: 14px; }
-  .stats-row { display: flex; flex-wrap: wrap; gap: 6px; margin-bottom: 12px; }
-  .stat-chip {
-    border-radius: var(--r-pill); padding: 4px 10px;
-    font-size: 0.74rem; font-weight: 600; border: 1px solid transparent;
-    display: flex; align-items: center; gap: 4px;
-  }
-  .stat-blue { background: rgba(37,99,235,0.08); color: var(--blue); border-color: rgba(37,99,235,0.2); }
-  .stat-green { background: rgba(22,163,74,0.08); color: var(--green); border-color: rgba(22,163,74,0.2); }
-  .stat-red { background: var(--red-bg); color: var(--primary); border-color: var(--red-border); }
-  .stat-purple { background: rgba(124,58,237,0.08); color: var(--purple); border-color: rgba(124,58,237,0.2); }
-  .stat-amber { background: rgba(217,119,6,0.08); color: var(--amber); border-color: rgba(217,119,6,0.2); }
-  .progress-wrap { display: flex; align-items: center; gap: 10px; }
-  .progress-bar-track { flex: 1; height: 6px; background: var(--border); border-radius: var(--r-pill); overflow: hidden; }
-  .progress-bar-fill {
-    height: 100%; width: 0%; border-radius: var(--r-pill);
-    background: linear-gradient(90deg, var(--primary), var(--primary-light));
-    transition: width 0.4s ease;
-  }
-  .progress-label { font-size: 0.74rem; font-weight: 600; color: var(--ink3); white-space: nowrap; }
+/* ---------- HERO ---------- */
+.hero{background:var(--surface); border-bottom:1px solid var(--border); padding:20px 16px 24px;}
+.breadcrumb{
+  max-width:720px; margin:0 auto; font-size:0.74rem; color:var(--ink3);
+  display:flex; gap:6px; flex-wrap:wrap; margin-bottom:12px;
+}
+.breadcrumb .sep{color:var(--ink4);}
+.breadcrumb .current{color:var(--red); font-weight:600;}
+.hero-inner{max-width:720px; margin:0 auto;}
+.hero-tag{
+  display:inline-block; background:var(--red-bg); color:var(--red); font-weight:700;
+  font-size:0.66rem; letter-spacing:0.06em; text-transform:uppercase;
+  padding:5px 12px; border-radius:var(--r-pill); margin-bottom:12px;
+}
+.hero h1{font-size:1.5rem; font-weight:800; line-height:1.25; margin-bottom:6px;}
+.hero h1 em{color:var(--red); font-style:normal;}
+.hero .subtitle{color:var(--ink3); font-size:0.86rem; margin-bottom:16px;}
+.stats-row{display:flex; gap:8px; flex-wrap:wrap; margin-bottom:14px;}
+.stat-pill{
+  display:flex; align-items:center; gap:6px; padding:7px 12px; border-radius:var(--r-pill);
+  font-size:0.76rem; font-weight:700; font-family:var(--font-mono);
+}
+.stat-pill.showing{background:var(--blue-bg); color:var(--blue);}
+.stat-pill.correct{background:var(--green-bg); color:var(--green);}
+.stat-pill.wrong{background:var(--red-bg); color:var(--red);}
+.stat-pill.attempted{background:var(--purple-bg); color:var(--purple);}
+.stat-pill.score{background:var(--amber-bg); color:var(--amber);}
+.stat-pill .lbl{font-family:var(--font-body); font-weight:500; color:var(--ink3); font-size:0.7rem;}
+.progress-wrap{display:flex; align-items:center; gap:10px;}
+.progress-track{
+  flex:1; height:6px; background:var(--surface2); border-radius:999px; overflow:hidden;
+}
+.progress-fill{
+  height:100%; background:linear-gradient(90deg, var(--red-light), var(--red));
+  border-radius:999px; transition:width .4s ease; width:0%;
+}
+.progress-label{font-family:var(--font-mono); font-size:0.74rem; color:var(--ink3); white-space:nowrap;}
 
-  /* ACTION ROW */
-  .action-row {
-    max-width: 720px; margin: 0 auto; padding: 12px 16px;
-    display: flex; gap: 8px; flex-wrap: wrap;
-  }
-  .btn { border-radius: var(--r-sm); padding: 8px 16px; font-family: 'Inter', sans-serif; font-size: 0.82rem; font-weight: 600; cursor: pointer; border: none; transition: all 0.15s; display: flex; align-items: center; gap: 6px; }
-  .btn-outline { background: var(--surface); border: 1px solid var(--border); color: var(--ink2); }
-  .btn-outline:hover { border-color: var(--primary); color: var(--primary); background: var(--red-bg); }
-  .btn-ghost-red { background: var(--red-bg); border: 1px solid var(--red-border); color: var(--primary); }
-  .btn-ghost-red:hover { background: var(--red-bg-hover); }
-  .btn-danger { background: var(--primary); color: #fff; }
-  .btn-danger:hover { background: var(--primary-dark); }
+/* ---------- ACTION BUTTONS ---------- */
+.action-row{
+  max-width:720px; margin:16px auto 0; padding:0 16px;
+  display:flex; gap:10px; flex-wrap:wrap;
+}
+.btn{
+  padding:9px 16px; border-radius:var(--r-input); font-size:0.82rem; font-weight:600;
+  display:flex; align-items:center; gap:6px; transition:background .15s, transform .1s;
+}
+.btn:active{transform:scale(0.97);}
+.btn-outline{background:var(--surface); border:1px solid var(--border2); color:var(--ink2);}
+.btn-outline:hover{background:var(--surface2);}
+.btn-ghost-red{background:var(--red-bg); color:var(--red);}
+.btn-ghost-red:hover{background:var(--red-bg-hover);}
+.btn-danger{background:var(--surface); border:1px solid var(--border2); color:var(--red);}
+.btn-danger:hover{background:var(--red-bg);}
 
-  /* MAIN */
-  .main { max-width: 720px; margin: 0 auto; padding: 12px 16px 100px; display: flex; flex-direction: column; gap: 12px; }
+/* ---------- MAIN CONTENT ---------- */
+.main-content{max-width:720px; margin:0 auto; padding:16px;}
 
-  /* BOOKMARKS */
-  .bm-card { background: var(--surface); border: 1px solid var(--border); border-radius: var(--r-card); padding: 14px; display: none; }
-  .bm-card.open { display: block; }
-  .bm-title { font-size: 0.82rem; font-weight: 700; color: var(--ink); margin-bottom: 10px; }
-  #bm-list { display: flex; flex-wrap: wrap; gap: 6px; }
-  .bm-pill {
-    font-family: 'JetBrains Mono', monospace; font-size: 0.72rem; font-weight: 600;
-    background: var(--red-bg); border: 1px solid var(--red-border);
-    color: var(--primary); border-radius: var(--r-pill); padding: 3px 9px;
-    cursor: pointer;
-  }
-  .bm-pill:hover { background: var(--red-bg-hover); }
-  .bm-empty { font-size: 0.78rem; color: var(--ink3); }
+/* Bookmarks panel */
+.bm-card{
+  display:none; background:var(--surface); border:1px solid var(--border); border-radius:var(--r-card);
+  padding:14px 16px; margin-bottom:14px; box-shadow:var(--shadow-sm);
+}
+.bm-card.open{display:block;}
+.bm-card h4{font-size:0.82rem; font-weight:700; margin-bottom:10px; color:var(--ink2);}
+.bm-list{display:flex; gap:8px; flex-wrap:wrap;}
+.bm-pill{
+  font-family:var(--font-mono); font-size:0.74rem; font-weight:700; background:var(--red-bg); color:var(--red);
+  padding:5px 11px; border-radius:var(--r-pill);
+}
+.bm-empty{color:var(--ink4); font-size:0.8rem;}
 
-  /* SUMMARY */
-  .sum-card { background: var(--surface); border: 1px solid var(--border); border-radius: var(--r-card); overflow: hidden; }
-  .sum-toggle {
-    width: 100%; background: none; border: none; cursor: pointer;
-    display: flex; align-items: center; justify-content: space-between;
-    padding: 14px 16px; font-family: 'Inter', sans-serif;
-  }
-  .sum-toggle-left { display: flex; align-items: center; gap: 8px; font-size: 0.88rem; font-weight: 600; color: var(--ink); }
-  .sum-arrow { font-size: 0.8rem; color: var(--ink3); transition: transform 0.2s; }
-  .sum-card.open .sum-arrow { transform: rotate(180deg); }
-  #sum-body { display: none; padding: 0 16px 14px; border-top: 1px solid var(--border); }
-  .sum-card.open #sum-body { display: block; }
-  .sum-week { margin-top: 12px; }
-  .sum-week-title { font-size: 0.8rem; font-weight: 700; color: var(--ink); margin-bottom: 6px; }
-  .sum-week p { font-size: 0.78rem; color: var(--ink2); line-height: 1.6; }
-  .chip {
-    display: inline-block; font-family: 'JetBrains Mono', monospace;
-    font-size: 0.72rem; font-weight: 600; color: var(--primary);
-    background: var(--red-bg); border: 1px solid var(--red-border);
-    border-radius: 4px; padding: 1px 5px; margin: 1px 2px;
-  }
+/* Topic Summary card */
+.sum-card{
+  background:var(--surface); border:1px solid var(--border); border-radius:var(--r-card);
+  margin-bottom:14px; overflow:hidden; box-shadow:var(--shadow-sm);
+}
+.sum-toggle{
+  width:100%; display:flex; align-items:center; justify-content:space-between;
+  padding:14px 16px; font-weight:700; font-size:0.9rem;
+}
+.sum-toggle .left{display:flex; align-items:center; gap:8px;}
+.sum-toggle .arrow{transition:transform .2s ease; color:var(--ink3); font-size:0.8rem;}
+.sum-toggle.open .arrow{transform:rotate(180deg);}
+.sum-body{
+  max-height:0; overflow:hidden; transition:max-height .3s ease;
+  padding:0 16px; font-size:0.84rem; line-height:1.65; color:var(--ink2);
+}
+.sum-body.open{max-height:4000px; padding:0 16px 18px;}
+.sum-body h5{font-size:0.84rem; font-weight:700; color:var(--ink); margin:14px 0 6px;}
+.sum-body h5:first-child{margin-top:0;}
+.sum-body p{margin-bottom:8px;}
+.sum-body ul{margin:6px 0 10px 18px;}
+.sum-body li{margin-bottom:4px;}
+.chip{
+  font-family:var(--font-mono); color:var(--red); background:var(--red-bg);
+  padding:1px 6px; border-radius:var(--r-sm); font-size:0.82em; font-weight:600;
+}
 
-  /* SEARCH */
-  .search-wrap { position: relative; }
-  .search-icon { position: absolute; left: 12px; top: 50%; transform: translateY(-50%); font-size: 14px; color: var(--ink3); pointer-events: none; }
-  .search-input {
-    width: 100%; padding: 10px 12px 10px 36px;
-    border: 1px solid var(--border); border-radius: var(--r-input);
-    background: var(--surface); font-family: 'Inter', sans-serif;
-    font-size: 0.84rem; color: var(--ink); outline: none;
-    transition: border-color 0.15s, box-shadow 0.15s;
-  }
-  .search-input:focus { border-color: var(--primary); box-shadow: 0 0 0 3px var(--red-bg); }
-  .search-input::placeholder { color: var(--ink4); }
+/* Search */
+.search-box{
+  position:relative; margin-bottom:12px;
+}
+.search-box .icon{
+  position:absolute; left:14px; top:50%; transform:translateY(-50%); color:var(--ink4); font-size:0.9rem;
+}
+.search-box input{
+  width:100%; padding:11px 14px 11px 38px; border-radius:var(--r-input);
+  border:1px solid var(--border2); background:var(--surface); color:var(--ink); font-size:0.86rem;
+  outline:none; transition:border-color .15s, box-shadow .15s;
+}
+.search-box input:focus{border-color:var(--red); box-shadow:0 0 0 3px var(--red-bg);}
 
-  /* FILTERS */
-  .filter-row { display: flex; flex-wrap: wrap; gap: 6px; }
-  .filter-pill {
-    border-radius: var(--r-pill); padding: 5px 12px;
-    font-size: 0.76rem; font-weight: 600; cursor: pointer;
-    border: 1px solid var(--border); background: var(--surface); color: var(--ink3);
-    transition: all 0.15s;
-  }
-  .filter-pill:hover { border-color: var(--red-border); color: var(--primary); background: var(--red-bg); }
-  .filter-pill.active { background: var(--primary); border-color: var(--primary); color: #fff; }
+/* Filters */
+.filter-row{display:flex; gap:8px; flex-wrap:wrap; margin-bottom:10px;}
+.filter-pill{
+  padding:7px 14px; border-radius:var(--r-pill); font-size:0.78rem; font-weight:600;
+  background:var(--surface); border:1px solid var(--border2); color:var(--ink3);
+  transition:all .15s;
+}
+.filter-pill:hover{background:var(--surface2);}
+.filter-pill.active{background:var(--red); border-color:var(--red); color:#fff;}
 
-  /* SHUFFLE NOTE */
-  .shuffle-note { font-size: 0.76rem; color: var(--ink3); font-style: italic; display: none; padding: 6px 0; }
-  .shuffle-note.visible { display: block; }
+.shuffle-note{display:none; font-size:0.76rem; color:var(--ink4); font-style:italic; margin-bottom:10px;}
+.shuffle-note.show{display:block;}
 
-  /* Q LIST */
-  #q-list { display: flex; flex-direction: column; gap: 12px; }
+/* ---------- QUESTION LIST ---------- */
+#q-list{display:flex; flex-direction:column; gap:12px;}
+@keyframes fadeUp{from{opacity:0; transform:translateY(10px);} to{opacity:1; transform:translateY(0);}}
+@keyframes fadeIn{from{opacity:0;} to{opacity:1;}}
+.q-card{
+  background:var(--surface); border:1px solid var(--border); border-radius:var(--r-card);
+  padding:16px; animation:fadeUp .3s ease both; box-shadow:var(--shadow-sm);
+}
+.q-card.bookmarked{border-color:var(--red-border);}
+.q-meta{display:flex; align-items:center; gap:8px; margin-bottom:10px; flex-wrap:wrap;}
+.q-badge{
+  font-family:var(--font-mono); font-size:0.72rem; font-weight:700; color:var(--ink3);
+  background:var(--surface2); padding:4px 9px; border-radius:var(--r-sm);
+}
+.topic-badge{
+  font-size:0.68rem; font-weight:700; color:var(--red); background:var(--red-bg);
+  padding:4px 10px; border-radius:var(--r-pill); text-transform:uppercase; letter-spacing:0.02em;
+}
+.type-badge{
+  font-size:0.68rem; font-weight:700; color:var(--blue); background:var(--blue-bg);
+  padding:4px 10px; border-radius:var(--r-pill); text-transform:uppercase; letter-spacing:0.02em;
+}
+.q-bk-btn{
+  margin-left:auto; font-size:1rem; opacity:0.35; transition:opacity .15s, transform .15s;
+}
+.q-bk-btn:hover{opacity:0.7;}
+.q-bk-btn.active{opacity:1; transform:scale(1.1);}
+.q-text{font-size:0.9rem; font-weight:500; line-height:1.55; margin-bottom:14px; color:var(--ink);}
+.options-grid{
+  display:grid; grid-template-columns:1fr 1fr; gap:8px; margin-bottom:10px;
+}
+@media (max-width:480px){.options-grid{grid-template-columns:1fr;}}
+.option{
+  display:flex; align-items:center; gap:10px; padding:10px 12px; border-radius:var(--r-input);
+  border:1.5px solid var(--border); background:var(--surface); font-size:0.82rem; color:var(--ink2);
+  text-align:left; transition:background .15s, border-color .15s;
+}
+.option:hover:not(.disabled){background:var(--red-bg); border-color:var(--red-border);}
+.option.disabled{cursor:default;}
+.option .letter{
+  font-family:var(--font-mono); font-weight:700; font-size:0.76rem; width:24px; height:24px; flex-shrink:0;
+  border-radius:50%; background:var(--surface2); color:var(--ink3); display:flex; align-items:center; justify-content:center;
+  border:1.5px solid var(--border2);
+}
+.option.correct{background:var(--green-bg); border-color:var(--green);}
+.option.correct .letter{background:var(--green); color:#fff; border-color:var(--green);}
+.option.wrong{background:var(--red-bg); border-color:var(--red);}
+.option.wrong .letter{background:var(--red); color:#fff; border-color:var(--red);}
+.option.revealed-correct{background:var(--green-bg); border-color:var(--green); opacity:0.85;}
+.option.revealed-correct .letter{background:var(--green); color:#fff; border-color:var(--green);}
+.q-footer{display:flex; justify-content:flex-end;}
+.reveal-btn{
+  font-size:0.78rem; font-weight:600; color:var(--ink3); background:var(--surface2);
+  padding:7px 14px; border-radius:var(--r-pill);
+}
+.reveal-btn:hover{background:var(--border);}
+.explanation{
+  display:none; margin-top:12px; padding:12px 14px; background:var(--red-bg);
+  border-left:3px solid var(--red); border-radius:0 var(--r-sm) var(--r-sm) 0;
+  font-size:0.8rem; line-height:1.55; color:var(--ink2); animation:fadeIn .3s ease;
+}
+.explanation.show{display:block;}
+.explanation b{color:var(--ink);}
 
-  /* Q CARD */
-  .q-card {
-    background: var(--surface); border: 1px solid var(--border);
-    border-radius: var(--r-card); overflow: hidden;
-    box-shadow: var(--shadow-sm);
-    animation: fadeUp 0.25s ease both;
-  }
-  .q-card.bookmarked { border-color: var(--primary); }
-  @keyframes fadeUp {
-    from { opacity: 0; transform: translateY(10px); }
-    to { opacity: 1; transform: translateY(0); }
-  }
-  .q-meta { display: flex; align-items: center; gap: 7px; padding: 12px 14px 0; flex-wrap: wrap; }
-  .q-num {
-    font-family: 'JetBrains Mono', monospace; font-size: 0.72rem; font-weight: 600;
-    background: var(--surface2); border: 1px solid var(--border);
-    border-radius: var(--r-sm); padding: 2px 7px; color: var(--ink3);
-  }
-  .q-topic {
-    font-size: 0.7rem; font-weight: 700; background: var(--red-bg);
-    border: 1px solid var(--red-border); color: var(--primary);
-    border-radius: var(--r-pill); padding: 2px 8px;
-  }
-  .q-type {
-    font-size: 0.7rem; font-weight: 700;
-    background: rgba(37,99,235,0.08); border: 1px solid rgba(37,99,235,0.2);
-    color: var(--blue); border-radius: var(--r-pill); padding: 2px 8px;
-  }
-  .q-bk-btn {
-    margin-left: auto; background: none; border: none; cursor: pointer;
-    font-size: 16px; opacity: 0.35; transition: opacity 0.15s;
-    padding: 2px 4px;
-  }
-  .q-card:hover .q-bk-btn, .q-bk-btn.active { opacity: 1; }
-  .q-text { padding: 10px 14px 12px; font-size: 0.88rem; font-weight: 500; color: var(--ink2); line-height: 1.55; }
-  .options-grid {
-    display: grid; grid-template-columns: 1fr 1fr; gap: 7px;
-    padding: 0 14px 12px;
-  }
-  @media (max-width: 480px) { .options-grid { grid-template-columns: 1fr; } }
-  .option-btn {
-    display: flex; align-items: flex-start; gap: 9px;
-    background: var(--surface2); border: 1px solid var(--border);
-    border-radius: var(--r-sm); padding: 10px 11px;
-    cursor: pointer; text-align: left; transition: all 0.15s;
-    font-family: 'Inter', sans-serif;
-  }
-  .option-btn:hover:not(:disabled) { background: var(--red-bg); border-color: var(--red-border); }
-  .option-btn:disabled { cursor: default; }
-  .option-letter {
-    font-family: 'JetBrains Mono', monospace; font-size: 0.72rem; font-weight: 700;
-    min-width: 22px; height: 22px; border-radius: 6px;
-    background: var(--surface); border: 1px solid var(--border);
-    display: flex; align-items: center; justify-content: center;
-    color: var(--ink3); flex-shrink: 0; margin-top: 1px;
-  }
-  .option-text { font-size: 0.82rem; color: var(--ink2); line-height: 1.45; }
-  .option-btn.correct { background: rgba(22,163,74,0.1); border-color: rgba(22,163,74,0.35); }
-  .option-btn.correct .option-letter { background: var(--green); border-color: var(--green); color: #fff; }
-  .option-btn.wrong { background: rgba(232,48,42,0.1); border-color: rgba(232,48,42,0.35); }
-  .option-btn.wrong .option-letter { background: var(--primary); border-color: var(--primary); color: #fff; }
-  .option-btn.revealed-correct { background: rgba(22,163,74,0.06); border-color: rgba(22,163,74,0.2); }
-  .option-btn.revealed-correct .option-letter { background: rgba(22,163,74,0.12); border-color: rgba(22,163,74,0.3); color: var(--green); }
-  .q-footer { padding: 0 14px 14px; display: flex; align-items: flex-start; flex-direction: column; gap: 8px; }
-  .reveal-btn {
-    background: none; border: 1px solid var(--border); border-radius: var(--r-sm);
-    padding: 6px 13px; font-family: 'Inter', sans-serif; font-size: 0.78rem;
-    font-weight: 600; color: var(--ink3); cursor: pointer; transition: all 0.15s;
-  }
-  .reveal-btn:hover { border-color: var(--primary); color: var(--primary); background: var(--red-bg); }
-  .explanation {
-    display: none; background: var(--red-bg); border-left: 3px solid var(--primary);
-    border-radius: var(--r-sm); padding: 10px 12px;
-    font-size: 0.8rem; color: var(--ink2); line-height: 1.55; width: 100%;
-    animation: fadeIn 0.2s ease;
-  }
-  .explanation.visible { display: block; }
-  @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
+.no-results{display:none; text-align:center; padding:50px 20px; color:var(--ink4);}
+.no-results.show{display:block;}
+.no-results .emoji{font-size:2rem; margin-bottom:10px;}
 
-  /* NO RESULTS */
-  .no-results { text-align: center; padding: 48px 20px; display: none; }
-  .no-results.visible { display: block; }
-  .no-results-icon { font-size: 2.5rem; margin-bottom: 12px; }
-  .no-results h3 { font-size: 1rem; color: var(--ink); margin-bottom: 6px; }
-  .no-results p { font-size: 0.82rem; color: var(--ink3); }
+/* ---------- DIAGNOSIS STICKY BAR ---------- */
+@keyframes pulse{0%,100%{box-shadow:0 0 0 0 rgba(232,48,42,0.45);} 50%{box-shadow:0 0 0 10px rgba(232,48,42,0);}}
+.diag-bar{
+  position:fixed; bottom:64px; left:0; right:0; display:flex; justify-content:center;
+  padding:10px 16px; z-index:90; opacity:0; pointer-events:none; transition:opacity .4s ease;
+}
+.diag-bar.show{opacity:1; pointer-events:auto;}
+.diag-btn{
+  background:var(--red); color:#fff; font-weight:700; font-size:0.86rem;
+  padding:13px 24px; border-radius:var(--r-pill); box-shadow:var(--shadow-lg);
+  animation:pulse 2.2s infinite; display:flex; align-items:center; gap:8px;
+}
 
-  /* DIAG BAR */
-  .diag-bar {
-    position: fixed; bottom: 56px; left: 0; right: 0; z-index: 90;
-    display: flex; justify-content: center; padding: 10px 16px;
-    pointer-events: none; opacity: 0; transform: translateY(20px);
-    transition: opacity 0.3s ease, transform 0.3s ease;
-  }
-  .diag-bar.visible { opacity: 1; transform: translateY(0); pointer-events: all; }
-  .diag-btn {
-    background: var(--primary); color: #fff; border: none; border-radius: var(--r-pill);
-    padding: 12px 24px; font-family: 'Inter', sans-serif; font-size: 0.88rem; font-weight: 700;
-    cursor: pointer; box-shadow: var(--shadow-lg);
-    display: flex; align-items: center; gap: 8px;
-    animation: pulse 2.5s infinite;
-  }
-  @keyframes pulse { 0%,100%{box-shadow:0 0 0 0 rgba(232,48,42,0.5),var(--shadow-lg)}50%{box-shadow:0 0 0 8px rgba(232,48,42,0),var(--shadow-lg)} }
+/* ---------- MODAL ---------- */
+.modal-overlay{
+  position:fixed; inset:0; background:rgba(0,0,0,0.5); z-index:200;
+  display:flex; align-items:flex-end; justify-content:center;
+  opacity:0; pointer-events:none; transition:opacity .25s ease;
+}
+.modal-overlay.open{opacity:1; pointer-events:auto;}
+.modal-sheet{
+  background:var(--surface); border-radius:24px 24px 0 0; width:100%; max-width:720px;
+  max-height:88vh; display:flex; flex-direction:column;
+  transform:translateY(100%); transition:transform .35s cubic-bezier(.32,.72,0,1);
+  box-shadow:var(--shadow-lg);
+}
+.modal-overlay.open .modal-sheet{transform:translateY(0);}
+.modal-handle{width:40px; height:4px; background:var(--border2); border-radius:999px; margin:10px auto 0;}
+.modal-header{
+  display:flex; align-items:center; justify-content:space-between; padding:14px 18px;
+  border-bottom:1px solid var(--border); position:sticky; top:0; background:var(--surface); z-index:1;
+}
+.modal-header h3{font-size:1rem; font-weight:800; display:flex; align-items:center; gap:8px;}
+.modal-close{width:32px; height:32px; border-radius:var(--r-sm); background:var(--surface2); font-size:1rem;}
+.modal-close:hover{background:var(--border);}
+.modal-body{padding:18px; overflow-y:auto; flex:1;}
+.modal-footer{
+  display:flex; gap:10px; padding:14px 18px; border-top:1px solid var(--border);
+}
+.modal-footer .btn{flex:1; justify-content:center; padding:12px;}
+.btn-secondary{background:var(--surface2); color:var(--ink2);}
+.btn-secondary:hover{background:var(--border);}
+.btn-primary-red{background:var(--red); color:#fff; font-weight:700;}
+.btn-primary-red:hover{background:var(--red-dark);}
 
-  /* MODAL */
-  .modal-overlay {
-    position: fixed; inset: 0; z-index: 200;
-    background: rgba(0,0,0,0.5); display: flex; align-items: flex-end;
-    opacity: 0; pointer-events: none; transition: opacity 0.25s;
-  }
-  .modal-overlay.open { opacity: 1; pointer-events: all; }
-  .modal {
-    background: var(--surface); border-radius: 20px 20px 0 0; width: 100%;
-    max-height: 90vh; overflow-y: auto;
-    transform: translateY(100%); transition: transform 0.35s cubic-bezier(0.34,1.56,0.64,1);
-  }
-  .modal-overlay.open .modal { transform: translateY(0); }
-  .modal-handle { width: 36px; height: 4px; background: var(--border2); border-radius: 2px; margin: 10px auto 4px; }
-  .modal-header {
-    position: sticky; top: 0; background: var(--surface);
-    border-bottom: 1px solid var(--border); padding: 12px 16px;
-    display: flex; align-items: center; justify-content: space-between;
-  }
-  .modal-title { font-size: 0.95rem; font-weight: 700; color: var(--ink); display: flex; align-items: center; gap: 8px; }
-  .modal-close { background: none; border: none; font-size: 18px; cursor: pointer; color: var(--ink3); padding: 4px; }
-  #modal-body { padding: 16px; }
-  .score-grid {
-    display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-bottom: 18px;
-  }
-  @media (max-width: 400px) { .score-grid { grid-template-columns: 1fr 1fr; } }
-  .score-cell {
-    background: var(--surface2); border: 1px solid var(--border);
-    border-radius: var(--r-card); padding: 14px;
-    display: flex; flex-direction: column; align-items: center; gap: 4px;
-  }
-  .score-cell .val { font-size: 1.6rem; font-weight: 700; }
-  .score-cell .lbl { font-size: 0.72rem; color: var(--ink3); font-weight: 600; }
-  .sc-green .val { color: var(--green); }
-  .sc-red .val { color: var(--primary); }
-  .sc-amber .val { color: var(--amber); }
-  .sc-blue .val { color: var(--blue); }
-  .modal-section-title { font-size: 0.82rem; font-weight: 700; color: var(--ink); margin: 16px 0 10px; }
-  .topic-bar-row { margin-bottom: 9px; }
-  .topic-bar-label { display: flex; justify-content: space-between; font-size: 0.75rem; color: var(--ink2); margin-bottom: 3px; }
-  .topic-bar-track { height: 8px; background: var(--border); border-radius: var(--r-pill); overflow: hidden; }
-  .topic-bar-fill { height: 100%; border-radius: var(--r-pill); width: 0; transition: width 0.6s ease; }
-  .type-grid { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 8px; margin-bottom: 16px; }
-  .type-cell { background: var(--surface2); border: 1px solid var(--border); border-radius: var(--r-sm); padding: 10px 8px; text-align: center; }
-  .type-cell .ti { font-size: 1.3rem; margin-bottom: 3px; }
-  .type-cell .tv { font-size: 1.1rem; font-weight: 700; color: var(--ink); }
-  .type-cell .tl { font-size: 0.68rem; color: var(--ink3); }
-  .focus-card { border-radius: var(--r-sm); padding: 10px 12px; margin-bottom: 7px; font-size: 0.78rem; color: var(--ink2); line-height: 1.5; }
-  .fc-critical { background: rgba(232,48,42,0.07); border-left: 3px solid var(--primary); }
-  .fc-warning { background: rgba(217,119,6,0.07); border-left: 3px solid var(--amber); }
-  .fc-good { background: rgba(22,163,74,0.07); border-left: 3px solid var(--green); }
-  .verdict-box { background: var(--surface2); border: 1px solid var(--border); border-radius: var(--r-card); padding: 14px; font-size: 0.82rem; color: var(--ink2); line-height: 1.6; }
-  .modal-footer { padding: 12px 16px 24px; display: flex; gap: 8px; border-top: 1px solid var(--border); }
-  .btn-secondary { flex: 1; background: var(--surface2); border: 1px solid var(--border); color: var(--ink2); border-radius: var(--r-sm); padding: 10px; font-family: 'Inter', sans-serif; font-size: 0.84rem; font-weight: 600; cursor: pointer; }
-  .btn-primary { flex: 1; background: var(--primary); color: #fff; border: none; border-radius: var(--r-sm); padding: 10px; font-family: 'Inter', sans-serif; font-size: 0.84rem; font-weight: 600; cursor: pointer; }
-  .btn-primary:hover { background: var(--primary-dark); }
+.score-grid{display:grid; grid-template-columns:repeat(4,1fr); gap:10px; margin-bottom:20px;}
+@media (max-width:400px){.score-grid{grid-template-columns:1fr 1fr;}}
+.score-cell{
+  padding:14px 8px; border-radius:var(--r-input); text-align:center;
+}
+.score-cell .num{font-size:1.3rem; font-weight:800; font-family:var(--font-mono); line-height:1.1;}
+.score-cell .lbl{font-size:0.66rem; color:var(--ink3); margin-top:4px; font-weight:600; text-transform:uppercase;}
+.score-cell.correct{background:var(--green-bg);} .score-cell.correct .num{color:var(--green);}
+.score-cell.wrong{background:var(--red-bg);} .score-cell.wrong .num{color:var(--red);}
+.score-cell.attempted{background:var(--blue-bg);} .score-cell.attempted .num{color:var(--blue);}
 
-  /* BOTTOM NAV */
-  .bottom-nav {
-    position: fixed; bottom: 0; left: 0; right: 0; height: 56px;
-    background: var(--surface); border-top: 1px solid var(--border);
-    display: flex; z-index: 80;
-  }
-  .bnav-item { flex: 1; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 2px; cursor: pointer; text-decoration: none; }
-  .bnav-icon { font-size: 18px; }
-  .bnav-label { font-size: 0.64rem; font-weight: 600; color: var(--ink3); }
-  .bnav-item.active .bnav-label { color: var(--primary); }
+.modal-section-title{font-size:0.86rem; font-weight:700; margin:22px 0 10px; color:var(--ink);}
+.modal-section-title:first-of-type{margin-top:0;}
+.topic-bar-row{margin-bottom:10px;}
+.topic-bar-row .tbr-top{display:flex; justify-content:space-between; font-size:0.78rem; margin-bottom:5px;}
+.topic-bar-row .tbr-top .name{font-weight:600; color:var(--ink2);}
+.topic-bar-row .tbr-top .pct{font-family:var(--font-mono); font-weight:700;}
+.tbr-track{height:8px; background:var(--surface2); border-radius:999px; overflow:hidden;}
+.tbr-fill{height:100%; width:0%; border-radius:999px; transition:width 1s cubic-bezier(.16,1,.3,1);}
+
+.type-grid{display:grid; grid-template-columns:repeat(3,1fr); gap:8px;}
+.type-cell{background:var(--surface2); border-radius:var(--r-input); padding:12px 8px; text-align:center;}
+.type-cell .emoji{font-size:1.1rem; margin-bottom:4px;}
+.type-cell .tname{font-size:0.68rem; color:var(--ink3); font-weight:600;}
+.type-cell .tscore{font-family:var(--font-mono); font-weight:700; font-size:0.84rem; margin-top:2px;}
+
+.focus-card{
+  display:flex; gap:10px; padding:12px 14px; border-radius:var(--r-input); margin-bottom:8px; align-items:flex-start;
+}
+.focus-card.critical{background:var(--red-bg);}
+.focus-card.warning{background:var(--amber-bg);}
+.focus-card.good{background:var(--green-bg);}
+.focus-card .ficon{font-size:1rem; flex-shrink:0;}
+.focus-card .ftext{font-size:0.82rem; line-height:1.5; color:var(--ink2);}
+.focus-card .ftext b{color:var(--ink);}
+
+.verdict-box{
+  background:var(--ink); color:var(--surface); border-radius:var(--r-card); padding:18px;
+  font-size:0.86rem; line-height:1.6; margin-top:18px;
+}
+@media (prefers-color-scheme: dark){.verdict-box{background:var(--surface2); color:var(--ink);}}
+.verdict-box .vtitle{font-weight:700; margin-bottom:6px; display:flex; align-items:center; gap:6px;}
+
+/* ---------- BOTTOM NAV ---------- */
+.bottom-nav{
+  position:fixed; bottom:0; left:0; right:0; height:60px; background:var(--surface);
+  border-top:1px solid var(--border); display:flex; z-index:80;
+}
+.bn-item{
+  flex:1; display:flex; flex-direction:column; align-items:center; justify-content:center; gap:2px;
+  font-size:0.66rem; color:var(--ink4); font-weight:600;
+}
+.bn-item .bn-icon{font-size:1.1rem;}
+.bn-item.active{color:var(--red);}
+
+@media (max-width:480px){
+  .hero h1{font-size:1.3rem;}
+  .stat-pill{font-size:0.7rem; padding:6px 10px;}
+}
 </style>
 </head>
 <body>
 
 <!-- TOP NAV -->
-<nav class="top-nav">
+<div class="top-nav">
   <div class="nav-left">
     <button class="back-btn" onclick="history.back()">←</button>
     <div class="logo-box">
-      <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-        <rect x="4" y="2" width="12" height="16" rx="2" fill="white" opacity="0.9"/>
-        <path d="M8 18 Q12 22 16 18" stroke="white" stroke-width="1.5" fill="none" stroke-linecap="round"/>
-        <line x1="7" y1="7" x2="13" y2="7" stroke="#E8302A" stroke-width="1.2" stroke-linecap="round"/>
-        <line x1="7" y1="10" x2="13" y2="10" stroke="#E8302A" stroke-width="1.2" stroke-linecap="round"/>
-        <line x1="7" y1="13" x2="11" y2="13" stroke="#E8302A" stroke-width="1.2" stroke-linecap="round"/>
+      <svg width="20" height="20" viewBox="0 0 24 24" fill="none">
+        <rect x="4" y="2" width="13" height="18" rx="2" fill="#E8302A"/>
+        <path d="M17 9c2 0 4 1.5 4 4s-2 4-4 4" stroke="#9E9EA8" stroke-width="1.6" fill="none" stroke-linecap="round"/>
+        <path d="M19 6c2.5 1.5 3.5 4 3.5 7" stroke="#9E9EA8" stroke-width="1.2" fill="none" stroke-linecap="round" opacity="0.6"/>
       </svg>
     </div>
     <div class="brand-text">
-      <span class="brand-name">PDFNest</span>
-      <span class="brand-sub">Quiz Mode</span>
+      <div class="b1">PDFNest</div>
+      <div class="b2">Quiz Mode</div>
     </div>
   </div>
   <div class="nav-right">
     <div class="timer-chip">⏱ <span id="timer">00:00</span></div>
-    <button class="bk-btn" onclick="toggleBookmarks()" title="Bookmarks">🔖</button>
-  </div>
-</nav>
-
-<!-- HERO -->
-<div class="hero">
-  <div class="breadcrumb">AFIT › 100 Level › Physics › <span>PHY 104 Quiz</span></div>
-  <div class="hero-tag">AFIT · 100 LEVEL · PHYSICS</div>
-  <h1>General Physics II — <em>PHY 104</em></h1>
-  <p class="hero-sub">Weeks 1–11 · 80 Questions · Lecture Notes + Past Questions</p>
-  <div class="stats-row">
-    <div class="stat-chip stat-blue">👁 Showing: <strong id="stat-showing">80</strong></div>
-    <div class="stat-chip stat-green">✅ Correct: <strong id="stat-correct">0</strong></div>
-    <div class="stat-chip stat-red">❌ Wrong: <strong id="stat-wrong">0</strong></div>
-    <div class="stat-chip stat-purple">📝 Attempted: <strong id="stat-attempted">0</strong></div>
-    <div class="stat-chip stat-amber">🎯 Score: <strong id="stat-score">0%</strong></div>
-  </div>
-  <div class="progress-wrap">
-    <div class="progress-bar-track"><div class="progress-bar-fill" id="progress-fill"></div></div>
-    <span class="progress-label"><span id="progress-label">0 / 80</span></span>
+    <button class="bk-toggle-btn" id="bkToggleBtn" onclick="toggleBookmarks()">🔖</button>
   </div>
 </div>
 
-<!-- ACTION ROW -->
+<!-- HERO -->
+<div class="hero">
+  <div class="breadcrumb">
+    <span>AFIT</span><span class="sep">›</span><span>100 Level</span><span class="sep">›</span><span>Computer Science</span><span class="sep">›</span><span class="current">CSC 114 Quiz</span>
+  </div>
+  <div class="hero-inner">
+    <span class="hero-tag">AFIT · 100 LEVEL · COMPUTER SCIENCE</span>
+    <h1>CSC 114 — <em>Digital &amp; Virtual Libraries</em> + Cloud Computing</h1>
+    <p class="subtitle">Weeks 1–9 · 80 questions · Source: AFIT Lecture Notes &amp; Group 3 Cloud Computing Presentations</p>
+    <div class="stats-row">
+      <span class="stat-pill showing"><span class="lbl">Showing</span> <span id="statShowing">80</span></span>
+      <span class="stat-pill correct"><span class="lbl">Correct</span> <span id="statCorrect">0</span></span>
+      <span class="stat-pill wrong"><span class="lbl">Wrong</span> <span id="statWrong">0</span></span>
+      <span class="stat-pill attempted"><span class="lbl">Attempted</span> <span id="statAttempted">0</span></span>
+      <span class="stat-pill score"><span class="lbl">Score</span> <span id="statScore">0%</span></span>
+    </div>
+    <div class="progress-wrap">
+      <div class="progress-track"><div class="progress-fill" id="progressFill"></div></div>
+      <div class="progress-label"><span id="progressLabel">0 / 80</span></div>
+    </div>
+  </div>
+</div>
+
+<!-- ACTION BUTTONS -->
 <div class="action-row">
   <button class="btn btn-outline" onclick="shuffleQuestions()">🔀 Shuffle</button>
   <button class="btn btn-ghost-red" onclick="revealAll()">👁 Reveal All</button>
   <button class="btn btn-danger" onclick="resetQuiz()">↺ Reset</button>
 </div>
 
-<!-- MAIN -->
-<div class="main">
-  <!-- BOOKMARKS PANEL -->
+<!-- MAIN CONTENT -->
+<div class="main-content">
+
   <div class="bm-card" id="bm-card">
-    <div class="bm-title">🔖 Bookmarked Questions</div>
-    <div id="bm-list"><span class="bm-empty">No bookmarks yet. Click 🔖 on a card to save it.</span></div>
+    <h4>🔖 Bookmarked Questions</h4>
+    <div class="bm-list" id="bm-list"><span class="bm-empty">No bookmarks yet — tap 🔖 on any question.</span></div>
   </div>
 
-  <!-- TOPIC SUMMARY -->
-  <div class="sum-card" id="sum-card">
+  <div class="sum-card">
     <button class="sum-toggle" id="sum-toggle" onclick="toggleSummary()">
-      <span class="sum-toggle-left">📚 Topic Revision Summary</span>
-      <span class="sum-arrow">▼</span>
+      <span class="left">📚 Topic Revision Summary</span>
+      <span class="arrow">▼</span>
     </button>
-    <div id="sum-body">
-      <div class="sum-week">
-        <div class="sum-week-title">Week 1 — Simple Harmonic Motion (SHM)</div>
-        <p>SHM is motion where <span class="chip">acceleration ∝ –displacement</span>. Key equations: <span class="chip">x = A sin(ωt)</span>, <span class="chip">v = ω√(A²–x²)</span>, <span class="chip">a = –ω²x</span>. For a spring: <span class="chip">T = 2π√(m/k)</span>. For a pendulum: <span class="chip">T = 2π√(L/g)</span>. Total energy = <span class="chip">½kA²</span> (constant). At equilibrium KE is max, at amplitude PE is max.</p>
-      </div>
-      <div class="sum-week">
-        <div class="sum-week-title">Weeks 2–3 — Waves & Wave Motion</div>
-        <p>A wave transfers energy without transferring matter. Key quantities: <span class="chip">v = fλ</span>, <span class="chip">T = 1/f</span>, <span class="chip">ω = 2πf</span>. Wave equation: <span class="chip">y = A sin(ωt – kx)</span>. <span class="chip">Transverse waves</span> vibrate ⊥ to propagation (light, strings). <span class="chip">Longitudinal waves</span> vibrate ∥ to propagation (sound). Properties: reflection, refraction, diffraction, interference, polarisation (transverse only).</p>
-      </div>
-      <div class="sum-week">
-        <div class="sum-week-title">Weeks 4–5 — Sound Waves & Intensity</div>
-        <p>Sound is a longitudinal mechanical wave. Speed in air ≈ <span class="chip">330 m/s at 0°C</span>, increases by 0.6 m/s per °C. <span class="chip">Intensity = P/(4πr²)</span>. Sound level: <span class="chip">β = 10 log(I/I₀)</span> dB, where I₀ = 10⁻¹² W/m². <span class="chip">Constructive interference</span>: waves in phase → amplitude doubles. <span class="chip">Destructive</span>: 180° out of phase → cancellation.</p>
-      </div>
-      <div class="sum-week">
-        <div class="sum-week-title">Weeks 6–7 — Doppler Effect</div>
-        <p>Observed frequency changes when source/observer moves. General formula: <span class="chip">f' = f(v ± v_o)/(v ∓ v_s)</span>. Use + in numerator when observer moves toward source; – in denominator when source moves toward observer. Applications: radar speed guns, medical ultrasound, astronomy (<span class="chip">redshift</span>).</p>
-      </div>
-      <div class="sum-week">
-        <div class="sum-week-title">Weeks 8–9 — Strings, Pipes & Harmonics</div>
-        <p>Standing waves on strings: <span class="chip">f_n = nv/(2L)</span>. Closed pipe: <span class="chip">f_n = (2n–1)v/(4L)</span> (odd harmonics only). Open pipe: <span class="chip">f_n = nv/(2L)</span>. Beats: <span class="chip">f_beat = |f₁ – f₂|</span>. Sonometer law: <span class="chip">f ∝ √T, f ∝ 1/L, f ∝ 1/√μ</span>.</p>
-      </div>
-      <div class="sum-week">
-        <div class="sum-week-title">Weeks 10–11 — Optics & Huygens' Principle</div>
-        <p>Mirror formula: <span class="chip">1/f = 1/u + 1/v</span>, magnification <span class="chip">m = –v/u</span>. Snell's law: <span class="chip">n₁ sin θ₁ = n₂ sin θ₂</span>. Refractive index: <span class="chip">n = c/v</span>. Total internal reflection occurs when <span class="chip">θ_i > θ_c</span> (denser → less dense). Lens formula: <span class="chip">1/f = 1/v – 1/u</span>. Power of lens: <span class="chip">P = 1/f</span> (in dioptres). Huygens' principle: every wavefront point is a source of secondary wavelets.</p>
-      </div>
+    <div class="sum-body" id="sum-body">
+      <h5>Week 1 — Foundations</h5>
+      <p>A <span class="chip">library</span> is an organized collection of resources (physical/digital) for access, education, and community support. Three types: <span class="chip">Traditional</span> (physical, in-person), <span class="chip">Digital Library</span> (organized digital collection, access via computer terminals/local network), and <span class="chip">Virtual Library</span> (a digital library linked to the <span class="chip">Internet</span> for remote access from anywhere).</p>
+      <p>Key idea: a digital library becomes virtual <em>once linked to the Internet</em>. Per <span class="chip">Usman (2019)</span>, a virtual library provides a single interface/entry point with remote access. <span class="chip">Gapen (1993)</span> emphasizes "remote access to contents and services," combining onsite electronic collections with external networked sources.</p>
+      <p>Evolution timeline: <span class="chip">1965 Licklider</span> envisioned digital libraries → <span class="chip">1968 MARC</span> (Library of Congress) → <span class="chip">1971 Project Gutenberg</span> (Michael Hart, first digital book) → <span class="chip">1991 arXiv.org</span> → <span class="chip">1994 DLI</span> (NSF/DARPA/NASA) → <span class="chip">1996 Google</span> founded → <span class="chip">2000 DOI</span> system → <span class="chip">2004 Google Books</span> → <span class="chip">2008 DOAJ</span> → <span class="chip">2011 HathiTrust</span>.</p>
+
+      <h5>Week 2 — Building &amp; Architecture</h5>
+      <p>Building a digital library: (1) <span class="chip">acquisition</span> of original digital content with author/copyright permission, (2) <span class="chip">conversion</span> of non-digital documents via <span class="chip">OCR</span> into an Institutional Digital Repository (IDR), (3) subscribing/linking to open-access or licensed content, (4) <span class="chip">rights management</span> and user authentication.</p>
+      <p>Services: online full-text databases, offline <span class="chip">CD-ROM databases</span> (useful where Internet access is limited), <span class="chip">OPAC</span> (Online Public Access Catalogue — search by author/title/keyword/call number), online reference services, and Internet access provision.</p>
+      <p><span class="chip">Alexandria Digital Library (ADL)</span> — three-tier architecture: Client → Middleware → Server, hosted at UC Santa Barbara, focused on geographically referenced materials. <span class="chip">Greenstone (GSDL)</span> — built by University of Waikato with UNESCO, generates HTML pages from retrieved info, aimed at the developing world.</p>
+
+      <h5>Week 3 — Technologies &amp; Platforms</h5>
+      <p>Library management software: <span class="chip">Koha</span> (open-source ILS), <span class="chip">NewGenLib</span>, <span class="chip">CodeAchi</span>, <span class="chip">BiblioteQ</span>, Handy Library Manager. Digital library platforms: <span class="chip">DSpace</span>, <span class="chip">Greenstone</span>, <span class="chip">Eprints</span>, <span class="chip">Omeka</span>.</p>
+      <p>Cloud computing benefits for libraries: cost reduction, enhanced accessibility, scalability/flexibility, collaboration/sharing, but raises data security/privacy concerns. AI assists with information retrieval, library operations management, and accessibility (chatbots, personalized recommendations).</p>
+
+      <h5>Weeks 4–5 — Metadata</h5>
+      <p><span class="chip">Metadata</span> = descriptive data about content, not the content itself (author, date, file size, keywords). Standards: <span class="chip">Dublin Core</span> (15 core elements: creator, title, date, subject, etc. — broad resource description), <span class="chip">MARC</span> (library bibliographic cataloging/exchange standard), <span class="chip">MODS</span> (metadata syndication/harvesting for digital info packages).</p>
+      <p><span class="chip">Indexing</span> = assigning keywords/subject terms for retrieval. <span class="chip">Cataloging</span> = creating metadata that describes/organizes resources for accessibility.</p>
+
+      <h5>Weeks 6–7 — Preservation &amp; Access</h5>
+      <p><span class="chip">Digital Right Management (DRM)</span> uses access control to prevent unauthorized use/protect IP. <span class="chip">Open access</span> = free, unrestricted research access vs. <span class="chip">subscription-based</span> = requires paid access. Cybersecurity protects systems/data from cyberattacks; ethics covers privacy and responsible data handling.</p>
+
+      <h5>Weeks 8–9 — Virtual Libraries &amp; Trends</h5>
+      <p>Digital library = collection of digital objects in machine-readable formats; virtual library = emphasizes <em>access/organization</em> via internet links rather than the collection itself. Applications: academic (<span class="chip">Google Scholar</span>, IEEE Xplore), e-books (Kindle, Google Books), public apps (Libby, OverDrive), specialized (<span class="chip">Project Gutenberg</span>, Sci-Hub). <span class="chip">Blockchain</span> enhances security, transparency, and IP management via a distributed immutable ledger.</p>
+
+      <h5>Cloud Computing — Core Concepts (NIST)</h5>
+      <p>Five essential characteristics: <span class="chip">On-Demand Self-Service</span>, <span class="chip">Broad Network Access</span>, <span class="chip">Resource Pooling</span> (multi-tenant), <span class="chip">Rapid Elasticity</span>, <span class="chip">Measured Service</span> (utility billing). Originated conceptually in <span class="chip">1961 (John McCarthy)</span>; SaaS pioneered by <span class="chip">Salesforce (1999)</span>; modern era began with <span class="chip">AWS EC2 (2006)</span>, followed by Azure (2010) and GCP.</p>
+      <p>Service models (SPI): <span class="chip">IaaS</span> (provider manages hardware; e.g. AWS EC2), <span class="chip">PaaS</span> (provider manages infra+platform; e.g. Google App Engine), <span class="chip">SaaS</span> (fully managed apps; e.g. Microsoft 365). Emerging: <span class="chip">FaaS/Serverless</span> (AWS Lambda), <span class="chip">DBaaS</span> (Amazon RDS), <span class="chip">AIaaS</span> (SageMaker/Vertex AI).</p>
+      <p>Deployment models: <span class="chip">Public</span> (shared, low cost), <span class="chip">Private</span> (dedicated, high control), <span class="chip">Hybrid</span> (mix for sensitive + bursting workloads), <span class="chip">Multi-Cloud</span> (multiple public providers, ~90% of enterprises, avoids lock-in).</p>
+      <p>Technologies: <span class="chip">Virtualization</span> (hypervisors raise utilization from 10-20% to 60-80%), <span class="chip">Containerization</span> (Docker) + <span class="chip">Kubernetes</span> orchestration, <span class="chip">Microservices</span>, <span class="chip">IaC</span> (Terraform). Market leaders: <span class="chip">AWS</span> (~30-32%), <span class="chip">Azure</span> (~20-25%), <span class="chip">GCP</span> (~10-12%) — together ~65-70% share.</p>
+      <p>Security: <span class="chip">Shared Responsibility Model</span> — provider secures "of the cloud," customer secures "in the cloud" (responsibility decreases IaaS→PaaS→SaaS). Key tech: zero-trust, IAM, encryption (AES-256, TLS 1.3), confidential computing. Compliance: GDPR, CCPA, HIPAA, PCI DSS.</p>
     </div>
   </div>
 
-  <!-- SEARCH -->
-  <div class="search-wrap">
-    <span class="search-icon">🔍</span>
-    <input type="text" class="search-input" placeholder="Search questions…" id="search-input" oninput="filterQuestions()">
+  <div class="search-box">
+    <span class="icon">🔍</span>
+    <input type="text" id="searchInput" placeholder="Search questions..." oninput="filterQuestions(this.value)">
   </div>
 
-  <!-- FILTERS -->
-  <div class="filter-row" id="filter-row"></div>
+  <div class="filter-row" id="filterRow"></div>
+  <div class="shuffle-note" id="shuffleNote">🔀 Shuffled — reset to restore order</div>
 
-  <!-- SHUFFLE NOTE -->
-  <div class="shuffle-note" id="shuffle-note">🔀 Shuffled — reset to restore order</div>
-
-  <!-- Q LIST -->
   <div id="q-list"></div>
 
-  <!-- NO RESULTS -->
-  <div class="no-results" id="no-results">
-    <div class="no-results-icon">🔎</div>
-    <h3>No questions found</h3>
-    <p>Try a different search term or select "All" topics.</p>
+  <div class="no-results" id="noResults">
+    <div class="emoji">🔍</div>
+    <div>No questions match your search or filter.</div>
   </div>
 </div>
 
-<!-- DIAGNOSIS BAR -->
-<div class="diag-bar" id="diag-bar">
+<!-- DIAGNOSIS STICKY BAR -->
+<div class="diag-bar" id="diagBar">
   <button class="diag-btn" onclick="openModal()">📊 View My Learning Diagnosis</button>
 </div>
 
 <!-- MODAL -->
-<div class="modal-overlay" id="modal-overlay" onclick="closeModalOutside(event)">
-  <div class="modal">
+<div class="modal-overlay" id="modalOverlay" onclick="closeModalOutside(event)">
+  <div class="modal-sheet" onclick="event.stopPropagation()">
     <div class="modal-handle"></div>
     <div class="modal-header">
-      <div class="modal-title">📊 Learning Diagnosis</div>
+      <h3>📊 Learning Diagnosis</h3>
       <button class="modal-close" onclick="closeModal()">✕</button>
     </div>
-    <div id="modal-body"></div>
+    <div class="modal-body" id="modal-body"></div>
     <div class="modal-footer">
-      <button class="btn-secondary" onclick="closeModal()">Close</button>
-      <button class="btn-primary" onclick="resetQuiz();closeModal()">↺ Retake Quiz</button>
+      <button class="btn btn-secondary" onclick="closeModal()">Close</button>
+      <button class="btn btn-primary-red" onclick="resetQuiz(); closeModal();">↺ Retake Quiz</button>
     </div>
   </div>
 </div>
 
 <!-- BOTTOM NAV -->
-<nav class="bottom-nav">
-  <a class="bnav-item active" href="#">
-    <span class="bnav-icon">🏠</span>
-    <span class="bnav-label">Home</span>
-  </a>
-  <a class="bnav-item" href="#">
-    <span class="bnav-icon">➕</span>
-    <span class="bnav-label">Contribute</span>
-  </a>
-  <a class="bnav-item" href="#">
-    <span class="bnav-icon">👤</span>
-    <span class="bnav-label">Profile</span>
-  </a>
-</nav>
+<div class="bottom-nav">
+  <div class="bn-item active"><span class="bn-icon">🏠</span>Home</div>
+  <div class="bn-item"><span class="bn-icon">➕</span>Contribute</div>
+  <div class="bn-item"><span class="bn-icon">👤</span>Profile</div>
+</div>
 
 <script>
 const questions = [
-  // ── SHM (1–18) ──────────────────────────────────────────────────
-  {id:1,topic:"SHM",type:"Theory",text:"Simple harmonic motion is defined as motion in which the acceleration is:",options:["Constant and directed away from a fixed point","Proportional to displacement and directed toward a fixed point","Proportional to velocity and directed toward equilibrium","Independent of displacement"],answer:1,explanation:"SHM requires a = –ω²x, meaning acceleration is directly proportional to displacement but directed toward the equilibrium (fixed) point."},
-  {id:2,topic:"SHM",type:"Theory",text:"Which of the following is an example of SHM?",options:["Earth spinning about its own axis","Ball bouncing between two rigid walls","Prongs of a vibrating tuning fork","Particle moving in a circle with uniform speed"],answer:2,explanation:"The prongs of a vibrating tuning fork execute to-and-fro motion about their equilibrium position with restoring force proportional to displacement — classic SHM."},
-  {id:3,topic:"SHM",type:"Calculation",text:"A body executes SHM with frequency 20 Hz. What is its period?",options:["20 s","0.05 s","π/2 s","20π s"],answer:1,explanation:"T = 1/f = 1/20 = 0.05 s."},
-  {id:4,topic:"SHM",type:"Theory",text:"At the mean (equilibrium) position of SHM, the acceleration of the particle is:",options:["Maximum","Minimum","Zero","Constant"],answer:2,explanation:"Since a = –ω²x, when x = 0 (mean position), acceleration = 0."},
-  {id:5,topic:"SHM",type:"Theory",text:"The maximum velocity in SHM occurs at:",options:["The amplitude","The equilibrium position","Any random position","The endpoints of oscillation"],answer:1,explanation:"v = ω√(A² – x²) is maximum when x = 0 (equilibrium position), giving v_max = ωA."},
-  {id:6,topic:"SHM",type:"Calculation",text:"A 50-g mass vibrates in SHM with amplitude 12 cm and period 1.70 s. The spring constant is approximately:",options:["0.45 N/m","0.68 N/m","1.20 N/m","2.50 N/m"],answer:1,explanation:"k = 4π²m/T² = 4π²(0.050)/(1.70)² ≈ 0.68 N/m."},
-  {id:7,topic:"SHM",type:"Calculation",text:"A spring stretches 6.0 cm when a mass is hung on it. The period of oscillation when the mass is pulled and released is approximately:",options:["0.49 s","0.84 s","1.05 s","0.25 s"],answer:0,explanation:"T = 2π√(e/g) = 2π√(0.060/9.8) ≈ 0.49 s."},
-  {id:8,topic:"SHM",type:"Theory",text:"The total mechanical energy of a simple harmonic oscillator is:",options:["½mv²","½kA²","½kx²","mgh"],answer:1,explanation:"Total energy E = K + U = ½kA² = constant. This is both the maximum KE (at x=0) and maximum PE (at x=±A)."},
-  {id:9,topic:"SHM",type:"Calculation",text:"A 200-g mass vibrates on a spring (k = 7.0 N/m) with amplitude 5.0 cm. Its maximum speed is:",options:["0.20 m/s","0.30 m/s","0.42 m/s","0.60 m/s"],answer:1,explanation:"v_max = A√(k/m) = 0.05√(7.0/0.200) = 0.05 × 5.92 ≈ 0.30 m/s."},
-  {id:10,topic:"SHM",type:"Theory",text:"For a simple pendulum, if the length is quadrupled the period:",options:["Doubles","Halves","Quadruples","Remains the same"],answer:0,explanation:"T = 2π√(L/g). If L → 4L, T → 2π√(4L/g) = 2T. The period doubles."},
-  {id:11,topic:"SHM",type:"Theory",text:"In SHM, when does kinetic energy equal potential energy?",options:["When x = A","When x = A/√2","When x = A/2","When x = 0"],answer:1,explanation:"KE = PE when ½k(A²–x²) = ½kx², which gives x = A/√2."},
-  {id:12,topic:"SHM",type:"Theory",text:"The restoring force in a spring-mass system follows Hooke's law. When the spring constant k is increased:",options:["Period increases","Period decreases","Period is unchanged","Amplitude increases"],answer:1,explanation:"T = 2π√(m/k). A larger k means shorter period, so the oscillator vibrates faster."},
-  {id:13,topic:"SHM",type:"Calculation",text:"A particle executes SHM: x = (4.00 m)cos(πt + π/4). What is the amplitude?",options:["π m","4.00 m","π/4 m","2.00 m"],answer:1,explanation:"By comparison with x = A cos(ωt + φ), the amplitude A = 4.00 m."},
-  {id:14,topic:"SHM",type:"Calculation",text:"For the motion x = (4.00 m)cos(πt + π/4), the angular frequency ω is:",options:["4.00 rad/s","π/4 rad/s","π rad/s","2π rad/s"],answer:2,explanation:"Comparing with x = A cos(ωt + φ), ω = π rad/s."},
-  {id:15,topic:"SHM",type:"Theory",text:"Two oscillations with the same amplitude and frequency but a phase difference of π radians are said to be:",options:["In phase","In antiphase","90° out of phase","Coherent"],answer:1,explanation:"A phase difference of π means one reaches maximum positive displacement exactly when the other reaches maximum negative — they are in antiphase."},
-  {id:16,topic:"SHM",type:"Calculation",text:"A spring makes 12 vibrations in 40 s. Its frequency is:",options:["0.30 Hz","3.0 Hz","12 Hz","40 Hz"],answer:0,explanation:"f = vibrations/time = 12/40 = 0.30 Hz."},
-  {id:17,topic:"SHM",type:"Theory",text:"The frequency of energy change (PE ↔ KE) in SHM is:",options:["Equal to the oscillation frequency","Half the oscillation frequency","Twice the oscillation frequency","Unrelated to oscillation frequency"],answer:2,explanation:"Both KE and PE vary as squared functions of x and t, acquiring the same value twice per oscillation, so energy changes at twice the oscillation frequency."},
-  {id:18,topic:"SHM",type:"Calculation",text:"A 20-kg electric motor is mounted on four vertical springs each with k = 30 N/cm. The period of vertical vibration is:",options:["0.10 s","0.26 s","0.52 s","1.00 s"],answer:1,explanation:"Effective k = 4 × 3000 = 12 000 N/m. T = 2π√(20/12000) ≈ 0.26 s."},
-
-  // ── WAVES (19–34) ─────────────────────────────────────────────
-  {id:19,topic:"Wave Motion",type:"Theory",text:"A wave is best described as:",options:["Transfer of matter from one point to another","Disturbance that transfers energy without displacing the medium permanently","Motion of particles back and forth","Electromagnetic radiation only"],answer:1,explanation:"A wave transfers energy (and momentum) through a medium (or space) without permanently displacing the particles of the medium."},
-  {id:20,topic:"Wave Motion",type:"Theory",text:"Transverse waves differ from longitudinal waves in that:",options:["Transverse waves require a medium","Transverse vibrations are perpendicular to propagation direction","Longitudinal waves carry more energy","Longitudinal waves cannot be reflected"],answer:1,explanation:"In transverse waves the particle vibration is perpendicular (⊥) to the direction of wave travel; in longitudinal waves they are parallel (‖)."},
-  {id:21,topic:"Wave Motion",type:"Calculation",text:"A radio station at 500 kHz has a wave speed of 3 × 10⁸ m/s. Its wavelength is:",options:["150 m","300 m","600 m","1500 m"],answer:2,explanation:"λ = v/f = 3×10⁸ / 5×10⁵ = 600 m."},
-  {id:22,topic:"Wave Motion",type:"Calculation",text:"A sound wave of frequency 580 Hz has wavelength 0.6 m. The temperature of the air is approximately:",options:["0°C","15°C","25°C","55°C"],answer:2,explanation:"v = fλ = 580 × 0.6 = 348 m/s. Since v = 330 + 0.6T → T = (348–330)/0.6 = 30°C. Closest answer is 25°C (textbook rounds differently)."},
-  {id:23,topic:"Wave Motion",type:"Theory",text:"The refractive index of a medium is defined as:",options:["Ratio of angle of incidence to angle of refraction","Ratio of wavelength in medium 1 to wavelength in medium 2","Ratio of wave speed in medium 1 to wave speed in medium 2","Ratio of frequency in medium 1 to frequency in medium 2"],answer:2,explanation:"Refractive index n = v₁/v₂ (ratio of wave speeds). Note: frequency does NOT change on refraction."},
-  {id:24,topic:"Wave Motion",type:"Theory",text:"Which of the following is NOT a property of waves?",options:["Reflection","Refraction","Diffraction","Permanent displacement of medium"],answer:3,explanation:"Waves reflect, refract, diffract, interfere, and (for transverse waves) polarise. They do NOT permanently displace the medium."},
-  {id:25,topic:"Wave Motion",type:"Theory",text:"Constructive interference occurs when two waves:",options:["Are 180° out of phase","Have different frequencies","Are in phase (phase difference = 0, 2π, 4π…)","Travel in opposite directions only"],answer:2,explanation:"Constructive interference requires the waves to be in phase. The resultant amplitude is 2A and intensity is 4 times each individual intensity."},
-  {id:26,topic:"Wave Motion",type:"Calculation",text:"The wave equation y = 0.2 sin(800πt − 2πx) has angular frequency ω equal to:",options:["2π rad/s","800 rad/s","800π rad/s","400 rad/s"],answer:2,explanation:"Comparing with y = A sin(ωt – kx), ω = 800π rad/s."},
-  {id:27,topic:"Wave Motion",type:"Calculation",text:"Water waves travel at 3.6 m/s with successive crests 0.45 m apart. The frequency is:",options:["4 Hz","8 Hz","16 Hz","0.4 Hz"],answer:1,explanation:"f = v/λ = 3.6/0.45 = 8 Hz."},
-  {id:28,topic:"Wave Motion",type:"Theory",text:"In a stationary wave, a node is:",options:["A point of maximum displacement","A point of zero displacement","A region of constructive interference","A point where the wave reverses direction"],answer:1,explanation:"A node in a standing wave is a fixed point of zero displacement. Antinodes are points of maximum displacement."},
-  {id:29,topic:"Wave Motion",type:"Theory",text:"The distance between two consecutive nodes in a standing wave is:",options:["λ/4","λ/2","λ","2λ"],answer:1,explanation:"Adjacent nodes are separated by λ/2. Adjacent nodes and antinodes are λ/4 apart."},
-  {id:30,topic:"Wave Motion",type:"Theory",text:"Which type of wave CANNOT be polarised?",options:["Light waves","Radio waves","Sound waves","X-rays"],answer:2,explanation:"Only transverse waves can be polarised. Sound is a longitudinal wave and therefore cannot be polarised."},
-  {id:31,topic:"Wave Motion",type:"Theory",text:"The principle of superposition states that:",options:["Two waves cannot occupy the same space","The resultant displacement equals the algebraic sum of individual displacements","Energy is conserved when waves combine","Waves always produce constructive interference"],answer:1,explanation:"Superposition principle: when two or more waves overlap, the resultant displacement at any point is the algebraic sum of the individual displacements."},
-  {id:32,topic:"Wave Motion",type:"Calculation",text:"A plane progressive wave is y = 5 sin(2πt − πx). Its wave speed is:",options:["2 m/s","π m/s","1 m/s","5 m/s"],answer:0,explanation:"v = ω/k = 2π/π = 2 m/s."},
-  {id:33,topic:"Wave Motion",type:"Theory",text:"Diffraction is most significant when the slit width is:",options:["Much larger than the wavelength","Much smaller than the wavelength","Equal to or smaller than the wavelength","Independent of wavelength"],answer:2,explanation:"Diffraction is most pronounced when the obstacle or slit width is comparable to or smaller than the wavelength."},
-  {id:34,topic:"Wave Motion",type:"Theory",text:"The speed of sound in a medium increases as you go from:",options:["Gas → liquid → solid","Solid → liquid → gas","Liquid → gas → solid","Gas → solid → liquid"],answer:0,explanation:"Speed of sound is greatest in solids, less in liquids, and least in gases because of differences in elastic modulus and density."},
-
-  // ── SOUND & INTENSITY (35–44) ──────────────────────────────────
-  {id:35,topic:"Sound",type:"Calculation",text:"A room has a noise level of 85 dB. If I₀ = 10⁻¹² W/m², the sound intensity is:",options:["10⁻⁴ W/m²","3.16 × 10⁻⁴ W/m²","10⁻³ W/m²","85 × 10⁻¹² W/m²"],answer:1,explanation:"β = 10 log(I/I₀) → 85 = 10 log(I/10⁻¹²) → I = 10^(8.5) × 10⁻¹² = 3.16 × 10⁻⁴ W/m²."},
-  {id:36,topic:"Sound",type:"Theory",text:"The threshold of hearing I₀ is:",options:["10⁻¹⁰ W/m²","10⁻¹² W/m²","10⁻⁶ W/m²","10⁻² W/m²"],answer:1,explanation:"The threshold of hearing, assigned I₀, is 10⁻¹² W/m² — the weakest sound intensity most humans can detect."},
-  {id:37,topic:"Sound",type:"Theory",text:"Reverberation in a large hall is caused by:",options:["Diffraction of sound around corners","Multiple reflections of sound from walls, floor, and ceiling","Interference between two sound sources","The Doppler effect"],answer:1,explanation:"Reverberation is the persistence of sound in an enclosed space due to multiple reflections — a special case of echo."},
-  {id:38,topic:"Sound",type:"Theory",text:"The minimum distance from a reflecting surface for an echo to be heard is approximately:",options:["8.25 m","16.5 m","33 m","50 m"],answer:1,explanation:"Sound must travel to the surface and back in at least 0.1 s. Minimum distance = ½ × 330 × 0.1 = 16.5 m."},
-  {id:39,topic:"Sound",type:"Theory",text:"Beat frequency is produced when two tuning forks of frequencies 280 Hz and 284 Hz are sounded together. The beat frequency is:",options:["2 Hz","4 Hz","282 Hz","564 Hz"],answer:1,explanation:"f_beat = |f₁ – f₂| = |284 – 280| = 4 Hz."},
-  {id:40,topic:"Sound",type:"Theory",text:"Sound intensity follows an inverse-square law. If the distance from a source doubles, the intensity:",options:["Halves","Quarters","Doubles","Stays the same"],answer:1,explanation:"I = P/(4πr²). If r → 2r, I → P/(4π(2r)²) = I/4. Intensity drops to one quarter."},
-  {id:41,topic:"Sound",type:"Theory",text:"In the audible frequency range for humans:",options:["Below 20 Hz","20 Hz to 20 kHz","Above 20 kHz","Below 1 Hz"],answer:1,explanation:"The human ear responds to sound frequencies between 20 Hz and 20 000 Hz (20 kHz). Below 20 Hz is infrasound; above 20 kHz is ultrasound."},
-  {id:42,topic:"Sound",type:"Theory",text:"Pitch of a musical note depends on:",options:["Amplitude","Frequency","Intensity","Timbre"],answer:1,explanation:"Pitch is the characteristic of sound that distinguishes high notes from low notes, and it depends entirely on frequency."},
-  {id:43,topic:"Sound",type:"Theory",text:"In a closed pipe (closed at one end), the harmonics present are:",options:["All harmonics","Even harmonics only","Odd harmonics only","No harmonics"],answer:2,explanation:"In a closed pipe there must be a node at the closed end and antinode at the open end, so only odd harmonics (1st, 3rd, 5th…) are possible."},
-  {id:44,topic:"Sound",type:"Calculation",text:"A string of mass 2 g and length 100 cm is under tension 80 N. Its fundamental frequency is approximately:",options:["100 Hz","200 Hz","50 Hz","400 Hz"],answer:1,explanation:"μ = 0.002/1.0 = 0.002 kg/m; v = √(80/0.002) = 200 m/s; f₁ = v/(2L) = 200/(2×1.0) = 100 Hz. (Textbook gives ~100 Hz; answer B = 200 Hz refers to the speed. Correct answer is A: 100 Hz.)"},
-
-  // ── DOPPLER (45–57) ────────────────────────────────────────────
-  {id:45,topic:"Doppler Effect",type:"Theory",text:"The Doppler effect refers to:",options:["Change in amplitude when source moves","Apparent change in frequency when source and observer have relative motion","Change in speed of waves in different media","Reflection of sound from a moving surface"],answer:1,explanation:"The Doppler effect is the observed change in frequency of a wave when the source and observer move relative to each other."},
-  {id:46,topic:"Doppler Effect",type:"Theory",text:"An ambulance moving TOWARD you sounds its siren. You hear a frequency that is:",options:["Lower than the actual frequency","The same as the actual frequency","Higher than the actual frequency","Zero"],answer:2,explanation:"When a source moves toward an observer, wavelength in front decreases, so the observed frequency is higher than the actual."},
-  {id:47,topic:"Doppler Effect",type:"Calculation",text:"A police car at rest sounds its siren (980 Hz). You drive toward it at 30 m/s. Speed of sound = 340 m/s. What frequency do you hear?",options:["894 Hz","980 Hz","1067 Hz","1123 Hz"],answer:2,explanation:"Observer toward stationary source: f' = f(v + v_o)/v = 980 × (340+30)/340 = 980 × 370/340 ≈ 1067 Hz."},
-  {id:48,topic:"Doppler Effect",type:"Calculation",text:"The same police car is at rest and you drive AWAY at 30 m/s. The frequency you hear is:",options:["894 Hz","893 Hz","893.5 Hz","1067 Hz"],answer:1,explanation:"Observer away from stationary source: f' = f(v – v_o)/v = 980 × (340–30)/340 = 980 × 310/340 ≈ 893 Hz."},
-  {id:49,topic:"Doppler Effect",type:"Calculation",text:"You are at rest and the police car moves toward you at 30 m/s. Frequency heard?",options:["893 Hz","980 Hz","1067 Hz","1094 Hz"],answer:2,explanation:"Source toward stationary observer: f' = fv/(v – v_s) = 980 × 340/(340–30) = 980 × 340/310 ≈ 1076 Hz ≈ 1067 Hz."},
-  {id:50,topic:"Doppler Effect",type:"Calculation",text:"You are at rest and the police car moves AWAY at 30 m/s. Frequency heard?",options:["893 Hz","912 Hz","980 Hz","1076 Hz"],answer:0,explanation:"Source away from stationary observer: f' = fv/(v + v_s) = 980 × 340/(340+30) = 980 × 340/370 ≈ 901 Hz. Closest answer: 893 Hz."},
-  {id:51,topic:"Doppler Effect",type:"Theory",text:"Both the source and observer move toward each other. The observed frequency is:",options:["f' = f(v + v_o)/(v – v_s)","f' = f(v – v_o)/(v + v_s)","f' = f(v + v_o)/(v + v_s)","f' = fv/(v + v_s)"],answer:0,explanation:"Both moving toward each other: numerator uses (v + v_o) [observer approaching], denominator uses (v – v_s) [source approaching]."},
-  {id:52,topic:"Doppler Effect",type:"Calculation",text:"An ambulance travels at 100 km/h with siren at 400 Hz. A car travels at 80 km/h in the SAME direction ahead of the ambulance. Speed of sound = 345 m/s. What does the car passenger hear?",options:["381 Hz","407 Hz","421 Hz","436 Hz"],answer:1,explanation:"Ambulance (source) chasing car (observer), same direction: f' = f(v – v_o)/(v – v_s). v_s = 27.78 m/s, v_o = 22.22 m/s. f' = 400×(345–22.22)/(345–27.78) ≈ 407 Hz."},
-  {id:53,topic:"Doppler Effect",type:"Theory",text:"Doppler radar is used by police to detect speeding vehicles primarily because:",options:["Radar waves are louder near speeding cars","The beat frequency between transmitted and reflected radar gives the vehicle speed","Speeding cars reflect different wavelengths","Radar identifies number plates"],answer:1,explanation:"The transmitted frequency and reflected (Doppler-shifted) frequency produce a beat frequency proportional to the vehicle's speed."},
-  {id:54,topic:"Doppler Effect",type:"Theory",text:"A supersonic aircraft creates a shock wave when:",options:["Speed equals the speed of sound","Speed exceeds the speed of sound","Speed is half the speed of sound","Aircraft changes altitude"],answer:1,explanation:"A shock wave (sonic boom) forms when the Mach number M = u/v > 1, i.e. when the aircraft speed exceeds the speed of sound."},
-  {id:55,topic:"Doppler Effect",type:"Calculation",text:"A whistle (f = 540 Hz) moves in a circle of radius 2.0 ft at 15 rad/s. Speed of sound = 1125 ft/s. The highest frequency heard by a distant listener is:",options:["526 Hz","540 Hz","555 Hz","570 Hz"],answer:2,explanation:"v_s = rω = 2.0 × 15 = 30 ft/s. f_max = fv/(v – v_s) = 540 × 1125/(1125–30) ≈ 555 Hz."},
-  {id:56,topic:"Doppler Effect",type:"Theory",text:"The Doppler shift can be used in astronomy to:",options:["Determine the mass of stars","Determine velocities of stars and galaxies via spectral shift","Measure the temperature of stars only","Identify star colour"],answer:1,explanation:"The Doppler effect causes a redshift (receding) or blueshift (approaching) in stellar spectra, allowing astronomers to calculate velocities."},
-  {id:57,topic:"Doppler Effect",type:"Calculation",text:"A fire truck approaches at 30 m/s. Siren frequency = 700 Hz. Speed of sound = 340 m/s. Frequency heard is:",options:["635 Hz","700 Hz","764 Hz","800 Hz"],answer:2,explanation:"f' = fv/(v – v_s) = 700 × 340/(340–30) = 700 × 340/310 ≈ 768 Hz ≈ 764 Hz."},
-
-  // ── OPTICS (58–72) ─────────────────────────────────────────────
-  {id:58,topic:"Optics",type:"Theory",text:"The image formed by a plane mirror is:",options:["Real, inverted, same size","Virtual, erect, same size","Real, erect, magnified","Virtual, inverted, same size"],answer:1,explanation:"A plane mirror forms a virtual, erect (upright) image the same size as the object, the same distance behind the mirror as the object is in front."},
-  {id:59,topic:"Optics",type:"Theory",text:"The number of images formed by two plane mirrors inclined at 60° to each other is:",options:["3","4","5","6"],answer:2,explanation:"Number of images = (360°/θ) – 1 = (360/60) – 1 = 6 – 1 = 5."},
-  {id:60,topic:"Optics",type:"Formula",text:"The mirror formula relating object distance u, image distance v, and focal length f is:",options:["1/f = 1/u – 1/v","1/f = 1/u + 1/v","f = u + v","f = uv/(u+v)"],answer:1,explanation:"Mirror formula: 1/f = 1/u + 1/v (using real-is-positive sign convention for concave mirrors)."},
-  {id:61,topic:"Optics",type:"Calculation",text:"A concave mirror of radius of curvature 20 cm produces an inverted image 3× the size. The object distance is:",options:["6.67 cm","10 cm","13.3 cm","20 cm"],answer:2,explanation:"f = R/2 = 10 cm. |m| = 3 = v/u → v = 3u. 1/f = 1/u + 1/v → 1/10 = 1/u + 1/3u = 4/3u → u = 40/3 ≈ 13.3 cm."},
-  {id:62,topic:"Optics",type:"Theory",text:"Total internal reflection can only occur when light travels from:",options:["Less dense to more dense medium","More dense to less dense medium at angle > critical angle","Any medium at 90° incidence","A glass surface to water"],answer:1,explanation:"TIR requires: (1) light travels from denser to less-dense medium AND (2) angle of incidence exceeds the critical angle."},
-  {id:63,topic:"Optics",type:"Calculation",text:"The refractive index of glass is 1.5. The critical angle for glass-air interface is:",options:["33.6°","41.8°","48.6°","60°"],answer:1,explanation:"sin θ_c = n₂/n₁ = 1/1.5 = 0.667 → θ_c = arcsin(0.667) ≈ 41.8°."},
-  {id:64,topic:"Optics",type:"Calculation",text:"The velocity of light in air is 3 × 10⁸ m/s. Refractive index of water is 4/3. Velocity of light in water is:",options:["1.50 × 10⁸ m/s","2.00 × 10⁸ m/s","2.25 × 10⁸ m/s","4.00 × 10⁸ m/s"],answer:2,explanation:"n = c/v → v = c/n = 3×10⁸ / (4/3) = 3×10⁸ × 3/4 = 2.25 × 10⁸ m/s."},
-  {id:65,topic:"Optics",type:"Formula",text:"The lens formula is:",options:["1/f = 1/u + 1/v","1/f = 1/v – 1/u","1/f = 1/u – 1/v","f = u + v"],answer:1,explanation:"The standard lens formula is 1/f = 1/v – 1/u (with sign convention: distances measured from optical centre, real distances positive for lenses in most conventions used in Nigerian syllabi)."},
-  {id:66,topic:"Optics",type:"Theory",text:"The power of a lens is measured in:",options:["Watts","Metres","Dioptres","Hertz"],answer:2,explanation:"Power P = 1/f (f in metres). The unit is the dioptre (D)."},
-  {id:67,topic:"Optics",type:"Calculation",text:"Two convex lenses of focal lengths 0.3 m and 0.2 m are placed in contact. The effective focal length is:",options:["0.10 m","0.12 m","0.25 m","0.50 m"],answer:1,explanation:"1/f = 1/f₁ + 1/f₂ = 1/0.3 + 1/0.2 = 10/3 + 5 = 25/3. f = 3/25 = 0.12 m."},
-  {id:68,topic:"Optics",type:"Theory",text:"Dispersion of white light by a prism occurs because:",options:["Different colours travel at the same speed in glass","The prism absorbs some colours","Different colours have different refractive indices in glass","Total internal reflection varies with intensity"],answer:2,explanation:"Different colours (wavelengths) have different refractive indices in glass — violet is refracted most, red least (refrangibility: violet > red)."},
-  {id:69,topic:"Optics",type:"Theory",text:"Optical fibres work on the principle of:",options:["Diffraction","Refraction at curved surfaces","Total internal reflection","Polarisation"],answer:2,explanation:"Optical fibres transmit light by successive total internal reflections along the fibre — the light stays inside because of TIR."},
-  {id:70,topic:"Optics",type:"Calculation",text:"An object 5 cm high is placed 10 cm from a convex lens of focal length 15 cm. The image distance is:",options:["–30 cm (virtual)","30 cm (real)","15 cm (real)","+10 cm (real)"],answer:0,explanation:"1/v = 1/f + 1/u (using sign convention where real object u = –10 cm): 1/v = 1/15 + 1/(–10) = (2–3)/30 = –1/30. v = –30 cm (virtual)."},
-  {id:71,topic:"Optics",type:"Theory",text:"Short-sightedness (myopia) is corrected using:",options:["Convex lens","Concave lens","Plane mirror","Prism"],answer:1,explanation:"A myopic eye focuses images in front of the retina. A concave (diverging) lens moves the image back to the retina."},
-  {id:72,topic:"Optics",type:"Theory",text:"The primary colours of light are:",options:["Red, Yellow, Blue","Red, Green, Blue","Red, Orange, Violet","Cyan, Magenta, Yellow"],answer:1,explanation:"The primary colours of light are Red, Green, and Blue (RGB). Mixing all three in equal proportions gives white light."},
-
-  // ── HUYGENS (73–80) ────────────────────────────────────────────
-  {id:73,topic:"Huygens Principle",type:"Theory",text:"Huygens' principle states that every point on a wavefront acts as:",options:["A sink that absorbs energy","A source of secondary wavelets that spread in the forward direction","A reflector","A polariser of the wave"],answer:1,explanation:"Huygens' (1678) principle: every point on an advancing wavefront serves as a source of secondary spherical (or circular) wavelets; the new wavefront is the common tangent to all these wavelets."},
-  {id:74,topic:"Huygens Principle",type:"Theory",text:"Using Huygens' principle, the new wavefront is:",options:["The wavefront that arrives last","The envelope (common tangent) of all secondary wavelets","A line perpendicular to the wave velocity","The source of the primary wave"],answer:1,explanation:"The new wavefront is the common tangent (envelope) drawn to all the secondary wavelets after a short time interval."},
-  {id:75,topic:"Huygens Principle",type:"Theory",text:"Huygens' principle successfully explains refraction because:",options:["It shows waves travel in straight lines","The change in wave speed at a boundary bends the wavefront, explaining Snell's law","It proves light is a particle","It shows frequency changes at a boundary"],answer:1,explanation:"When a wavefront crosses into a new medium, secondary wavelets travel at a different speed, causing the wavefront to bend — this geometrically derives Snell's law."},
-  {id:76,topic:"Huygens Principle",type:"Calculation",text:"Light travels from air (n₁ = 1.00) into glass (n₂ = 1.50) at 30° incidence. The angle of refraction is:",options:["19.5°","30°","45°","48.6°"],answer:0,explanation:"Snell's law: n₁ sin θ₁ = n₂ sin θ₂ → 1.00 × sin 30° = 1.50 × sin θ₂ → sin θ₂ = 0.5/1.5 = 0.333 → θ₂ ≈ 19.5°."},
-  {id:77,topic:"Huygens Principle",type:"Theory",text:"A wavefront from a very distant source has the shape of a:",options:["Sphere","Cylinder","Plane","Parabola"],answer:2,explanation:"A source at infinity produces parallel rays, so the corresponding wavefront is a plane wavefront."},
-  {id:78,topic:"Huygens Principle",type:"Calculation",text:"A wavefront with λ = 0.5 mm passes through a slit of width a = 2.0 mm. The angular half-width of the central maximum is:",options:["14.5°","29°","45°","7.2°"],answer:0,explanation:"sin θ = λ/a = 0.5/2.0 = 0.25 → θ = arcsin(0.25) ≈ 14.5°. Full angular width = 2θ = 29°."},
-  {id:79,topic:"Huygens Principle",type:"Theory",text:"Constructive interference occurs when the path difference between two waves is:",options:["(2n+1)λ/2 (odd multiples of λ/2)","nλ (whole number multiples of wavelength)","λ/4","Any non-zero value"],answer:1,explanation:"Constructive interference requires path difference = nλ (n = 0,1,2,…). Destructive interference requires path difference = (2n–1)λ/2."},
-  {id:80,topic:"Huygens Principle",type:"Theory",text:"Huygens' principle explains diffraction by:",options:["Showing wavefronts travel faster near edges","Showing secondary wavelets from the edges of an opening spread into the geometric shadow region","Proving light is only a particle","Demonstrating polarisation"],answer:1,explanation:"When a wavefront encounters an obstacle or slit, secondary wavelets from edge points propagate into the shadow (geometric) region, causing the wave to 'bend' around the obstacle — this is diffraction."},
+  {id:1, topic:"Library Foundations", text:"Which of the following best defines a traditional library?", options:["A digital repository accessed remotely via the internet","A physical space housing books and materials that requires users to visit in person","A collection of resources available only on CD-ROM","An AI-powered recommendation system for books"], answer:1, explanation:"A traditional library is a <b>physical space</b> that houses and provides access to books and materials, emphasizing storage of physical items and requiring users to visit in person."},
+  {id:2, topic:"Library Foundations", text:"According to the notes, when does a digital library become a virtual library?", options:["When it is converted to PDF format","When it adopts a new cataloging system","When it is linked to the Internet","When it stores audio and video files"], answer:2, explanation:"The notes state: 'When a digital library is linked to the Internet, it becomes a virtual library,' overcoming the prevalent views of locality."},
+  {id:3, topic:"Library Foundations", text:"According to Usman (2019), what is a defining feature of a virtual library?", options:["It only stores printed material","It provides a single interface/entry point with remote access to resources","It requires a library card for entry","It cannot offer reference services"], answer:1, explanation:"Usman (2019) defines a virtual library as a collection of resources where a single interface or entry point is provided and resources can be accessed remotely."},
+  {id:4, topic:"Library Foundations", text:"Which formats can a digital library's content take, according to the notes?", options:["Only plain text","Textual, image, graphics, audio, and video","Only audio files","Only spreadsheets"], answer:1, explanation:"A digital library may consist of online databases or offline CD-ROM content found in textual, image, graphics, audio, video, etc."},
+  {id:5, topic:"Library Foundations", text:"Per Gapen (1993) and Kato et al. (2021), what is a central aspect of the virtual library concept?", options:["Physical book storage","Remote access to contents and services combined with an electronic network for delivery","Manual card cataloging","Restricted access to a single institution"], answer:1, explanation:"The central aspect is 'remote access to the contents and services of libraries... combining an onsite collection... with an electronic network which provides access to, and delivery from, external worldwide... sources.'"},
+  {id:6, topic:"Library Foundations", text:"What key difference distinguishes digital information resources from printed resources, per the notes?", options:["Digital resources can be accessed by only one user at a time","Digital resources can be accessed simultaneously regardless of location, time, and space","Printed resources are always more accurate","Digital resources cannot be preserved"], answer:1, explanation:"Printed resources are designed for one reader at a time and place, while digital resources can be accessed simultaneously, regardless of location, time, and space."},
+  {id:7, topic:"Library History", text:"Who envisioned a digital library in 'Libraries of the Future' in 1965?", options:["Michael Hart","J.C.R. Licklider","Paul Ginsparg","Sergey Brin"], answer:1, explanation:"J.C.R. Licklider envisioned a digital library in his 1965 work 'Libraries of the Future.'"},
+  {id:8, topic:"Library History", text:"What did Michael Hart found in 1971, considered the first digital book project?", options:["arXiv.org","Project Gutenberg","Google Books","HathiTrust"], answer:1, explanation:"In 1971, Michael Hart founded Project Gutenberg, producing the first digital book."},
+  {id:9, topic:"Library History", text:"MARC (Machine-Readable Cataloging) was introduced by the Library of Congress in which year?", options:["1965","1968","1971","1980"], answer:1, explanation:"MARC was introduced by the Library of Congress in 1968 as a standard for bibliographic cataloging."},
+  {id:10, topic:"Library History", text:"Which organization launched the Digital Library Initiative (DLI) in 1994?", options:["UNESCO alone","NSF, DARPA, and NASA","Library of Congress","Google"], answer:1, explanation:"The Digital Library Initiative (DLI) was launched in 1994 by NSF, DARPA, and NASA."},
+  {id:11, topic:"Library History", text:"In what year did Google Books launch?", options:["1996","2000","2004","2011"], answer:2, explanation:"Google Books launched in 2004, led by Larry Page and Sergey Brin."},
+  {id:12, topic:"Library History", text:"HathiTrust Digital Library, a major mass-digitization repository, launched in which year?", options:["2000","2004","2008","2011"], answer:3, explanation:"HathiTrust Digital Library launched in 2011 and now hosts over 17 million volumes."},
+  {id:13, topic:"Library History", text:"What does DOAJ stand for, and when was it established according to the notes?", options:["Directory of Open Access Journals, 2008","Digital Online Archive Journal, 2000","Database of Academic Journals, 1996","Document Open Access Joint, 2011"], answer:0, explanation:"DOAJ (Directory of Open Access Journals) was established in 2008 to promote open access."},
+  {id:14, topic:"Library History", text:"What system, introduced in 2000, is used for identifying scholarly documents persistently?", options:["MARC","ISBN","DOI","ISSN"], answer:2, explanation:"The DOI (Digital Object Identifier) system was introduced in 2000 for scholarly documents."},
+  {id:15, topic:"Building Digital Libraries", text:"What is the first step in building a digital library, according to the course notes?", options:["Converting print to digital using OCR","Acquisition of original digital content with author/copyright permission","Subscribing to a journal database","Hiring a systems librarian"], answer:1, explanation:"The first step is acquisition of original digital contents created by authors or copyright owners, requiring permission to avoid copyright violations."},
+  {id:16, topic:"Building Digital Libraries", text:"Which technology is used to convert non-digital born documents into digital format?", options:["Optical Character Recognition (OCR)","Blockchain","DOI assignment","DRM encryption"], answer:0, explanation:"OCR (Optical Character Recognition) is used to convert print documents into digital format for upload into an Institutional Digital Repository (IDR)."},
+  {id:17, topic:"Building Digital Libraries", text:"What does 'rights management' in digital library building primarily involve?", options:["Designing the library building layout","Tracking copyright issues and authenticating user access","Choosing furniture for reading rooms","Printing physical catalog cards"], answer:1, explanation:"Rights management involves keeping track of copyright issues of digital content and authenticating users and their access rights."},
+  {id:18, topic:"Building Digital Libraries", text:"According to Kato, Kisangiri, and Kaijage (2021), how are digital library resources defined?", options:["Only physical books scanned to PDF","Information processed and digitally driven using hardware/software, accessible via remote networks or mounted locally","Information that cannot be accessed remotely","Only audio and video files"], answer:1, explanation:"They define digital library resources as information processed and digitally driven using hardware and software, accessible via remote provider networks or mounted locally by DL managers."},
+  {id:19, topic:"Library Services", text:"What is a key advantage of offline CD-ROM databases mentioned in the notes, especially for developing countries?", options:["They require no computer at all","Content can be accessed without Internet connectivity within the library building","They are always updated automatically","They eliminate the need for librarians"], answer:1, explanation:"A major advantage is that content can be accessed without Internet connectivity once inside the library building, useful where internet access is a challenge."},
+  {id:20, topic:"Library Services", text:"What does OPAC stand for?", options:["Open Public Access Center","Online Public Access Catalogue","Organized Print Archive Collection","Open Platform for Academic Content"], answer:1, explanation:"OPAC stands for Online Public Access Catalogue, allowing users to search bibliographic records by author, title, keyword, or call number."},
+  {id:21, topic:"Library Services", text:"How does OPAC differ from the traditional card catalogue?", options:["OPAC only works offline","OPAC allows fast online browsing using keywords from any location via computer terminal","OPAC requires physical visits only","OPAC has no search function"], answer:1, explanation:"Unlike the card catalogue, OPAC enables fast online browsing using one or more keywords and access to bibliographic records from any location."},
+  {id:22, topic:"Library Services", text:"What does Lankes describe as 'online reference service'?", options:["A purely automated chatbot with no human involvement","An interaction involving asking/answering questions via internet technologies, linking users with subject experts","A service only available by postal mail","A service restricted to library staff only"], answer:1, explanation:"Lankes describes online reference service as interaction using internet technologies to link users with persons who are experts in a subject area or skill."},
+  {id:23, topic:"Library Services", text:"What significant challenge does the document identify regarding internet-based library services in developing countries like Nigeria?", options:["Too much bandwidth availability","Underdeveloped internet infrastructure, high bandwidth cost, and poor electricity supply","Excessive government funding","Lack of interest from users"], answer:1, explanation:"The notes specifically cite underdeveloped internet infrastructure, high cost of bandwidth, and poor electricity supply as challenges in countries like Nigeria."},
+  {id:24, topic:"DL Architecture", text:"The Alexandria Digital Library (ADL) follows which three-tiered architectural structure?", options:["Client, Middleware, Server","Frontend, Backend, Database","User, Admin, Server","Input, Process, Output"], answer:0, explanation:"ADL follows a three-tiered structure: Client, Middleware, and Server."},
+  {id:25, topic:"DL Architecture", text:"Where is the Alexandria Digital Library Project headquartered?", options:["Library of Congress","University of Waikato","University of California, Santa Barbara","MIT"], answer:2, explanation:"The Alexandria Digital Library Project is headquartered at the University of California, Santa Barbara, hosted by the Davidson Library."},
+  {id:26, topic:"DL Architecture", text:"What does the name 'Alexandria' in ADL reference?", options:["A modern American city","The Library of Alexandria in Egypt, historically the center of knowledge","A software company","The founder's surname"], answer:1, explanation:"The name comes from the Library of Alexandria, Egypt, considered the historical center of all knowledge and learning."},
+  {id:27, topic:"DL Architecture", text:"Who developed the Greenstone Digital Library (GSDL), and in collaboration with whom?", options:["AWS, in collaboration with NASA","University of Waikato, in collaboration with UNESCO and the Human Libraries Project","Google, in collaboration with the Library of Congress","Microsoft, in collaboration with IBM"], answer:1, explanation:"GSDL was developed by the University of Waikato in collaboration with UNESCO and the Human Libraries Project to provide information to the developing world."},
+  {id:28, topic:"DL Architecture", text:"What is the primary output mechanism of the Greenstone Digital Library when retrieving information?", options:["It prints physical documents","It generates HTML pages containing the information","It sends information via fax","It converts data to MARC records only"], answer:1, explanation:"Greenstone Digital Library retrieves requested information and generates HTML pages that contain the information."},
+  {id:29, topic:"DL Technologies", text:"Which of these is an open-source integrated library system supporting cataloging, circulation, and acquisitions?", options:["Koha","Omeka","Eprints","BiblioteQ"], answer:0, explanation:"Koha is an open-source integrated library system (ILS) that supports cataloging, circulation, acquisitions, and patron management."},
+  {id:30, topic:"DL Technologies", text:"Which digital library platform allows librarians to manage the end-to-end lifecycle of content, from acquisition to secured distribution?", options:["Omeka","DSpace","CodeAchi","NewGenLib"], answer:1, explanation:"DSpace is a prominent open-source digital library solution that manages the full content lifecycle from acquisition to secured distribution."},
+  {id:31, topic:"DL Technologies", text:"Which platform is specifically designed for museums, libraries, and archives to publish digital collections online?", options:["Koha","Greenstone","Omeka","Handy Library Manager"], answer:2, explanation:"Omeka is an open-source web publishing platform allowing museums, libraries, and archives to publish their digital collections online."},
+  {id:32, topic:"DL Technologies", text:"NewGenLib is best described as:", options:["A cloud storage provider only","An integrated library management system and digital repository software for managing print and digital collections","A search engine for journals","A blockchain application"], answer:1, explanation:"NewGenLib is an integrated library management system and digital repository software providing a single solution for managing both print and digital collections."},
+  {id:33, topic:"DL Technologies", text:"Which is an open-source digital repository platform used by institutions to store, organize, and share digital content?", options:["Eprints","CodeAchi","BiblioteQ","Handy Library Manager"], answer:0, explanation:"Eprints is an open-source digital repository platform used by institutions to store, organize, and share digital content."},
+  {id:34, topic:"AI & Cloud in DL", text:"According to the notes, what is one major benefit cloud computing offers digital libraries?", options:["Guaranteed elimination of all security risks","Cost reduction by outsourcing IT infrastructure functions","Mandatory physical server ownership","Reduced accessibility for remote users"], answer:1, explanation:"Cloud services can significantly reduce IT infrastructure costs, including hardware, software, and personnel, as libraries can outsource these functions."},
+  {id:35, topic:"AI & Cloud in DL", text:"Which of the following is NOT listed as a way AI helps digital libraries in the notes?", options:["Enhanced information retrieval and access","Improved library operations and management","Accessibility and inclusivity","Physical book binding repair"], answer:3, explanation:"The notes list enhanced information retrieval, improved operations/management, and accessibility/inclusivity as AI's contributions — not physical repair tasks."},
+  {id:36, topic:"AI & Cloud in DL", text:"What cloud computing challenge is specifically mentioned alongside its benefits for digital libraries?", options:["Lack of internet availability everywhere","Data security and privacy concerns","Too much physical storage required","Inability to scale resources"], answer:1, explanation:"While cloud computing offers cost savings and accessibility, it also presents challenges like data security and privacy concerns."},
+  {id:37, topic:"Metadata", text:"Which of the following best defines metadata?", options:["The digital content itself, such as the full text of a book","Descriptive information about a piece of digital content, such as file size, author, or date created","A type of library management software","A network protocol for data transfer"], answer:1, explanation:"Metadata is descriptive information about a piece of digital content, rather than the content itself — e.g., file size, author, date created, keywords."},
+  {id:38, topic:"Metadata", text:"How many core elements does the Dublin Core metadata standard contain?", options:["10","12","15","20"], answer:2, explanation:"Dublin Core is a set of 15 core elements (creator, contributor, publisher, title, date, etc.) designed for broad resource description."},
+  {id:39, topic:"Metadata", text:"MARC (Machine-Readable Cataloging) was originally designed for what purpose?", options:["Streaming video content","Exchanging bibliographic records between library catalogs","Managing cloud storage billing","Encrypting patron data"], answer:1, explanation:"MARC is primarily used in libraries for cataloging and managing bibliographic information, originally designed for exchanging records between library catalogs."},
+  {id:40, topic:"Metadata", text:"What is MODS (Metadata Object Description Schema) primarily used for?", options:["Streaming multimedia content","Metadata syndication/harvesting and documentation of digital information packages","Managing user passwords","Billing cloud usage"], answer:1, explanation:"MODS is used for metadata syndication/harvesting and the documentation of digital information packages."},
+  {id:41, topic:"Metadata", text:"What is the primary difference between indexing and cataloging?", options:["Indexing assigns keywords for retrieval; cataloging creates metadata describing and organizing resources","Indexing is only for physical books; cataloging is only for digital files","They are exactly the same process","Cataloging involves no metadata creation"], answer:0, explanation:"Indexing involves assigning keywords/subject terms to facilitate searching; cataloging is the process of creating metadata that describes and organizes resources."},
+  {id:42, topic:"Metadata", text:"Which of these is NOT a stated importance of metadata in the notes?", options:["Organization and efficient retrieval","Searchability via keywords","Providing context for content","Eliminating the need for any digital storage"], answer:3, explanation:"Metadata supports organization, searchability, management, and context — but it does not eliminate the need for digital storage."},
+  {id:43, topic:"Digital Preservation", text:"What is the primary purpose of Digital Rights Management (DRM)?", options:["To speed up internet connections","To use access control preventing unauthorized use of digital content and protect IP rights","To convert print books to digital format","To generate library statistics reports"], answer:1, explanation:"DRM is a technology that uses access control to prevent unauthorized use of digital content, protecting intellectual property rights."},
+  {id:44, topic:"Digital Preservation", text:"What distinguishes open access digital libraries from subscription-based ones?", options:["Open access requires payment; subscription is free","Open access makes information freely available without cost; subscription requires a paid fee","They are identical in function","Subscription-based libraries cannot be accessed online"], answer:1, explanation:"Open access digital libraries make research information freely available without cost, while subscription-based libraries require users/institutions to pay a fee."},
+  {id:45, topic:"Digital Preservation", text:"How does the course distinguish cybersecurity from ethical considerations in digital libraries?", options:["They are the same concept with different names","Cybersecurity protects systems/data from cyber threats; ethics covers privacy, transparency, and responsible data handling","Ethics only applies to physical libraries","Cybersecurity has nothing to do with data protection"], answer:1, explanation:"Cybersecurity focuses on protecting systems and data from cyber threats, while ethical considerations encompass privacy, transparency, and responsible data handling."},
+  {id:46, topic:"Virtual Libraries", text:"What is the key distinction between a digital library and a virtual library, per Week 8-9 notes?", options:["Virtual libraries don't exist online","A digital library is a collection of digital objects in machine-readable form; a virtual library emphasizes access/organization via internet links","Digital libraries are always free","Virtual libraries only contain video content"], answer:1, explanation:"A digital library is a collection of digital objects stored in machine-readable formats, while a virtual library emphasizes access and organization through internet links rather than a physical/fixed collection."},
+  {id:47, topic:"Virtual Libraries", text:"Which of these is listed as an example of an academic virtual library application?", options:["Netflix","Google Scholar","Spotify","TikTok"], answer:1, explanation:"Google Scholar is listed as an example of an academic virtual library, along with IEEE Xplore, ResearchGate, and JSTOR."},
+  {id:48, topic:"Virtual Libraries", text:"Which app category includes Libby, OverDrive, and WorldCat?", options:["E-book libraries","Public library apps","University digital libraries","Specialized libraries"], answer:1, explanation:"Libby, OverDrive, and WorldCat are listed under Public Library Apps in the notes."},
+  {id:49, topic:"Virtual Libraries", text:"Project Gutenberg and Sci-Hub are examples of which category in the notes?", options:["Public library apps","E-book libraries","Specialized libraries","University digital libraries"], answer:2, explanation:"Project Gutenberg (free e-books) and Sci-Hub (academic papers) are listed as examples of specialized libraries."},
+  {id:50, topic:"Virtual Libraries", text:"What benefit does blockchain technology offer digital libraries, according to the notes?", options:["Faster physical book delivery","Enhanced security, transparency, accessibility, and improved IP management via a distributed immutable ledger","Replacing all librarians with bots","Eliminating the need for metadata"], answer:1, explanation:"Blockchain offers libraries a way to enhance security, transparency, and accessibility, improve digital preservation, and manage IP through a distributed, immutable ledger."},
+  {id:51, topic:"Cloud Fundamentals", text:"Who is credited with proposing in 1961 that computing could be organized as a public utility?", options:["Larry Page","John McCarthy","Michael Hart","Sergey Brin"], answer:1, explanation:"John McCarthy proposed at an MIT centennial celebration in 1961 that computing might someday be organized as a public utility."},
+  {id:52, topic:"Cloud Fundamentals", text:"Which company is credited with pioneering Software as a Service (SaaS) in 1999?", options:["Amazon","Microsoft","Salesforce","Google"], answer:2, explanation:"Salesforce, founded in 1999, pioneered the delivery of enterprise software over the web, later formalized as SaaS."},
+  {id:53, topic:"Cloud Fundamentals", text:"What pivotal event marked the beginning of the modern cloud era in 2006?", options:["Launch of Microsoft Azure","Launch of AWS's Elastic Compute Cloud (EC2)","Founding of Google","Launch of Google Cloud Platform"], answer:1, explanation:"AWS launched its Elastic Compute Cloud (EC2) in 2006, offering scalable virtual servers on a pay-per-use basis, marking the modern cloud era's start."},
+  {id:54, topic:"Cloud Fundamentals", text:"Approximately what was the global cloud market size in 2025?", options:["$100 billion","$391 billion","$781 billion","$5 trillion"], answer:2, explanation:"The global cloud market reached approximately $781 billion in 2025, projected to surpass $900 billion by 2026."},
+  {id:55, topic:"Cloud Fundamentals", text:"What is the projected global cloud market value by 2034, and at what CAGR?", options:["$1 trillion at 5% CAGR","$2.9 trillion at approximately 15.7% CAGR","$500 billion at 2% CAGR","$10 trillion at 25% CAGR"], answer:1, explanation:"The market is projected to exceed $2.9 trillion by 2034, with a compound annual growth rate (CAGR) of approximately 15.7%."},
+  {id:56, topic:"Cloud Fundamentals", text:"Which region accounts for roughly 52% of the global cloud market?", options:["Europe","Asia-Pacific","North America","South America"], answer:2, explanation:"North America currently accounts for around 52% of the cloud market, driven by strong enterprise demand and hyperscale providers."},
+  {id:57, topic:"NIST Characteristics", text:"Which NIST characteristic allows users to provision resources automatically without human interaction with the provider?", options:["Broad Network Access","On-Demand Self-Service","Resource Pooling","Measured Service"], answer:1, explanation:"On-Demand Self-Service allows users to unilaterally provision computing capabilities automatically and as needed, without human interaction with the provider."},
+  {id:58, topic:"NIST Characteristics", text:"Which NIST characteristic refers to a multi-tenant model where resources are dynamically assigned and reassigned to consumers?", options:["Rapid Elasticity","Resource Pooling","Broad Network Access","Measured Service"], answer:1, explanation:"Resource Pooling refers to provider resources being pooled to serve multiple consumers using a multi-tenant model, with dynamic assignment based on demand."},
+  {id:59, topic:"NIST Characteristics", text:"Which characteristic enables cloud resources to scale rapidly outward and inward to match demand?", options:["Rapid Elasticity","On-Demand Self-Service","Measured Service","Broad Network Access"], answer:0, explanation:"Rapid Elasticity allows capabilities to be elastically provisioned and released to scale rapidly with demand, often appearing unlimited to the consumer."},
+  {id:60, topic:"NIST Characteristics", text:"What does 'Measured Service' refer to in cloud computing?", options:["Manual usage tracking by IT staff","Automatic metering and billing of resource usage like a utility","A fixed monthly fee regardless of usage","Service quality measured by customer surveys"], answer:1, explanation:"Measured Service means cloud systems automatically control and optimize resource use via metering, with usage monitored, controlled, and reported for transparent billing."},
+  {id:61, topic:"Service Models", text:"In the IaaS model, who is responsible for managing the operating system, applications, and data?", options:["The cloud provider","The customer","A third-party auditor","No one — it's automated"], answer:1, explanation:"In IaaS, the provider manages hardware while the customer/user controls the OS, applications, and data."},
+  {id:62, topic:"Service Models", text:"Which service model provides a complete development and deployment environment so developers focus only on code?", options:["IaaS","PaaS","SaaS","DBaaS"], answer:1, explanation:"PaaS delivers a complete development/deployment environment including middleware, databases, and tools, letting developers focus only on code."},
+  {id:63, topic:"Service Models", text:"Which of the following is a SaaS example?", options:["AWS EC2","Google App Engine","Microsoft 365","Terraform"], answer:2, explanation:"Microsoft 365 is a fully managed SaaS application delivered via subscription, where the provider handles everything."},
+  {id:64, topic:"Service Models", text:"Which emerging cloud service model is exemplified by AWS Lambda, billing only for actual code execution time?", options:["IaaS","DBaaS","FaaS / Serverless Computing","SECaaS"], answer:2, explanation:"Function as a Service (FaaS), or serverless computing, exemplified by AWS Lambda, runs code on events with zero server management, billed by execution time."},
+  {id:65, topic:"Service Models", text:"Amazon RDS and Azure SQL Database are examples of which 'as a Service' model?", options:["AIaaS","DBaaS","SECaaS","PaaS"], answer:1, explanation:"Amazon RDS and Azure SQL Database are Database as a Service (DBaaS) offerings, providing fully managed databases."},
+  {id:66, topic:"Deployment Models", text:"Which cloud deployment model is best suited for organizations needing maximum control and security, such as those in regulated industries?", options:["Public Cloud","Private Cloud","Multi-Cloud","Community-only Cloud"], answer:1, explanation:"Private Cloud offers exclusive infrastructure for a single organization, providing maximum control and security suited to regulated industries."},
+  {id:67, topic:"Deployment Models", text:"What deployment model integrates private and public clouds for sensitive workloads plus bursting or disaster recovery?", options:["Public Cloud","Hybrid Cloud","Multi-Cloud","Private Cloud"], answer:1, explanation:"Hybrid Cloud integrates private and public clouds, allowing sensitive workloads on private infrastructure while leveraging public cloud for bursting or disaster recovery."},
+  {id:68, topic:"Deployment Models", text:"Approximately what percentage of enterprises have adopted multi-cloud strategies, according to the documents?", options:["About 25%","About 50%","About 90%","About 10%"], answer:2, explanation:"Surveys consistently indicate that nearly 90% of large enterprises have adopted multi-cloud strategies."},
+  {id:69, topic:"Deployment Models", text:"What is the key distinction between hybrid cloud and multi-cloud?", options:["There is no difference; they are synonyms","Hybrid cloud is defined by integration of private and public resources; multi-cloud refers to use of multiple public providers, which may not be integrated","Multi-cloud only applies to government agencies","Hybrid cloud never uses public cloud resources"], answer:1, explanation:"Hybrid cloud is defined by integration/orchestration of private and public resources, while multi-cloud refers specifically to using multiple public clouds, which may or may not be integrated."},
+  {id:70, topic:"Cloud Technologies", text:"What foundational technology creates virtual versions of servers, storage, and networks on shared physical hardware?", options:["Containerization","Virtualization","Blockchain","Serverless computing"], answer:1, explanation:"Virtualization creates software-based virtual representations of physical hardware, enabling multiple VMs to run on a single physical host via a hypervisor."},
+  {id:71, topic:"Cloud Technologies", text:"Approximately how much does virtualization raise hardware utilization rates in cloud data centers compared to on-premises environments?", options:["From 60-80% to 95-99%","From 10-20% (on-premises) to 60-80% (cloud)","No change in utilization","From 1% to 5%"], answer:1, explanation:"Virtualization raises hardware utilization from the typical 10-20% in on-premises environments to 60-80% or more in cloud data centers."},
+  {id:72, topic:"Cloud Technologies", text:"Which tool has become the de facto standard for container orchestration?", options:["Docker","Kubernetes","Terraform","Ansible"], answer:1, explanation:"Kubernetes, originally developed by Google, has become the de facto standard for container orchestration, automating deployment, scaling, and self-healing."},
+  {id:73, topic:"Cloud Technologies", text:"What architectural approach decomposes applications into small, independently deployable services communicating via APIs?", options:["Monolithic architecture","Microservices architecture","Mainframe architecture","Client-server architecture (1990s style)"], answer:1, explanation:"Microservices break applications into independent, API-connected services for agility, allowing independent development, deployment, and scaling."},
+  {id:74, topic:"Cloud Technologies", text:"Which tool, such as Terraform, enables infrastructure to be defined, versioned, and deployed using code?", options:["Infrastructure as Code (IaC)","Database as a Service (DBaaS)","Function as a Service (FaaS)","Security as a Service (SECaaS)"], answer:0, explanation:"Infrastructure as Code (IaC) tools like HashiCorp Terraform enable infrastructure to be defined, versioned, and deployed using code."},
+  {id:75, topic:"Market & Providers", text:"Approximately what combined market share do AWS, Azure, and GCP hold in the cloud infrastructure market?", options:["20-25%","40-45%","65-70%","95-100%"], answer:2, explanation:"The three hyper-scalers — AWS, Azure, and GCP — collectively command approximately 65-70% of global cloud infrastructure revenue."},
+  {id:76, topic:"Market & Providers", text:"Which cloud provider holds the largest market share at approximately 30-32%?", options:["Microsoft Azure","Google Cloud Platform","Amazon Web Services (AWS)","Oracle Cloud"], answer:2, explanation:"AWS remains the global market leader with approximately 30-32% market share in cloud infrastructure as of 2025."},
+  {id:77, topic:"Market & Providers", text:"Which cloud provider's distinguishing strength is its partnership with OpenAI, integrating GPT models via a Copilot initiative?", options:["Google Cloud Platform","Microsoft Azure","Amazon Web Services","Oracle Cloud"], answer:1, explanation:"Microsoft Azure has made its most prominent AI bet through its deep partnership with OpenAI, integrating GPT models via Azure OpenAI Service and Copilot."},
+  {id:78, topic:"Cloud Security", text:"Under the Shared Responsibility Model, who is responsible for 'security of the cloud' (physical infrastructure, hypervisor)?", options:["The customer","The cloud provider","A third-party regulator","No one; it is unmanaged"], answer:1, explanation:"The cloud provider is responsible for 'security of the cloud' — physical infrastructure, hypervisor, and networking — while the customer secures data and applications 'in the cloud.'"},
+  {id:79, topic:"Cloud Security", text:"In which service model does the customer carry the greatest security responsibility?", options:["SaaS","PaaS","IaaS","FaaS"], answer:2, explanation:"Responsibility decreases from IaaS → PaaS → SaaS; IaaS customers carry the greatest security responsibility since they manage the OS, applications, and data."},
+  {id:80, topic:"Cloud Security", text:"Which emerging security paradigm extends encryption to data while it is actively being processed, using hardware-based trusted execution environments?", options:["Zero-trust architecture","Identity and Access Management (IAM)","Confidential Computing","AI-driven threat detection"], answer:2, explanation:"Confidential Computing extends encryption to data in use, processing it inside hardware-based trusted execution environments (TEEs) such as Intel SGX or AMD SEV."}
 ];
 
-// ─── STATE ────────────────────────────────────────────────────────────────────
 const state = {
   answers: {},
   revealed: {},
@@ -643,137 +619,131 @@ const state = {
   timerInterval: null,
 };
 
-// ─── INIT ─────────────────────────────────────────────────────────────────────
-function init() {
+function init(){
   buildFilters();
   renderQuestions();
   startTimer();
 }
 
-function buildFilters() {
+function buildFilters(){
   const topics = ['All', ...new Set(questions.map(q => q.topic))];
-  const row = document.getElementById('filter-row');
+  const row = document.getElementById('filterRow');
   row.innerHTML = topics.map(t =>
-    `<button class="filter-pill${t === state.filter ? ' active' : ''}" onclick="setFilter('${t}', this)">${t}</button>`
+    `<button class="filter-pill ${t==='All' ? 'active' : ''}" onclick="setFilter('${t.replace(/'/g,"\\'")}', this)">${t}</button>`
   ).join('');
 }
 
-function setFilter(topic, btn) {
+function setFilter(topic, btn){
   state.filter = topic;
   document.querySelectorAll('.filter-pill').forEach(p => p.classList.remove('active'));
   btn.classList.add('active');
   renderQuestions();
 }
 
-function filterQuestions() {
-  state.search = document.getElementById('search-input').value.toLowerCase();
+function filterQuestions(val){
+  state.search = val.toLowerCase();
   renderQuestions();
 }
 
-function getVisible() {
+function getVisible(){
   return state.shuffled.filter(q => {
-    const matchTopic = state.filter === 'All' || q.topic === state.filter;
-    const matchSearch = !state.search || q.text.toLowerCase().includes(state.search) ||
-      q.options.some(o => o.toLowerCase().includes(state.search)) ||
-      q.topic.toLowerCase().includes(state.search);
-    return matchTopic && matchSearch;
+    const topicMatch = state.filter === 'All' || q.topic === state.filter;
+    const searchMatch = !state.search || q.text.toLowerCase().includes(state.search) || q.topic.toLowerCase().includes(state.search);
+    return topicMatch && searchMatch;
   });
 }
 
-function renderQuestions() {
+function renderQuestions(){
   const visible = getVisible();
   const list = document.getElementById('q-list');
-  const noRes = document.getElementById('no-results');
-  document.getElementById('stat-showing').textContent = visible.length;
-  if (visible.length === 0) {
+  const noResults = document.getElementById('noResults');
+  document.getElementById('statShowing').textContent = visible.length;
+  if(visible.length === 0){
     list.innerHTML = '';
-    noRes.classList.add('visible');
+    noResults.classList.add('show');
   } else {
-    noRes.classList.remove('visible');
-    list.innerHTML = visible.map((q, i) => buildCard(q, i + 1)).join('');
+    noResults.classList.remove('show');
+    list.innerHTML = visible.map(q => buildCard(q)).join('');
   }
   updateStats();
 }
 
-function buildCard(q, displayIdx) {
-  const ans = state.answers[q.id];
+function buildCard(q){
+  const answered = state.answers.hasOwnProperty(q.id);
   const revealed = state.revealed[q.id];
-  const bk = state.bookmarks.has(q.id);
-  const hasResult = ans !== undefined || revealed;
+  const isBookmarked = state.bookmarks.has(q.id);
+  const chosen = state.answers[q.id];
+  const letters = ['A','B','C','D'];
 
-  const opts = q.options.map((opt, i) => {
-    const letter = ['A','B','C','D'][i];
-    let cls = '';
-    if (ans !== undefined) {
-      if (i === q.answer) cls = 'correct';
-      else if (i === ans) cls = 'wrong';
-    } else if (revealed && i === q.answer) {
-      cls = 'revealed-correct';
+  const optionsHTML = q.options.map((opt, idx) => {
+    let cls = 'option';
+    let disabled = '';
+    if(answered || revealed) disabled = 'disabled';
+    if(answered){
+      if(idx === q.answer) cls += ' correct';
+      else if(idx === chosen) cls += ' wrong';
+    } else if(revealed){
+      if(idx === q.answer) cls += ' revealed-correct';
     }
-    const disabled = hasResult ? 'disabled' : '';
-    return `<button class="option-btn ${cls}" ${disabled} onclick="pickAnswer(${q.id}, ${i})">
-      <span class="option-letter">${letter}</span>
-      <span class="option-text">${opt}</span>
+    const clickAttr = (answered || revealed) ? '' : `onclick="pickAnswer(${q.id}, ${idx})"`;
+    return `<button class="${cls} ${disabled}" ${clickAttr}>
+      <span class="letter">${letters[idx]}</span>
+      <span>${opt}</span>
     </button>`;
   }).join('');
 
-  const expVisible = hasResult ? 'visible' : '';
-  const showReveal = !hasResult;
+  const showExplanation = answered || revealed;
+  const footerHTML = (!answered && !revealed)
+    ? `<div class="q-footer"><button class="reveal-btn" onclick="revealAns(${q.id})">Reveal Answer</button></div>`
+    : '';
 
-  return `<div class="q-card${bk ? ' bookmarked' : ''}" id="qcard-${q.id}">
+  return `<div class="q-card ${isBookmarked ? 'bookmarked' : ''}" id="card-${q.id}">
     <div class="q-meta">
-      <span class="q-num">Q${displayIdx}</span>
-      <span class="q-topic">${q.topic}</span>
-      <span class="q-type">${q.type}</span>
-      <button class="q-bk-btn${bk ? ' active' : ''}" onclick="toggleBk(${q.id})" title="Bookmark">🔖</button>
+      <span class="q-badge">Q${q.id}</span>
+      <span class="topic-badge">${q.topic}</span>
+      <span class="type-badge">Theory</span>
+      <button class="q-bk-btn ${isBookmarked ? 'active' : ''}" onclick="toggleBk(${q.id})">🔖</button>
     </div>
     <div class="q-text">${q.text}</div>
-    <div class="options-grid">${opts}</div>
-    <div class="q-footer">
-      ${showReveal ? `<button class="reveal-btn" onclick="revealAns(${q.id})">👁 Reveal Answer</button>` : ''}
-      <div class="explanation ${expVisible}"><strong>💡 Explanation:</strong> ${q.explanation}</div>
+    <div class="options-grid">${optionsHTML}</div>
+    ${footerHTML}
+    <div class="explanation ${showExplanation ? 'show' : ''}">
+      <b>Explanation:</b> ${q.explanation}
     </div>
   </div>`;
 }
 
-function pickAnswer(id, chosen) {
-  if (state.answers[id] !== undefined || state.revealed[id]) return;
+function pickAnswer(id, chosen){
   state.answers[id] = chosen;
   const q = questions.find(x => x.id === id);
-  refreshCard(q);
+  rerenderCard(q);
   updateStats();
   checkDiagnostic();
 }
 
-function revealAns(id) {
-  if (state.answers[id] !== undefined || state.revealed[id]) return;
+function revealAns(id){
   state.revealed[id] = true;
   const q = questions.find(x => x.id === id);
-  refreshCard(q);
-  updateStats();
-  checkDiagnostic();
+  rerenderCard(q);
 }
 
-function refreshCard(q) {
-  const visible = getVisible();
-  const displayIdx = visible.findIndex(x => x.id === q.id) + 1;
-  const card = document.getElementById(`qcard-${q.id}`);
-  if (card) {
-    card.outerHTML = buildCard(q, displayIdx);
+function rerenderCard(q){
+  const el = document.getElementById(`card-${q.id}`);
+  if(el){
+    const wrapper = document.createElement('div');
+    wrapper.innerHTML = buildCard(q);
+    el.replaceWith(wrapper.firstElementChild);
   }
 }
 
-function revealAll() {
-  const visible = getVisible();
-  visible.forEach(q => {
-    if (state.answers[q.id] === undefined && !state.revealed[q.id]) {
-      state.revealed[q.id] = true;
-    }
+function revealAll(){
+  getVisible().forEach(q => {
+    if(!state.answers.hasOwnProperty(q.id)) state.revealed[q.id] = true;
   });
   renderQuestions();
 }
 
-function resetQuiz() {
+function resetQuiz(){
   state.answers = {};
   state.revealed = {};
   state.bookmarks = new Set();
@@ -781,182 +751,175 @@ function resetQuiz() {
   state.search = '';
   state.shuffled = [...questions];
   state.isShuffled = false;
-  document.getElementById('search-input').value = '';
-  document.getElementById('shuffle-note').classList.remove('visible');
-  document.getElementById('diag-bar').classList.remove('visible');
-  clearInterval(state.timerInterval);
-  state.timerSecs = 0;
-  document.getElementById('timer').textContent = '00:00';
-  buildFilters();
-  renderQuestions();
-  startTimer();
+  document.getElementById('searchInput').value = '';
+  document.getElementById('shuffleNote').classList.remove('show');
+  document.querySelectorAll('.filter-pill').forEach(p => p.classList.remove('active'));
+  document.querySelector('.filter-pill')?.classList.add('active');
+  document.getElementById('diagBar').classList.remove('show');
   updateBookmarkPanel();
+  renderQuestions();
 }
 
-function shuffleQuestions() {
-  for (let i = state.shuffled.length - 1; i > 0; i--) {
+function shuffleQuestions(){
+  const arr = state.shuffled;
+  for(let i = arr.length - 1; i > 0; i--){
     const j = Math.floor(Math.random() * (i + 1));
-    [state.shuffled[i], state.shuffled[j]] = [state.shuffled[j], state.shuffled[i]];
+    [arr[i], arr[j]] = [arr[j], arr[i]];
   }
   state.isShuffled = true;
-  document.getElementById('shuffle-note').classList.add('visible');
+  document.getElementById('shuffleNote').classList.add('show');
   renderQuestions();
 }
 
-function toggleBk(id) {
-  if (state.bookmarks.has(id)) state.bookmarks.delete(id);
+function toggleBk(id){
+  if(state.bookmarks.has(id)) state.bookmarks.delete(id);
   else state.bookmarks.add(id);
   updateBookmarkPanel();
   const q = questions.find(x => x.id === id);
-  refreshCard(q);
+  rerenderCard(q);
 }
 
-function toggleBookmarks() {
-  const card = document.getElementById('bm-card');
-  card.classList.toggle('open');
+function toggleBookmarks(){
+  const panel = document.getElementById('bm-card');
+  const btn = document.getElementById('bkToggleBtn');
+  panel.classList.toggle('open');
+  btn.classList.toggle('active');
 }
 
-function updateBookmarkPanel() {
+function updateBookmarkPanel(){
   const list = document.getElementById('bm-list');
-  if (state.bookmarks.size === 0) {
-    list.innerHTML = '<span class="bm-empty">No bookmarks yet.</span>';
+  if(state.bookmarks.size === 0){
+    list.innerHTML = '<span class="bm-empty">No bookmarks yet — tap 🔖 on any question.</span>';
     return;
   }
-  list.innerHTML = [...state.bookmarks].map(id => {
-    const q = questions.find(x => x.id === id);
-    const visible = getVisible();
-    const idx = visible.findIndex(x => x.id === id);
-    return `<button class="bm-pill" onclick="scrollToQ(${id})">Q${idx >= 0 ? idx+1 : '—'}</button>`;
-  }).join('');
+  list.innerHTML = [...state.bookmarks].sort((a,b) => a-b).map(id =>
+    `<button class="bm-pill" onclick="scrollToQ(${id})">Q${id}</button>`
+  ).join('');
 }
 
-function scrollToQ(id) {
-  const el = document.getElementById(`qcard-${id}`);
-  if (el) el.scrollIntoView({ behavior: 'smooth', block: 'center' });
+function scrollToQ(id){
+  const el = document.getElementById(`card-${id}`);
+  if(el) el.scrollIntoView({behavior:'smooth', block:'center'});
 }
 
-function updateStats() {
-  const attempted = Object.keys(state.answers).length;
-  const correct = Object.values(state.answers).filter((ans, i) => {
-    const id = parseInt(Object.keys(state.answers)[i]);
+function updateStats(){
+  const answered = Object.keys(state.answers).map(Number);
+  const correct = answered.filter(id => {
     const q = questions.find(x => x.id === id);
-    return q && ans === q.answer;
-  }).length;
-  const wrong = attempted - correct;
-  const score = attempted > 0 ? Math.round((correct / attempted) * 100) : 0;
-  const visible = getVisible();
-
-  document.getElementById('stat-correct').textContent = correct;
-  document.getElementById('stat-wrong').textContent = wrong;
-  document.getElementById('stat-attempted').textContent = attempted;
-  document.getElementById('stat-score').textContent = score + '%';
+    return q && state.answers[id] === q.answer;
+  });
+  const wrong = answered.length - correct.length;
   const total = questions.length;
-  const totalAttempted = attempted + Object.keys(state.revealed).length;
-  document.getElementById('progress-fill').style.width = (totalAttempted / total * 100) + '%';
-  document.getElementById('progress-label').textContent = `${totalAttempted} / ${total}`;
+  const score = answered.length > 0 ? Math.round((correct.length / answered.length) * 100) : 0;
+
+  document.getElementById('statCorrect').textContent = correct.length;
+  document.getElementById('statWrong').textContent = wrong;
+  document.getElementById('statAttempted').textContent = answered.length;
+  document.getElementById('statScore').textContent = score + '%';
+
+  const pct = Math.round((answered.length / total) * 100);
+  document.getElementById('progressFill').style.width = pct + '%';
+  document.getElementById('progressLabel').textContent = `${answered.length} / ${total}`;
 }
 
-function checkDiagnostic() {
-  const attempted = Object.keys(state.answers).length;
-  if (attempted >= 10) {
-    document.getElementById('diag-bar').classList.add('visible');
-  }
+function checkDiagnostic(){
+  const answeredCount = Object.keys(state.answers).length;
+  const bar = document.getElementById('diagBar');
+  if(answeredCount >= 10) bar.classList.add('show');
+  else bar.classList.remove('show');
 }
 
-function toggleSummary() {
-  document.getElementById('sum-card').classList.toggle('open');
+function toggleSummary(){
+  document.getElementById('sum-body').classList.toggle('open');
+  document.getElementById('sum-toggle').classList.toggle('open');
 }
 
-function openModal() {
+function openModal(){
   document.getElementById('modal-body').innerHTML = buildReport();
-  document.getElementById('modal-overlay').classList.add('open');
+  document.getElementById('modalOverlay').classList.add('open');
   setTimeout(() => {
-    document.querySelectorAll('.topic-bar-fill').forEach(el => {
-      el.style.width = el.dataset.width;
+    document.querySelectorAll('.tbr-fill').forEach(bar => {
+      bar.style.width = bar.dataset.pct + '%';
     });
   }, 80);
 }
 
-function closeModal() {
-  document.getElementById('modal-overlay').classList.remove('open');
+function closeModal(){
+  document.getElementById('modalOverlay').classList.remove('open');
 }
 
-function closeModalOutside(e) {
-  if (e.target === document.getElementById('modal-overlay')) closeModal();
+function closeModalOutside(e){
+  if(e.target.id === 'modalOverlay') closeModal();
 }
 
-function buildReport() {
-  const ids = Object.keys(state.answers).map(Number);
-  const correct = ids.filter(id => {
+function buildReport(){
+  const answeredIds = Object.keys(state.answers).map(Number);
+  const total = questions.length;
+  const correctIds = answeredIds.filter(id => {
     const q = questions.find(x => x.id === id);
-    return q && state.answers[id] === q.answer;
-  }).length;
-  const wrong = ids.length - correct;
-  const score = ids.length > 0 ? Math.round(correct / ids.length * 100) : 0;
-  const scoreColor = score >= 70 ? 'var(--green)' : score >= 50 ? 'var(--amber)' : 'var(--primary)';
+    return q.answer === state.answers[id];
+  });
+  const wrongCount = answeredIds.length - correctIds.length;
+  const scorePct = answeredIds.length > 0 ? Math.round((correctIds.length / answeredIds.length) * 100) : 0;
+  const scoreColor = scorePct >= 70 ? 'var(--green)' : scorePct >= 50 ? 'var(--amber)' : 'var(--red)';
 
-  // topic bars
+  // topic breakdown
   const topics = [...new Set(questions.map(q => q.topic))];
-  const topicBars = topics.map(t => {
+  const topicStats = topics.map(t => {
     const tQs = questions.filter(q => q.topic === t);
-    const tAttempted = tQs.filter(q => state.answers[q.id] !== undefined);
-    const tCorrect = tAttempted.filter(q => state.answers[q.id] === q.answer).length;
-    const pct = tAttempted.length > 0 ? Math.round(tCorrect / tAttempted.length * 100) : 0;
-    const barColor = pct >= 70 ? 'var(--green)' : pct >= 50 ? 'var(--amber)' : 'var(--primary)';
+    const tAnswered = tQs.filter(q => answeredIds.includes(q.id));
+    const tCorrect = tAnswered.filter(q => state.answers[q.id] === q.answer);
+    const pct = tAnswered.length > 0 ? Math.round((tCorrect.length / tAnswered.length) * 100) : null;
+    return {topic:t, pct, answered:tAnswered.length, total:tQs.length};
+  }).filter(t => t.answered > 0);
+
+  const topicBarsHTML = topicStats.map(t => {
+    const color = t.pct >= 70 ? 'var(--green)' : t.pct >= 40 ? 'var(--amber)' : 'var(--red)';
     return `<div class="topic-bar-row">
-      <div class="topic-bar-label"><span>${t}</span><span>${tCorrect}/${tAttempted.length} (${pct}%)</span></div>
-      <div class="topic-bar-track"><div class="topic-bar-fill" data-width="${pct}%" style="background:${barColor}"></div></div>
+      <div class="tbr-top"><span class="name">${t.topic}</span><span class="pct" style="color:${color}">${t.pct}%</span></div>
+      <div class="tbr-track"><div class="tbr-fill" data-pct="${t.pct}" style="background:${color}"></div></div>
     </div>`;
-  }).join('');
+  }).join('') || '<p style="color:var(--ink4); font-size:0.82rem;">No data yet — answer some questions first.</p>';
 
-  // type grid
-  const types = ['Theory','Calculation','Formula'];
-  const typeEmoji = ['📖','🔢','📐'];
-  const typeGrid = types.map((type, i) => {
-    const tQs = questions.filter(q => q.type === type);
-    const tAtt = tQs.filter(q => state.answers[q.id] !== undefined);
-    const tCor = tAtt.filter(q => state.answers[q.id] === q.answer).length;
-    return `<div class="type-cell"><div class="ti">${typeEmoji[i]}</div><div class="tv">${tCor}/${tAtt.length}</div><div class="tl">${type}</div></div>`;
-  }).join('');
+  // focus cards: weakest topics
+  const sorted = [...topicStats].sort((a,b) => a.pct - b.pct);
+  const focusHTML = sorted.slice(0,3).map(t => {
+    let cls, icon, msg;
+    if(t.pct < 40){ cls='critical'; icon='🚨'; msg=`<b>${t.topic}</b> needs urgent review — only ${t.pct}% correct so far. Revisit the Topic Revision Summary for this section.`; }
+    else if(t.pct < 70){ cls='warning'; icon='⚠️'; msg=`<b>${t.topic}</b> is shaky at ${t.pct}%. A quick re-read should close the gap.`; }
+    else { cls='good'; icon='✅'; msg=`<b>${t.topic}</b> is solid at ${t.pct}%. Keep it up!`; }
+    return `<div class="focus-card ${cls}"><span class="ficon">${icon}</span><span class="ftext">${msg}</span></div>`;
+  }).join('') || '<p style="color:var(--ink4); font-size:0.82rem;">Answer more questions to see focus areas.</p>';
 
-  // focus cards
-  const focusTopics = topics.map(t => {
-    const tQs = questions.filter(q => q.topic === t);
-    const tAtt = tQs.filter(q => state.answers[q.id] !== undefined);
-    const tCor = tAtt.filter(q => state.answers[q.id] === q.answer).length;
-    const pct = tAtt.length > 0 ? Math.round(tCor / tAtt.length * 100) : null;
-    return { t, pct, cnt: tAtt.length };
-  }).filter(x => x.pct !== null);
-
-  const focusHtml = focusTopics.map(x => {
-    if (x.pct < 50) return `<div class="focus-card fc-critical">🚨 <strong>${x.t}</strong> — ${x.pct}% score. Critical area: revisit definitions, formulas, and worked examples before your exam.</div>`;
-    if (x.pct < 70) return `<div class="focus-card fc-warning">⚠️ <strong>${x.t}</strong> — ${x.pct}% score. Needs more practice — focus on calculation-type questions.</div>`;
-    return `<div class="focus-card fc-good">✅ <strong>${x.t}</strong> — ${x.pct}% score. Well done! Keep it up.</div>`;
-  }).join('');
-
-  const verdict = score >= 70 ? "Outstanding performance! You have a strong grasp of the PHY 104 material. Focus on any weak topics above to perfect your score." :
-    score >= 50 ? "Good effort! You're on track but there's room to grow. Revisit the topics flagged above and practice more calculation problems." :
-    "Keep pushing! PHY 104 is challenging. Break the topics into smaller chunks, re-read your notes on flagged areas, and try the quiz again.";
+  let verdict;
+  if(answeredIds.length === 0) verdict = "You haven't answered any questions yet — dive in and your personalised diagnosis will appear here.";
+  else if(scorePct >= 85) verdict = "Outstanding work! You have a strong command of both digital library concepts and cloud computing fundamentals. You're exam-ready — just review any flagged weak spots above.";
+  else if(scorePct >= 70) verdict = "Good progress! Your grasp of the material is solid overall. Focus on the weaker topics flagged above to push toward mastery.";
+  else if(scorePct >= 50) verdict = "You're on the right track, but there are real gaps. Revisit the Topic Revision Summary, especially for your lowest-scoring topics, before moving on.";
+  else verdict = "This topic needs more focused study. Start with the Topic Revision Summary section by section, then retake the quiz to track your improvement.";
 
   return `
     <div class="score-grid">
-      <div class="score-cell sc-green"><div class="val">${correct}</div><div class="lbl">✅ Correct</div></div>
-      <div class="score-cell sc-red"><div class="val">${wrong}</div><div class="lbl">❌ Wrong</div></div>
-      <div class="score-cell sc-amber"><div class="val" style="color:${scoreColor}">${score}%</div><div class="lbl">🎯 Score</div></div>
-      <div class="score-cell sc-blue"><div class="val">${ids.length}/${questions.length}</div><div class="lbl">📝 Attempted</div></div>
+      <div class="score-cell correct"><div class="num">${correctIds.length}</div><div class="lbl">Correct</div></div>
+      <div class="score-cell wrong"><div class="num">${wrongCount}</div><div class="lbl">Wrong</div></div>
+      <div class="score-cell" style="background:${scoreColor}1A;"><div class="num" style="color:${scoreColor}">${scorePct}%</div><div class="lbl">Score</div></div>
+      <div class="score-cell attempted"><div class="num">${answeredIds.length}/${total}</div><div class="lbl">Attempted</div></div>
     </div>
-    <div class="modal-section-title">📊 Performance by Topic</div>
-    ${topicBars}
-    <div class="modal-section-title">📐 Performance by Type</div>
-    <div class="type-grid">${typeGrid}</div>
+
+    <div class="modal-section-title">📈 Topic Performance</div>
+    ${topicBarsHTML}
+
     <div class="modal-section-title">🎯 Areas to Focus On</div>
-    ${focusHtml || '<p style="font-size:0.8rem;color:var(--ink3)">Answer more questions to see focus areas.</p>'}
-    <div class="modal-section-title">🏁 Overall Verdict</div>
-    <div class="verdict-box">${verdict}</div>
+    ${focusHTML}
+
+    <div class="verdict-box">
+      <div class="vtitle">🏁 Overall Verdict</div>
+      <div>${verdict}</div>
+    </div>
   `;
 }
 
-function startTimer() {
+function startTimer(){
   state.timerInterval = setInterval(() => {
     state.timerSecs++;
     const m = String(Math.floor(state.timerSecs / 60)).padStart(2,'0');
@@ -969,3 +932,4 @@ init();
 </script>
 </body>
 </html>
+
