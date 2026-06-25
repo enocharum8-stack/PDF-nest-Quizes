@@ -3,9 +3,8 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>CSC 114 — PDFNest Quiz</title>
+<title>GST 112 — PDFNest Quiz</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600;700&display=swap" rel="stylesheet">
 <style>
 :root{
@@ -15,494 +14,268 @@
   --border:#E4E4E8; --border2:#D0D0D5;
   --ink:#0F0F0F; --ink2:#3A3A3F; --ink3:#6E6E78; --ink4:#9E9EA8;
   --green:#16A34A; --amber:#D97706; --blue:#2563EB; --purple:#7C3AED;
-  --green-bg:rgba(22,163,74,0.10); --amber-bg:rgba(217,119,6,0.10); --blue-bg:rgba(37,99,235,0.10); --purple-bg:rgba(124,58,237,0.10);
   --r-card:16px; --r-input:12px; --r-pill:999px; --r-sm:8px;
-  --shadow-sm:0 1px 2px rgba(0,0,0,0.04);
+  --shadow-sm:0 1px 2px rgba(0,0,0,0.06);
   --shadow:0 4px 12px rgba(0,0,0,0.08);
   --shadow-lg:0 12px 32px rgba(0,0,0,0.16);
-  --font-body:'Inter',sans-serif;
-  --font-mono:'JetBrains Mono',monospace;
 }
 @media (prefers-color-scheme: dark){
   :root{
-    --bg:#0F0F0F; --surface:#1A1A1A; --surface2:#222226;
-    --border:#2C2C30; --border2:#3A3A3F;
-    --ink:#F0F0F4; --ink2:#D4D4D9; --ink3:#9E9EA8; --ink4:#6E6E78;
+    --bg:#0F0F0F; --surface:#1A1A1A; --surface2:#232325;
+    --border:#2C2C2F; --border2:#3A3A3D;
+    --ink:#F0F0F4; --ink2:#D4D4D8; --ink3:#9B9BA3; --ink4:#6E6E76;
     --red-bg:rgba(232,48,42,0.14); --red-bg-hover:rgba(232,48,42,0.20); --red-border:rgba(232,48,42,0.35);
-    --green-bg:rgba(22,163,74,0.16); --amber-bg:rgba(217,119,6,0.16); --blue-bg:rgba(37,99,235,0.16); --purple-bg:rgba(124,58,237,0.16);
-    --shadow-sm:0 1px 2px rgba(0,0,0,0.3);
-    --shadow:0 4px 16px rgba(0,0,0,0.4);
-    --shadow-lg:0 16px 40px rgba(0,0,0,0.55);
   }
 }
-*{box-sizing:border-box; margin:0; padding:0;}
-body{
-  font-family:var(--font-body); background:var(--bg); color:var(--ink);
-  -webkit-font-smoothing:antialiased; padding-bottom:64px;
-}
-button{font-family:inherit; cursor:pointer; border:none; background:none; color:inherit;}
-input{font-family:inherit;}
+*{box-sizing:border-box;}
+body{margin:0;background:var(--bg);color:var(--ink);font-family:'Inter',sans-serif;-webkit-font-smoothing:antialiased;}
+.mono{font-family:'JetBrains Mono',monospace;}
 
-/* ---------- TOP NAV ---------- */
-.top-nav{
-  position:sticky; top:0; z-index:100; height:56px;
-  background:var(--surface); border-bottom:1px solid var(--border);
-  display:flex; align-items:center; justify-content:space-between;
-  padding:0 14px;
-}
-.nav-left{display:flex; align-items:center; gap:10px;}
-.back-btn{
-  width:36px; height:36px; border-radius:var(--r-sm); background:var(--surface2);
-  display:flex; align-items:center; justify-content:center; font-size:18px; color:var(--ink2);
-  flex-shrink:0;
-}
-.back-btn:hover{background:var(--border);}
-.logo-box{
-  width:34px; height:34px; border-radius:10px; background:var(--surface2);
-  display:flex; align-items:center; justify-content:center; flex-shrink:0;
-  border:1px solid var(--border);
-}
-.brand-text{line-height:1.15;}
-.brand-text .b1{font-weight:700; font-size:0.92rem; color:var(--ink);}
-.brand-text .b2{font-size:0.68rem; color:var(--ink3);}
-.nav-right{display:flex; align-items:center; gap:8px;}
-.timer-chip{
-  font-family:var(--font-mono); font-size:0.78rem; font-weight:600;
-  color:var(--red); background:var(--red-bg); padding:6px 12px; border-radius:var(--r-pill);
-  display:flex; align-items:center; gap:5px; white-space:nowrap;
-}
-.bk-toggle-btn{
-  width:36px; height:36px; border-radius:var(--r-sm); background:var(--surface2);
-  display:flex; align-items:center; justify-content:center; font-size:16px;
-}
-.bk-toggle-btn:hover{background:var(--border);}
-.bk-toggle-btn.active{background:var(--red-bg); color:var(--red);}
+/* NAV */
+.topnav{position:sticky;top:0;z-index:100;height:56px;background:var(--surface);border-bottom:1px solid var(--border);display:flex;align-items:center;justify-content:space-between;padding:0 14px;}
+.nav-left{display:flex;align-items:center;gap:10px;}
+.back-btn{width:36px;height:36px;border-radius:var(--r-sm);background:var(--surface2);border:none;display:flex;align-items:center;justify-content:center;cursor:pointer;color:var(--ink2);font-size:16px;}
+.logo-box{width:34px;height:34px;border-radius:10px;background:var(--surface2);display:flex;align-items:center;justify-content:center;}
+.nav-titles{display:flex;flex-direction:column;line-height:1.1;}
+.nav-titles .t1{font-weight:700;font-size:0.9rem;}
+.nav-titles .t2{font-size:0.72rem;color:var(--ink3);}
+.nav-right{display:flex;align-items:center;gap:8px;}
+.timer-chip{font-family:'JetBrains Mono',monospace;font-size:0.78rem;color:var(--red);background:var(--red-bg);padding:6px 12px;border-radius:var(--r-pill);font-weight:600;}
+.bk-toggle{width:36px;height:36px;border-radius:var(--r-sm);background:var(--surface2);border:none;cursor:pointer;font-size:15px;}
 
-/* ---------- HERO ---------- */
-.hero{background:var(--surface); border-bottom:1px solid var(--border); padding:20px 16px 24px;}
-.breadcrumb{
-  max-width:720px; margin:0 auto; font-size:0.74rem; color:var(--ink3);
-  display:flex; gap:6px; flex-wrap:wrap; margin-bottom:12px;
-}
-.breadcrumb .sep{color:var(--ink4);}
-.breadcrumb .current{color:var(--red); font-weight:600;}
-.hero-inner{max-width:720px; margin:0 auto;}
-.hero-tag{
-  display:inline-block; background:var(--red-bg); color:var(--red); font-weight:700;
-  font-size:0.66rem; letter-spacing:0.06em; text-transform:uppercase;
-  padding:5px 12px; border-radius:var(--r-pill); margin-bottom:12px;
-}
-.hero h1{font-size:1.5rem; font-weight:800; line-height:1.25; margin-bottom:6px;}
-.hero h1 em{color:var(--red); font-style:normal;}
-.hero .subtitle{color:var(--ink3); font-size:0.86rem; margin-bottom:16px;}
-.stats-row{display:flex; gap:8px; flex-wrap:wrap; margin-bottom:14px;}
-.stat-pill{
-  display:flex; align-items:center; gap:6px; padding:7px 12px; border-radius:var(--r-pill);
-  font-size:0.76rem; font-weight:700; font-family:var(--font-mono);
-}
-.stat-pill.showing{background:var(--blue-bg); color:var(--blue);}
-.stat-pill.correct{background:var(--green-bg); color:var(--green);}
-.stat-pill.wrong{background:var(--red-bg); color:var(--red);}
-.stat-pill.attempted{background:var(--purple-bg); color:var(--purple);}
-.stat-pill.score{background:var(--amber-bg); color:var(--amber);}
-.stat-pill .lbl{font-family:var(--font-body); font-weight:500; color:var(--ink3); font-size:0.7rem;}
-.progress-wrap{display:flex; align-items:center; gap:10px;}
-.progress-track{
-  flex:1; height:6px; background:var(--surface2); border-radius:999px; overflow:hidden;
-}
-.progress-fill{
-  height:100%; background:linear-gradient(90deg, var(--red-light), var(--red));
-  border-radius:999px; transition:width .4s ease; width:0%;
-}
-.progress-label{font-family:var(--font-mono); font-size:0.74rem; color:var(--ink3); white-space:nowrap;}
+/* HERO */
+.hero{background:var(--surface);border-bottom:1px solid var(--border);padding:18px 16px 22px;}
+.breadcrumb{max-width:720px;margin:0 auto 10px;font-size:0.74rem;color:var(--ink3);}
+.breadcrumb .last{color:var(--red);font-weight:600;}
+.hero-inner{max-width:720px;margin:0 auto;}
+.hero-tag{display:inline-block;background:var(--red-bg);color:var(--red);font-size:0.68rem;font-weight:700;letter-spacing:0.04em;padding:5px 12px;border-radius:var(--r-pill);margin-bottom:10px;}
+.hero h1{margin:0 0 6px;font-size:1.5rem;font-weight:800;line-height:1.25;}
+.hero h1 em{color:var(--red);font-style:normal;}
+.hero .subtitle{color:var(--ink3);font-size:0.85rem;margin:0 0 16px;}
+.stats-row{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:14px;}
+.stat-pill{font-size:0.72rem;font-weight:600;padding:6px 11px;border-radius:var(--r-pill);font-family:'JetBrains Mono',monospace;}
+.stat-pill.blue{background:rgba(37,99,235,0.1);color:var(--blue);}
+.stat-pill.green{background:rgba(22,163,74,0.1);color:var(--green);}
+.stat-pill.red{background:var(--red-bg);color:var(--red);}
+.stat-pill.purple{background:rgba(124,58,237,0.1);color:var(--purple);}
+.stat-pill.amber{background:rgba(217,119,6,0.1);color:var(--amber);}
+.progress-track{height:6px;background:var(--surface2);border-radius:var(--r-pill);overflow:hidden;margin-bottom:6px;}
+.progress-fill{height:100%;background:linear-gradient(90deg,var(--red-light),var(--red));width:0%;transition:width .3s;}
+.progress-label{font-size:0.72rem;color:var(--ink3);font-family:'JetBrains Mono',monospace;}
 
-/* ---------- ACTION BUTTONS ---------- */
-.action-row{
-  max-width:720px; margin:16px auto 0; padding:0 16px;
-  display:flex; gap:10px; flex-wrap:wrap;
-}
-.btn{
-  padding:9px 16px; border-radius:var(--r-input); font-size:0.82rem; font-weight:600;
-  display:flex; align-items:center; gap:6px; transition:background .15s, transform .1s;
-}
-.btn:active{transform:scale(0.97);}
-.btn-outline{background:var(--surface); border:1px solid var(--border2); color:var(--ink2);}
+/* ACTIONS */
+.actions-row{max-width:720px;margin:14px auto;padding:0 16px;display:flex;gap:8px;flex-wrap:wrap;}
+.btn{font-family:'Inter',sans-serif;font-size:0.78rem;font-weight:600;padding:9px 14px;border-radius:var(--r-input);cursor:pointer;border:1px solid var(--border2);background:var(--surface);color:var(--ink2);}
 .btn-outline:hover{background:var(--surface2);}
-.btn-ghost-red{background:var(--red-bg); color:var(--red);}
+.btn-ghost-red{border:1px solid var(--red-border);color:var(--red);background:var(--red-bg);}
 .btn-ghost-red:hover{background:var(--red-bg-hover);}
-.btn-danger{background:var(--surface); border:1px solid var(--border2); color:var(--red);}
-.btn-danger:hover{background:var(--red-bg);}
+.btn-danger{border:1px solid var(--border2);color:var(--ink3);}
+.btn-danger:hover{background:var(--surface2);}
 
-/* ---------- MAIN CONTENT ---------- */
-.main-content{max-width:720px; margin:0 auto; padding:16px;}
+/* MAIN */
+.main{max-width:720px;margin:0 auto;padding:0 16px 100px;}
+.bm-card{display:none;background:var(--surface);border:1px solid var(--border);border-radius:var(--r-card);padding:14px;margin-bottom:14px;}
+.bm-card h4{margin:0 0 10px;font-size:0.85rem;}
+.bm-list{display:flex;flex-wrap:wrap;gap:6px;}
+.bm-pill{font-family:'JetBrains Mono',monospace;font-size:0.72rem;background:var(--surface2);border:1px solid var(--border2);padding:5px 10px;border-radius:var(--r-pill);cursor:pointer;}
 
-/* Bookmarks panel */
-.bm-card{
-  display:none; background:var(--surface); border:1px solid var(--border); border-radius:var(--r-card);
-  padding:14px 16px; margin-bottom:14px; box-shadow:var(--shadow-sm);
-}
-.bm-card.open{display:block;}
-.bm-card h4{font-size:0.82rem; font-weight:700; margin-bottom:10px; color:var(--ink2);}
-.bm-list{display:flex; gap:8px; flex-wrap:wrap;}
-.bm-pill{
-  font-family:var(--font-mono); font-size:0.74rem; font-weight:700; background:var(--red-bg); color:var(--red);
-  padding:5px 11px; border-radius:var(--r-pill);
-}
-.bm-empty{color:var(--ink4); font-size:0.8rem;}
+.summary-card{background:var(--surface);border:1px solid var(--border);border-radius:var(--r-card);margin-bottom:14px;overflow:hidden;}
+.summary-toggle{width:100%;background:none;border:none;display:flex;align-items:center;justify-content:space-between;padding:14px 16px;cursor:pointer;font-weight:700;font-size:0.88rem;color:var(--ink);}
+.summary-toggle .arrow{transition:transform .25s;color:var(--ink3);}
+.summary-toggle.open .arrow{transform:rotate(180deg);}
+.summary-body{max-height:0;overflow:hidden;transition:max-height .3s ease;padding:0 16px;}
+.summary-body.open{max-height:3200px;padding:0 16px 18px;}
+.summary-body h5{font-size:0.82rem;margin:14px 0 6px;color:var(--red);}
+.summary-body p{font-size:0.82rem;line-height:1.6;color:var(--ink2);margin:4px 0;}
+.chip{font-family:'JetBrains Mono',monospace;font-size:0.74rem;color:var(--red);background:var(--red-bg);padding:1px 7px;border-radius:6px;}
 
-/* Topic Summary card */
-.sum-card{
-  background:var(--surface); border:1px solid var(--border); border-radius:var(--r-card);
-  margin-bottom:14px; overflow:hidden; box-shadow:var(--shadow-sm);
-}
-.sum-toggle{
-  width:100%; display:flex; align-items:center; justify-content:space-between;
-  padding:14px 16px; font-weight:700; font-size:0.9rem;
-}
-.sum-toggle .left{display:flex; align-items:center; gap:8px;}
-.sum-toggle .arrow{transition:transform .2s ease; color:var(--ink3); font-size:0.8rem;}
-.sum-toggle.open .arrow{transform:rotate(180deg);}
-.sum-body{
-  max-height:0; overflow:hidden; transition:max-height .3s ease;
-  padding:0 16px; font-size:0.84rem; line-height:1.65; color:var(--ink2);
-}
-.sum-body.open{max-height:4000px; padding:0 16px 18px;}
-.sum-body h5{font-size:0.84rem; font-weight:700; color:var(--ink); margin:14px 0 6px;}
-.sum-body h5:first-child{margin-top:0;}
-.sum-body p{margin-bottom:8px;}
-.sum-body ul{margin:6px 0 10px 18px;}
-.sum-body li{margin-bottom:4px;}
-.chip{
-  font-family:var(--font-mono); color:var(--red); background:var(--red-bg);
-  padding:1px 6px; border-radius:var(--r-sm); font-size:0.82em; font-weight:600;
-}
+.search-box{position:relative;margin-bottom:12px;}
+.search-box input{width:100%;padding:11px 14px 11px 38px;border-radius:var(--r-input);border:1px solid var(--border2);background:var(--surface);color:var(--ink);font-size:0.85rem;font-family:'Inter',sans-serif;}
+.search-box input:focus{outline:none;border-color:var(--red);box-shadow:0 0 0 3px var(--red-bg);}
+.search-icon{position:absolute;left:13px;top:50%;transform:translateY(-50%);color:var(--ink4);font-size:0.85rem;}
 
-/* Search */
-.search-box{
-  position:relative; margin-bottom:12px;
-}
-.search-box .icon{
-  position:absolute; left:14px; top:50%; transform:translateY(-50%); color:var(--ink4); font-size:0.9rem;
-}
-.search-box input{
-  width:100%; padding:11px 14px 11px 38px; border-radius:var(--r-input);
-  border:1px solid var(--border2); background:var(--surface); color:var(--ink); font-size:0.86rem;
-  outline:none; transition:border-color .15s, box-shadow .15s;
-}
-.search-box input:focus{border-color:var(--red); box-shadow:0 0 0 3px var(--red-bg);}
+.filter-row{display:flex;gap:6px;overflow-x:auto;padding-bottom:6px;margin-bottom:6px;}
+.filter-pill{flex-shrink:0;font-size:0.74rem;font-weight:600;padding:7px 13px;border-radius:var(--r-pill);border:1px solid var(--border2);background:var(--surface);color:var(--ink3);cursor:pointer;white-space:nowrap;}
+.filter-pill.active{background:var(--red);color:#fff;border-color:var(--red);}
 
-/* Filters */
-.filter-row{display:flex; gap:8px; flex-wrap:wrap; margin-bottom:10px;}
-.filter-pill{
-  padding:7px 14px; border-radius:var(--r-pill); font-size:0.78rem; font-weight:600;
-  background:var(--surface); border:1px solid var(--border2); color:var(--ink3);
-  transition:all .15s;
-}
-.filter-pill:hover{background:var(--surface2);}
-.filter-pill.active{background:var(--red); border-color:var(--red); color:#fff;}
+.shuffle-note{display:none;font-size:0.76rem;color:var(--ink3);font-style:italic;margin:6px 0 10px;}
 
-.shuffle-note{display:none; font-size:0.76rem; color:var(--ink4); font-style:italic; margin-bottom:10px;}
-.shuffle-note.show{display:block;}
+#q-list{display:flex;flex-direction:column;gap:12px;margin-top:10px;}
+.q-card{background:var(--surface);border:1px solid var(--border);border-radius:var(--r-card);padding:16px;animation:fadeUp .3s ease;}
+.q-card.bookmarked{border-color:var(--red);}
+@keyframes fadeUp{from{opacity:0;transform:translateY(8px);}to{opacity:1;transform:translateY(0);}}
+.q-meta{display:flex;align-items:center;gap:6px;margin-bottom:10px;flex-wrap:wrap;}
+.q-num{font-family:'JetBrains Mono',monospace;font-size:0.72rem;background:var(--surface2);padding:4px 9px;border-radius:var(--r-sm);color:var(--ink3);font-weight:600;}
+.topic-badge{font-size:0.68rem;font-weight:600;background:var(--red-bg);color:var(--red);padding:4px 10px;border-radius:var(--r-pill);}
+.type-badge{font-size:0.68rem;font-weight:600;background:rgba(37,99,235,0.1);color:var(--blue);padding:4px 10px;border-radius:var(--r-pill);}
+.bk-btn{margin-left:auto;background:none;border:none;cursor:pointer;font-size:1rem;opacity:0.4;transition:opacity .2s;}
+.bk-btn.active{opacity:1;}
+.q-text{font-size:0.92rem;font-weight:500;line-height:1.5;margin-bottom:14px;}
+.opts-grid{display:grid;grid-template-columns:1fr 1fr;gap:8px;}
+@media (max-width:480px){.opts-grid{grid-template-columns:1fr;}}
+.opt-btn{display:flex;align-items:center;gap:10px;text-align:left;padding:10px 12px;border-radius:var(--r-input);border:1px solid var(--border2);background:var(--surface);cursor:pointer;font-size:0.82rem;color:var(--ink2);transition:background .15s,border-color .15s;}
+.opt-btn:hover:not(:disabled){background:var(--red-bg);border-color:var(--red-border);}
+.opt-letter{font-family:'JetBrains Mono',monospace;font-weight:700;font-size:0.76rem;width:22px;height:22px;border-radius:50%;background:var(--surface2);display:flex;align-items:center;justify-content:center;flex-shrink:0;}
+.opt-btn.correct{background:rgba(22,163,74,0.12);border-color:var(--green);}
+.opt-btn.correct .opt-letter{background:var(--green);color:#fff;}
+.opt-btn.wrong{background:rgba(232,48,42,0.1);border-color:var(--red);}
+.opt-btn.wrong .opt-letter{background:var(--red);color:#fff;}
+.opt-btn.revealed-correct{background:rgba(22,163,74,0.07);border-color:rgba(22,163,74,0.4);}
+.opt-btn:disabled{cursor:default;}
+.q-footer{margin-top:10px;}
+.reveal-btn{font-size:0.76rem;color:var(--red);background:none;border:1px dashed var(--red-border);padding:6px 12px;border-radius:var(--r-pill);cursor:pointer;font-weight:600;}
+.explain-box{display:none;margin-top:12px;padding:11px 13px;background:var(--red-bg);border-left:3px solid var(--red);border-radius:var(--r-sm);font-size:0.8rem;line-height:1.5;color:var(--ink2);animation:fadeIn .3s;}
+.explain-box.show{display:block;}
+@keyframes fadeIn{from{opacity:0;}to{opacity:1;}}
+.no-results{display:none;text-align:center;padding:40px 0;color:var(--ink3);font-size:0.85rem;}
 
-/* ---------- QUESTION LIST ---------- */
-#q-list{display:flex; flex-direction:column; gap:12px;}
-@keyframes fadeUp{from{opacity:0; transform:translateY(10px);} to{opacity:1; transform:translateY(0);}}
-@keyframes fadeIn{from{opacity:0;} to{opacity:1;}}
-.q-card{
-  background:var(--surface); border:1px solid var(--border); border-radius:var(--r-card);
-  padding:16px; animation:fadeUp .3s ease both; box-shadow:var(--shadow-sm);
-}
-.q-card.bookmarked{border-color:var(--red-border);}
-.q-meta{display:flex; align-items:center; gap:8px; margin-bottom:10px; flex-wrap:wrap;}
-.q-badge{
-  font-family:var(--font-mono); font-size:0.72rem; font-weight:700; color:var(--ink3);
-  background:var(--surface2); padding:4px 9px; border-radius:var(--r-sm);
-}
-.topic-badge{
-  font-size:0.68rem; font-weight:700; color:var(--red); background:var(--red-bg);
-  padding:4px 10px; border-radius:var(--r-pill); text-transform:uppercase; letter-spacing:0.02em;
-}
-.type-badge{
-  font-size:0.68rem; font-weight:700; color:var(--blue); background:var(--blue-bg);
-  padding:4px 10px; border-radius:var(--r-pill); text-transform:uppercase; letter-spacing:0.02em;
-}
-.q-bk-btn{
-  margin-left:auto; font-size:1rem; opacity:0.35; transition:opacity .15s, transform .15s;
-}
-.q-bk-btn:hover{opacity:0.7;}
-.q-bk-btn.active{opacity:1; transform:scale(1.1);}
-.q-text{font-size:0.9rem; font-weight:500; line-height:1.55; margin-bottom:14px; color:var(--ink);}
-.options-grid{
-  display:grid; grid-template-columns:1fr 1fr; gap:8px; margin-bottom:10px;
-}
-@media (max-width:480px){.options-grid{grid-template-columns:1fr;}}
-.option{
-  display:flex; align-items:center; gap:10px; padding:10px 12px; border-radius:var(--r-input);
-  border:1.5px solid var(--border); background:var(--surface); font-size:0.82rem; color:var(--ink2);
-  text-align:left; transition:background .15s, border-color .15s;
-}
-.option:hover:not(.disabled){background:var(--red-bg); border-color:var(--red-border);}
-.option.disabled{cursor:default;}
-.option .letter{
-  font-family:var(--font-mono); font-weight:700; font-size:0.76rem; width:24px; height:24px; flex-shrink:0;
-  border-radius:50%; background:var(--surface2); color:var(--ink3); display:flex; align-items:center; justify-content:center;
-  border:1.5px solid var(--border2);
-}
-.option.correct{background:var(--green-bg); border-color:var(--green);}
-.option.correct .letter{background:var(--green); color:#fff; border-color:var(--green);}
-.option.wrong{background:var(--red-bg); border-color:var(--red);}
-.option.wrong .letter{background:var(--red); color:#fff; border-color:var(--red);}
-.option.revealed-correct{background:var(--green-bg); border-color:var(--green); opacity:0.85;}
-.option.revealed-correct .letter{background:var(--green); color:#fff; border-color:var(--green);}
-.q-footer{display:flex; justify-content:flex-end;}
-.reveal-btn{
-  font-size:0.78rem; font-weight:600; color:var(--ink3); background:var(--surface2);
-  padding:7px 14px; border-radius:var(--r-pill);
-}
-.reveal-btn:hover{background:var(--border);}
-.explanation{
-  display:none; margin-top:12px; padding:12px 14px; background:var(--red-bg);
-  border-left:3px solid var(--red); border-radius:0 var(--r-sm) var(--r-sm) 0;
-  font-size:0.8rem; line-height:1.55; color:var(--ink2); animation:fadeIn .3s ease;
-}
-.explanation.show{display:block;}
-.explanation b{color:var(--ink);}
+/* DIAGNOSIS STICKY */
+.diag-bar{position:fixed;bottom:64px;left:0;right:0;display:flex;justify-content:center;z-index:90;opacity:0;pointer-events:none;transition:opacity .3s;}
+.diag-bar.show{opacity:1;pointer-events:auto;}
+.diag-btn{background:var(--red);color:#fff;font-weight:700;font-size:0.84rem;padding:12px 22px;border-radius:var(--r-pill);border:none;cursor:pointer;box-shadow:var(--shadow-lg);animation:pulse 2s infinite;}
+@keyframes pulse{0%,100%{box-shadow:0 0 0 0 rgba(232,48,42,0.4);}50%{box-shadow:0 0 0 10px rgba(232,48,42,0);}}
 
-.no-results{display:none; text-align:center; padding:50px 20px; color:var(--ink4);}
-.no-results.show{display:block;}
-.no-results .emoji{font-size:2rem; margin-bottom:10px;}
-
-/* ---------- DIAGNOSIS STICKY BAR ---------- */
-@keyframes pulse{0%,100%{box-shadow:0 0 0 0 rgba(232,48,42,0.45);} 50%{box-shadow:0 0 0 10px rgba(232,48,42,0);}}
-.diag-bar{
-  position:fixed; bottom:64px; left:0; right:0; display:flex; justify-content:center;
-  padding:10px 16px; z-index:90; opacity:0; pointer-events:none; transition:opacity .4s ease;
-}
-.diag-bar.show{opacity:1; pointer-events:auto;}
-.diag-btn{
-  background:var(--red); color:#fff; font-weight:700; font-size:0.86rem;
-  padding:13px 24px; border-radius:var(--r-pill); box-shadow:var(--shadow-lg);
-  animation:pulse 2.2s infinite; display:flex; align-items:center; gap:8px;
-}
-
-/* ---------- MODAL ---------- */
-.modal-overlay{
-  position:fixed; inset:0; background:rgba(0,0,0,0.5); z-index:200;
-  display:flex; align-items:flex-end; justify-content:center;
-  opacity:0; pointer-events:none; transition:opacity .25s ease;
-}
-.modal-overlay.open{opacity:1; pointer-events:auto;}
-.modal-sheet{
-  background:var(--surface); border-radius:24px 24px 0 0; width:100%; max-width:720px;
-  max-height:88vh; display:flex; flex-direction:column;
-  transform:translateY(100%); transition:transform .35s cubic-bezier(.32,.72,0,1);
-  box-shadow:var(--shadow-lg);
-}
-.modal-overlay.open .modal-sheet{transform:translateY(0);}
-.modal-handle{width:40px; height:4px; background:var(--border2); border-radius:999px; margin:10px auto 0;}
-.modal-header{
-  display:flex; align-items:center; justify-content:space-between; padding:14px 18px;
-  border-bottom:1px solid var(--border); position:sticky; top:0; background:var(--surface); z-index:1;
-}
-.modal-header h3{font-size:1rem; font-weight:800; display:flex; align-items:center; gap:8px;}
-.modal-close{width:32px; height:32px; border-radius:var(--r-sm); background:var(--surface2); font-size:1rem;}
-.modal-close:hover{background:var(--border);}
-.modal-body{padding:18px; overflow-y:auto; flex:1;}
-.modal-footer{
-  display:flex; gap:10px; padding:14px 18px; border-top:1px solid var(--border);
-}
-.modal-footer .btn{flex:1; justify-content:center; padding:12px;}
-.btn-secondary{background:var(--surface2); color:var(--ink2);}
-.btn-secondary:hover{background:var(--border);}
-.btn-primary-red{background:var(--red); color:#fff; font-weight:700;}
-.btn-primary-red:hover{background:var(--red-dark);}
-
-.score-grid{display:grid; grid-template-columns:repeat(4,1fr); gap:10px; margin-bottom:20px;}
+/* MODAL */
+.overlay{position:fixed;inset:0;background:rgba(0,0,0,0.5);display:flex;align-items:flex-end;justify-content:center;z-index:200;opacity:0;pointer-events:none;transition:opacity .25s;}
+.overlay.open{opacity:1;pointer-events:auto;}
+.modal{background:var(--surface);width:100%;max-width:720px;border-radius:20px 20px 0 0;max-height:88vh;overflow-y:auto;transform:translateY(100%);transition:transform .35s cubic-bezier(.34,1.56,.64,1);}
+.overlay.open .modal{transform:translateY(0);}
+.modal-handle{width:36px;height:4px;background:var(--border2);border-radius:2px;margin:10px auto;}
+.modal-header{position:sticky;top:0;background:var(--surface);display:flex;align-items:center;justify-content:space-between;padding:6px 18px 14px;border-bottom:1px solid var(--border);}
+.modal-header h3{margin:0;font-size:1rem;display:flex;align-items:center;gap:8px;}
+.modal-close{background:var(--surface2);border:none;width:30px;height:30px;border-radius:50%;cursor:pointer;font-size:0.95rem;}
+.modal-body{padding:18px;}
+.score-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:8px;margin-bottom:18px;}
 @media (max-width:400px){.score-grid{grid-template-columns:1fr 1fr;}}
-.score-cell{
-  padding:14px 8px; border-radius:var(--r-input); text-align:center;
-}
-.score-cell .num{font-size:1.3rem; font-weight:800; font-family:var(--font-mono); line-height:1.1;}
-.score-cell .lbl{font-size:0.66rem; color:var(--ink3); margin-top:4px; font-weight:600; text-transform:uppercase;}
-.score-cell.correct{background:var(--green-bg);} .score-cell.correct .num{color:var(--green);}
-.score-cell.wrong{background:var(--red-bg);} .score-cell.wrong .num{color:var(--red);}
-.score-cell.attempted{background:var(--blue-bg);} .score-cell.attempted .num{color:var(--blue);}
+.score-cell{background:var(--surface2);border-radius:var(--r-input);padding:12px 8px;text-align:center;}
+.score-cell .val{font-size:1.3rem;font-weight:800;font-family:'JetBrains Mono',monospace;}
+.score-cell .lbl{font-size:0.68rem;color:var(--ink3);margin-top:2px;}
+.score-cell.green .val{color:var(--green);}
+.score-cell.red .val{color:var(--red);}
+.score-cell.blue .val{color:var(--blue);}
+.topic-bars{margin-bottom:18px;}
+.tbar-row{margin-bottom:12px;}
+.tbar-label{display:flex;justify-content:space-between;font-size:0.78rem;margin-bottom:5px;color:var(--ink2);}
+.tbar-track{height:8px;background:var(--surface2);border-radius:var(--r-pill);overflow:hidden;}
+.tbar-fill{height:100%;width:0%;border-radius:var(--r-pill);transition:width .8s ease;}
+.type-grid{display:grid;grid-template-columns:1fr 1fr 1fr;gap:8px;margin-bottom:18px;}
+.type-cell{background:var(--surface2);border-radius:var(--r-input);padding:10px;text-align:center;font-size:0.74rem;}
+.type-cell .emoji{font-size:1.1rem;}
+.focus-cards{display:flex;flex-direction:column;gap:8px;margin-bottom:18px;}
+.focus-card{padding:11px 13px;border-radius:var(--r-input);font-size:0.8rem;line-height:1.45;}
+.focus-card.critical{background:rgba(232,48,42,0.08);border-left:3px solid var(--red);}
+.focus-card.warning{background:rgba(217,119,6,0.08);border-left:3px solid var(--amber);}
+.focus-card.good{background:rgba(22,163,74,0.08);border-left:3px solid var(--green);}
+.verdict-box{background:var(--ink);color:#fff;border-radius:var(--r-card);padding:16px;font-size:0.85rem;line-height:1.55;}
+@media (prefers-color-scheme: dark){.verdict-box{background:#000;}}
+.modal-footer{display:flex;gap:10px;padding:14px 18px;border-top:1px solid var(--border);}
+.modal-footer button{flex:1;padding:12px;border-radius:var(--r-input);font-weight:700;font-size:0.82rem;cursor:pointer;}
+.btn-secondary{background:var(--surface2);border:1px solid var(--border2);color:var(--ink2);}
+.btn-primary-red{background:var(--red);border:none;color:#fff;}
 
-.modal-section-title{font-size:0.86rem; font-weight:700; margin:22px 0 10px; color:var(--ink);}
-.modal-section-title:first-of-type{margin-top:0;}
-.topic-bar-row{margin-bottom:10px;}
-.topic-bar-row .tbr-top{display:flex; justify-content:space-between; font-size:0.78rem; margin-bottom:5px;}
-.topic-bar-row .tbr-top .name{font-weight:600; color:var(--ink2);}
-.topic-bar-row .tbr-top .pct{font-family:var(--font-mono); font-weight:700;}
-.tbr-track{height:8px; background:var(--surface2); border-radius:999px; overflow:hidden;}
-.tbr-fill{height:100%; width:0%; border-radius:999px; transition:width 1s cubic-bezier(.16,1,.3,1);}
-
-.type-grid{display:grid; grid-template-columns:repeat(3,1fr); gap:8px;}
-.type-cell{background:var(--surface2); border-radius:var(--r-input); padding:12px 8px; text-align:center;}
-.type-cell .emoji{font-size:1.1rem; margin-bottom:4px;}
-.type-cell .tname{font-size:0.68rem; color:var(--ink3); font-weight:600;}
-.type-cell .tscore{font-family:var(--font-mono); font-weight:700; font-size:0.84rem; margin-top:2px;}
-
-.focus-card{
-  display:flex; gap:10px; padding:12px 14px; border-radius:var(--r-input); margin-bottom:8px; align-items:flex-start;
-}
-.focus-card.critical{background:var(--red-bg);}
-.focus-card.warning{background:var(--amber-bg);}
-.focus-card.good{background:var(--green-bg);}
-.focus-card .ficon{font-size:1rem; flex-shrink:0;}
-.focus-card .ftext{font-size:0.82rem; line-height:1.5; color:var(--ink2);}
-.focus-card .ftext b{color:var(--ink);}
-
-.verdict-box{
-  background:var(--ink); color:var(--surface); border-radius:var(--r-card); padding:18px;
-  font-size:0.86rem; line-height:1.6; margin-top:18px;
-}
-@media (prefers-color-scheme: dark){.verdict-box{background:var(--surface2); color:var(--ink);}}
-.verdict-box .vtitle{font-weight:700; margin-bottom:6px; display:flex; align-items:center; gap:6px;}
-
-/* ---------- BOTTOM NAV ---------- */
-.bottom-nav{
-  position:fixed; bottom:0; left:0; right:0; height:60px; background:var(--surface);
-  border-top:1px solid var(--border); display:flex; z-index:80;
-}
-.bn-item{
-  flex:1; display:flex; flex-direction:column; align-items:center; justify-content:center; gap:2px;
-  font-size:0.66rem; color:var(--ink4); font-weight:600;
-}
-.bn-item .bn-icon{font-size:1.1rem;}
+/* BOTTOM NAV */
+.bottomnav{position:fixed;bottom:0;left:0;right:0;background:var(--surface);border-top:1px solid var(--border);display:flex;z-index:80;}
+.bn-item{flex:1;display:flex;flex-direction:column;align-items:center;gap:2px;padding:8px 0 10px;font-size:0.66rem;color:var(--ink4);}
 .bn-item.active{color:var(--red);}
-
-@media (max-width:480px){
-  .hero h1{font-size:1.3rem;}
-  .stat-pill{font-size:0.7rem; padding:6px 10px;}
-}
+.bn-item .ic{font-size:1.05rem;}
 </style>
 </head>
 <body>
 
-<!-- TOP NAV -->
-<div class="top-nav">
+<nav class="topnav">
   <div class="nav-left">
     <button class="back-btn" onclick="history.back()">←</button>
     <div class="logo-box">
-      <svg width="20" height="20" viewBox="0 0 24 24" fill="none">
-        <rect x="4" y="2" width="13" height="18" rx="2" fill="#E8302A"/>
-        <path d="M17 9c2 0 4 1.5 4 4s-2 4-4 4" stroke="#9E9EA8" stroke-width="1.6" fill="none" stroke-linecap="round"/>
-        <path d="M19 6c2.5 1.5 3.5 4 3.5 7" stroke="#9E9EA8" stroke-width="1.2" fill="none" stroke-linecap="round" opacity="0.6"/>
-      </svg>
+      <svg width="20" height="20" viewBox="0 0 24 24"><rect x="4" y="2" width="13" height="18" rx="2" fill="#E8302A"/><path d="M6 7h7M6 10h7M6 13h5" stroke="#fff" stroke-width="1.2"/><path d="M16 18c2-1 3-3 3-6" stroke="#9E9EA8" stroke-width="1.4" fill="none" stroke-linecap="round"/></svg>
     </div>
-    <div class="brand-text">
-      <div class="b1">PDFNest</div>
-      <div class="b2">Quiz Mode</div>
+    <div class="nav-titles">
+      <span class="t1">PDFNest</span>
+      <span class="t2">Quiz Mode</span>
     </div>
   </div>
   <div class="nav-right">
-    <div class="timer-chip">⏱ <span id="timer">00:00</span></div>
-    <button class="bk-toggle-btn" id="bkToggleBtn" onclick="toggleBookmarks()">🔖</button>
+    <span class="timer-chip mono" id="timer">⏱ 00:00</span>
+    <button class="bk-toggle" onclick="toggleBookmarks()">🔖</button>
   </div>
-</div>
+</nav>
 
-<!-- HERO -->
 <div class="hero">
-  <div class="breadcrumb">
-    <span>AFIT</span><span class="sep">›</span><span>100 Level</span><span class="sep">›</span><span>Computer Science</span><span class="sep">›</span><span class="current">CSC 114 Quiz</span>
-  </div>
+  <div class="breadcrumb">AFIT Kaduna › 100 Level › General Studies Unit › <span class="last">GST 112 Quiz</span></div>
   <div class="hero-inner">
-    <span class="hero-tag">AFIT · 100 LEVEL · COMPUTER SCIENCE</span>
-    <h1>CSC 114 — <em>Digital &amp; Virtual Libraries</em> + Cloud Computing</h1>
-    <p class="subtitle">Weeks 1–9 · 80 questions · Source: AFIT Lecture Notes &amp; Group 3 Cloud Computing Presentations</p>
+    <span class="hero-tag">AFIT · 100 LEVEL · GENERAL STUDIES</span>
+    <h1>GST 112 — <em>Nigerian Peoples and Culture</em></h1>
+    <p class="subtitle">Weeks 1–13 · 80 questions · From course lecture notes, course outline & student materials</p>
     <div class="stats-row">
-      <span class="stat-pill showing"><span class="lbl">Showing</span> <span id="statShowing">80</span></span>
-      <span class="stat-pill correct"><span class="lbl">Correct</span> <span id="statCorrect">0</span></span>
-      <span class="stat-pill wrong"><span class="lbl">Wrong</span> <span id="statWrong">0</span></span>
-      <span class="stat-pill attempted"><span class="lbl">Attempted</span> <span id="statAttempted">0</span></span>
-      <span class="stat-pill score"><span class="lbl">Score</span> <span id="statScore">0%</span></span>
+      <span class="stat-pill blue mono">Showing: <span id="stat-showing">80</span></span>
+      <span class="stat-pill green mono">Correct: <span id="stat-correct">0</span></span>
+      <span class="stat-pill red mono">Wrong: <span id="stat-wrong">0</span></span>
+      <span class="stat-pill purple mono">Attempted: <span id="stat-attempted">0</span></span>
+      <span class="stat-pill amber mono">Score: <span id="stat-score">0%</span></span>
     </div>
-    <div class="progress-wrap">
-      <div class="progress-track"><div class="progress-fill" id="progressFill"></div></div>
-      <div class="progress-label"><span id="progressLabel">0 / 80</span></div>
-    </div>
+    <div class="progress-track"><div class="progress-fill" id="progress-fill"></div></div>
+    <span class="progress-label mono" id="progress-label">0 / 80</span>
   </div>
 </div>
 
-<!-- ACTION BUTTONS -->
-<div class="action-row">
+<div class="actions-row">
   <button class="btn btn-outline" onclick="shuffleQuestions()">🔀 Shuffle</button>
   <button class="btn btn-ghost-red" onclick="revealAll()">👁 Reveal All</button>
   <button class="btn btn-danger" onclick="resetQuiz()">↺ Reset</button>
 </div>
 
-<!-- MAIN CONTENT -->
-<div class="main-content">
-
+<div class="main">
   <div class="bm-card" id="bm-card">
     <h4>🔖 Bookmarked Questions</h4>
-    <div class="bm-list" id="bm-list"><span class="bm-empty">No bookmarks yet — tap 🔖 on any question.</span></div>
+    <div class="bm-list" id="bm-list"></div>
   </div>
 
-  <div class="sum-card">
-    <button class="sum-toggle" id="sum-toggle" onclick="toggleSummary()">
-      <span class="left">📚 Topic Revision Summary</span>
+  <div class="summary-card">
+    <button class="summary-toggle" id="sum-toggle" onclick="toggleSummary()">
+      <span>📚 Topic Revision Summary</span>
       <span class="arrow">▼</span>
     </button>
-    <div class="sum-body" id="sum-body">
-      <h5>Week 1 — Foundations</h5>
-      <p>A <span class="chip">library</span> is an organized collection of resources (physical/digital) for access, education, and community support. Three types: <span class="chip">Traditional</span> (physical, in-person), <span class="chip">Digital Library</span> (organized digital collection, access via computer terminals/local network), and <span class="chip">Virtual Library</span> (a digital library linked to the <span class="chip">Internet</span> for remote access from anywhere).</p>
-      <p>Key idea: a digital library becomes virtual <em>once linked to the Internet</em>. Per <span class="chip">Usman (2019)</span>, a virtual library provides a single interface/entry point with remote access. <span class="chip">Gapen (1993)</span> emphasizes "remote access to contents and services," combining onsite electronic collections with external networked sources.</p>
-      <p>Evolution timeline: <span class="chip">1965 Licklider</span> envisioned digital libraries → <span class="chip">1968 MARC</span> (Library of Congress) → <span class="chip">1971 Project Gutenberg</span> (Michael Hart, first digital book) → <span class="chip">1991 arXiv.org</span> → <span class="chip">1994 DLI</span> (NSF/DARPA/NASA) → <span class="chip">1996 Google</span> founded → <span class="chip">2000 DOI</span> system → <span class="chip">2004 Google Books</span> → <span class="chip">2008 DOAJ</span> → <span class="chip">2011 HathiTrust</span>.</p>
+    <div class="summary-body" id="sum-body">
+      <h5>Evolution of Nigeria as a Political Unit</h5>
+      <p>Nigeria was formed through gradual <span class="chip">amalgamation</span>: 1900 (Niger Coast Protectorate merged with Royal Niger Company territory), 1906 (Lagos Colony merged with Southern Protectorate), and 1914 (Northern + Southern Protectorates united by <span class="chip">Lord Frederick Lugard</span> on 1 January). The name "Nigeria" was coined by journalist <span class="chip">Flora Shaw</span> in 1897, later Lugard's wife. Reasons for amalgamation: cheap source of raw materials, ready market for British goods, manpower reserve, and reduced administrative cost since the South was richer than the North.</p>
 
-      <h5>Week 2 — Building &amp; Architecture</h5>
-      <p>Building a digital library: (1) <span class="chip">acquisition</span> of original digital content with author/copyright permission, (2) <span class="chip">conversion</span> of non-digital documents via <span class="chip">OCR</span> into an Institutional Digital Repository (IDR), (3) subscribing/linking to open-access or licensed content, (4) <span class="chip">rights management</span> and user authentication.</p>
-      <p>Services: online full-text databases, offline <span class="chip">CD-ROM databases</span> (useful where Internet access is limited), <span class="chip">OPAC</span> (Online Public Access Catalogue — search by author/title/keyword/call number), online reference services, and Internet access provision.</p>
-      <p><span class="chip">Alexandria Digital Library (ADL)</span> — three-tier architecture: Client → Middleware → Server, hosted at UC Santa Barbara, focused on geographically referenced materials. <span class="chip">Greenstone (GSDL)</span> — built by University of Waikato with UNESCO, generates HTML pages from retrieved info, aimed at the developing world.</p>
+      <h5>Formation of Political Parties</h5>
+      <p><span class="chip">NNDP</span> (1923) — first party, founded by Herbert Macaulay. <span class="chip">NYM</span> (1934/1936) — first party with national outlook. <span class="chip">NCNC</span> (1944) — founded by Macaulay & Azikiwe. <span class="chip">Action Group</span> (1951) — Awolowo, dominant in the West. <span class="chip">NPC</span> (1949) — Ahmadu Bello, dominant in the North. <span class="chip">NEPU</span> — Aminu Kano's leftist offshoot of NPC. Later republics: NPN, UPN, NPP (2nd Republic); SDP, NRC (3rd Republic); PDP, APC, APGA (4th Republic).</p>
 
-      <h5>Week 3 — Technologies &amp; Platforms</h5>
-      <p>Library management software: <span class="chip">Koha</span> (open-source ILS), <span class="chip">NewGenLib</span>, <span class="chip">CodeAchi</span>, <span class="chip">BiblioteQ</span>, Handy Library Manager. Digital library platforms: <span class="chip">DSpace</span>, <span class="chip">Greenstone</span>, <span class="chip">Eprints</span>, <span class="chip">Omeka</span>.</p>
-      <p>Cloud computing benefits for libraries: cost reduction, enhanced accessibility, scalability/flexibility, collaboration/sharing, but raises data security/privacy concerns. AI assists with information retrieval, library operations management, and accessibility (chatbots, personalized recommendations).</p>
+      <h5>Colonial Rule & Administration</h5>
+      <p>Britain colonised Nigeria for economic exploitation, raw materials, and trade monopoly, justified by the "civilizing mission." Key conquests: Fall of Benin (1897), Anglo-Aro War (1901-1902), Sokoto Caliphate conquest (1903). The British used <span class="chip">Indirect Rule</span> (introduced by Lugard) — successful in the North due to the centralised Sokoto Caliphate structure, but largely a failure in the acephalous Igbo South, leading to corrupt "Warrant Chiefs" and the 1929 <span class="chip">Aba Women's Riot</span>.</p>
 
-      <h5>Weeks 4–5 — Metadata</h5>
-      <p><span class="chip">Metadata</span> = descriptive data about content, not the content itself (author, date, file size, keywords). Standards: <span class="chip">Dublin Core</span> (15 core elements: creator, title, date, subject, etc. — broad resource description), <span class="chip">MARC</span> (library bibliographic cataloging/exchange standard), <span class="chip">MODS</span> (metadata syndication/harvesting for digital info packages).</p>
-      <p><span class="chip">Indexing</span> = assigning keywords/subject terms for retrieval. <span class="chip">Cataloging</span> = creating metadata that describes/organizes resources for accessibility.</p>
+      <h5>Nigerian Culture & Ethnic Groups</h5>
+      <p>Nigeria has over 250 ethnic groups; the 3 majority groups are <span class="chip">Hausa, Yoruba, Igbo</span>. Notable minority groups: Kanuri, Fulani, Tiv, Nupe, Igala, Idoma, Jukun, Igbira, Birom. Igbo political system is <span class="chip">acephalous/gerontocratic</span> (no central king); Yoruba is monarchical (Oba); Hausa/Fulani is the Emirate system (Sarki/Emir) after the 1804 Sokoto Jihad led by <span class="chip">Usman Dan Fodio</span>. Material culture = tangible (art, tools, buildings); non-material = abstract (religion, language, values).</p>
 
-      <h5>Weeks 6–7 — Preservation &amp; Access</h5>
-      <p><span class="chip">Digital Right Management (DRM)</span> uses access control to prevent unauthorized use/protect IP. <span class="chip">Open access</span> = free, unrestricted research access vs. <span class="chip">subscription-based</span> = requires paid access. Cybersecurity protects systems/data from cyberattacks; ethics covers privacy and responsible data handling.</p>
+      <h5>Trade & Economics of Self-Reliance</h5>
+      <p>Indigenous trade relied on <span class="chip">barter systems</span>, village markets, and interregional trade routes, often tied to cultural festivals. <span class="chip">Economics of self-reliance</span> emphasizes local production and reduced dependence on external aid. The indigenous <span class="chip">apprenticeship system</span> (blacksmithing, weaving, pottery, leatherwork, wood carving) was informal, hands-on, master-apprentice based, and central to skills acquisition.</p>
 
-      <h5>Weeks 8–9 — Virtual Libraries &amp; Trends</h5>
-      <p>Digital library = collection of digital objects in machine-readable formats; virtual library = emphasizes <em>access/organization</em> via internet links rather than the collection itself. Applications: academic (<span class="chip">Google Scholar</span>, IEEE Xplore), e-books (Kindle, Google Books), public apps (Libby, OverDrive), specialized (<span class="chip">Project Gutenberg</span>, Sci-Hub). <span class="chip">Blockchain</span> enhances security, transparency, and IP management via a distributed immutable ledger.</p>
+      <h5>Reorientation Strategies & National Values</h5>
+      <p>Key historical programmes: <span class="chip">Operation Feed the Nation</span> (1976, Gen. Obasanjo era per general history, though some notes cite 1983/Buhari), <span class="chip">Green Revolution</span> (1973, Gowon), <span class="chip">Austerity Measures</span> (1981, Shagari), <span class="chip">WAI</span> — War Against Indiscipline (1984, Buhari), <span class="chip">WAIC</span> — War Against Indiscipline and Corruption (1984, Buhari), <span class="chip">MAMSER</span> (1987, Babangida), and the <span class="chip">National Orientation Agency (NOA)</span> (1993, Abacha). The "3R's" framework = Reconstruction, Rehabilitation, Reconciliation.</p>
 
-      <h5>Cloud Computing — Core Concepts (NIST)</h5>
-      <p>Five essential characteristics: <span class="chip">On-Demand Self-Service</span>, <span class="chip">Broad Network Access</span>, <span class="chip">Resource Pooling</span> (multi-tenant), <span class="chip">Rapid Elasticity</span>, <span class="chip">Measured Service</span> (utility billing). Originated conceptually in <span class="chip">1961 (John McCarthy)</span>; SaaS pioneered by <span class="chip">Salesforce (1999)</span>; modern era began with <span class="chip">AWS EC2 (2006)</span>, followed by Azure (2010) and GCP.</p>
-      <p>Service models (SPI): <span class="chip">IaaS</span> (provider manages hardware; e.g. AWS EC2), <span class="chip">PaaS</span> (provider manages infra+platform; e.g. Google App Engine), <span class="chip">SaaS</span> (fully managed apps; e.g. Microsoft 365). Emerging: <span class="chip">FaaS/Serverless</span> (AWS Lambda), <span class="chip">DBaaS</span> (Amazon RDS), <span class="chip">AIaaS</span> (SageMaker/Vertex AI).</p>
-      <p>Deployment models: <span class="chip">Public</span> (shared, low cost), <span class="chip">Private</span> (dedicated, high control), <span class="chip">Hybrid</span> (mix for sensitive + bursting workloads), <span class="chip">Multi-Cloud</span> (multiple public providers, ~90% of enterprises, avoids lock-in).</p>
-      <p>Technologies: <span class="chip">Virtualization</span> (hypervisors raise utilization from 10-20% to 60-80%), <span class="chip">Containerization</span> (Docker) + <span class="chip">Kubernetes</span> orchestration, <span class="chip">Microservices</span>, <span class="chip">IaC</span> (Terraform). Market leaders: <span class="chip">AWS</span> (~30-32%), <span class="chip">Azure</span> (~20-25%), <span class="chip">GCP</span> (~10-12%) — together ~65-70% share.</p>
-      <p>Security: <span class="chip">Shared Responsibility Model</span> — provider secures "of the cloud," customer secures "in the cloud" (responsibility decreases IaaS→PaaS→SaaS). Key tech: zero-trust, IAM, encryption (AES-256, TLS 1.3), confidential computing. Compliance: GDPR, CCPA, HIPAA, PCI DSS.</p>
+      <h5>Citizenship & Civic Responsibilities</h5>
+      <p>Citizenship is acquired via <span class="chip">jus soli</span> (birth), <span class="chip">jus sanguinis</span> (parentage/blood), <span class="chip">jure matrimonii</span> (marriage), or naturalization. Nigerian fundamental rights are in Chapter IV of the 1999 Constitution (sections 24-43), including right to life, fair hearing, freedom of expression, and freedom from discrimination.</p>
     </div>
   </div>
 
   <div class="search-box">
-    <span class="icon">🔍</span>
-    <input type="text" id="searchInput" placeholder="Search questions..." oninput="filterQuestions(this.value)">
+    <span class="search-icon">🔍</span>
+    <input type="text" id="search-input" placeholder="Search questions..." oninput="filterQuestions()">
   </div>
 
-  <div class="filter-row" id="filterRow"></div>
-  <div class="shuffle-note" id="shuffleNote">🔀 Shuffled — reset to restore order</div>
+  <div class="filter-row" id="filter-row"></div>
+  <div class="shuffle-note" id="shuffle-note">🔀 Shuffled — reset to restore order</div>
 
   <div id="q-list"></div>
-
-  <div class="no-results" id="noResults">
-    <div class="emoji">🔍</div>
-    <div>No questions match your search or filter.</div>
-  </div>
+  <div class="no-results" id="no-results">No questions match your search/filter.</div>
 </div>
 
-<!-- DIAGNOSIS STICKY BAR -->
-<div class="diag-bar" id="diagBar">
+<div class="diag-bar" id="diag-bar">
   <button class="diag-btn" onclick="openModal()">📊 View My Learning Diagnosis</button>
 </div>
 
-<!-- MODAL -->
-<div class="modal-overlay" id="modalOverlay" onclick="closeModalOutside(event)">
-  <div class="modal-sheet" onclick="event.stopPropagation()">
+<div class="overlay" id="overlay" onclick="closeModalOutside(event)">
+  <div class="modal">
     <div class="modal-handle"></div>
     <div class="modal-header">
       <h3>📊 Learning Diagnosis</h3>
@@ -510,113 +283,107 @@ input{font-family:inherit;}
     </div>
     <div class="modal-body" id="modal-body"></div>
     <div class="modal-footer">
-      <button class="btn btn-secondary" onclick="closeModal()">Close</button>
-      <button class="btn btn-primary-red" onclick="resetQuiz(); closeModal();">↺ Retake Quiz</button>
+      <button class="btn-secondary" onclick="closeModal()">Close</button>
+      <button class="btn-primary-red" onclick="resetQuiz();closeModal();">↺ Retake Quiz</button>
     </div>
   </div>
 </div>
 
-<!-- BOTTOM NAV -->
-<div class="bottom-nav">
-  <div class="bn-item active"><span class="bn-icon">🏠</span>Home</div>
-  <div class="bn-item"><span class="bn-icon">➕</span>Contribute</div>
-  <div class="bn-item"><span class="bn-icon">👤</span>Profile</div>
-</div>
+<nav class="bottomnav">
+  <div class="bn-item active"><span class="ic">🏠</span>Home</div>
+  <div class="bn-item"><span class="ic">➕</span>Contribute</div>
+  <div class="bn-item"><span class="ic">👤</span>Profile</div>
+</nav>
 
 <script>
 const questions = [
-  {id:1, topic:"Library Foundations", text:"Which of the following best defines a traditional library?", options:["A digital repository accessed remotely via the internet","A physical space housing books and materials that requires users to visit in person","A collection of resources available only on CD-ROM","An AI-powered recommendation system for books"], answer:1, explanation:"A traditional library is a <b>physical space</b> that houses and provides access to books and materials, emphasizing storage of physical items and requiring users to visit in person."},
-  {id:2, topic:"Library Foundations", text:"According to the notes, when does a digital library become a virtual library?", options:["When it is converted to PDF format","When it adopts a new cataloging system","When it is linked to the Internet","When it stores audio and video files"], answer:2, explanation:"The notes state: 'When a digital library is linked to the Internet, it becomes a virtual library,' overcoming the prevalent views of locality."},
-  {id:3, topic:"Library Foundations", text:"According to Usman (2019), what is a defining feature of a virtual library?", options:["It only stores printed material","It provides a single interface/entry point with remote access to resources","It requires a library card for entry","It cannot offer reference services"], answer:1, explanation:"Usman (2019) defines a virtual library as a collection of resources where a single interface or entry point is provided and resources can be accessed remotely."},
-  {id:4, topic:"Library Foundations", text:"Which formats can a digital library's content take, according to the notes?", options:["Only plain text","Textual, image, graphics, audio, and video","Only audio files","Only spreadsheets"], answer:1, explanation:"A digital library may consist of online databases or offline CD-ROM content found in textual, image, graphics, audio, video, etc."},
-  {id:5, topic:"Library Foundations", text:"Per Gapen (1993) and Kato et al. (2021), what is a central aspect of the virtual library concept?", options:["Physical book storage","Remote access to contents and services combined with an electronic network for delivery","Manual card cataloging","Restricted access to a single institution"], answer:1, explanation:"The central aspect is 'remote access to the contents and services of libraries... combining an onsite collection... with an electronic network which provides access to, and delivery from, external worldwide... sources.'"},
-  {id:6, topic:"Library Foundations", text:"What key difference distinguishes digital information resources from printed resources, per the notes?", options:["Digital resources can be accessed by only one user at a time","Digital resources can be accessed simultaneously regardless of location, time, and space","Printed resources are always more accurate","Digital resources cannot be preserved"], answer:1, explanation:"Printed resources are designed for one reader at a time and place, while digital resources can be accessed simultaneously, regardless of location, time, and space."},
-  {id:7, topic:"Library History", text:"Who envisioned a digital library in 'Libraries of the Future' in 1965?", options:["Michael Hart","J.C.R. Licklider","Paul Ginsparg","Sergey Brin"], answer:1, explanation:"J.C.R. Licklider envisioned a digital library in his 1965 work 'Libraries of the Future.'"},
-  {id:8, topic:"Library History", text:"What did Michael Hart found in 1971, considered the first digital book project?", options:["arXiv.org","Project Gutenberg","Google Books","HathiTrust"], answer:1, explanation:"In 1971, Michael Hart founded Project Gutenberg, producing the first digital book."},
-  {id:9, topic:"Library History", text:"MARC (Machine-Readable Cataloging) was introduced by the Library of Congress in which year?", options:["1965","1968","1971","1980"], answer:1, explanation:"MARC was introduced by the Library of Congress in 1968 as a standard for bibliographic cataloging."},
-  {id:10, topic:"Library History", text:"Which organization launched the Digital Library Initiative (DLI) in 1994?", options:["UNESCO alone","NSF, DARPA, and NASA","Library of Congress","Google"], answer:1, explanation:"The Digital Library Initiative (DLI) was launched in 1994 by NSF, DARPA, and NASA."},
-  {id:11, topic:"Library History", text:"In what year did Google Books launch?", options:["1996","2000","2004","2011"], answer:2, explanation:"Google Books launched in 2004, led by Larry Page and Sergey Brin."},
-  {id:12, topic:"Library History", text:"HathiTrust Digital Library, a major mass-digitization repository, launched in which year?", options:["2000","2004","2008","2011"], answer:3, explanation:"HathiTrust Digital Library launched in 2011 and now hosts over 17 million volumes."},
-  {id:13, topic:"Library History", text:"What does DOAJ stand for, and when was it established according to the notes?", options:["Directory of Open Access Journals, 2008","Digital Online Archive Journal, 2000","Database of Academic Journals, 1996","Document Open Access Joint, 2011"], answer:0, explanation:"DOAJ (Directory of Open Access Journals) was established in 2008 to promote open access."},
-  {id:14, topic:"Library History", text:"What system, introduced in 2000, is used for identifying scholarly documents persistently?", options:["MARC","ISBN","DOI","ISSN"], answer:2, explanation:"The DOI (Digital Object Identifier) system was introduced in 2000 for scholarly documents."},
-  {id:15, topic:"Building Digital Libraries", text:"What is the first step in building a digital library, according to the course notes?", options:["Converting print to digital using OCR","Acquisition of original digital content with author/copyright permission","Subscribing to a journal database","Hiring a systems librarian"], answer:1, explanation:"The first step is acquisition of original digital contents created by authors or copyright owners, requiring permission to avoid copyright violations."},
-  {id:16, topic:"Building Digital Libraries", text:"Which technology is used to convert non-digital born documents into digital format?", options:["Optical Character Recognition (OCR)","Blockchain","DOI assignment","DRM encryption"], answer:0, explanation:"OCR (Optical Character Recognition) is used to convert print documents into digital format for upload into an Institutional Digital Repository (IDR)."},
-  {id:17, topic:"Building Digital Libraries", text:"What does 'rights management' in digital library building primarily involve?", options:["Designing the library building layout","Tracking copyright issues and authenticating user access","Choosing furniture for reading rooms","Printing physical catalog cards"], answer:1, explanation:"Rights management involves keeping track of copyright issues of digital content and authenticating users and their access rights."},
-  {id:18, topic:"Building Digital Libraries", text:"According to Kato, Kisangiri, and Kaijage (2021), how are digital library resources defined?", options:["Only physical books scanned to PDF","Information processed and digitally driven using hardware/software, accessible via remote networks or mounted locally","Information that cannot be accessed remotely","Only audio and video files"], answer:1, explanation:"They define digital library resources as information processed and digitally driven using hardware and software, accessible via remote provider networks or mounted locally by DL managers."},
-  {id:19, topic:"Library Services", text:"What is a key advantage of offline CD-ROM databases mentioned in the notes, especially for developing countries?", options:["They require no computer at all","Content can be accessed without Internet connectivity within the library building","They are always updated automatically","They eliminate the need for librarians"], answer:1, explanation:"A major advantage is that content can be accessed without Internet connectivity once inside the library building, useful where internet access is a challenge."},
-  {id:20, topic:"Library Services", text:"What does OPAC stand for?", options:["Open Public Access Center","Online Public Access Catalogue","Organized Print Archive Collection","Open Platform for Academic Content"], answer:1, explanation:"OPAC stands for Online Public Access Catalogue, allowing users to search bibliographic records by author, title, keyword, or call number."},
-  {id:21, topic:"Library Services", text:"How does OPAC differ from the traditional card catalogue?", options:["OPAC only works offline","OPAC allows fast online browsing using keywords from any location via computer terminal","OPAC requires physical visits only","OPAC has no search function"], answer:1, explanation:"Unlike the card catalogue, OPAC enables fast online browsing using one or more keywords and access to bibliographic records from any location."},
-  {id:22, topic:"Library Services", text:"What does Lankes describe as 'online reference service'?", options:["A purely automated chatbot with no human involvement","An interaction involving asking/answering questions via internet technologies, linking users with subject experts","A service only available by postal mail","A service restricted to library staff only"], answer:1, explanation:"Lankes describes online reference service as interaction using internet technologies to link users with persons who are experts in a subject area or skill."},
-  {id:23, topic:"Library Services", text:"What significant challenge does the document identify regarding internet-based library services in developing countries like Nigeria?", options:["Too much bandwidth availability","Underdeveloped internet infrastructure, high bandwidth cost, and poor electricity supply","Excessive government funding","Lack of interest from users"], answer:1, explanation:"The notes specifically cite underdeveloped internet infrastructure, high cost of bandwidth, and poor electricity supply as challenges in countries like Nigeria."},
-  {id:24, topic:"DL Architecture", text:"The Alexandria Digital Library (ADL) follows which three-tiered architectural structure?", options:["Client, Middleware, Server","Frontend, Backend, Database","User, Admin, Server","Input, Process, Output"], answer:0, explanation:"ADL follows a three-tiered structure: Client, Middleware, and Server."},
-  {id:25, topic:"DL Architecture", text:"Where is the Alexandria Digital Library Project headquartered?", options:["Library of Congress","University of Waikato","University of California, Santa Barbara","MIT"], answer:2, explanation:"The Alexandria Digital Library Project is headquartered at the University of California, Santa Barbara, hosted by the Davidson Library."},
-  {id:26, topic:"DL Architecture", text:"What does the name 'Alexandria' in ADL reference?", options:["A modern American city","The Library of Alexandria in Egypt, historically the center of knowledge","A software company","The founder's surname"], answer:1, explanation:"The name comes from the Library of Alexandria, Egypt, considered the historical center of all knowledge and learning."},
-  {id:27, topic:"DL Architecture", text:"Who developed the Greenstone Digital Library (GSDL), and in collaboration with whom?", options:["AWS, in collaboration with NASA","University of Waikato, in collaboration with UNESCO and the Human Libraries Project","Google, in collaboration with the Library of Congress","Microsoft, in collaboration with IBM"], answer:1, explanation:"GSDL was developed by the University of Waikato in collaboration with UNESCO and the Human Libraries Project to provide information to the developing world."},
-  {id:28, topic:"DL Architecture", text:"What is the primary output mechanism of the Greenstone Digital Library when retrieving information?", options:["It prints physical documents","It generates HTML pages containing the information","It sends information via fax","It converts data to MARC records only"], answer:1, explanation:"Greenstone Digital Library retrieves requested information and generates HTML pages that contain the information."},
-  {id:29, topic:"DL Technologies", text:"Which of these is an open-source integrated library system supporting cataloging, circulation, and acquisitions?", options:["Koha","Omeka","Eprints","BiblioteQ"], answer:0, explanation:"Koha is an open-source integrated library system (ILS) that supports cataloging, circulation, acquisitions, and patron management."},
-  {id:30, topic:"DL Technologies", text:"Which digital library platform allows librarians to manage the end-to-end lifecycle of content, from acquisition to secured distribution?", options:["Omeka","DSpace","CodeAchi","NewGenLib"], answer:1, explanation:"DSpace is a prominent open-source digital library solution that manages the full content lifecycle from acquisition to secured distribution."},
-  {id:31, topic:"DL Technologies", text:"Which platform is specifically designed for museums, libraries, and archives to publish digital collections online?", options:["Koha","Greenstone","Omeka","Handy Library Manager"], answer:2, explanation:"Omeka is an open-source web publishing platform allowing museums, libraries, and archives to publish their digital collections online."},
-  {id:32, topic:"DL Technologies", text:"NewGenLib is best described as:", options:["A cloud storage provider only","An integrated library management system and digital repository software for managing print and digital collections","A search engine for journals","A blockchain application"], answer:1, explanation:"NewGenLib is an integrated library management system and digital repository software providing a single solution for managing both print and digital collections."},
-  {id:33, topic:"DL Technologies", text:"Which is an open-source digital repository platform used by institutions to store, organize, and share digital content?", options:["Eprints","CodeAchi","BiblioteQ","Handy Library Manager"], answer:0, explanation:"Eprints is an open-source digital repository platform used by institutions to store, organize, and share digital content."},
-  {id:34, topic:"AI & Cloud in DL", text:"According to the notes, what is one major benefit cloud computing offers digital libraries?", options:["Guaranteed elimination of all security risks","Cost reduction by outsourcing IT infrastructure functions","Mandatory physical server ownership","Reduced accessibility for remote users"], answer:1, explanation:"Cloud services can significantly reduce IT infrastructure costs, including hardware, software, and personnel, as libraries can outsource these functions."},
-  {id:35, topic:"AI & Cloud in DL", text:"Which of the following is NOT listed as a way AI helps digital libraries in the notes?", options:["Enhanced information retrieval and access","Improved library operations and management","Accessibility and inclusivity","Physical book binding repair"], answer:3, explanation:"The notes list enhanced information retrieval, improved operations/management, and accessibility/inclusivity as AI's contributions — not physical repair tasks."},
-  {id:36, topic:"AI & Cloud in DL", text:"What cloud computing challenge is specifically mentioned alongside its benefits for digital libraries?", options:["Lack of internet availability everywhere","Data security and privacy concerns","Too much physical storage required","Inability to scale resources"], answer:1, explanation:"While cloud computing offers cost savings and accessibility, it also presents challenges like data security and privacy concerns."},
-  {id:37, topic:"Metadata", text:"Which of the following best defines metadata?", options:["The digital content itself, such as the full text of a book","Descriptive information about a piece of digital content, such as file size, author, or date created","A type of library management software","A network protocol for data transfer"], answer:1, explanation:"Metadata is descriptive information about a piece of digital content, rather than the content itself — e.g., file size, author, date created, keywords."},
-  {id:38, topic:"Metadata", text:"How many core elements does the Dublin Core metadata standard contain?", options:["10","12","15","20"], answer:2, explanation:"Dublin Core is a set of 15 core elements (creator, contributor, publisher, title, date, etc.) designed for broad resource description."},
-  {id:39, topic:"Metadata", text:"MARC (Machine-Readable Cataloging) was originally designed for what purpose?", options:["Streaming video content","Exchanging bibliographic records between library catalogs","Managing cloud storage billing","Encrypting patron data"], answer:1, explanation:"MARC is primarily used in libraries for cataloging and managing bibliographic information, originally designed for exchanging records between library catalogs."},
-  {id:40, topic:"Metadata", text:"What is MODS (Metadata Object Description Schema) primarily used for?", options:["Streaming multimedia content","Metadata syndication/harvesting and documentation of digital information packages","Managing user passwords","Billing cloud usage"], answer:1, explanation:"MODS is used for metadata syndication/harvesting and the documentation of digital information packages."},
-  {id:41, topic:"Metadata", text:"What is the primary difference between indexing and cataloging?", options:["Indexing assigns keywords for retrieval; cataloging creates metadata describing and organizing resources","Indexing is only for physical books; cataloging is only for digital files","They are exactly the same process","Cataloging involves no metadata creation"], answer:0, explanation:"Indexing involves assigning keywords/subject terms to facilitate searching; cataloging is the process of creating metadata that describes and organizes resources."},
-  {id:42, topic:"Metadata", text:"Which of these is NOT a stated importance of metadata in the notes?", options:["Organization and efficient retrieval","Searchability via keywords","Providing context for content","Eliminating the need for any digital storage"], answer:3, explanation:"Metadata supports organization, searchability, management, and context — but it does not eliminate the need for digital storage."},
-  {id:43, topic:"Digital Preservation", text:"What is the primary purpose of Digital Rights Management (DRM)?", options:["To speed up internet connections","To use access control preventing unauthorized use of digital content and protect IP rights","To convert print books to digital format","To generate library statistics reports"], answer:1, explanation:"DRM is a technology that uses access control to prevent unauthorized use of digital content, protecting intellectual property rights."},
-  {id:44, topic:"Digital Preservation", text:"What distinguishes open access digital libraries from subscription-based ones?", options:["Open access requires payment; subscription is free","Open access makes information freely available without cost; subscription requires a paid fee","They are identical in function","Subscription-based libraries cannot be accessed online"], answer:1, explanation:"Open access digital libraries make research information freely available without cost, while subscription-based libraries require users/institutions to pay a fee."},
-  {id:45, topic:"Digital Preservation", text:"How does the course distinguish cybersecurity from ethical considerations in digital libraries?", options:["They are the same concept with different names","Cybersecurity protects systems/data from cyber threats; ethics covers privacy, transparency, and responsible data handling","Ethics only applies to physical libraries","Cybersecurity has nothing to do with data protection"], answer:1, explanation:"Cybersecurity focuses on protecting systems and data from cyber threats, while ethical considerations encompass privacy, transparency, and responsible data handling."},
-  {id:46, topic:"Virtual Libraries", text:"What is the key distinction between a digital library and a virtual library, per Week 8-9 notes?", options:["Virtual libraries don't exist online","A digital library is a collection of digital objects in machine-readable form; a virtual library emphasizes access/organization via internet links","Digital libraries are always free","Virtual libraries only contain video content"], answer:1, explanation:"A digital library is a collection of digital objects stored in machine-readable formats, while a virtual library emphasizes access and organization through internet links rather than a physical/fixed collection."},
-  {id:47, topic:"Virtual Libraries", text:"Which of these is listed as an example of an academic virtual library application?", options:["Netflix","Google Scholar","Spotify","TikTok"], answer:1, explanation:"Google Scholar is listed as an example of an academic virtual library, along with IEEE Xplore, ResearchGate, and JSTOR."},
-  {id:48, topic:"Virtual Libraries", text:"Which app category includes Libby, OverDrive, and WorldCat?", options:["E-book libraries","Public library apps","University digital libraries","Specialized libraries"], answer:1, explanation:"Libby, OverDrive, and WorldCat are listed under Public Library Apps in the notes."},
-  {id:49, topic:"Virtual Libraries", text:"Project Gutenberg and Sci-Hub are examples of which category in the notes?", options:["Public library apps","E-book libraries","Specialized libraries","University digital libraries"], answer:2, explanation:"Project Gutenberg (free e-books) and Sci-Hub (academic papers) are listed as examples of specialized libraries."},
-  {id:50, topic:"Virtual Libraries", text:"What benefit does blockchain technology offer digital libraries, according to the notes?", options:["Faster physical book delivery","Enhanced security, transparency, accessibility, and improved IP management via a distributed immutable ledger","Replacing all librarians with bots","Eliminating the need for metadata"], answer:1, explanation:"Blockchain offers libraries a way to enhance security, transparency, and accessibility, improve digital preservation, and manage IP through a distributed, immutable ledger."},
-  {id:51, topic:"Cloud Fundamentals", text:"Who is credited with proposing in 1961 that computing could be organized as a public utility?", options:["Larry Page","John McCarthy","Michael Hart","Sergey Brin"], answer:1, explanation:"John McCarthy proposed at an MIT centennial celebration in 1961 that computing might someday be organized as a public utility."},
-  {id:52, topic:"Cloud Fundamentals", text:"Which company is credited with pioneering Software as a Service (SaaS) in 1999?", options:["Amazon","Microsoft","Salesforce","Google"], answer:2, explanation:"Salesforce, founded in 1999, pioneered the delivery of enterprise software over the web, later formalized as SaaS."},
-  {id:53, topic:"Cloud Fundamentals", text:"What pivotal event marked the beginning of the modern cloud era in 2006?", options:["Launch of Microsoft Azure","Launch of AWS's Elastic Compute Cloud (EC2)","Founding of Google","Launch of Google Cloud Platform"], answer:1, explanation:"AWS launched its Elastic Compute Cloud (EC2) in 2006, offering scalable virtual servers on a pay-per-use basis, marking the modern cloud era's start."},
-  {id:54, topic:"Cloud Fundamentals", text:"Approximately what was the global cloud market size in 2025?", options:["$100 billion","$391 billion","$781 billion","$5 trillion"], answer:2, explanation:"The global cloud market reached approximately $781 billion in 2025, projected to surpass $900 billion by 2026."},
-  {id:55, topic:"Cloud Fundamentals", text:"What is the projected global cloud market value by 2034, and at what CAGR?", options:["$1 trillion at 5% CAGR","$2.9 trillion at approximately 15.7% CAGR","$500 billion at 2% CAGR","$10 trillion at 25% CAGR"], answer:1, explanation:"The market is projected to exceed $2.9 trillion by 2034, with a compound annual growth rate (CAGR) of approximately 15.7%."},
-  {id:56, topic:"Cloud Fundamentals", text:"Which region accounts for roughly 52% of the global cloud market?", options:["Europe","Asia-Pacific","North America","South America"], answer:2, explanation:"North America currently accounts for around 52% of the cloud market, driven by strong enterprise demand and hyperscale providers."},
-  {id:57, topic:"NIST Characteristics", text:"Which NIST characteristic allows users to provision resources automatically without human interaction with the provider?", options:["Broad Network Access","On-Demand Self-Service","Resource Pooling","Measured Service"], answer:1, explanation:"On-Demand Self-Service allows users to unilaterally provision computing capabilities automatically and as needed, without human interaction with the provider."},
-  {id:58, topic:"NIST Characteristics", text:"Which NIST characteristic refers to a multi-tenant model where resources are dynamically assigned and reassigned to consumers?", options:["Rapid Elasticity","Resource Pooling","Broad Network Access","Measured Service"], answer:1, explanation:"Resource Pooling refers to provider resources being pooled to serve multiple consumers using a multi-tenant model, with dynamic assignment based on demand."},
-  {id:59, topic:"NIST Characteristics", text:"Which characteristic enables cloud resources to scale rapidly outward and inward to match demand?", options:["Rapid Elasticity","On-Demand Self-Service","Measured Service","Broad Network Access"], answer:0, explanation:"Rapid Elasticity allows capabilities to be elastically provisioned and released to scale rapidly with demand, often appearing unlimited to the consumer."},
-  {id:60, topic:"NIST Characteristics", text:"What does 'Measured Service' refer to in cloud computing?", options:["Manual usage tracking by IT staff","Automatic metering and billing of resource usage like a utility","A fixed monthly fee regardless of usage","Service quality measured by customer surveys"], answer:1, explanation:"Measured Service means cloud systems automatically control and optimize resource use via metering, with usage monitored, controlled, and reported for transparent billing."},
-  {id:61, topic:"Service Models", text:"In the IaaS model, who is responsible for managing the operating system, applications, and data?", options:["The cloud provider","The customer","A third-party auditor","No one — it's automated"], answer:1, explanation:"In IaaS, the provider manages hardware while the customer/user controls the OS, applications, and data."},
-  {id:62, topic:"Service Models", text:"Which service model provides a complete development and deployment environment so developers focus only on code?", options:["IaaS","PaaS","SaaS","DBaaS"], answer:1, explanation:"PaaS delivers a complete development/deployment environment including middleware, databases, and tools, letting developers focus only on code."},
-  {id:63, topic:"Service Models", text:"Which of the following is a SaaS example?", options:["AWS EC2","Google App Engine","Microsoft 365","Terraform"], answer:2, explanation:"Microsoft 365 is a fully managed SaaS application delivered via subscription, where the provider handles everything."},
-  {id:64, topic:"Service Models", text:"Which emerging cloud service model is exemplified by AWS Lambda, billing only for actual code execution time?", options:["IaaS","DBaaS","FaaS / Serverless Computing","SECaaS"], answer:2, explanation:"Function as a Service (FaaS), or serverless computing, exemplified by AWS Lambda, runs code on events with zero server management, billed by execution time."},
-  {id:65, topic:"Service Models", text:"Amazon RDS and Azure SQL Database are examples of which 'as a Service' model?", options:["AIaaS","DBaaS","SECaaS","PaaS"], answer:1, explanation:"Amazon RDS and Azure SQL Database are Database as a Service (DBaaS) offerings, providing fully managed databases."},
-  {id:66, topic:"Deployment Models", text:"Which cloud deployment model is best suited for organizations needing maximum control and security, such as those in regulated industries?", options:["Public Cloud","Private Cloud","Multi-Cloud","Community-only Cloud"], answer:1, explanation:"Private Cloud offers exclusive infrastructure for a single organization, providing maximum control and security suited to regulated industries."},
-  {id:67, topic:"Deployment Models", text:"What deployment model integrates private and public clouds for sensitive workloads plus bursting or disaster recovery?", options:["Public Cloud","Hybrid Cloud","Multi-Cloud","Private Cloud"], answer:1, explanation:"Hybrid Cloud integrates private and public clouds, allowing sensitive workloads on private infrastructure while leveraging public cloud for bursting or disaster recovery."},
-  {id:68, topic:"Deployment Models", text:"Approximately what percentage of enterprises have adopted multi-cloud strategies, according to the documents?", options:["About 25%","About 50%","About 90%","About 10%"], answer:2, explanation:"Surveys consistently indicate that nearly 90% of large enterprises have adopted multi-cloud strategies."},
-  {id:69, topic:"Deployment Models", text:"What is the key distinction between hybrid cloud and multi-cloud?", options:["There is no difference; they are synonyms","Hybrid cloud is defined by integration of private and public resources; multi-cloud refers to use of multiple public providers, which may not be integrated","Multi-cloud only applies to government agencies","Hybrid cloud never uses public cloud resources"], answer:1, explanation:"Hybrid cloud is defined by integration/orchestration of private and public resources, while multi-cloud refers specifically to using multiple public clouds, which may or may not be integrated."},
-  {id:70, topic:"Cloud Technologies", text:"What foundational technology creates virtual versions of servers, storage, and networks on shared physical hardware?", options:["Containerization","Virtualization","Blockchain","Serverless computing"], answer:1, explanation:"Virtualization creates software-based virtual representations of physical hardware, enabling multiple VMs to run on a single physical host via a hypervisor."},
-  {id:71, topic:"Cloud Technologies", text:"Approximately how much does virtualization raise hardware utilization rates in cloud data centers compared to on-premises environments?", options:["From 60-80% to 95-99%","From 10-20% (on-premises) to 60-80% (cloud)","No change in utilization","From 1% to 5%"], answer:1, explanation:"Virtualization raises hardware utilization from the typical 10-20% in on-premises environments to 60-80% or more in cloud data centers."},
-  {id:72, topic:"Cloud Technologies", text:"Which tool has become the de facto standard for container orchestration?", options:["Docker","Kubernetes","Terraform","Ansible"], answer:1, explanation:"Kubernetes, originally developed by Google, has become the de facto standard for container orchestration, automating deployment, scaling, and self-healing."},
-  {id:73, topic:"Cloud Technologies", text:"What architectural approach decomposes applications into small, independently deployable services communicating via APIs?", options:["Monolithic architecture","Microservices architecture","Mainframe architecture","Client-server architecture (1990s style)"], answer:1, explanation:"Microservices break applications into independent, API-connected services for agility, allowing independent development, deployment, and scaling."},
-  {id:74, topic:"Cloud Technologies", text:"Which tool, such as Terraform, enables infrastructure to be defined, versioned, and deployed using code?", options:["Infrastructure as Code (IaC)","Database as a Service (DBaaS)","Function as a Service (FaaS)","Security as a Service (SECaaS)"], answer:0, explanation:"Infrastructure as Code (IaC) tools like HashiCorp Terraform enable infrastructure to be defined, versioned, and deployed using code."},
-  {id:75, topic:"Market & Providers", text:"Approximately what combined market share do AWS, Azure, and GCP hold in the cloud infrastructure market?", options:["20-25%","40-45%","65-70%","95-100%"], answer:2, explanation:"The three hyper-scalers — AWS, Azure, and GCP — collectively command approximately 65-70% of global cloud infrastructure revenue."},
-  {id:76, topic:"Market & Providers", text:"Which cloud provider holds the largest market share at approximately 30-32%?", options:["Microsoft Azure","Google Cloud Platform","Amazon Web Services (AWS)","Oracle Cloud"], answer:2, explanation:"AWS remains the global market leader with approximately 30-32% market share in cloud infrastructure as of 2025."},
-  {id:77, topic:"Market & Providers", text:"Which cloud provider's distinguishing strength is its partnership with OpenAI, integrating GPT models via a Copilot initiative?", options:["Google Cloud Platform","Microsoft Azure","Amazon Web Services","Oracle Cloud"], answer:1, explanation:"Microsoft Azure has made its most prominent AI bet through its deep partnership with OpenAI, integrating GPT models via Azure OpenAI Service and Copilot."},
-  {id:78, topic:"Cloud Security", text:"Under the Shared Responsibility Model, who is responsible for 'security of the cloud' (physical infrastructure, hypervisor)?", options:["The customer","The cloud provider","A third-party regulator","No one; it is unmanaged"], answer:1, explanation:"The cloud provider is responsible for 'security of the cloud' — physical infrastructure, hypervisor, and networking — while the customer secures data and applications 'in the cloud.'"},
-  {id:79, topic:"Cloud Security", text:"In which service model does the customer carry the greatest security responsibility?", options:["SaaS","PaaS","IaaS","FaaS"], answer:2, explanation:"Responsibility decreases from IaaS → PaaS → SaaS; IaaS customers carry the greatest security responsibility since they manage the OS, applications, and data."},
-  {id:80, topic:"Cloud Security", text:"Which emerging security paradigm extends encryption to data while it is actively being processed, using hardware-based trusted execution environments?", options:["Zero-trust architecture","Identity and Access Management (IAM)","Confidential Computing","AI-driven threat detection"], answer:2, explanation:"Confidential Computing extends encryption to data in use, processing it inside hardware-based trusted execution environments (TEEs) such as Intel SGX or AMD SEV."}
+{id:1,topic:"Amalgamation",text:"In what year was Nigeria amalgamated into a single political entity?",options:["1900","1906","1914","1960"],answer:2,explanation:"Lord Frederick Lugard amalgamated the Northern and Southern Protectorates on January 1, 1914, creating the Colony and Protectorate of Nigeria."},
+{id:2,topic:"Amalgamation",text:"Who is credited with giving Nigeria its name?",options:["Lord Lugard","Flora Shaw","Goldie","Yakubu Gowon"],answer:1,explanation:"The name 'Nigeria' was coined by British journalist Flora Shaw in an 1897 article in The Times, derived from 'Niger area'. She later married Lord Lugard."},
+{id:3,topic:"Amalgamation",text:"Which protectorate merged with the Royal Niger Company's territories in 1900 to form the Protectorate of Southern Nigeria?",options:["Lagos Colony","Niger Coast Protectorate","Northern Nigeria Protectorate","Oil Rivers Protectorate"],answer:1,explanation:"In 1900, the Niger Coast Protectorate was merged with the Royal Niger Company's territories to form the Protectorate of Southern Nigeria."},
+{id:4,topic:"Amalgamation",text:"In what year was the Lagos Colony merged with the Protectorate of Southern Nigeria?",options:["1900","1906","1911","1914"],answer:1,explanation:"In 1906, the Lagos Colony was merged with the rest of the Southern Protectorate to form the Colony and Protectorate of Southern Nigeria."},
+{id:5,topic:"Amalgamation",text:"Who was the first Governor-General of the amalgamated Nigeria (1914-1919)?",options:["Sir Ralph Moor","Sir Walter Egerton","Lord Frederick Lugard","Sir Hugh Clifford"],answer:2,explanation:"Lord Frederick Lugard became the first Governor-General of Nigeria after engineering the 1914 amalgamation, serving from 1914 to 1919."},
+{id:6,topic:"Amalgamation",text:"Which of the following was NOT a stated reason for the British amalgamation of Nigeria?",options:["A secure source of raw materials","A ready market for manufactured goods","Reduced administrative costs","Promotion of indigenous self-governance"],answer:3,explanation:"The British aims were economic and administrative — raw materials, markets, manpower, and cost reduction — not indigenous self-governance, which only came much later."},
+{id:7,topic:"Amalgamation",text:"Which protectorate was wealthier and expected to subsidize the other after amalgamation?",options:["Northern Protectorate","Southern Protectorate","Lagos Colony","Niger Coast Protectorate"],answer:1,explanation:"The Selbourne Committee recommended using funds from the richer Southern Protectorate to cover financial shortfalls in the Northern Protectorate."},
+{id:8,topic:"Amalgamation",text:"Chief Obafemi Awolowo famously described Nigeria as:",options:["A united nation","A mere geographical expression","A model federation","An indivisible entity"],answer:1,explanation:"In 1947, Awolowo remarked that 'Nigeria is not a nation. It is a mere geographical expression,' criticizing the lack of shared nationhood after amalgamation."},
+{id:9,topic:"Amalgamation",text:"The 1953 Kano Riots arose largely from tensions over:",options:["Religious disputes only","Enahoro's motion for self-government by 1956","A border dispute","Currency reforms"],answer:1,explanation:"The violent 1953 Kano Riots followed tensions from Anthony Enahoro's 1953 motion for Nigeria's self-determination by 1956, which northern delegates opposed."},
+{id:10,topic:"Amalgamation",text:"What system of colonial administration did the British primarily use across Nigeria?",options:["Direct rule everywhere","Federal rule","Indirect rule","Military rule"],answer:2,explanation:"The British primarily used the Indirect Rule system, governing through existing or appointed local rulers under British supervision."},
+{id:11,topic:"Political Parties",text:"Who founded the Nigerian National Democratic Party (NNDP), Nigeria's first political party?",options:["Nnamdi Azikiwe","Obafemi Awolowo","Herbert Macaulay","Ahmadu Bello"],answer:2,explanation:"Sir Herbert Macaulay, known as the father of Nigerian nationalism, founded the NNDP in 1922/1923."},
+{id:12,topic:"Political Parties",text:"In what year was the National Council of Nigerian Citizens (NCNC) formed?",options:["1923","1934","1944","1951"],answer:2,explanation:"The NCNC (originally National Council of Nigeria and the Cameroons) was formed in 1944 by Herbert Macaulay and Nnamdi Azikiwe."},
+{id:13,topic:"Political Parties",text:"The Action Group (AG), founded in 1951, was led by:",options:["Ahmadu Bello","Obafemi Awolowo","Aminu Kano","Tafawa Balewa"],answer:1,explanation:"The Action Group was formed and led by Chief Obafemi Awolowo, dominating the Western Region for over a decade."},
+{id:14,topic:"Political Parties",text:"Which party was founded by Sir Ahmadu Bello in 1949 and dominated the Northern Region?",options:["NEPU","NPC","NCNC","NYM"],answer:1,explanation:"The Northern People's Congress (NPC), founded by Sir Ahmadu Bello, was the dominant party in the Northern Region."},
+{id:15,topic:"Political Parties",text:"The Northern Elements Progressive Union (NEPU) was led by:",options:["Tafawa Balewa","Aminu Kano","Anthony Enahoro","Samuel Akintola"],answer:1,explanation:"NEPU, a leftist offshoot from NPC, was led by Mallam Aminu Kano, who advocated for the rights of common Northerners."},
+{id:16,topic:"Political Parties",text:"Which political party introduced free Universal Primary Education (UPE) in the Western Region in 1955?",options:["NCNC","NPC","NPN","Action Group"],answer:3,explanation:"The Action Group, under Awolowo's leadership, introduced free Universal Primary Education in the Western Region in 1955."},
+{id:17,topic:"Political Parties",text:"The Nigerian Youth Movement (NYM) is notable for being:",options:["The first party with a national outlook","The party of the 1st military regime","A purely religious organization","Formed after independence"],answer:0,explanation:"NYM was the first Nigerian political party with a genuinely national outlook, drawing members from multiple ethnic groups."},
+{id:18,topic:"Political Parties",text:"Which party emerged from a merger of ACN, CPC, and ANPP in 2013?",options:["PDP","APGA","APC","NPN"],answer:2,explanation:"The All Progressives Congress (APC) was founded in 2013 from a merger of the Action Congress of Nigeria, Congress for Progressive Change, and All Nigeria Peoples Party."},
+{id:19,topic:"Political Parties",text:"Who became the first president of Nigeria from the PDP in 1999?",options:["Atiku Abubakar","Olusegun Obasanjo","Goodluck Jonathan","Umaru Musa Yar'adua"],answer:1,explanation:"Olusegun Obasanjo contested and won the 1999 presidential election as the PDP's candidate, becoming Nigeria's first president of the 4th Republic."},
+{id:20,topic:"Political Parties",text:"The All Progressives Grand Alliance (APGA) has its strongest base in which region?",options:["North West","South West","South East","North Central"],answer:2,explanation:"APGA, founded by Chief Chukwuemeka Ojukwu in 2002, has a strong base in South Eastern Nigeria, particularly Anambra State."},
+{id:21,topic:"Colonial Rule",text:"What was the primary system Lord Lugard introduced to govern Nigeria through traditional rulers?",options:["Direct Rule","Indirect Rule","Federal Rule","Native Authority Rule (only in the South)"],answer:1,explanation:"Lugard introduced the Indirect Rule system, governing through existing chiefs, emirs, and obas under British supervision."},
+{id:22,topic:"Colonial Rule",text:"Why was Indirect Rule most successful in Northern Nigeria?",options:["Because the North had no traditional rulers","Because of the pre-existing centralized Sokoto Caliphate structure","Because British officials lived there permanently","Because of higher literacy rates"],answer:1,explanation:"The North's hierarchical Sokoto Caliphate structure made it easy for Britain to govern through existing Emirs under Indirect Rule."},
+{id:23,topic:"Colonial Rule",text:"Why did Indirect Rule largely fail in Igboland?",options:["The Igbo had a centralized monarchy","Igbo society was acephalous, lacking centralized authority","The British preferred direct rule there","Igbo people rejected all British contact"],answer:1,explanation:"Igbo society was largely acephalous/decentralized, so the British creation of 'Warrant Chiefs' was artificial and often resented."},
+{id:24,topic:"Colonial Rule",text:"The 1929 Aba Women's Riot was primarily a protest against:",options:["Lack of Western education","Unfair taxation under Warrant Chiefs","Restrictions on trade","The 1914 amalgamation"],answer:1,explanation:"The Aba Women's Riot was a direct protest against taxation and the abuses associated with the Warrant Chief system under Indirect Rule."},
+{id:25,topic:"Colonial Rule",text:"Which event marked the British conquest of the Benin Kingdom?",options:["The Berlin Conference","The Benin Expedition of 1897","The Aro War","The Sokoto Jihad"],answer:1,explanation:"British forces sacked the Kingdom of Benin in 1897, looting treasures and exiling Oba Ovonramwen, in what is known as the Benin Expedition."},
+{id:26,topic:"Colonial Rule",text:"The Anglo-Aro War (1901-1902) was fought against which group?",options:["The Sokoto Caliphate","The Aro Confederacy","The Benin Kingdom","The Oyo Empire"],answer:1,explanation:"Britain fought and defeated the Aro Confederacy, a powerful commercial and religious network in southeastern Nigeria, in the Anglo-Aro War."},
+{id:27,topic:"Colonial Rule",text:"What was the Berlin Conference of 1884-1885 primarily concerned with?",options:["Ending the slave trade","Dividing Africa into European spheres of influence","Establishing Nigerian independence","Creating the Nigerian currency"],answer:1,explanation:"The Berlin Conference formally partitioned Africa among European powers based on the principle of effective occupation, without regard for indigenous boundaries."},
+{id:28,topic:"Colonial Rule",text:"Who led the Royal Niger Company that dominated trade in the Niger area?",options:["Frederick Lugard","Flora Shaw","George Goldie","Walter Egerton"],answer:2,explanation:"Sir George Dashwood Taubman Goldie led the Royal Niger Company, which held a trade monopoly and administered territories before British government takeover."},
+{id:29,topic:"Colonial Rule",text:"In what year did the British government officially dissolve the Royal Niger Company and take direct control of its territories?",options:["1886","1897","1900","1914"],answer:2,explanation:"The Royal Niger Company's charter was revoked, and in 1900 the company was dissolved with its territories transferred to the British government."},
+{id:30,topic:"Colonial Rule",text:"The 'civilizing mission' was used by Britain primarily to:",options:["Justify economic exploitation under a moral pretext","Fund Nigerian universities","Abolish all forms of taxation","Establish full Nigerian self-governance"],answer:0,explanation:"Britain framed colonization as bringing progress, education, and Christianity, but this largely served as a pretext for economic exploitation and political control."},
+{id:31,topic:"Colonial Rule",text:"Which cash crop economy practice did the British heavily promote in colonial Nigeria?",options:["Subsistence-only farming","Industrial manufacturing","Cash crop production for export","Self-sufficient food-only farming"],answer:2,explanation:"The British promoted cash crop production (cocoa, palm oil, groundnuts, cotton) for export to benefit British industries, often at the expense of food security."},
+{id:32,topic:"Colonial Rule",text:"What were 'Warrant Chiefs'?",options:["Traditional Igbo kings","British-appointed local leaders in non-centralized societies","Northern Emirs","Colonial judges"],answer:1,explanation:"Warrant Chiefs were appointed by the British in areas like Igboland that lacked centralized rule, often becoming unpopular and corrupt."},
+{id:33,topic:"Colonial Rule",text:"Which constitution introduced the elective principle in Nigeria?",options:["1922 Clifford Constitution","1946 Richards Constitution","1951 Macpherson Constitution","1954 Lyttleton Constitution"],answer:0,explanation:"The 1922 Clifford Constitution introduced the elective principle, allowing limited Nigerian representation in the Legislative Council."},
+{id:34,topic:"Colonial Rule",text:"The 1946 Richards Constitution is most notable for:",options:["Granting full independence","Introducing a regional structure (North, East, West)","Abolishing indirect rule","Creating the first Nigerian political party"],answer:1,explanation:"The Richards Constitution introduced a regional structure dividing Nigeria into North, East, and West, though real power stayed with Britain."},
+{id:35,topic:"Colonial Rule",text:"The 1954 Lyttleton Constitution is significant for establishing:",options:["A unitary government","A federal system of government","Military rule","The Nigerian Senate"],answer:1,explanation:"The Lyttleton Constitution of 1954 created a federal system of government, giving Nigerians more control over internal regional affairs."},
+{id:36,topic:"Colonial Rule",text:"Which colonial economic policy required Nigerians to work compulsorily on infrastructure projects?",options:["Cash crop subsidies","Forced labor","Free apprenticeship","Native Authority Police"],answer:1,explanation:"Forced labor policies compelled Nigerians to work on colonial infrastructure projects such as roads and railways."},
+{id:37,topic:"Colonial Rule",text:"What was the main reasoning behind the 1914 Amalgamation according to Lord Lugard's public justification?",options:["Religious unification","Creating a more efficient, centralized administration","Promoting Nigerian art and culture","Ending the slave trade"],answer:1,explanation:"Lugard publicly justified amalgamation as creating a more efficient, centralized administration, though the underlying motive was financial — using Southern wealth to support the North."},
+{id:38,topic:"Colonial Rule",text:"Sir Ahmadu Bello described the 1914 Amalgamation as:",options:["A perfect union","A mistake","A divine plan","An economic triumph for the North"],answer:1,explanation:"Sir Ahmadu Bello was critical of the amalgamation, famously describing it in his memoirs as 'a mistake' that was unpopular among Northerners."},
+{id:39,topic:"Colonial Rule",text:"Lagos became a British Crown Colony in what year?",options:["1851","1861","1865","1900"],answer:2,explanation:"After being annexed in 1861, Lagos formally became a Crown Colony in 1865, directly governed by a British-appointed governor."},
+{id:40,topic:"Colonial Rule",text:"The first British bombardment of Lagos, leading to the deposition of King Kosoko, occurred in:",options:["1841","1851","1861","1884"],answer:1,explanation:"The British bombarded Lagos in 1851 (two attacks, November and December), eventually deposing King Kosoko and replacing him with Akintoye."},
+{id:41,topic:"Culture & Ethnic Groups",text:"What are the three major ethnic groups in Nigeria?",options:["Hausa, Fulani, Tiv","Hausa, Yoruba, Igbo","Yoruba, Igbo, Ijaw","Hausa, Igbo, Kanuri"],answer:1,explanation:"Hausa, Yoruba, and Igbo are widely recognized as Nigeria's three major ethnic groups, though Nigeria has over 250 ethnic groups in total."},
+{id:42,topic:"Culture & Ethnic Groups",text:"Which traditional political system describes the Igbo people, lacking centralized authority?",options:["Emirate system","Monarchical system","Acephalous/Gerontocracy","Caliphate system"],answer:2,explanation:"The Igbo traditionally operated an acephalous (headless), decentralized, gerontocratic (elder-led) system rather than centralized kingship."},
+{id:43,topic:"Culture & Ethnic Groups",text:"What is the title of the traditional ruler among the Yoruba?",options:["Emir","Oba","Sarki","Sultan"],answer:1,explanation:"The Yoruba traditional ruler is called an Oba, governing under a centralized monarchical system with advisory councils."},
+{id:44,topic:"Culture & Ethnic Groups",text:"The Sokoto Jihad of 1804, led by Usman Dan Fodio, transformed Hausa land's political system from the Sarauta system to the:",options:["Fulani Emirate system","Yoruba monarchical system","Igbo village council","Benin absolute monarchy"],answer:0,explanation:"The 1804 Jihad replaced the Habe (Hausa) Sarauta system with the Fulani Emirate/Caliphal system, with Emirs replacing Serkis."},
+{id:45,topic:"Culture & Ethnic Groups",text:"The Yoruba supreme deity, believed to ordain all things, is known as:",options:["Amadioha","Sango","Olodumare","Ogun"],answer:2,explanation:"Olodumare is revered by the Yoruba as the Supreme Being who ordains all things, with ancestors and deities serving as intermediaries."},
+{id:46,topic:"Culture & Ethnic Groups",text:"Which of these is an example of MATERIAL culture?",options:["Religion","Language","Pots and tools","Philosophy"],answer:2,explanation:"Material culture refers to tangible physical items like buildings, tools, pots, and artifacts, as opposed to abstract non-material culture."},
+{id:47,topic:"Culture & Ethnic Groups",text:"Which of these is an example of NON-MATERIAL culture?",options:["A bronze sculpture","A clay pot","Religious belief","A woven cloth"],answer:2,explanation:"Non-material culture consists of abstract elements like religion, philosophy, language, and values, as opposed to physical/tangible items."},
+{id:48,topic:"Culture & Ethnic Groups",text:"The Kanuri ethnic group is predominantly found in which Nigerian states?",options:["Lagos and Ogun","Borno and Yobe","Kano and Kaduna","Rivers and Bayelsa"],answer:1,explanation:"The Kanuri people are predominantly found in Borno and Yobe States, with the historic Kanem-Bornu Empire as their heritage."},
+{id:49,topic:"Culture & Ethnic Groups",text:"The Tiv ethnic group is predominantly domiciled in which state?",options:["Benue State","Kogi State","Plateau State","Taraba State"],answer:0,explanation:"The Tiv are predominantly found in Benue State, though also present in Nasarawa, Taraba, and Plateau States."},
+{id:50,topic:"Culture & Ethnic Groups",text:"The Nupe people trace the formation of their kingdom to which historical figure?",options:["Tsoede (Edegi)","Bayajida","Oduduwa","Mallam Dendo"],answer:0,explanation:"Tsoede, also known as Edegi, born around 1465, is credited with establishing the Nupe Kingdom from his base at Nupeko."},
+{id:51,topic:"Culture & Ethnic Groups",text:"The Ebira people's paramount ruler holds the title:",options:["Etsu Nupe","Ohonoyi","Attah","Aku of Wukari"],answer:1,explanation:"The paramount ruler of Ebiraland is known as the Ohonoyi, with the throne located in Okene."},
+{id:52,topic:"Culture & Ethnic Groups",text:"Which deity is regarded by the Igbo as the earth goddess and guardian of morality?",options:["Ala","Amadioha","Anyanwu","Ahiajoku"],answer:0,explanation:"Ala is the earth goddess seen across Igboland as the guardian of Igbo morality."},
+{id:53,topic:"Culture & Ethnic Groups",text:"What does the term 'omoluabi' refer to in Yoruba culture?",options:["A type of food","A perfect gentleman/well-bred person","A royal title","A musical instrument"],answer:1,explanation:"An 'omoluabi' refers to a person of good character and upbringing — the ideal well-mannered, well-bred Yoruba individual."},
+{id:54,topic:"Culture & Ethnic Groups",text:"The Fulani Jihad of the early 19th century was led by:",options:["Mallam Dendo","Usman Dan Fodio","Muhammad Al-Kanemi","Tsoede"],answer:1,explanation:"Usman Dan Fodio, an Islamic scholar, led the early 19th century Fulani Jihad against the Hausa states, establishing Fulani dominance under the Sokoto Caliphate."},
+{id:55,topic:"Culture & Ethnic Groups",text:"What two main types of culture components are commonly identified?",options:["Religious and secular","Material and non-material","Urban and rural","Northern and Southern"],answer:1,explanation:"Culture is commonly divided into material components (tangible objects) and non-material components (abstract beliefs and values)."},
+{id:56,topic:"Trade & Self-Reliance",text:"What was the primary method of exchange in indigenous Nigerian trade before colonialism?",options:["Banking systems","Barter system","Stock exchange","Credit cards"],answer:1,explanation:"Indigenous trade was largely conducted through barter, exchanging goods and services directly without currency."},
+{id:57,topic:"Trade & Self-Reliance",text:"Economics of self-reliance primarily emphasizes:",options:["Total dependence on foreign aid","Local production, consumption, and sustainability","Exclusive reliance on imports","Eliminating all trade"],answer:1,explanation:"Economics of self-reliance prioritizes local production and consumption over dependence on external markets, emphasizing sustainability and community empowerment."},
+{id:58,topic:"Trade & Self-Reliance",text:"Which type of market served as hubs for interregional trade, often on borders between ethnic groups?",options:["Village markets","Large markets","Online markets","Stock markets"],answer:1,explanation:"Large markets served as hubs for interregional trade, typically situated on borders between geographical zones or ethnic groups."},
+{id:59,topic:"Trade & Self-Reliance",text:"In the indigenous apprenticeship system, how do apprentices primarily learn their trade?",options:["Classroom instruction","Online courses","On-the-job training under a master craftsman","Government-issued manuals"],answer:2,explanation:"Indigenous apprenticeship is informal and practical, with apprentices learning through on-the-job training, mentorship, and hands-on experience under a master."},
+{id:60,topic:"Trade & Self-Reliance",text:"Which of the following is a major challenge facing indigenous apprenticeship in Nigeria?",options:["Too much government funding","Lack of formal recognition","Excessive enrollment","Overregulation"],answer:1,explanation:"Indigenous apprenticeship lacks formal government recognition, often being regarded as unskilled or low-level labor, alongside limited access to funding."},
+{id:61,topic:"Trade & Self-Reliance",text:"Palm oil was a major local product that especially attracted which group of traders?",options:["Asian merchants","European merchants","American settlers","Middle Eastern traders"],answer:1,explanation:"Palm oil was central to indigenous trade and was a major commodity that attracted European merchants during the colonial trade era."},
+{id:62,topic:"Trade & Self-Reliance",text:"Which of these is NOT listed among traditional indigenous trades/skills in Nigeria?",options:["Blacksmithing","Pottery","Software engineering","Wood carving"],answer:2,explanation:"Traditional indigenous trades include blacksmithing, tailoring, fishing, wood carving, pottery, leatherwork, and carpentry — software engineering is a modern occupation."},
+{id:63,topic:"Trade & Self-Reliance",text:"Trade in indigenous Nigerian society was often embedded within:",options:["Only formal contracts","Cultural practices and ceremonies","Banking regulations","Foreign treaties"],answer:1,explanation:"Indigenous trade practices were often embedded in cultural festivals and ceremonies, strengthening cultural identity and social cohesion."},
+{id:64,topic:"Trade & Self-Reliance",text:"A community-centric approach to indigenous trade prioritizes:",options:["Profit maximization above all","Community needs and mutual trust over pure profit","Foreign investment","Government control"],answer:1,explanation:"Indigenous trade practices often prioritized community needs and mutual trust/social relationships over pure profit maximization."},
+{id:65,topic:"Reorientation & National Values",text:"What does the acronym WAI stand for?",options:["War Against Indiscipline","Women's Awareness Initiative","West African Institute","Workers Against Inflation"],answer:0,explanation:"WAI stands for War Against Indiscipline, launched in 1984 under Major General Muhammadu Buhari to instill discipline and moral values."},
+{id:66,topic:"Reorientation & National Values",text:"The National Orientation Agency (NOA) was established in what year?",options:["1976","1987","1993","2005"],answer:2,explanation:"The National Orientation Agency was established in 1993 under General Sani Abacha, to promote national values, unity, and civic responsibility."},
+{id:67,topic:"Reorientation & National Values",text:"MAMSER, established under General Ibrahim Babangida, stands for:",options:["Mass Mobilization for Self-Reliance, Social Justice and Economic Recovery","Military Action for Mass Service and Education","Maritime and Marine Services Regulation","Ministry of Agriculture, Mining and Services"],answer:0,explanation:"MAMSER (1987) stood for Mass Mobilization for Self-Reliance, Social Justice and Economic Recovery, aimed at fostering national unity."},
+{id:68,topic:"Reorientation & National Values",text:"The 'Green Revolution' in Nigeria was launched in 1973 under which Head of State?",options:["Yakubu Gowon","Muhammadu Buhari","Shehu Shagari","Ibrahim Babangida"],answer:0,explanation:"The Green Revolution was launched in 1973 under General Yakubu Gowon to boost agricultural production through modern farming techniques."},
+{id:69,topic:"Reorientation & National Values",text:"Austerity Measures were introduced in Nigeria in 1981 under which leader?",options:["Olusegun Obasanjo","Shehu Shagari","Muhammadu Buhari","Sani Abacha"],answer:1,explanation:"President Shehu Shagari introduced Austerity Measures in 1981 in response to an economic downturn caused by declining oil prices."},
+{id:70,topic:"Reorientation & National Values",text:"WAIC, an extension of WAI focused on corruption, stands for:",options:["War Against Indiscipline and Corruption","Workers Alliance for Industrial Change","West African Industrial Corporation","War Against Insecurity and Crime"],answer:0,explanation:"WAIC (War Against Indiscipline and Corruption) extended WAI's focus to specifically target corruption through public awareness and stricter law enforcement."},
+{id:71,topic:"Reorientation & National Values",text:"In the '3R's' framework discussed in reorientation strategies, what do the three R's stand for?",options:["Reading, wRiting, aRithmetic","Reconstruction, Rehabilitation, Reconciliation","Reform, Renewal, Restoration","Religion, Race, Region"],answer:1,explanation:"The 3R's framework refers to Reconstruction, Rehabilitation, and Reconciliation — pillars for societal healing after conflict."},
+{id:72,topic:"Reorientation & National Values",text:"The 'Change Begins With Me' campaign in Nigeria focused on:",options:["Foreign policy reform","Personal behavior and societal values","Military restructuring","Currency redenomination"],answer:1,explanation:"The 'Change Begins With Me' campaign was a government-led initiative focusing on personal behavior change and promoting national values."},
+{id:73,topic:"Reorientation & National Values",text:"Reorientation, as a concept, is best defined as:",options:["A purely economic policy","Changing or reforming beliefs, attitudes, and behaviors to align with desired values","A method of military training","A type of trade agreement"],answer:1,explanation:"Reorientation refers to the process of changing, renewing, or reforming individuals' or groups' beliefs, attitudes, and behaviors towards positive societal outcomes."},
+{id:74,topic:"Reorientation & National Values",text:"Which institution was established in 1996 to promote unity and reduce sectional feelings in Nigeria?",options:["NOA","NYSC","Federal Character Commission","EFCC"],answer:2,explanation:"The Federal Character Commission (FCC) was established in 1996 to help reduce sectional feelings and promote unity among Nigeria's diverse peoples."},
+{id:75,topic:"Reorientation & National Values",text:"The NYSC (National Youth Service Corps) was established in what year?",options:["1973","1987","1993","2005"],answer:0,explanation:"The National Youth Service Corps was established in 1973 as part of efforts to reduce sectional feelings and promote national unity among Nigerian youths."},
+{id:76,topic:"Citizenship & Civic",text:"Citizenship acquired automatically by being born in a country is referred to as:",options:["Jus sanguinis","Jus soli","Jure matrimonii","Naturalization"],answer:1,explanation:"Jus soli (right of soil) refers to citizenship acquired by virtue of being born within a country's territory."},
+{id:77,topic:"Citizenship & Civic",text:"Citizenship acquired through one's parents is known as:",options:["Jus soli","Jus sanguinis","Naturalization","Jure matrimonii"],answer:1,explanation:"Jus sanguinis (right of blood) is citizenship acquired through parentage rather than place of birth."},
+{id:78,topic:"Citizenship & Civic",text:"Where are fundamental human rights enshrined in the 1999 Nigerian Constitution?",options:["Chapter I","Chapter II","Chapter III","Chapter IV"],answer:3,explanation:"Fundamental rights are enshrined in Chapter IV of the 1999 Nigerian Constitution, guaranteeing civil liberties such as right to life and fair hearing."},
+{id:79,topic:"Citizenship & Civic",text:"Which of the following is NOT one of the listed duties of a Nigerian citizen?",options:["Paying tax promptly","Obeying laws and regulations","Participating in democratic processes","Owning private property"],answer:3,explanation:"Civic duties include obeying laws, paying tax, contributing to national development, and participating in democratic processes — property ownership is a right, not a listed civic duty."},
+{id:80,topic:"Citizenship & Civic",text:"Statelessness refers to a situation where:",options:["A person holds dual citizenship","A person has no recognized nationality/citizenship anywhere","A person owns multiple properties","A nation has no government"],answer:1,explanation:"Statelessness describes the situation where a person lacks any recognized nationality or citizenship, a persistent global and Nigerian challenge."}
 ];
 
 const state = {
-  answers: {},
-  revealed: {},
-  bookmarks: new Set(),
-  filter: 'All',
-  search: '',
-  shuffled: [...questions],
-  isShuffled: false,
-  timerSecs: 0,
-  timerInterval: null,
+  answers:{}, revealed:{}, bookmarks:new Set(),
+  filter:'All', search:'',
+  shuffled:[...questions], isShuffled:false,
+  timerSecs:0, timerInterval:null
 };
 
 function init(){
@@ -626,119 +393,96 @@ function init(){
 }
 
 function buildFilters(){
-  const topics = ['All', ...new Set(questions.map(q => q.topic))];
-  const row = document.getElementById('filterRow');
-  row.innerHTML = topics.map(t =>
-    `<button class="filter-pill ${t==='All' ? 'active' : ''}" onclick="setFilter('${t.replace(/'/g,"\\'")}', this)">${t}</button>`
-  ).join('');
+  const topics = ['All', ...new Set(questions.map(q=>q.topic))];
+  const row = document.getElementById('filter-row');
+  row.innerHTML = topics.map(t=>`<button class="filter-pill ${t==='All'?'active':''}" onclick="setFilter('${t.replace(/'/g,"\\'")}',this)">${t}</button>`).join('');
 }
 
 function setFilter(topic, btn){
   state.filter = topic;
-  document.querySelectorAll('.filter-pill').forEach(p => p.classList.remove('active'));
+  document.querySelectorAll('.filter-pill').forEach(p=>p.classList.remove('active'));
   btn.classList.add('active');
   renderQuestions();
 }
 
-function filterQuestions(val){
-  state.search = val.toLowerCase();
+function filterQuestions(){
+  state.search = document.getElementById('search-input').value.toLowerCase();
   renderQuestions();
 }
 
 function getVisible(){
-  return state.shuffled.filter(q => {
-    const topicMatch = state.filter === 'All' || q.topic === state.filter;
-    const searchMatch = !state.search || q.text.toLowerCase().includes(state.search) || q.topic.toLowerCase().includes(state.search);
-    return topicMatch && searchMatch;
+  return state.shuffled.filter(q=>{
+    const matchTopic = state.filter==='All' || q.topic===state.filter;
+    const matchSearch = !state.search || q.text.toLowerCase().includes(state.search) || q.options.some(o=>o.toLowerCase().includes(state.search));
+    return matchTopic && matchSearch;
   });
 }
 
 function renderQuestions(){
   const visible = getVisible();
   const list = document.getElementById('q-list');
-  const noResults = document.getElementById('noResults');
-  document.getElementById('statShowing').textContent = visible.length;
-  if(visible.length === 0){
-    list.innerHTML = '';
-    noResults.classList.add('show');
-  } else {
-    noResults.classList.remove('show');
-    list.innerHTML = visible.map(q => buildCard(q)).join('');
-  }
+  document.getElementById('no-results').style.display = visible.length===0 ? 'block' : 'none';
+  document.getElementById('stat-showing').textContent = visible.length;
+  list.innerHTML = visible.map((q,idx)=>buildCard(q,idx)).join('');
   updateStats();
 }
 
-function buildCard(q){
-  const answered = state.answers.hasOwnProperty(q.id);
+function buildCard(q, idx){
+  const answered = state.answers[q.id] !== undefined;
   const revealed = state.revealed[q.id];
   const isBookmarked = state.bookmarks.has(q.id);
-  const chosen = state.answers[q.id];
   const letters = ['A','B','C','D'];
-
-  const optionsHTML = q.options.map((opt, idx) => {
-    let cls = 'option';
-    let disabled = '';
-    if(answered || revealed) disabled = 'disabled';
-    if(answered){
-      if(idx === q.answer) cls += ' correct';
-      else if(idx === chosen) cls += ' wrong';
-    } else if(revealed){
-      if(idx === q.answer) cls += ' revealed-correct';
+  const optsHtml = q.options.map((opt,i)=>{
+    let cls = 'opt-btn';
+    let disabledAttr = '';
+    if(answered || revealed){
+      disabledAttr = 'disabled';
+      if(answered){
+        if(i===q.answer) cls += ' correct';
+        else if(i===state.answers[q.id]) cls += ' wrong';
+      } else if(revealed && i===q.answer){
+        cls += ' revealed-correct';
+      }
     }
-    const clickAttr = (answered || revealed) ? '' : `onclick="pickAnswer(${q.id}, ${idx})"`;
-    return `<button class="${cls} ${disabled}" ${clickAttr}>
-      <span class="letter">${letters[idx]}</span>
-      <span>${opt}</span>
+    return `<button class="${cls}" ${disabledAttr} onclick="pickAnswer(${q.id},${i})">
+      <span class="opt-letter">${letters[i]}</span><span>${opt}</span>
     </button>`;
   }).join('');
 
-  const showExplanation = answered || revealed;
-  const footerHTML = (!answered && !revealed)
-    ? `<div class="q-footer"><button class="reveal-btn" onclick="revealAns(${q.id})">Reveal Answer</button></div>`
-    : '';
+  const showExplain = answered || revealed;
+  const footerHtml = (!answered && !revealed) ? `<div class="q-footer"><button class="reveal-btn" onclick="revealAns(${q.id})">Reveal Answer</button></div>` : '';
 
-  return `<div class="q-card ${isBookmarked ? 'bookmarked' : ''}" id="card-${q.id}">
+  return `<div class="q-card ${isBookmarked?'bookmarked':''}" id="card-${q.id}">
     <div class="q-meta">
-      <span class="q-badge">Q${q.id}</span>
+      <span class="q-num mono">Q${q.id}</span>
       <span class="topic-badge">${q.topic}</span>
       <span class="type-badge">Theory</span>
-      <button class="q-bk-btn ${isBookmarked ? 'active' : ''}" onclick="toggleBk(${q.id})">🔖</button>
+      <button class="bk-btn ${isBookmarked?'active':''}" onclick="toggleBk(${q.id})">🔖</button>
     </div>
     <div class="q-text">${q.text}</div>
-    <div class="options-grid">${optionsHTML}</div>
-    ${footerHTML}
-    <div class="explanation ${showExplanation ? 'show' : ''}">
-      <b>Explanation:</b> ${q.explanation}
-    </div>
+    <div class="opts-grid">${optsHtml}</div>
+    ${footerHtml}
+    <div class="explain-box ${showExplain?'show':''}"><strong>Explanation:</strong> ${q.explanation}</div>
   </div>`;
 }
 
 function pickAnswer(id, chosen){
+  if(state.answers[id] !== undefined) return;
   state.answers[id] = chosen;
-  const q = questions.find(x => x.id === id);
-  rerenderCard(q);
-  updateStats();
+  renderQuestions();
+  scrollToQ(id);
   checkDiagnostic();
 }
 
 function revealAns(id){
   state.revealed[id] = true;
-  const q = questions.find(x => x.id === id);
-  rerenderCard(q);
-}
-
-function rerenderCard(q){
-  const el = document.getElementById(`card-${q.id}`);
-  if(el){
-    const wrapper = document.createElement('div');
-    wrapper.innerHTML = buildCard(q);
-    el.replaceWith(wrapper.firstElementChild);
-  }
+  renderQuestions();
+  scrollToQ(id);
 }
 
 function revealAll(){
-  getVisible().forEach(q => {
-    if(!state.answers.hasOwnProperty(q.id)) state.revealed[q.id] = true;
+  getVisible().forEach(q=>{
+    if(state.answers[q.id]===undefined) state.revealed[q.id]=true;
   });
   renderQuestions();
 }
@@ -751,23 +495,21 @@ function resetQuiz(){
   state.search = '';
   state.shuffled = [...questions];
   state.isShuffled = false;
-  document.getElementById('searchInput').value = '';
-  document.getElementById('shuffleNote').classList.remove('show');
-  document.querySelectorAll('.filter-pill').forEach(p => p.classList.remove('active'));
-  document.querySelector('.filter-pill')?.classList.add('active');
-  document.getElementById('diagBar').classList.remove('show');
-  updateBookmarkPanel();
+  document.getElementById('search-input').value = '';
+  document.getElementById('shuffle-note').style.display = 'none';
+  buildFilters();
   renderQuestions();
+  updateBookmarkPanel();
+  document.getElementById('diag-bar').classList.remove('show');
 }
 
 function shuffleQuestions(){
-  const arr = state.shuffled;
-  for(let i = arr.length - 1; i > 0; i--){
-    const j = Math.floor(Math.random() * (i + 1));
-    [arr[i], arr[j]] = [arr[j], arr[i]];
+  for(let i=state.shuffled.length-1;i>0;i--){
+    const j = Math.floor(Math.random()*(i+1));
+    [state.shuffled[i],state.shuffled[j]] = [state.shuffled[j],state.shuffled[i]];
   }
   state.isShuffled = true;
-  document.getElementById('shuffleNote').classList.add('show');
+  document.getElementById('shuffle-note').style.display = 'block';
   renderQuestions();
 }
 
@@ -775,58 +517,49 @@ function toggleBk(id){
   if(state.bookmarks.has(id)) state.bookmarks.delete(id);
   else state.bookmarks.add(id);
   updateBookmarkPanel();
-  const q = questions.find(x => x.id === id);
-  rerenderCard(q);
+  renderQuestions();
 }
 
 function toggleBookmarks(){
-  const panel = document.getElementById('bm-card');
-  const btn = document.getElementById('bkToggleBtn');
-  panel.classList.toggle('open');
-  btn.classList.toggle('active');
+  const card = document.getElementById('bm-card');
+  card.style.display = card.style.display==='block' ? 'none' : 'block';
+  updateBookmarkPanel();
 }
 
 function updateBookmarkPanel(){
   const list = document.getElementById('bm-list');
-  if(state.bookmarks.size === 0){
-    list.innerHTML = '<span class="bm-empty">No bookmarks yet — tap 🔖 on any question.</span>';
+  if(state.bookmarks.size===0){
+    list.innerHTML = '<span style="font-size:0.78rem;color:var(--ink3);">No bookmarks yet — tap 🔖 on any question.</span>';
     return;
   }
-  list.innerHTML = [...state.bookmarks].sort((a,b) => a-b).map(id =>
-    `<button class="bm-pill" onclick="scrollToQ(${id})">Q${id}</button>`
-  ).join('');
+  list.innerHTML = [...state.bookmarks].map(id=>`<span class="bm-pill" onclick="scrollToQ(${id})">Q${id}</span>`).join('');
 }
 
 function scrollToQ(id){
-  const el = document.getElementById(`card-${id}`);
+  const el = document.getElementById('card-'+id);
   if(el) el.scrollIntoView({behavior:'smooth', block:'center'});
 }
 
 function updateStats(){
-  const answered = Object.keys(state.answers).map(Number);
-  const correct = answered.filter(id => {
-    const q = questions.find(x => x.id === id);
-    return q && state.answers[id] === q.answer;
+  const answeredIds = Object.keys(state.answers).map(Number);
+  let correct=0, wrong=0;
+  answeredIds.forEach(id=>{
+    const q = questions.find(qq=>qq.id===id);
+    if(q.answer === state.answers[id]) correct++; else wrong++;
   });
-  const wrong = answered.length - correct.length;
-  const total = questions.length;
-  const score = answered.length > 0 ? Math.round((correct.length / answered.length) * 100) : 0;
-
-  document.getElementById('statCorrect').textContent = correct.length;
-  document.getElementById('statWrong').textContent = wrong;
-  document.getElementById('statAttempted').textContent = answered.length;
-  document.getElementById('statScore').textContent = score + '%';
-
-  const pct = Math.round((answered.length / total) * 100);
-  document.getElementById('progressFill').style.width = pct + '%';
-  document.getElementById('progressLabel').textContent = `${answered.length} / ${total}`;
+  const attempted = answeredIds.length;
+  const score = attempted ? Math.round((correct/attempted)*100) : 0;
+  document.getElementById('stat-correct').textContent = correct;
+  document.getElementById('stat-wrong').textContent = wrong;
+  document.getElementById('stat-attempted').textContent = attempted;
+  document.getElementById('stat-score').textContent = score+'%';
+  document.getElementById('progress-fill').style.width = Math.round((attempted/questions.length)*100)+'%';
+  document.getElementById('progress-label').textContent = attempted+' / '+questions.length;
 }
 
 function checkDiagnostic(){
-  const answeredCount = Object.keys(state.answers).length;
-  const bar = document.getElementById('diagBar');
-  if(answeredCount >= 10) bar.classList.add('show');
-  else bar.classList.remove('show');
+  const attempted = Object.keys(state.answers).length;
+  document.getElementById('diag-bar').classList.toggle('show', attempted>=10);
 }
 
 function toggleSummary(){
@@ -836,96 +569,95 @@ function toggleSummary(){
 
 function openModal(){
   document.getElementById('modal-body').innerHTML = buildReport();
-  document.getElementById('modalOverlay').classList.add('open');
-  setTimeout(() => {
-    document.querySelectorAll('.tbr-fill').forEach(bar => {
-      bar.style.width = bar.dataset.pct + '%';
+  document.getElementById('overlay').classList.add('open');
+  setTimeout(()=>{
+    document.querySelectorAll('.tbar-fill').forEach(el=>{
+      el.style.width = el.dataset.pct + '%';
     });
-  }, 80);
+  },80);
 }
 
 function closeModal(){
-  document.getElementById('modalOverlay').classList.remove('open');
+  document.getElementById('overlay').classList.remove('open');
 }
 
 function closeModalOutside(e){
-  if(e.target.id === 'modalOverlay') closeModal();
+  if(e.target.id==='overlay') closeModal();
 }
 
 function buildReport(){
   const answeredIds = Object.keys(state.answers).map(Number);
-  const total = questions.length;
-  const correctIds = answeredIds.filter(id => {
-    const q = questions.find(x => x.id === id);
-    return q.answer === state.answers[id];
+  let correct=0, wrong=0;
+  answeredIds.forEach(id=>{
+    const q = questions.find(qq=>qq.id===id);
+    if(q.answer === state.answers[id]) correct++; else wrong++;
   });
-  const wrongCount = answeredIds.length - correctIds.length;
-  const scorePct = answeredIds.length > 0 ? Math.round((correctIds.length / answeredIds.length) * 100) : 0;
-  const scoreColor = scorePct >= 70 ? 'var(--green)' : scorePct >= 50 ? 'var(--amber)' : 'var(--red)';
+  const attempted = answeredIds.length;
+  const total = questions.length;
+  const score = attempted ? Math.round((correct/attempted)*100) : 0;
+  const scoreColor = score>=70 ? 'green' : score>=50 ? 'amber' : 'red';
 
-  // topic breakdown
-  const topics = [...new Set(questions.map(q => q.topic))];
-  const topicStats = topics.map(t => {
-    const tQs = questions.filter(q => q.topic === t);
-    const tAnswered = tQs.filter(q => answeredIds.includes(q.id));
-    const tCorrect = tAnswered.filter(q => state.answers[q.id] === q.answer);
-    const pct = tAnswered.length > 0 ? Math.round((tCorrect.length / tAnswered.length) * 100) : null;
-    return {topic:t, pct, answered:tAnswered.length, total:tQs.length};
-  }).filter(t => t.answered > 0);
-
-  const topicBarsHTML = topicStats.map(t => {
-    const color = t.pct >= 70 ? 'var(--green)' : t.pct >= 40 ? 'var(--amber)' : 'var(--red)';
-    return `<div class="topic-bar-row">
-      <div class="tbr-top"><span class="name">${t.topic}</span><span class="pct" style="color:${color}">${t.pct}%</span></div>
-      <div class="tbr-track"><div class="tbr-fill" data-pct="${t.pct}" style="background:${color}"></div></div>
+  const topics = [...new Set(questions.map(q=>q.topic))];
+  const topicBars = topics.map(t=>{
+    const tQs = questions.filter(q=>q.topic===t);
+    const tAnswered = tQs.filter(q=>state.answers[q.id]!==undefined);
+    const tCorrect = tAnswered.filter(q=>state.answers[q.id]===q.answer);
+    const pct = tAnswered.length ? Math.round((tCorrect.length/tAnswered.length)*100) : 0;
+    const color = pct>=70?'var(--green)':pct>=40?'var(--amber)':'var(--red)';
+    return `<div class="tbar-row">
+      <div class="tbar-label"><span>${t}</span><span class="mono">${tAnswered.length?pct+'%':'—'}</span></div>
+      <div class="tbar-track"><div class="tbar-fill" data-pct="${pct}" style="background:${color};"></div></div>
     </div>`;
-  }).join('') || '<p style="color:var(--ink4); font-size:0.82rem;">No data yet — answer some questions first.</p>';
+  }).join('');
 
-  // focus cards: weakest topics
-  const sorted = [...topicStats].sort((a,b) => a.pct - b.pct);
-  const focusHTML = sorted.slice(0,3).map(t => {
-    let cls, icon, msg;
-    if(t.pct < 40){ cls='critical'; icon='🚨'; msg=`<b>${t.topic}</b> needs urgent review — only ${t.pct}% correct so far. Revisit the Topic Revision Summary for this section.`; }
-    else if(t.pct < 70){ cls='warning'; icon='⚠️'; msg=`<b>${t.topic}</b> is shaky at ${t.pct}%. A quick re-read should close the gap.`; }
-    else { cls='good'; icon='✅'; msg=`<b>${t.topic}</b> is solid at ${t.pct}%. Keep it up!`; }
-    return `<div class="focus-card ${cls}"><span class="ficon">${icon}</span><span class="ftext">${msg}</span></div>`;
-  }).join('') || '<p style="color:var(--ink4); font-size:0.82rem;">Answer more questions to see focus areas.</p>';
+  const weakTopics = topics.filter(t=>{
+    const tQs = questions.filter(q=>q.topic===t);
+    const tAnswered = tQs.filter(q=>state.answers[q.id]!==undefined);
+    const tCorrect = tAnswered.filter(q=>state.answers[q.id]===q.answer);
+    const pct = tAnswered.length ? (tCorrect.length/tAnswered.length)*100 : 100;
+    return tAnswered.length>0 && pct<60;
+  });
 
-  let verdict;
-  if(answeredIds.length === 0) verdict = "You haven't answered any questions yet — dive in and your personalised diagnosis will appear here.";
-  else if(scorePct >= 85) verdict = "Outstanding work! You have a strong command of both digital library concepts and cloud computing fundamentals. You're exam-ready — just review any flagged weak spots above.";
-  else if(scorePct >= 70) verdict = "Good progress! Your grasp of the material is solid overall. Focus on the weaker topics flagged above to push toward mastery.";
-  else if(scorePct >= 50) verdict = "You're on the right track, but there are real gaps. Revisit the Topic Revision Summary, especially for your lowest-scoring topics, before moving on.";
-  else verdict = "This topic needs more focused study. Start with the Topic Revision Summary section by section, then retake the quiz to track your improvement.";
+  let focusHtml = '';
+  if(weakTopics.length>0){
+    focusHtml = weakTopics.map(t=>`<div class="focus-card critical">🚨 <strong>${t}</strong> — Your accuracy here is below 60%. Revisit the relevant lecture notes and retry these questions.</div>`).join('');
+  } else if(attempted>0){
+    focusHtml = `<div class="focus-card good">✅ You're performing solidly across topics. Keep reinforcing with regular revision.</div>`;
+  } else {
+    focusHtml = `<div class="focus-card warning">⚠️ Answer a few questions to get a personalized diagnosis.</div>`;
+  }
+
+  let verdict = "Answer more questions to see your personalized verdict.";
+  if(attempted>0){
+    if(score>=80) verdict = "Excellent work! You have a strong grasp of GST 112 content. Focus on speed and consistency for the exam.";
+    else if(score>=60) verdict = "Good progress. You understand most concepts but should revisit weaker topics flagged above before the exam.";
+    else if(score>=40) verdict = "You're getting there, but several core areas need more revision. Go through the Topic Revision Summary again and retry.";
+    else verdict = "This topic needs focused revision. Start with the Topic Revision Summary, then retake the quiz to build confidence.";
+  }
 
   return `
     <div class="score-grid">
-      <div class="score-cell correct"><div class="num">${correctIds.length}</div><div class="lbl">Correct</div></div>
-      <div class="score-cell wrong"><div class="num">${wrongCount}</div><div class="lbl">Wrong</div></div>
-      <div class="score-cell" style="background:${scoreColor}1A;"><div class="num" style="color:${scoreColor}">${scorePct}%</div><div class="lbl">Score</div></div>
-      <div class="score-cell attempted"><div class="num">${answeredIds.length}/${total}</div><div class="lbl">Attempted</div></div>
+      <div class="score-cell green"><div class="val">${correct}</div><div class="lbl">Correct</div></div>
+      <div class="score-cell red"><div class="val">${wrong}</div><div class="lbl">Wrong</div></div>
+      <div class="score-cell ${scoreColor==='green'?'green':scoreColor==='red'?'red':''}"><div class="val" style="color:${scoreColor==='amber'?'var(--amber)':''}">${score}%</div><div class="lbl">Score</div></div>
+      <div class="score-cell blue"><div class="val">${attempted}/${total}</div><div class="lbl">Attempted</div></div>
     </div>
-
-    <div class="modal-section-title">📈 Topic Performance</div>
-    ${topicBarsHTML}
-
-    <div class="modal-section-title">🎯 Areas to Focus On</div>
-    ${focusHTML}
-
-    <div class="verdict-box">
-      <div class="vtitle">🏁 Overall Verdict</div>
-      <div>${verdict}</div>
-    </div>
+    <h4 style="font-size:0.85rem;margin-bottom:10px;">Topic Performance</h4>
+    <div class="topic-bars">${topicBars}</div>
+    <h4 style="font-size:0.85rem;margin-bottom:10px;">Areas to Focus On</h4>
+    <div class="focus-cards">${focusHtml}</div>
+    <h4 style="font-size:0.85rem;margin-bottom:10px;">Overall Verdict</h4>
+    <div class="verdict-box">${verdict}</div>
   `;
 }
 
 function startTimer(){
-  state.timerInterval = setInterval(() => {
+  state.timerInterval = setInterval(()=>{
     state.timerSecs++;
-    const m = String(Math.floor(state.timerSecs / 60)).padStart(2,'0');
-    const s = String(state.timerSecs % 60).padStart(2,'0');
-    document.getElementById('timer').textContent = `${m}:${s}`;
-  }, 1000);
+    const m = String(Math.floor(state.timerSecs/60)).padStart(2,'0');
+    const s = String(state.timerSecs%60).padStart(2,'0');
+    document.getElementById('timer').textContent = `⏱ ${m}:${s}`;
+  },1000);
 }
 
 init();
