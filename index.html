@@ -1,666 +1,634 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>GST 112 — PDFNest Quiz</title>
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600;700&display=swap" rel="stylesheet">
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width,initial-scale=1"/>
+<title>GST 108 — PDFNest Quiz</title>
+<link rel="preconnect" href="https://fonts.googleapis.com"/>
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet"/>
 <style>
 :root{
-  --red:#E8302A; --red-dark:#C0251F; --red-light:#F05550;
-  --red-bg:rgba(232,48,42,0.08); --red-bg-hover:rgba(232,48,42,0.13); --red-border:rgba(232,48,42,0.25);
-  --bg:#F5F5F7; --surface:#FFFFFF; --surface2:#F0F0F2;
-  --border:#E4E4E8; --border2:#D0D0D5;
-  --ink:#0F0F0F; --ink2:#3A3A3F; --ink3:#6E6E78; --ink4:#9E9EA8;
-  --green:#16A34A; --amber:#D97706; --blue:#2563EB; --purple:#7C3AED;
-  --r-card:16px; --r-input:12px; --r-pill:999px; --r-sm:8px;
-  --shadow-sm:0 1px 2px rgba(0,0,0,0.06);
-  --shadow:0 4px 12px rgba(0,0,0,0.08);
-  --shadow-lg:0 12px 32px rgba(0,0,0,0.16);
+  --primary:#E8302A;--primary-dk:#C0251F;--primary-lt:#F05550;
+  --red8:rgba(232,48,42,.08);--red13:rgba(232,48,42,.13);--red25:rgba(232,48,42,.25);
+  --bg:#F5F5F7;--surface:#FFFFFF;--surface2:#F0F0F2;
+  --border:#E4E4E8;--border2:#D0D0D5;
+  --ink:#0F0F0F;--ink2:#3A3A3F;--ink3:#6E6E78;--ink4:#9E9EA8;
+  --green:#16A34A;--amber:#D97706;--blue:#2563EB;--purple:#7C3AED;
+  --r-card:16px;--r-input:12px;--r-pill:999px;--r-sm:8px;
 }
-@media (prefers-color-scheme: dark){
-  :root{
-    --bg:#0F0F0F; --surface:#1A1A1A; --surface2:#232325;
-    --border:#2C2C2F; --border2:#3A3A3D;
-    --ink:#F0F0F4; --ink2:#D4D4D8; --ink3:#9B9BA3; --ink4:#6E6E76;
-    --red-bg:rgba(232,48,42,0.14); --red-bg-hover:rgba(232,48,42,0.20); --red-border:rgba(232,48,42,0.35);
-  }
+@media(prefers-color-scheme:dark){
+  :root{--bg:#0F0F0F;--surface:#1A1A1A;--surface2:#242428;
+    --border:#2C2C32;--border2:#38383F;
+    --ink:#F0F0F4;--ink2:#C8C8D0;--ink3:#8E8E98;--ink4:#5E5E68;}
 }
-*{box-sizing:border-box;}
-body{margin:0;background:var(--bg);color:var(--ink);font-family:'Inter',sans-serif;-webkit-font-smoothing:antialiased;}
-.mono{font-family:'JetBrains Mono',monospace;}
-
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
+body{font-family:'Inter',sans-serif;background:var(--bg);color:var(--ink);min-height:100vh;-webkit-font-smoothing:antialiased;}
 /* NAV */
-.topnav{position:sticky;top:0;z-index:100;height:56px;background:var(--surface);border-bottom:1px solid var(--border);display:flex;align-items:center;justify-content:space-between;padding:0 14px;}
-.nav-left{display:flex;align-items:center;gap:10px;}
-.back-btn{width:36px;height:36px;border-radius:var(--r-sm);background:var(--surface2);border:none;display:flex;align-items:center;justify-content:center;cursor:pointer;color:var(--ink2);font-size:16px;}
-.logo-box{width:34px;height:34px;border-radius:10px;background:var(--surface2);display:flex;align-items:center;justify-content:center;}
-.nav-titles{display:flex;flex-direction:column;line-height:1.1;}
-.nav-titles .t1{font-weight:700;font-size:0.9rem;}
-.nav-titles .t2{font-size:0.72rem;color:var(--ink3);}
+#top-nav{position:sticky;top:0;z-index:100;height:56px;background:var(--surface);border-bottom:1px solid var(--border);display:flex;align-items:center;padding:0 16px;gap:10px;}
+#back-btn{width:36px;height:36px;background:var(--surface2);border:none;border-radius:var(--r-sm);cursor:pointer;font-size:16px;display:flex;align-items:center;justify-content:center;color:var(--ink);flex-shrink:0;}
+#logo-img{width:34px;height:34px;border-radius:8px;object-fit:cover;flex-shrink:0;}
+.nav-brand{display:flex;flex-direction:column;flex:1;}
+.nav-brand strong{font-size:.85rem;color:var(--ink);}
+.nav-brand small{font-size:.7rem;color:var(--ink3);}
 .nav-right{display:flex;align-items:center;gap:8px;}
-.timer-chip{font-family:'JetBrains Mono',monospace;font-size:0.78rem;color:var(--red);background:var(--red-bg);padding:6px 12px;border-radius:var(--r-pill);font-weight:600;}
-.bk-toggle{width:36px;height:36px;border-radius:var(--r-sm);background:var(--surface2);border:none;cursor:pointer;font-size:15px;}
-
+#timer{font-family:'JetBrains Mono',monospace;font-size:.75rem;color:var(--primary);background:var(--red8);border:1px solid var(--red13);padding:4px 12px;border-radius:var(--r-pill);white-space:nowrap;}
+#bm-toggle-btn{width:36px;height:36px;background:none;border:none;cursor:pointer;font-size:18px;border-radius:var(--r-sm);}
 /* HERO */
-.hero{background:var(--surface);border-bottom:1px solid var(--border);padding:18px 16px 22px;}
-.breadcrumb{max-width:720px;margin:0 auto 10px;font-size:0.74rem;color:var(--ink3);}
-.breadcrumb .last{color:var(--red);font-weight:600;}
-.hero-inner{max-width:720px;margin:0 auto;}
-.hero-tag{display:inline-block;background:var(--red-bg);color:var(--red);font-size:0.68rem;font-weight:700;letter-spacing:0.04em;padding:5px 12px;border-radius:var(--r-pill);margin-bottom:10px;}
-.hero h1{margin:0 0 6px;font-size:1.5rem;font-weight:800;line-height:1.25;}
-.hero h1 em{color:var(--red);font-style:normal;}
-.hero .subtitle{color:var(--ink3);font-size:0.85rem;margin:0 0 16px;}
-.stats-row{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:14px;}
-.stat-pill{font-size:0.72rem;font-weight:600;padding:6px 11px;border-radius:var(--r-pill);font-family:'JetBrains Mono',monospace;}
-.stat-pill.blue{background:rgba(37,99,235,0.1);color:var(--blue);}
-.stat-pill.green{background:rgba(22,163,74,0.1);color:var(--green);}
-.stat-pill.red{background:var(--red-bg);color:var(--red);}
-.stat-pill.purple{background:rgba(124,58,237,0.1);color:var(--purple);}
-.stat-pill.amber{background:rgba(217,119,6,0.1);color:var(--amber);}
-.progress-track{height:6px;background:var(--surface2);border-radius:var(--r-pill);overflow:hidden;margin-bottom:6px;}
-.progress-fill{height:100%;background:linear-gradient(90deg,var(--red-light),var(--red));width:0%;transition:width .3s;}
-.progress-label{font-size:0.72rem;color:var(--ink3);font-family:'JetBrains Mono',monospace;}
-
+#hero{background:var(--surface);border-bottom:1px solid var(--border);padding:20px 20px 18px;}
+.breadcrumb{font-size:.72rem;color:var(--ink3);margin-bottom:8px;}
+.breadcrumb span{color:var(--primary);font-weight:600;}
+.tag-pill{display:inline-block;background:var(--red8);color:var(--primary);font-size:.65rem;font-weight:700;letter-spacing:.07em;padding:3px 10px;border-radius:var(--r-pill);margin-bottom:10px;text-transform:uppercase;}
+#hero h1{font-size:1.35rem;font-weight:700;line-height:1.25;margin-bottom:4px;}
+#hero h1 em{color:var(--primary);font-style:normal;}
+.hero-sub{font-size:.78rem;color:var(--ink3);margin-bottom:14px;}
+.stats-row{display:flex;flex-wrap:wrap;gap:6px;margin-bottom:12px;}
+.stat-chip{display:flex;align-items:center;gap:5px;padding:4px 10px;border-radius:var(--r-pill);font-size:.72rem;font-weight:600;border:1px solid transparent;}
+.stat-chip.blue{background:rgba(37,99,235,.08);color:var(--blue);border-color:rgba(37,99,235,.2);}
+.stat-chip.green{background:rgba(22,163,74,.08);color:var(--green);border-color:rgba(22,163,74,.2);}
+.stat-chip.red{background:var(--red8);color:var(--primary);border-color:var(--red13);}
+.stat-chip.purple{background:rgba(124,58,237,.08);color:var(--purple);border-color:rgba(124,58,237,.2);}
+.stat-chip.amber{background:rgba(217,119,6,.08);color:var(--amber);border-color:rgba(217,119,6,.2);}
+.progress-wrap{display:flex;align-items:center;gap:10px;}
+.progress-bar{flex:1;height:6px;background:var(--surface2);border-radius:var(--r-pill);overflow:hidden;}
+.progress-fill{height:100%;background:linear-gradient(90deg,var(--primary),var(--primary-lt));border-radius:var(--r-pill);transition:width .4s ease;width:0%;}
+.progress-label{font-family:'JetBrains Mono',monospace;font-size:.7rem;color:var(--ink3);white-space:nowrap;}
 /* ACTIONS */
-.actions-row{max-width:720px;margin:14px auto;padding:0 16px;display:flex;gap:8px;flex-wrap:wrap;}
-.btn{font-family:'Inter',sans-serif;font-size:0.78rem;font-weight:600;padding:9px 14px;border-radius:var(--r-input);cursor:pointer;border:1px solid var(--border2);background:var(--surface);color:var(--ink2);}
-.btn-outline:hover{background:var(--surface2);}
-.btn-ghost-red{border:1px solid var(--red-border);color:var(--red);background:var(--red-bg);}
-.btn-ghost-red:hover{background:var(--red-bg-hover);}
-.btn-danger{border:1px solid var(--border2);color:var(--ink3);}
-.btn-danger:hover{background:var(--surface2);}
-
+#actions{max-width:720px;margin:14px auto;padding:0 16px;display:flex;gap:8px;flex-wrap:wrap;}
+.btn-outline{background:none;border:1.5px solid var(--border2);color:var(--ink2);padding:8px 16px;border-radius:var(--r-input);font-size:.8rem;font-weight:600;cursor:pointer;font-family:'Inter',sans-serif;}
+.btn-outline:hover{border-color:var(--primary);color:var(--primary);}
+.btn-ghost-red{background:var(--red8);border:1.5px solid var(--red13);color:var(--primary);padding:8px 16px;border-radius:var(--r-input);font-size:.8rem;font-weight:600;cursor:pointer;font-family:'Inter',sans-serif;}
+.btn-ghost-red:hover{background:var(--red13);}
+.btn-danger{background:var(--primary);border:none;color:#fff;padding:8px 16px;border-radius:var(--r-input);font-size:.8rem;font-weight:600;cursor:pointer;font-family:'Inter',sans-serif;}
+.btn-danger:hover{background:var(--primary-dk);}
 /* MAIN */
-.main{max-width:720px;margin:0 auto;padding:0 16px 100px;}
-.bm-card{display:none;background:var(--surface);border:1px solid var(--border);border-radius:var(--r-card);padding:14px;margin-bottom:14px;}
-.bm-card h4{margin:0 0 10px;font-size:0.85rem;}
-.bm-list{display:flex;flex-wrap:wrap;gap:6px;}
-.bm-pill{font-family:'JetBrains Mono',monospace;font-size:0.72rem;background:var(--surface2);border:1px solid var(--border2);padding:5px 10px;border-radius:var(--r-pill);cursor:pointer;}
-
-.summary-card{background:var(--surface);border:1px solid var(--border);border-radius:var(--r-card);margin-bottom:14px;overflow:hidden;}
-.summary-toggle{width:100%;background:none;border:none;display:flex;align-items:center;justify-content:space-between;padding:14px 16px;cursor:pointer;font-weight:700;font-size:0.88rem;color:var(--ink);}
-.summary-toggle .arrow{transition:transform .25s;color:var(--ink3);}
-.summary-toggle.open .arrow{transform:rotate(180deg);}
-.summary-body{max-height:0;overflow:hidden;transition:max-height .3s ease;padding:0 16px;}
-.summary-body.open{max-height:3200px;padding:0 16px 18px;}
-.summary-body h5{font-size:0.82rem;margin:14px 0 6px;color:var(--red);}
-.summary-body p{font-size:0.82rem;line-height:1.6;color:var(--ink2);margin:4px 0;}
-.chip{font-family:'JetBrains Mono',monospace;font-size:0.74rem;color:var(--red);background:var(--red-bg);padding:1px 7px;border-radius:6px;}
-
-.search-box{position:relative;margin-bottom:12px;}
-.search-box input{width:100%;padding:11px 14px 11px 38px;border-radius:var(--r-input);border:1px solid var(--border2);background:var(--surface);color:var(--ink);font-size:0.85rem;font-family:'Inter',sans-serif;}
-.search-box input:focus{outline:none;border-color:var(--red);box-shadow:0 0 0 3px var(--red-bg);}
-.search-icon{position:absolute;left:13px;top:50%;transform:translateY(-50%);color:var(--ink4);font-size:0.85rem;}
-
-.filter-row{display:flex;gap:6px;overflow-x:auto;padding-bottom:6px;margin-bottom:6px;}
-.filter-pill{flex-shrink:0;font-size:0.74rem;font-weight:600;padding:7px 13px;border-radius:var(--r-pill);border:1px solid var(--border2);background:var(--surface);color:var(--ink3);cursor:pointer;white-space:nowrap;}
-.filter-pill.active{background:var(--red);color:#fff;border-color:var(--red);}
-
-.shuffle-note{display:none;font-size:0.76rem;color:var(--ink3);font-style:italic;margin:6px 0 10px;}
-
-#q-list{display:flex;flex-direction:column;gap:12px;margin-top:10px;}
-.q-card{background:var(--surface);border:1px solid var(--border);border-radius:var(--r-card);padding:16px;animation:fadeUp .3s ease;}
-.q-card.bookmarked{border-color:var(--red);}
-@keyframes fadeUp{from{opacity:0;transform:translateY(8px);}to{opacity:1;transform:translateY(0);}}
+#main{max-width:720px;margin:0 auto;padding:0 16px 120px;}
+/* BOOKMARK CARD */
+#bm-card{background:var(--surface);border:1px solid var(--border);border-radius:var(--r-card);padding:14px;margin-bottom:12px;display:none;}
+#bm-card.open{display:block;}
+#bm-card h3{font-size:.8rem;font-weight:700;margin-bottom:10px;color:var(--ink2);}
+#bm-list{display:flex;flex-wrap:wrap;gap:6px;}
+.bm-pill{background:var(--red8);color:var(--primary);border:1px solid var(--red13);padding:3px 10px;border-radius:var(--r-pill);font-family:'JetBrains Mono',monospace;font-size:.72rem;cursor:pointer;font-weight:600;}
+.bm-pill:hover{background:var(--red13);}
+/* SUMMARY */
+#sum-card{background:var(--surface);border:1px solid var(--border);border-radius:var(--r-card);margin-bottom:12px;overflow:hidden;}
+#sum-toggle{width:100%;background:none;border:none;padding:14px 16px;display:flex;align-items:center;gap:8px;cursor:pointer;font-family:'Inter',sans-serif;color:var(--ink);}
+#sum-toggle span{font-size:.85rem;font-weight:700;flex:1;text-align:left;}
+#sum-arrow{font-size:.75rem;transition:transform .25s;color:var(--ink3);}
+#sum-card.open #sum-arrow{transform:rotate(180deg);}
+#sum-body{display:none;padding:0 16px 16px;border-top:1px solid var(--border);}
+#sum-card.open #sum-body{display:block;}
+#sum-body p{font-size:.78rem;color:var(--ink2);line-height:1.6;margin-top:12px;}
+.chips-wrap{display:flex;flex-wrap:wrap;gap:6px;margin-top:10px;}
+.chip{font-family:'JetBrains Mono',monospace;font-size:.72rem;color:var(--primary);background:var(--red8);border:1px solid var(--red13);padding:3px 9px;border-radius:var(--r-sm);}
+/* SEARCH */
+#search-wrap{position:relative;margin-bottom:12px;}
+#search-wrap::before{content:'🔍';position:absolute;left:12px;top:50%;transform:translateY(-50%);font-size:.85rem;}
+#search-box{width:100%;padding:10px 14px 10px 36px;border:1.5px solid var(--border2);border-radius:var(--r-input);background:var(--surface);color:var(--ink);font-size:.82rem;font-family:'Inter',sans-serif;outline:none;}
+#search-box:focus{border-color:var(--primary);box-shadow:0 0 0 3px var(--red8);}
+/* FILTERS */
+#filters{display:flex;flex-wrap:wrap;gap:6px;margin-bottom:12px;}
+.f-pill{background:var(--surface2);border:1.5px solid var(--border);color:var(--ink2);padding:5px 13px;border-radius:var(--r-pill);font-size:.75rem;font-weight:600;cursor:pointer;border:none;}
+.f-pill.active{background:var(--primary);color:#fff;}
+/* SHUFFLE NOTE */
+#shuffle-note{font-size:.75rem;font-style:italic;color:var(--ink3);margin-bottom:10px;display:none;}
+/* QUESTION LIST */
+#q-list{display:flex;flex-direction:column;gap:12px;}
+/* QUESTION CARD */
+.q-card{background:var(--surface);border:1.5px solid var(--border);border-radius:var(--r-card);padding:16px;transition:border-color .2s;}
 .q-meta{display:flex;align-items:center;gap:6px;margin-bottom:10px;flex-wrap:wrap;}
-.q-num{font-family:'JetBrains Mono',monospace;font-size:0.72rem;background:var(--surface2);padding:4px 9px;border-radius:var(--r-sm);color:var(--ink3);font-weight:600;}
-.topic-badge{font-size:0.68rem;font-weight:600;background:var(--red-bg);color:var(--red);padding:4px 10px;border-radius:var(--r-pill);}
-.type-badge{font-size:0.68rem;font-weight:600;background:rgba(37,99,235,0.1);color:var(--blue);padding:4px 10px;border-radius:var(--r-pill);}
-.bk-btn{margin-left:auto;background:none;border:none;cursor:pointer;font-size:1rem;opacity:0.4;transition:opacity .2s;}
+.q-num{font-family:'JetBrains Mono',monospace;font-size:.7rem;font-weight:600;background:var(--surface2);padding:2px 8px;border-radius:var(--r-sm);color:var(--ink3);}
+.q-topic{font-size:.65rem;font-weight:700;background:var(--red8);color:var(--primary);border:1px solid var(--red13);padding:2px 8px;border-radius:var(--r-pill);text-transform:uppercase;letter-spacing:.04em;}
+.q-type{font-size:.65rem;font-weight:700;background:rgba(37,99,235,.08);color:var(--blue);border:1px solid rgba(37,99,235,.2);padding:2px 8px;border-radius:var(--r-pill);}
+.bk-btn{margin-left:auto;background:none;border:none;cursor:pointer;font-size:16px;opacity:.5;transition:opacity .2s;}
 .bk-btn.active{opacity:1;}
-.q-text{font-size:0.92rem;font-weight:500;line-height:1.5;margin-bottom:14px;}
-.opts-grid{display:grid;grid-template-columns:1fr 1fr;gap:8px;}
-@media (max-width:480px){.opts-grid{grid-template-columns:1fr;}}
-.opt-btn{display:flex;align-items:center;gap:10px;text-align:left;padding:10px 12px;border-radius:var(--r-input);border:1px solid var(--border2);background:var(--surface);cursor:pointer;font-size:0.82rem;color:var(--ink2);transition:background .15s,border-color .15s;}
-.opt-btn:hover:not(:disabled){background:var(--red-bg);border-color:var(--red-border);}
-.opt-letter{font-family:'JetBrains Mono',monospace;font-weight:700;font-size:0.76rem;width:22px;height:22px;border-radius:50%;background:var(--surface2);display:flex;align-items:center;justify-content:center;flex-shrink:0;}
-.opt-btn.correct{background:rgba(22,163,74,0.12);border-color:var(--green);}
-.opt-btn.correct .opt-letter{background:var(--green);color:#fff;}
-.opt-btn.wrong{background:rgba(232,48,42,0.1);border-color:var(--red);}
-.opt-btn.wrong .opt-letter{background:var(--red);color:#fff;}
-.opt-btn.revealed-correct{background:rgba(22,163,74,0.07);border-color:rgba(22,163,74,0.4);}
-.opt-btn:disabled{cursor:default;}
-.q-footer{margin-top:10px;}
-.reveal-btn{font-size:0.76rem;color:var(--red);background:none;border:1px dashed var(--red-border);padding:6px 12px;border-radius:var(--r-pill);cursor:pointer;font-weight:600;}
-.explain-box{display:none;margin-top:12px;padding:11px 13px;background:var(--red-bg);border-left:3px solid var(--red);border-radius:var(--r-sm);font-size:0.8rem;line-height:1.5;color:var(--ink2);animation:fadeIn .3s;}
-.explain-box.show{display:block;}
-@keyframes fadeIn{from{opacity:0;}to{opacity:1;}}
-.no-results{display:none;text-align:center;padding:40px 0;color:var(--ink3);font-size:0.85rem;}
-
-/* DIAGNOSIS STICKY */
-.diag-bar{position:fixed;bottom:64px;left:0;right:0;display:flex;justify-content:center;z-index:90;opacity:0;pointer-events:none;transition:opacity .3s;}
-.diag-bar.show{opacity:1;pointer-events:auto;}
-.diag-btn{background:var(--red);color:#fff;font-weight:700;font-size:0.84rem;padding:12px 22px;border-radius:var(--r-pill);border:none;cursor:pointer;box-shadow:var(--shadow-lg);animation:pulse 2s infinite;}
-@keyframes pulse{0%,100%{box-shadow:0 0 0 0 rgba(232,48,42,0.4);}50%{box-shadow:0 0 0 10px rgba(232,48,42,0);}}
-
+.q-text{font-size:.88rem;font-weight:500;color:var(--ink);line-height:1.55;margin-bottom:12px;}
+.opts-grid{display:grid;grid-template-columns:1fr 1fr;gap:7px;}
+@media(max-width:480px){.opts-grid{grid-template-columns:1fr;}}
+.opt{display:flex;align-items:flex-start;gap:8px;padding:9px 11px;border-radius:var(--r-sm);border:1.5px solid var(--border);cursor:pointer;transition:all .15s;background:var(--surface);}
+.opt:hover{background:var(--red8);border-color:var(--red25);}
+.opt.correct{background:rgba(22,163,74,.1);border-color:var(--green);}
+.opt.correct .opt-letter{background:var(--green);color:#fff;}
+.opt.wrong{background:rgba(232,48,42,.08);border-color:var(--primary);}
+.opt.wrong .opt-letter{background:var(--primary);color:#fff;}
+.opt.reveal-correct{background:rgba(22,163,74,.07);border-color:var(--green);}
+.opt.reveal-correct .opt-letter{background:var(--green);color:#fff;}
+.opt-letter{font-family:'JetBrains Mono',monospace;font-size:.72rem;font-weight:600;background:var(--surface2);color:var(--ink3);min-width:22px;height:22px;display:flex;align-items:center;justify-content:center;border-radius:4px;flex-shrink:0;margin-top:1px;}
+.opt-text{font-size:.82rem;color:var(--ink2);line-height:1.4;}
+.explanation{margin-top:12px;padding:10px 12px;background:rgba(37,99,235,.06);border-left:3px solid var(--blue);border-radius:0 var(--r-sm) var(--r-sm) 0;font-size:.78rem;color:var(--ink2);line-height:1.5;display:none;}
+.explanation.show{display:block;}
+.reveal-btn{margin-top:10px;background:none;border:1.5px solid var(--border2);color:var(--ink3);padding:6px 14px;border-radius:var(--r-input);font-size:.75rem;cursor:pointer;font-family:'Inter',sans-serif;}
+.reveal-btn:hover{border-color:var(--primary);color:var(--primary);}
+/* NO RESULTS */
+#no-results{text-align:center;padding:48px 20px;color:var(--ink3);display:none;}
+#no-results p{font-size:.9rem;}
+/* DIAGNOSIS BAR */
+#diag-bar{position:fixed;bottom:0;left:0;right:0;padding:12px 16px;background:var(--surface);border-top:1px solid var(--border);display:none;z-index:90;}
+#diag-btn{width:100%;max-width:720px;margin:0 auto;display:block;background:var(--primary);color:#fff;border:none;padding:13px;border-radius:var(--r-input);font-size:.875rem;font-weight:700;cursor:pointer;font-family:'Inter',sans-serif;animation:pulse 2s infinite;}
+@keyframes pulse{0%,100%{box-shadow:0 0 0 0 rgba(232,48,42,.4);}50%{box-shadow:0 0 0 8px rgba(232,48,42,0);}}
 /* MODAL */
-.overlay{position:fixed;inset:0;background:rgba(0,0,0,0.5);display:flex;align-items:flex-end;justify-content:center;z-index:200;opacity:0;pointer-events:none;transition:opacity .25s;}
-.overlay.open{opacity:1;pointer-events:auto;}
-.modal{background:var(--surface);width:100%;max-width:720px;border-radius:20px 20px 0 0;max-height:88vh;overflow-y:auto;transform:translateY(100%);transition:transform .35s cubic-bezier(.34,1.56,.64,1);}
-.overlay.open .modal{transform:translateY(0);}
-.modal-handle{width:36px;height:4px;background:var(--border2);border-radius:2px;margin:10px auto;}
-.modal-header{position:sticky;top:0;background:var(--surface);display:flex;align-items:center;justify-content:space-between;padding:6px 18px 14px;border-bottom:1px solid var(--border);}
-.modal-header h3{margin:0;font-size:1rem;display:flex;align-items:center;gap:8px;}
-.modal-close{background:var(--surface2);border:none;width:30px;height:30px;border-radius:50%;cursor:pointer;font-size:0.95rem;}
-.modal-body{padding:18px;}
-.score-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:8px;margin-bottom:18px;}
-@media (max-width:400px){.score-grid{grid-template-columns:1fr 1fr;}}
-.score-cell{background:var(--surface2);border-radius:var(--r-input);padding:12px 8px;text-align:center;}
-.score-cell .val{font-size:1.3rem;font-weight:800;font-family:'JetBrains Mono',monospace;}
-.score-cell .lbl{font-size:0.68rem;color:var(--ink3);margin-top:2px;}
+#overlay{position:fixed;inset:0;background:rgba(0,0,0,.5);z-index:200;display:none;align-items:flex-end;}
+#overlay.open{display:flex;}
+#modal{background:var(--surface);border-radius:24px 24px 0 0;width:100%;max-height:88vh;overflow-y:auto;padding-bottom:24px;transform:translateY(100%);transition:transform .35s cubic-bezier(.34,1.56,.64,1);}
+#overlay.open #modal{transform:translateY(0);}
+.modal-handle{width:40px;height:4px;background:var(--border2);border-radius:var(--r-pill);margin:12px auto 0;}
+.modal-header{display:flex;align-items:center;gap:8px;padding:14px 20px;border-bottom:1px solid var(--border);position:sticky;top:0;background:var(--surface);z-index:1;}
+.modal-header h2{font-size:1rem;font-weight:700;flex:1;}
+#close-modal{background:none;border:none;font-size:1.2rem;cursor:pointer;padding:4px;border-radius:var(--r-sm);}
+#modal-body{padding:20px;}
+.score-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:20px;}
+@media(max-width:400px){.score-grid{grid-template-columns:1fr 1fr;}}
+.score-cell{padding:14px;border-radius:var(--r-card);text-align:center;}
+.score-cell.green{background:rgba(22,163,74,.1);}
+.score-cell.red{background:var(--red8);}
+.score-cell.amber{background:rgba(217,119,6,.1);}
+.score-cell.purple{background:rgba(124,58,237,.1);}
+.score-cell .val{font-size:1.5rem;font-weight:700;font-family:'JetBrains Mono',monospace;}
+.score-cell .lbl{font-size:.7rem;color:var(--ink3);margin-top:2px;}
 .score-cell.green .val{color:var(--green);}
-.score-cell.red .val{color:var(--red);}
-.score-cell.blue .val{color:var(--blue);}
-.topic-bars{margin-bottom:18px;}
-.tbar-row{margin-bottom:12px;}
-.tbar-label{display:flex;justify-content:space-between;font-size:0.78rem;margin-bottom:5px;color:var(--ink2);}
-.tbar-track{height:8px;background:var(--surface2);border-radius:var(--r-pill);overflow:hidden;}
-.tbar-fill{height:100%;width:0%;border-radius:var(--r-pill);transition:width .8s ease;}
-.type-grid{display:grid;grid-template-columns:1fr 1fr 1fr;gap:8px;margin-bottom:18px;}
-.type-cell{background:var(--surface2);border-radius:var(--r-input);padding:10px;text-align:center;font-size:0.74rem;}
-.type-cell .emoji{font-size:1.1rem;}
-.focus-cards{display:flex;flex-direction:column;gap:8px;margin-bottom:18px;}
-.focus-card{padding:11px 13px;border-radius:var(--r-input);font-size:0.8rem;line-height:1.45;}
-.focus-card.critical{background:rgba(232,48,42,0.08);border-left:3px solid var(--red);}
-.focus-card.warning{background:rgba(217,119,6,0.08);border-left:3px solid var(--amber);}
-.focus-card.good{background:rgba(22,163,74,0.08);border-left:3px solid var(--green);}
-.verdict-box{background:var(--ink);color:#fff;border-radius:var(--r-card);padding:16px;font-size:0.85rem;line-height:1.55;}
-@media (prefers-color-scheme: dark){.verdict-box{background:#000;}}
-.modal-footer{display:flex;gap:10px;padding:14px 18px;border-top:1px solid var(--border);}
-.modal-footer button{flex:1;padding:12px;border-radius:var(--r-input);font-weight:700;font-size:0.82rem;cursor:pointer;}
-.btn-secondary{background:var(--surface2);border:1px solid var(--border2);color:var(--ink2);}
-.btn-primary-red{background:var(--red);border:none;color:#fff;}
-
-/* BOTTOM NAV */
-.bottomnav{position:fixed;bottom:0;left:0;right:0;background:var(--surface);border-top:1px solid var(--border);display:flex;z-index:80;}
-.bn-item{flex:1;display:flex;flex-direction:column;align-items:center;gap:2px;padding:8px 0 10px;font-size:0.66rem;color:var(--ink4);}
-.bn-item.active{color:var(--red);}
-.bn-item .ic{font-size:1.05rem;}
+.score-cell.red .val{color:var(--primary);}
+.score-cell.amber .val{color:var(--amber);}
+.score-cell.purple .val{color:var(--purple);}
+.section-hd{font-size:.8rem;font-weight:700;color:var(--ink2);margin-bottom:10px;text-transform:uppercase;letter-spacing:.06em;}
+.topic-bar-wrap{margin-bottom:8px;}
+.topic-bar-label{display:flex;justify-content:space-between;font-size:.75rem;color:var(--ink2);margin-bottom:3px;}
+.topic-bar-bg{height:8px;background:var(--surface2);border-radius:var(--r-pill);overflow:hidden;}
+.topic-bar-fill{height:100%;border-radius:var(--r-pill);width:0%;transition:width .8s ease;}
+.focus-card{padding:12px 14px;border-radius:var(--r-sm);margin-bottom:8px;font-size:.8rem;line-height:1.5;}
+.focus-card.crit{background:rgba(232,48,42,.07);border-left:3px solid var(--primary);}
+.focus-card.warn{background:rgba(217,119,6,.07);border-left:3px solid var(--amber);}
+.focus-card.good{background:rgba(22,163,74,.07);border-left:3px solid var(--green);}
+.verdict{background:var(--ink);color:#F0F0F4;border-radius:var(--r-card);padding:16px;margin-top:18px;font-size:.83rem;line-height:1.6;}
+.verdict strong{display:block;font-size:1rem;margin-bottom:6px;}
+.modal-footer{display:flex;gap:8px;padding:16px 20px 0;border-top:1px solid var(--border);margin-top:16px;}
+.btn-sec{flex:1;background:var(--surface2);border:none;padding:11px;border-radius:var(--r-input);font-size:.83rem;font-weight:600;cursor:pointer;font-family:'Inter',sans-serif;color:var(--ink);}
+.btn-pri{flex:1;background:var(--primary);border:none;padding:11px;border-radius:var(--r-input);font-size:.83rem;font-weight:600;cursor:pointer;font-family:'Inter',sans-serif;color:#fff;}
 </style>
 </head>
 <body>
 
-<nav class="topnav">
-  <div class="nav-left">
-    <button class="back-btn" onclick="history.back()">←</button>
-    <div class="logo-box">
-      <svg width="20" height="20" viewBox="0 0 24 24"><rect x="4" y="2" width="13" height="18" rx="2" fill="#E8302A"/><path d="M6 7h7M6 10h7M6 13h5" stroke="#fff" stroke-width="1.2"/><path d="M16 18c2-1 3-3 3-6" stroke="#9E9EA8" stroke-width="1.4" fill="none" stroke-linecap="round"/></svg>
-    </div>
-    <div class="nav-titles">
-      <span class="t1">PDFNest</span>
-      <span class="t2">Quiz Mode</span>
-    </div>
-  </div>
+<!-- NAV -->
+<nav id="top-nav">
+  <button id="back-btn" onclick="history.back()">←</button>
+  <img id="logo-img" alt="PDFNest"/>
+  <div class="nav-brand"><strong>PDFNest</strong><small>Quiz Mode</small></div>
   <div class="nav-right">
-    <span class="timer-chip mono" id="timer">⏱ 00:00</span>
-    <button class="bk-toggle" onclick="toggleBookmarks()">🔖</button>
+    <div id="timer">⏱ 00:00</div>
+    <button id="bm-toggle-btn" onclick="toggleBookmarks()" title="Bookmarks">🔖</button>
   </div>
 </nav>
 
-<div class="hero">
-  <div class="breadcrumb">AFIT Kaduna › 100 Level › General Studies Unit › <span class="last">GST 112 Quiz</span></div>
-  <div class="hero-inner">
-    <span class="hero-tag">AFIT · 100 LEVEL · GENERAL STUDIES</span>
-    <h1>GST 112 — <em>Nigerian Peoples and Culture</em></h1>
-    <p class="subtitle">Weeks 1–13 · 80 questions · From course lecture notes, course outline & student materials</p>
-    <div class="stats-row">
-      <span class="stat-pill blue mono">Showing: <span id="stat-showing">80</span></span>
-      <span class="stat-pill green mono">Correct: <span id="stat-correct">0</span></span>
-      <span class="stat-pill red mono">Wrong: <span id="stat-wrong">0</span></span>
-      <span class="stat-pill purple mono">Attempted: <span id="stat-attempted">0</span></span>
-      <span class="stat-pill amber mono">Score: <span id="stat-score">0%</span></span>
-    </div>
-    <div class="progress-track"><div class="progress-fill" id="progress-fill"></div></div>
-    <span class="progress-label mono" id="progress-label">0 / 80</span>
+<!-- HERO -->
+<div id="hero">
+  <div class="breadcrumb">AFIT &rsaquo; 100 Level &rsaquo; General Studies &rsaquo; <span>GST 108 Quiz</span></div>
+  <div class="tag-pill">AFIT · 100 Level · General Studies</div>
+  <h1>Use of <em>Library, Study Skills &amp; ICT</em></h1>
+  <p class="hero-sub">Full Course Coverage · 80 Questions · Lecture Notes (GST 108 &amp; GST 105)</p>
+  <div class="stats-row">
+    <div class="stat-chip blue">📋 Showing: <strong id="stat-showing">80</strong></div>
+    <div class="stat-chip green">✅ Correct: <strong id="stat-correct">0</strong></div>
+    <div class="stat-chip red">❌ Wrong: <strong id="stat-wrong">0</strong></div>
+    <div class="stat-chip purple">🎯 Attempted: <strong id="stat-attempted">0</strong></div>
+    <div class="stat-chip amber">🏆 Score: <strong id="stat-score">0%</strong></div>
+  </div>
+  <div class="progress-wrap">
+    <div class="progress-bar"><div class="progress-fill" id="prog-fill"></div></div>
+    <span class="progress-label" id="prog-label">0 / 80</span>
   </div>
 </div>
 
-<div class="actions-row">
-  <button class="btn btn-outline" onclick="shuffleQuestions()">🔀 Shuffle</button>
-  <button class="btn btn-ghost-red" onclick="revealAll()">👁 Reveal All</button>
-  <button class="btn btn-danger" onclick="resetQuiz()">↺ Reset</button>
+<!-- ACTIONS -->
+<div id="actions">
+  <button class="btn-outline" onclick="shuffleQuestions()">🔀 Shuffle</button>
+  <button class="btn-ghost-red" onclick="revealAll()">👁 Reveal All</button>
+  <button class="btn-danger" onclick="resetQuiz()">↺ Reset</button>
 </div>
 
-<div class="main">
-  <div class="bm-card" id="bm-card">
-    <h4>🔖 Bookmarked Questions</h4>
-    <div class="bm-list" id="bm-list"></div>
+<!-- MAIN -->
+<div id="main">
+  <!-- BOOKMARKS -->
+  <div id="bm-card">
+    <h3>🔖 Bookmarked Questions</h3>
+    <div id="bm-list"><em style="font-size:.75rem;color:var(--ink4)">No bookmarks yet.</em></div>
   </div>
 
-  <div class="summary-card">
-    <button class="summary-toggle" id="sum-toggle" onclick="toggleSummary()">
-      <span>📚 Topic Revision Summary</span>
-      <span class="arrow">▼</span>
+  <!-- TOPIC SUMMARY -->
+  <div id="sum-card">
+    <button id="sum-toggle" onclick="toggleSummary()">
+      <span>📚 Topic Revision Summary</span><span id="sum-arrow">▼</span>
     </button>
-    <div class="summary-body" id="sum-body">
-      <h5>Evolution of Nigeria as a Political Unit</h5>
-      <p>Nigeria was formed through gradual <span class="chip">amalgamation</span>: 1900 (Niger Coast Protectorate merged with Royal Niger Company territory), 1906 (Lagos Colony merged with Southern Protectorate), and 1914 (Northern + Southern Protectorates united by <span class="chip">Lord Frederick Lugard</span> on 1 January). The name "Nigeria" was coined by journalist <span class="chip">Flora Shaw</span> in 1897, later Lugard's wife. Reasons for amalgamation: cheap source of raw materials, ready market for British goods, manpower reserve, and reduced administrative cost since the South was richer than the North.</p>
-
-      <h5>Formation of Political Parties</h5>
-      <p><span class="chip">NNDP</span> (1923) — first party, founded by Herbert Macaulay. <span class="chip">NYM</span> (1934/1936) — first party with national outlook. <span class="chip">NCNC</span> (1944) — founded by Macaulay & Azikiwe. <span class="chip">Action Group</span> (1951) — Awolowo, dominant in the West. <span class="chip">NPC</span> (1949) — Ahmadu Bello, dominant in the North. <span class="chip">NEPU</span> — Aminu Kano's leftist offshoot of NPC. Later republics: NPN, UPN, NPP (2nd Republic); SDP, NRC (3rd Republic); PDP, APC, APGA (4th Republic).</p>
-
-      <h5>Colonial Rule & Administration</h5>
-      <p>Britain colonised Nigeria for economic exploitation, raw materials, and trade monopoly, justified by the "civilizing mission." Key conquests: Fall of Benin (1897), Anglo-Aro War (1901-1902), Sokoto Caliphate conquest (1903). The British used <span class="chip">Indirect Rule</span> (introduced by Lugard) — successful in the North due to the centralised Sokoto Caliphate structure, but largely a failure in the acephalous Igbo South, leading to corrupt "Warrant Chiefs" and the 1929 <span class="chip">Aba Women's Riot</span>.</p>
-
-      <h5>Nigerian Culture & Ethnic Groups</h5>
-      <p>Nigeria has over 250 ethnic groups; the 3 majority groups are <span class="chip">Hausa, Yoruba, Igbo</span>. Notable minority groups: Kanuri, Fulani, Tiv, Nupe, Igala, Idoma, Jukun, Igbira, Birom. Igbo political system is <span class="chip">acephalous/gerontocratic</span> (no central king); Yoruba is monarchical (Oba); Hausa/Fulani is the Emirate system (Sarki/Emir) after the 1804 Sokoto Jihad led by <span class="chip">Usman Dan Fodio</span>. Material culture = tangible (art, tools, buildings); non-material = abstract (religion, language, values).</p>
-
-      <h5>Trade & Economics of Self-Reliance</h5>
-      <p>Indigenous trade relied on <span class="chip">barter systems</span>, village markets, and interregional trade routes, often tied to cultural festivals. <span class="chip">Economics of self-reliance</span> emphasizes local production and reduced dependence on external aid. The indigenous <span class="chip">apprenticeship system</span> (blacksmithing, weaving, pottery, leatherwork, wood carving) was informal, hands-on, master-apprentice based, and central to skills acquisition.</p>
-
-      <h5>Reorientation Strategies & National Values</h5>
-      <p>Key historical programmes: <span class="chip">Operation Feed the Nation</span> (1976, Gen. Obasanjo era per general history, though some notes cite 1983/Buhari), <span class="chip">Green Revolution</span> (1973, Gowon), <span class="chip">Austerity Measures</span> (1981, Shagari), <span class="chip">WAI</span> — War Against Indiscipline (1984, Buhari), <span class="chip">WAIC</span> — War Against Indiscipline and Corruption (1984, Buhari), <span class="chip">MAMSER</span> (1987, Babangida), and the <span class="chip">National Orientation Agency (NOA)</span> (1993, Abacha). The "3R's" framework = Reconstruction, Rehabilitation, Reconciliation.</p>
-
-      <h5>Citizenship & Civic Responsibilities</h5>
-      <p>Citizenship is acquired via <span class="chip">jus soli</span> (birth), <span class="chip">jus sanguinis</span> (parentage/blood), <span class="chip">jure matrimonii</span> (marriage), or naturalization. Nigerian fundamental rights are in Chapter IV of the 1999 Constitution (sections 24-43), including right to life, fair hearing, freedom of expression, and freedom from discrimination.</p>
+    <div id="sum-body">
+      <p><strong>Library Concepts:</strong> The word <em>library</em> derives from the Latin <em>liber</em> (book). Ranganathan's Five Laws: <em>Books are for Use · Every Reader His Book · Every Book Its Reader · Save the Time of the User · The Library is a Growing Organism</em>. Types of libraries: National, Public, School, Academic, Special.</p>
+      <div class="chips-wrap">
+        <span class="chip">liber</span><span class="chip">bibliotheca</span><span class="chip">UNESCO</span><span class="chip">Ranganathan</span><span class="chip">Apex Library</span><span class="chip">OPAC</span>
+      </div>
+      <p style="margin-top:12px"><strong>ICT &amp; Computer:</strong> ICT = information gathering, processing, storage, retrieval &amp; dissemination. Computer generations: 1st (vacuum tubes) → 2nd (transistors) → 3rd (ICs) → 4th (microprocessors) → 5th (AI). Hardware (input/processing/output/storage/communication) vs Software (system/application).</p>
+      <div class="chips-wrap">
+        <span class="chip">ENIAC</span><span class="chip">UNIVAC</span><span class="chip">CPU</span><span class="chip">RAM</span><span class="chip">OS</span><span class="chip">LAN</span><span class="chip">WAN</span><span class="chip">PAN</span><span class="chip">MAN</span>
+      </div>
+      <p style="margin-top:12px"><strong>Library Automation:</strong> Use of ICT tools to make library services efficient. Examples: KOHA, Evergreen, DSpace, Greenstone. Proprietary vs Open-source software. MARC &amp; Dublin Core = metadata standards. Evolution: Traditional → Automated → Digital → Virtual.</p>
+      <div class="chips-wrap">
+        <span class="chip">KOHA</span><span class="chip">DSpace</span><span class="chip">MARC</span><span class="chip">DDC</span><span class="chip">LC Classification</span><span class="chip">RFID</span>
+      </div>
+      <p style="margin-top:12px"><strong>Copyright &amp; Plagiarism:</strong> Copyright (WIPO 2014) = legal rights creators have over literary/artistic works. Fair Use = limited reproduction with no effect on original value. Plagiarism = presenting another's work as your own. Piracy = illegal reproduction for commercial gain.</p>
+      <div class="chips-wrap">
+        <span class="chip">WIPO</span><span class="chip">Fair Use</span><span class="chip">Plagiarism</span><span class="chip">Turnitin</span><span class="chip">Piracy</span><span class="chip">APA</span><span class="chip">MLA</span>
+      </div>
+      <p style="margin-top:12px"><strong>LC Classification Main Classes:</strong></p>
+      <div class="chips-wrap">
+        <span class="chip">A=General Works</span><span class="chip">B=Philosophy/Religion</span><span class="chip">C=History Aux</span><span class="chip">D=World History</span><span class="chip">E-F=American History</span><span class="chip">G=Geography</span><span class="chip">H=Social Science</span><span class="chip">J=Political Science</span><span class="chip">K=Law</span><span class="chip">L=Education</span><span class="chip">M=Music</span><span class="chip">N=Fine Arts</span><span class="chip">P=Language/Lit</span><span class="chip">Q=Science</span><span class="chip">R=Medicine</span><span class="chip">S=Agriculture</span><span class="chip">T=Technology</span><span class="chip">U=Military</span><span class="chip">V=Naval</span><span class="chip">Z=Bibliography</span>
+      </div>
+      <p style="margin-top:12px"><strong>DDC Main Classes:</strong> 000 General · 100 Philosophy · 200 Religion · 300 Social Science · 400 Languages · 500 Pure Science · 600 Technology · 700 Arts · 800 Literature · 900 History &amp; Geography</p>
+      <p style="margin-top:12px"><strong>Reference Tools:</strong> Dictionaries, Encyclopaedias, Biographical Sources, Yearbooks, Handbooks, Manuals, Directories, Gazetteers, Atlases, Bibliographies, Indexes &amp; Abstracts (Scopus, Web of Science, PubMed).</p>
+      <p style="margin-top:12px"><strong>Study Skills:</strong> Plan for a whole week · 8 hrs sleep · 30-60 min exercise 3 days/week · Review each class for 1 hr · Study difficult subjects at peak concentration · 5-10 min breaks between subjects.</p>
     </div>
   </div>
 
-  <div class="search-box">
-    <span class="search-icon">🔍</span>
-    <input type="text" id="search-input" placeholder="Search questions..." oninput="filterQuestions()">
+  <!-- SEARCH -->
+  <div id="search-wrap">
+    <input id="search-box" type="text" placeholder="Search questions…" oninput="filterQuestions()"/>
   </div>
 
-  <div class="filter-row" id="filter-row"></div>
-  <div class="shuffle-note" id="shuffle-note">🔀 Shuffled — reset to restore order</div>
+  <!-- FILTERS -->
+  <div id="filters"></div>
+  <p id="shuffle-note">🔀 Shuffled — reset to restore original order</p>
 
+  <!-- Q LIST -->
   <div id="q-list"></div>
-  <div class="no-results" id="no-results">No questions match your search/filter.</div>
+  <div id="no-results"><p>No questions match your search.</p></div>
 </div>
 
-<div class="diag-bar" id="diag-bar">
-  <button class="diag-btn" onclick="openModal()">📊 View My Learning Diagnosis</button>
+<!-- DIAGNOSIS BAR -->
+<div id="diag-bar">
+  <button id="diag-btn" onclick="openModal()">📊 View My Learning Diagnosis</button>
 </div>
 
-<div class="overlay" id="overlay" onclick="closeModalOutside(event)">
-  <div class="modal">
+<!-- MODAL -->
+<div id="overlay" onclick="closeModalOutside(event)">
+  <div id="modal">
     <div class="modal-handle"></div>
     <div class="modal-header">
-      <h3>📊 Learning Diagnosis</h3>
-      <button class="modal-close" onclick="closeModal()">✕</button>
+      <h2>📊 Learning Diagnosis</h2>
+      <button id="close-modal" onclick="closeModal()">✕</button>
     </div>
-    <div class="modal-body" id="modal-body"></div>
-    <div class="modal-footer">
-      <button class="btn-secondary" onclick="closeModal()">Close</button>
-      <button class="btn-primary-red" onclick="resetQuiz();closeModal();">↺ Retake Quiz</button>
-    </div>
+    <div id="modal-body"></div>
   </div>
 </div>
 
-<nav class="bottomnav">
-  <div class="bn-item active"><span class="ic">🏠</span>Home</div>
-  <div class="bn-item"><span class="ic">➕</span>Contribute</div>
-  <div class="bn-item"><span class="ic">👤</span>Profile</div>
-</nav>
-
 <script>
+const LOGO_B64 = '/9j/4AAQSkZJRgABAQAAAQABAAD/2wBDAAgGBgcGBQgHBwcJCQgKDBQNDAsLDBkSEw8UHRofHh0aHBwgJC4nICIsIxwcKDcpLDAxNDQ0Hyc5PTgyPC4zNDL/2wBDAQkJCQwLDBgNDRgyIRwhMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjL/wAARCAAiACIDASIAAhEBAxEB/8QAGwAAAgIDAQAAAAAAAAAAAAAAAAYFBwMECAL/xAAuEAABBAEDAgUCBwAAAAAAAAABAAIDBAUREiExBhNBUWEUFSIyM0JScYGR/8QAGAEAAwEBAAAAAAAAAAAAAAAAAgMEAQX/xAAiEQACAgICAgMBAAAAAAAAAAABAgADERIhMUFRYXH/2gAMAwEAAhEDEQA/ALoaJrb2FMZc/n4eSFZPWNRrRlz/AAqjp2p2YLRhld49s5I8grKi7ZCmWtHJJjME7GPPJYSMjzH+lSXbFaW0Q2NkfJj3N/CuNMrxwQ8jW5LgclQ7u7vhksNqy8WI2OJa2Ic3BPxz3KSi6f07tLlJvMvuH+LDf/YKf2yqyxBHlhwXdD5LL9+2bV6R7pnZ6oaAGt8gBgBTF2eGxMO2NoafAAWp2/Z7QKjIzIZXAeJSCfPAXPbi1/d3p6k7yVE65NJ3NiPLo1KLM8zXPYHYIHBUjD3sdOC5r/ALVeRMmpY3vJJ2JHIA8lrEFmOaMPY7IPmCoVjUL1FoEVl7QPAmQf3VJiVL3KTNcQU6wSBJDI8VZBx5HqFY1W4bcnEQOIABBHn81z+pZe4uFxkPj1HxXX6Jd97VoJZXl8jW8pCf7ACjzLtaLpqNGVXg02IiMiL2tORn5Uj1KZlOLvkPLicBoHX+gpS2bsc88ULA0yyuDGczgZJ/CzD4mLk3YIWRsaPFoHAH5W14iUvUqdNs80bB4eQVUzqCWKSMHAaScDzUbU9V9mthrO5HO4nyHooqiyzOLkySSPdl73OJJJJ5klOa7ZD7cUzHlrmuBBHUIPaJKnI3WVJvJxJGf7UhStM3ZUWuxjTnPRSCp24o4GNxgYb6BW5ZKWP5Iay1xPUj/AH6K//Z';
+
 const questions = [
-{id:1,topic:"Amalgamation",text:"In what year was Nigeria amalgamated into a single political entity?",options:["1900","1906","1914","1960"],answer:2,explanation:"Lord Frederick Lugard amalgamated the Northern and Southern Protectorates on January 1, 1914, creating the Colony and Protectorate of Nigeria."},
-{id:2,topic:"Amalgamation",text:"Who is credited with giving Nigeria its name?",options:["Lord Lugard","Flora Shaw","Goldie","Yakubu Gowon"],answer:1,explanation:"The name 'Nigeria' was coined by British journalist Flora Shaw in an 1897 article in The Times, derived from 'Niger area'. She later married Lord Lugard."},
-{id:3,topic:"Amalgamation",text:"Which protectorate merged with the Royal Niger Company's territories in 1900 to form the Protectorate of Southern Nigeria?",options:["Lagos Colony","Niger Coast Protectorate","Northern Nigeria Protectorate","Oil Rivers Protectorate"],answer:1,explanation:"In 1900, the Niger Coast Protectorate was merged with the Royal Niger Company's territories to form the Protectorate of Southern Nigeria."},
-{id:4,topic:"Amalgamation",text:"In what year was the Lagos Colony merged with the Protectorate of Southern Nigeria?",options:["1900","1906","1911","1914"],answer:1,explanation:"In 1906, the Lagos Colony was merged with the rest of the Southern Protectorate to form the Colony and Protectorate of Southern Nigeria."},
-{id:5,topic:"Amalgamation",text:"Who was the first Governor-General of the amalgamated Nigeria (1914-1919)?",options:["Sir Ralph Moor","Sir Walter Egerton","Lord Frederick Lugard","Sir Hugh Clifford"],answer:2,explanation:"Lord Frederick Lugard became the first Governor-General of Nigeria after engineering the 1914 amalgamation, serving from 1914 to 1919."},
-{id:6,topic:"Amalgamation",text:"Which of the following was NOT a stated reason for the British amalgamation of Nigeria?",options:["A secure source of raw materials","A ready market for manufactured goods","Reduced administrative costs","Promotion of indigenous self-governance"],answer:3,explanation:"The British aims were economic and administrative — raw materials, markets, manpower, and cost reduction — not indigenous self-governance, which only came much later."},
-{id:7,topic:"Amalgamation",text:"Which protectorate was wealthier and expected to subsidize the other after amalgamation?",options:["Northern Protectorate","Southern Protectorate","Lagos Colony","Niger Coast Protectorate"],answer:1,explanation:"The Selbourne Committee recommended using funds from the richer Southern Protectorate to cover financial shortfalls in the Northern Protectorate."},
-{id:8,topic:"Amalgamation",text:"Chief Obafemi Awolowo famously described Nigeria as:",options:["A united nation","A mere geographical expression","A model federation","An indivisible entity"],answer:1,explanation:"In 1947, Awolowo remarked that 'Nigeria is not a nation. It is a mere geographical expression,' criticizing the lack of shared nationhood after amalgamation."},
-{id:9,topic:"Amalgamation",text:"The 1953 Kano Riots arose largely from tensions over:",options:["Religious disputes only","Enahoro's motion for self-government by 1956","A border dispute","Currency reforms"],answer:1,explanation:"The violent 1953 Kano Riots followed tensions from Anthony Enahoro's 1953 motion for Nigeria's self-determination by 1956, which northern delegates opposed."},
-{id:10,topic:"Amalgamation",text:"What system of colonial administration did the British primarily use across Nigeria?",options:["Direct rule everywhere","Federal rule","Indirect rule","Military rule"],answer:2,explanation:"The British primarily used the Indirect Rule system, governing through existing or appointed local rulers under British supervision."},
-{id:11,topic:"Political Parties",text:"Who founded the Nigerian National Democratic Party (NNDP), Nigeria's first political party?",options:["Nnamdi Azikiwe","Obafemi Awolowo","Herbert Macaulay","Ahmadu Bello"],answer:2,explanation:"Sir Herbert Macaulay, known as the father of Nigerian nationalism, founded the NNDP in 1922/1923."},
-{id:12,topic:"Political Parties",text:"In what year was the National Council of Nigerian Citizens (NCNC) formed?",options:["1923","1934","1944","1951"],answer:2,explanation:"The NCNC (originally National Council of Nigeria and the Cameroons) was formed in 1944 by Herbert Macaulay and Nnamdi Azikiwe."},
-{id:13,topic:"Political Parties",text:"The Action Group (AG), founded in 1951, was led by:",options:["Ahmadu Bello","Obafemi Awolowo","Aminu Kano","Tafawa Balewa"],answer:1,explanation:"The Action Group was formed and led by Chief Obafemi Awolowo, dominating the Western Region for over a decade."},
-{id:14,topic:"Political Parties",text:"Which party was founded by Sir Ahmadu Bello in 1949 and dominated the Northern Region?",options:["NEPU","NPC","NCNC","NYM"],answer:1,explanation:"The Northern People's Congress (NPC), founded by Sir Ahmadu Bello, was the dominant party in the Northern Region."},
-{id:15,topic:"Political Parties",text:"The Northern Elements Progressive Union (NEPU) was led by:",options:["Tafawa Balewa","Aminu Kano","Anthony Enahoro","Samuel Akintola"],answer:1,explanation:"NEPU, a leftist offshoot from NPC, was led by Mallam Aminu Kano, who advocated for the rights of common Northerners."},
-{id:16,topic:"Political Parties",text:"Which political party introduced free Universal Primary Education (UPE) in the Western Region in 1955?",options:["NCNC","NPC","NPN","Action Group"],answer:3,explanation:"The Action Group, under Awolowo's leadership, introduced free Universal Primary Education in the Western Region in 1955."},
-{id:17,topic:"Political Parties",text:"The Nigerian Youth Movement (NYM) is notable for being:",options:["The first party with a national outlook","The party of the 1st military regime","A purely religious organization","Formed after independence"],answer:0,explanation:"NYM was the first Nigerian political party with a genuinely national outlook, drawing members from multiple ethnic groups."},
-{id:18,topic:"Political Parties",text:"Which party emerged from a merger of ACN, CPC, and ANPP in 2013?",options:["PDP","APGA","APC","NPN"],answer:2,explanation:"The All Progressives Congress (APC) was founded in 2013 from a merger of the Action Congress of Nigeria, Congress for Progressive Change, and All Nigeria Peoples Party."},
-{id:19,topic:"Political Parties",text:"Who became the first president of Nigeria from the PDP in 1999?",options:["Atiku Abubakar","Olusegun Obasanjo","Goodluck Jonathan","Umaru Musa Yar'adua"],answer:1,explanation:"Olusegun Obasanjo contested and won the 1999 presidential election as the PDP's candidate, becoming Nigeria's first president of the 4th Republic."},
-{id:20,topic:"Political Parties",text:"The All Progressives Grand Alliance (APGA) has its strongest base in which region?",options:["North West","South West","South East","North Central"],answer:2,explanation:"APGA, founded by Chief Chukwuemeka Ojukwu in 2002, has a strong base in South Eastern Nigeria, particularly Anambra State."},
-{id:21,topic:"Colonial Rule",text:"What was the primary system Lord Lugard introduced to govern Nigeria through traditional rulers?",options:["Direct Rule","Indirect Rule","Federal Rule","Native Authority Rule (only in the South)"],answer:1,explanation:"Lugard introduced the Indirect Rule system, governing through existing chiefs, emirs, and obas under British supervision."},
-{id:22,topic:"Colonial Rule",text:"Why was Indirect Rule most successful in Northern Nigeria?",options:["Because the North had no traditional rulers","Because of the pre-existing centralized Sokoto Caliphate structure","Because British officials lived there permanently","Because of higher literacy rates"],answer:1,explanation:"The North's hierarchical Sokoto Caliphate structure made it easy for Britain to govern through existing Emirs under Indirect Rule."},
-{id:23,topic:"Colonial Rule",text:"Why did Indirect Rule largely fail in Igboland?",options:["The Igbo had a centralized monarchy","Igbo society was acephalous, lacking centralized authority","The British preferred direct rule there","Igbo people rejected all British contact"],answer:1,explanation:"Igbo society was largely acephalous/decentralized, so the British creation of 'Warrant Chiefs' was artificial and often resented."},
-{id:24,topic:"Colonial Rule",text:"The 1929 Aba Women's Riot was primarily a protest against:",options:["Lack of Western education","Unfair taxation under Warrant Chiefs","Restrictions on trade","The 1914 amalgamation"],answer:1,explanation:"The Aba Women's Riot was a direct protest against taxation and the abuses associated with the Warrant Chief system under Indirect Rule."},
-{id:25,topic:"Colonial Rule",text:"Which event marked the British conquest of the Benin Kingdom?",options:["The Berlin Conference","The Benin Expedition of 1897","The Aro War","The Sokoto Jihad"],answer:1,explanation:"British forces sacked the Kingdom of Benin in 1897, looting treasures and exiling Oba Ovonramwen, in what is known as the Benin Expedition."},
-{id:26,topic:"Colonial Rule",text:"The Anglo-Aro War (1901-1902) was fought against which group?",options:["The Sokoto Caliphate","The Aro Confederacy","The Benin Kingdom","The Oyo Empire"],answer:1,explanation:"Britain fought and defeated the Aro Confederacy, a powerful commercial and religious network in southeastern Nigeria, in the Anglo-Aro War."},
-{id:27,topic:"Colonial Rule",text:"What was the Berlin Conference of 1884-1885 primarily concerned with?",options:["Ending the slave trade","Dividing Africa into European spheres of influence","Establishing Nigerian independence","Creating the Nigerian currency"],answer:1,explanation:"The Berlin Conference formally partitioned Africa among European powers based on the principle of effective occupation, without regard for indigenous boundaries."},
-{id:28,topic:"Colonial Rule",text:"Who led the Royal Niger Company that dominated trade in the Niger area?",options:["Frederick Lugard","Flora Shaw","George Goldie","Walter Egerton"],answer:2,explanation:"Sir George Dashwood Taubman Goldie led the Royal Niger Company, which held a trade monopoly and administered territories before British government takeover."},
-{id:29,topic:"Colonial Rule",text:"In what year did the British government officially dissolve the Royal Niger Company and take direct control of its territories?",options:["1886","1897","1900","1914"],answer:2,explanation:"The Royal Niger Company's charter was revoked, and in 1900 the company was dissolved with its territories transferred to the British government."},
-{id:30,topic:"Colonial Rule",text:"The 'civilizing mission' was used by Britain primarily to:",options:["Justify economic exploitation under a moral pretext","Fund Nigerian universities","Abolish all forms of taxation","Establish full Nigerian self-governance"],answer:0,explanation:"Britain framed colonization as bringing progress, education, and Christianity, but this largely served as a pretext for economic exploitation and political control."},
-{id:31,topic:"Colonial Rule",text:"Which cash crop economy practice did the British heavily promote in colonial Nigeria?",options:["Subsistence-only farming","Industrial manufacturing","Cash crop production for export","Self-sufficient food-only farming"],answer:2,explanation:"The British promoted cash crop production (cocoa, palm oil, groundnuts, cotton) for export to benefit British industries, often at the expense of food security."},
-{id:32,topic:"Colonial Rule",text:"What were 'Warrant Chiefs'?",options:["Traditional Igbo kings","British-appointed local leaders in non-centralized societies","Northern Emirs","Colonial judges"],answer:1,explanation:"Warrant Chiefs were appointed by the British in areas like Igboland that lacked centralized rule, often becoming unpopular and corrupt."},
-{id:33,topic:"Colonial Rule",text:"Which constitution introduced the elective principle in Nigeria?",options:["1922 Clifford Constitution","1946 Richards Constitution","1951 Macpherson Constitution","1954 Lyttleton Constitution"],answer:0,explanation:"The 1922 Clifford Constitution introduced the elective principle, allowing limited Nigerian representation in the Legislative Council."},
-{id:34,topic:"Colonial Rule",text:"The 1946 Richards Constitution is most notable for:",options:["Granting full independence","Introducing a regional structure (North, East, West)","Abolishing indirect rule","Creating the first Nigerian political party"],answer:1,explanation:"The Richards Constitution introduced a regional structure dividing Nigeria into North, East, and West, though real power stayed with Britain."},
-{id:35,topic:"Colonial Rule",text:"The 1954 Lyttleton Constitution is significant for establishing:",options:["A unitary government","A federal system of government","Military rule","The Nigerian Senate"],answer:1,explanation:"The Lyttleton Constitution of 1954 created a federal system of government, giving Nigerians more control over internal regional affairs."},
-{id:36,topic:"Colonial Rule",text:"Which colonial economic policy required Nigerians to work compulsorily on infrastructure projects?",options:["Cash crop subsidies","Forced labor","Free apprenticeship","Native Authority Police"],answer:1,explanation:"Forced labor policies compelled Nigerians to work on colonial infrastructure projects such as roads and railways."},
-{id:37,topic:"Colonial Rule",text:"What was the main reasoning behind the 1914 Amalgamation according to Lord Lugard's public justification?",options:["Religious unification","Creating a more efficient, centralized administration","Promoting Nigerian art and culture","Ending the slave trade"],answer:1,explanation:"Lugard publicly justified amalgamation as creating a more efficient, centralized administration, though the underlying motive was financial — using Southern wealth to support the North."},
-{id:38,topic:"Colonial Rule",text:"Sir Ahmadu Bello described the 1914 Amalgamation as:",options:["A perfect union","A mistake","A divine plan","An economic triumph for the North"],answer:1,explanation:"Sir Ahmadu Bello was critical of the amalgamation, famously describing it in his memoirs as 'a mistake' that was unpopular among Northerners."},
-{id:39,topic:"Colonial Rule",text:"Lagos became a British Crown Colony in what year?",options:["1851","1861","1865","1900"],answer:2,explanation:"After being annexed in 1861, Lagos formally became a Crown Colony in 1865, directly governed by a British-appointed governor."},
-{id:40,topic:"Colonial Rule",text:"The first British bombardment of Lagos, leading to the deposition of King Kosoko, occurred in:",options:["1841","1851","1861","1884"],answer:1,explanation:"The British bombarded Lagos in 1851 (two attacks, November and December), eventually deposing King Kosoko and replacing him with Akintoye."},
-{id:41,topic:"Culture & Ethnic Groups",text:"What are the three major ethnic groups in Nigeria?",options:["Hausa, Fulani, Tiv","Hausa, Yoruba, Igbo","Yoruba, Igbo, Ijaw","Hausa, Igbo, Kanuri"],answer:1,explanation:"Hausa, Yoruba, and Igbo are widely recognized as Nigeria's three major ethnic groups, though Nigeria has over 250 ethnic groups in total."},
-{id:42,topic:"Culture & Ethnic Groups",text:"Which traditional political system describes the Igbo people, lacking centralized authority?",options:["Emirate system","Monarchical system","Acephalous/Gerontocracy","Caliphate system"],answer:2,explanation:"The Igbo traditionally operated an acephalous (headless), decentralized, gerontocratic (elder-led) system rather than centralized kingship."},
-{id:43,topic:"Culture & Ethnic Groups",text:"What is the title of the traditional ruler among the Yoruba?",options:["Emir","Oba","Sarki","Sultan"],answer:1,explanation:"The Yoruba traditional ruler is called an Oba, governing under a centralized monarchical system with advisory councils."},
-{id:44,topic:"Culture & Ethnic Groups",text:"The Sokoto Jihad of 1804, led by Usman Dan Fodio, transformed Hausa land's political system from the Sarauta system to the:",options:["Fulani Emirate system","Yoruba monarchical system","Igbo village council","Benin absolute monarchy"],answer:0,explanation:"The 1804 Jihad replaced the Habe (Hausa) Sarauta system with the Fulani Emirate/Caliphal system, with Emirs replacing Serkis."},
-{id:45,topic:"Culture & Ethnic Groups",text:"The Yoruba supreme deity, believed to ordain all things, is known as:",options:["Amadioha","Sango","Olodumare","Ogun"],answer:2,explanation:"Olodumare is revered by the Yoruba as the Supreme Being who ordains all things, with ancestors and deities serving as intermediaries."},
-{id:46,topic:"Culture & Ethnic Groups",text:"Which of these is an example of MATERIAL culture?",options:["Religion","Language","Pots and tools","Philosophy"],answer:2,explanation:"Material culture refers to tangible physical items like buildings, tools, pots, and artifacts, as opposed to abstract non-material culture."},
-{id:47,topic:"Culture & Ethnic Groups",text:"Which of these is an example of NON-MATERIAL culture?",options:["A bronze sculpture","A clay pot","Religious belief","A woven cloth"],answer:2,explanation:"Non-material culture consists of abstract elements like religion, philosophy, language, and values, as opposed to physical/tangible items."},
-{id:48,topic:"Culture & Ethnic Groups",text:"The Kanuri ethnic group is predominantly found in which Nigerian states?",options:["Lagos and Ogun","Borno and Yobe","Kano and Kaduna","Rivers and Bayelsa"],answer:1,explanation:"The Kanuri people are predominantly found in Borno and Yobe States, with the historic Kanem-Bornu Empire as their heritage."},
-{id:49,topic:"Culture & Ethnic Groups",text:"The Tiv ethnic group is predominantly domiciled in which state?",options:["Benue State","Kogi State","Plateau State","Taraba State"],answer:0,explanation:"The Tiv are predominantly found in Benue State, though also present in Nasarawa, Taraba, and Plateau States."},
-{id:50,topic:"Culture & Ethnic Groups",text:"The Nupe people trace the formation of their kingdom to which historical figure?",options:["Tsoede (Edegi)","Bayajida","Oduduwa","Mallam Dendo"],answer:0,explanation:"Tsoede, also known as Edegi, born around 1465, is credited with establishing the Nupe Kingdom from his base at Nupeko."},
-{id:51,topic:"Culture & Ethnic Groups",text:"The Ebira people's paramount ruler holds the title:",options:["Etsu Nupe","Ohonoyi","Attah","Aku of Wukari"],answer:1,explanation:"The paramount ruler of Ebiraland is known as the Ohonoyi, with the throne located in Okene."},
-{id:52,topic:"Culture & Ethnic Groups",text:"Which deity is regarded by the Igbo as the earth goddess and guardian of morality?",options:["Ala","Amadioha","Anyanwu","Ahiajoku"],answer:0,explanation:"Ala is the earth goddess seen across Igboland as the guardian of Igbo morality."},
-{id:53,topic:"Culture & Ethnic Groups",text:"What does the term 'omoluabi' refer to in Yoruba culture?",options:["A type of food","A perfect gentleman/well-bred person","A royal title","A musical instrument"],answer:1,explanation:"An 'omoluabi' refers to a person of good character and upbringing — the ideal well-mannered, well-bred Yoruba individual."},
-{id:54,topic:"Culture & Ethnic Groups",text:"The Fulani Jihad of the early 19th century was led by:",options:["Mallam Dendo","Usman Dan Fodio","Muhammad Al-Kanemi","Tsoede"],answer:1,explanation:"Usman Dan Fodio, an Islamic scholar, led the early 19th century Fulani Jihad against the Hausa states, establishing Fulani dominance under the Sokoto Caliphate."},
-{id:55,topic:"Culture & Ethnic Groups",text:"What two main types of culture components are commonly identified?",options:["Religious and secular","Material and non-material","Urban and rural","Northern and Southern"],answer:1,explanation:"Culture is commonly divided into material components (tangible objects) and non-material components (abstract beliefs and values)."},
-{id:56,topic:"Trade & Self-Reliance",text:"What was the primary method of exchange in indigenous Nigerian trade before colonialism?",options:["Banking systems","Barter system","Stock exchange","Credit cards"],answer:1,explanation:"Indigenous trade was largely conducted through barter, exchanging goods and services directly without currency."},
-{id:57,topic:"Trade & Self-Reliance",text:"Economics of self-reliance primarily emphasizes:",options:["Total dependence on foreign aid","Local production, consumption, and sustainability","Exclusive reliance on imports","Eliminating all trade"],answer:1,explanation:"Economics of self-reliance prioritizes local production and consumption over dependence on external markets, emphasizing sustainability and community empowerment."},
-{id:58,topic:"Trade & Self-Reliance",text:"Which type of market served as hubs for interregional trade, often on borders between ethnic groups?",options:["Village markets","Large markets","Online markets","Stock markets"],answer:1,explanation:"Large markets served as hubs for interregional trade, typically situated on borders between geographical zones or ethnic groups."},
-{id:59,topic:"Trade & Self-Reliance",text:"In the indigenous apprenticeship system, how do apprentices primarily learn their trade?",options:["Classroom instruction","Online courses","On-the-job training under a master craftsman","Government-issued manuals"],answer:2,explanation:"Indigenous apprenticeship is informal and practical, with apprentices learning through on-the-job training, mentorship, and hands-on experience under a master."},
-{id:60,topic:"Trade & Self-Reliance",text:"Which of the following is a major challenge facing indigenous apprenticeship in Nigeria?",options:["Too much government funding","Lack of formal recognition","Excessive enrollment","Overregulation"],answer:1,explanation:"Indigenous apprenticeship lacks formal government recognition, often being regarded as unskilled or low-level labor, alongside limited access to funding."},
-{id:61,topic:"Trade & Self-Reliance",text:"Palm oil was a major local product that especially attracted which group of traders?",options:["Asian merchants","European merchants","American settlers","Middle Eastern traders"],answer:1,explanation:"Palm oil was central to indigenous trade and was a major commodity that attracted European merchants during the colonial trade era."},
-{id:62,topic:"Trade & Self-Reliance",text:"Which of these is NOT listed among traditional indigenous trades/skills in Nigeria?",options:["Blacksmithing","Pottery","Software engineering","Wood carving"],answer:2,explanation:"Traditional indigenous trades include blacksmithing, tailoring, fishing, wood carving, pottery, leatherwork, and carpentry — software engineering is a modern occupation."},
-{id:63,topic:"Trade & Self-Reliance",text:"Trade in indigenous Nigerian society was often embedded within:",options:["Only formal contracts","Cultural practices and ceremonies","Banking regulations","Foreign treaties"],answer:1,explanation:"Indigenous trade practices were often embedded in cultural festivals and ceremonies, strengthening cultural identity and social cohesion."},
-{id:64,topic:"Trade & Self-Reliance",text:"A community-centric approach to indigenous trade prioritizes:",options:["Profit maximization above all","Community needs and mutual trust over pure profit","Foreign investment","Government control"],answer:1,explanation:"Indigenous trade practices often prioritized community needs and mutual trust/social relationships over pure profit maximization."},
-{id:65,topic:"Reorientation & National Values",text:"What does the acronym WAI stand for?",options:["War Against Indiscipline","Women's Awareness Initiative","West African Institute","Workers Against Inflation"],answer:0,explanation:"WAI stands for War Against Indiscipline, launched in 1984 under Major General Muhammadu Buhari to instill discipline and moral values."},
-{id:66,topic:"Reorientation & National Values",text:"The National Orientation Agency (NOA) was established in what year?",options:["1976","1987","1993","2005"],answer:2,explanation:"The National Orientation Agency was established in 1993 under General Sani Abacha, to promote national values, unity, and civic responsibility."},
-{id:67,topic:"Reorientation & National Values",text:"MAMSER, established under General Ibrahim Babangida, stands for:",options:["Mass Mobilization for Self-Reliance, Social Justice and Economic Recovery","Military Action for Mass Service and Education","Maritime and Marine Services Regulation","Ministry of Agriculture, Mining and Services"],answer:0,explanation:"MAMSER (1987) stood for Mass Mobilization for Self-Reliance, Social Justice and Economic Recovery, aimed at fostering national unity."},
-{id:68,topic:"Reorientation & National Values",text:"The 'Green Revolution' in Nigeria was launched in 1973 under which Head of State?",options:["Yakubu Gowon","Muhammadu Buhari","Shehu Shagari","Ibrahim Babangida"],answer:0,explanation:"The Green Revolution was launched in 1973 under General Yakubu Gowon to boost agricultural production through modern farming techniques."},
-{id:69,topic:"Reorientation & National Values",text:"Austerity Measures were introduced in Nigeria in 1981 under which leader?",options:["Olusegun Obasanjo","Shehu Shagari","Muhammadu Buhari","Sani Abacha"],answer:1,explanation:"President Shehu Shagari introduced Austerity Measures in 1981 in response to an economic downturn caused by declining oil prices."},
-{id:70,topic:"Reorientation & National Values",text:"WAIC, an extension of WAI focused on corruption, stands for:",options:["War Against Indiscipline and Corruption","Workers Alliance for Industrial Change","West African Industrial Corporation","War Against Insecurity and Crime"],answer:0,explanation:"WAIC (War Against Indiscipline and Corruption) extended WAI's focus to specifically target corruption through public awareness and stricter law enforcement."},
-{id:71,topic:"Reorientation & National Values",text:"In the '3R's' framework discussed in reorientation strategies, what do the three R's stand for?",options:["Reading, wRiting, aRithmetic","Reconstruction, Rehabilitation, Reconciliation","Reform, Renewal, Restoration","Religion, Race, Region"],answer:1,explanation:"The 3R's framework refers to Reconstruction, Rehabilitation, and Reconciliation — pillars for societal healing after conflict."},
-{id:72,topic:"Reorientation & National Values",text:"The 'Change Begins With Me' campaign in Nigeria focused on:",options:["Foreign policy reform","Personal behavior and societal values","Military restructuring","Currency redenomination"],answer:1,explanation:"The 'Change Begins With Me' campaign was a government-led initiative focusing on personal behavior change and promoting national values."},
-{id:73,topic:"Reorientation & National Values",text:"Reorientation, as a concept, is best defined as:",options:["A purely economic policy","Changing or reforming beliefs, attitudes, and behaviors to align with desired values","A method of military training","A type of trade agreement"],answer:1,explanation:"Reorientation refers to the process of changing, renewing, or reforming individuals' or groups' beliefs, attitudes, and behaviors towards positive societal outcomes."},
-{id:74,topic:"Reorientation & National Values",text:"Which institution was established in 1996 to promote unity and reduce sectional feelings in Nigeria?",options:["NOA","NYSC","Federal Character Commission","EFCC"],answer:2,explanation:"The Federal Character Commission (FCC) was established in 1996 to help reduce sectional feelings and promote unity among Nigeria's diverse peoples."},
-{id:75,topic:"Reorientation & National Values",text:"The NYSC (National Youth Service Corps) was established in what year?",options:["1973","1987","1993","2005"],answer:0,explanation:"The National Youth Service Corps was established in 1973 as part of efforts to reduce sectional feelings and promote national unity among Nigerian youths."},
-{id:76,topic:"Citizenship & Civic",text:"Citizenship acquired automatically by being born in a country is referred to as:",options:["Jus sanguinis","Jus soli","Jure matrimonii","Naturalization"],answer:1,explanation:"Jus soli (right of soil) refers to citizenship acquired by virtue of being born within a country's territory."},
-{id:77,topic:"Citizenship & Civic",text:"Citizenship acquired through one's parents is known as:",options:["Jus soli","Jus sanguinis","Naturalization","Jure matrimonii"],answer:1,explanation:"Jus sanguinis (right of blood) is citizenship acquired through parentage rather than place of birth."},
-{id:78,topic:"Citizenship & Civic",text:"Where are fundamental human rights enshrined in the 1999 Nigerian Constitution?",options:["Chapter I","Chapter II","Chapter III","Chapter IV"],answer:3,explanation:"Fundamental rights are enshrined in Chapter IV of the 1999 Nigerian Constitution, guaranteeing civil liberties such as right to life and fair hearing."},
-{id:79,topic:"Citizenship & Civic",text:"Which of the following is NOT one of the listed duties of a Nigerian citizen?",options:["Paying tax promptly","Obeying laws and regulations","Participating in democratic processes","Owning private property"],answer:3,explanation:"Civic duties include obeying laws, paying tax, contributing to national development, and participating in democratic processes — property ownership is a right, not a listed civic duty."},
-{id:80,topic:"Citizenship & Civic",text:"Statelessness refers to a situation where:",options:["A person holds dual citizenship","A person has no recognized nationality/citizenship anywhere","A person owns multiple properties","A nation has no government"],answer:1,explanation:"Statelessness describes the situation where a person lacks any recognized nationality or citizenship, a persistent global and Nigerian challenge."}
+  {id:1,topic:"Library Concept",text:"The word 'library' is derived from which Latin word?",options:["bibliotheca","liber","lingua","lexicon"],answer:1,explanation:"The word library is derived from the Latin word 'liber' meaning book. The Latinized Greek word 'bibliotheca' is the origin of the word for library in German, Russian and Roman languages."},
+  {id:2,topic:"Library Concept",text:"UNESCO defines a library as an organized collection of published books, periodicals, and other materials whose staff can meet users' _____ needs.",options:["financial, social and political","informational, research, educational or recreational","administrative, legal and cultural","commercial, industrial and technical"],answer:1,explanation:"UNESCO defines a library as an organized collection of published books and periodicals and other reading and audio-visual materials, and the services of a staff able to provide and interpret such materials to meet the informational, research, educational or recreational needs of its users."},
+  {id:3,topic:"Library Concept",text:"Which Indian librarian and information scientist formulated the Five Laws of Library Science?",options:["Melvil Dewey","S. R. Ranganathan","Herbert Putnam","Charles Cutter"],answer:1,explanation:"Ranganathan, a famous Indian librarian and information scientist, postulated the Five Laws of Library Science: Books are for Use; Every Reader His Book; Every Book Its Reader; Save the Time of the User; The Library is a Growing Organism."},
+  {id:4,topic:"Library Concept",text:"What is Ranganathan's 5th Law of Library Science?",options:["Books are for Use","Every Book Its Reader","Save the Time of the User","The Library is a Growing Organism"],answer:3,explanation:"The 5th Law is 'The Library is a Growing Organism,' implying that libraries must continually expand their collections and services to remain relevant."},
+  {id:5,topic:"Library Concept",text:"Which of the following is NOT a type of library listed in the course material?",options:["National Library","Public Library","Commercial Library","Special Library"],answer:2,explanation:"The five types of libraries covered are: National, Public, School, Academic, and Special libraries. 'Commercial Library' is not a recognised category in the course material."},
+  {id:6,topic:"Types of Libraries",text:"The National Library is also known as which of the following?",options:["Apex Library","Public Library","Reference Library","Digital Library"],answer:0,explanation:"The National Library is also called the Apex Library. It serves as the legal depository and bibliographic center for the nation and is responsible for issuing the International Standard Book Number (ISBN)."},
+  {id:7,topic:"Types of Libraries",text:"Which type of library is primarily designed to support a school's curriculum and is targeted at nursery and primary school pupils?",options:["Academic Library","Special Library","School Library","Public Library"],answer:2,explanation:"School libraries are designed to support the school's curriculum. They provide pupils with their first library experience, pictorial books, and improve listening skills through storytelling."},
+  {id:8,topic:"Types of Libraries",text:"Academic libraries serve institutions of higher learning. Which of the following is an example given in the course material?",options:["National Library of Nigeria","Lagos City Library","AFIT Library","Ikeja Public Library"],answer:2,explanation:"Examples of academic libraries given in the material include AFIT, Kaduna Polytechnic, and Federal Colleges of Education libraries."},
+  {id:9,topic:"Types of Libraries",text:"Special libraries are also known as:",options:["Public information centres","Information centers","Digital archives","National repositories"],answer:1,explanation:"Special libraries are also known as information centers. They are not usually open to the general public and are attached to organisations, ministries, and parastatals to support the information needs of their specific users."},
+  {id:10,topic:"Types of Libraries",text:"Public libraries are often called 'the people library' and are usually maintained by:",options:["Private donations","University funds","Public funds","International grants"],answer:2,explanation:"Public libraries are established by states and located in cities and towns to meet the information needs of the general public. They are usually maintained by public funds."},
+  {id:11,topic:"Book & Library Sections",text:"UNESCO (1985) defines a book as a non-periodical publication consisting of at least how many pages (excluding the cover page)?",options:["25 pages","35 pages","49 pages","100 pages"],answer:2,explanation:"According to UNESCO (1985), a book is a non-periodical publication consisting of at least 49 pages excluding the cover page. Publications with fewer than 49 pages are called pamphlets."},
+  {id:12,topic:"Book & Library Sections",text:"A book produced in electronic format is called:",options:["Digital book","E-book","Virtual book","Soft book"],answer:1,explanation:"A book produced in electronics format is called an electronic book (e-book)."},
+  {id:13,topic:"Book & Library Sections",text:"The four main parts of a book are: Cover, Preliminaries, Body of the Text, and:",options:["Index","Subsidiaries","Appendix","Glossary only"],answer:1,explanation:"A book is divided into four parts: The Cover, The Preliminaries, The Body of the Text, and The Subsidiaries. Subsidiaries include references, bibliography, glossary, and index."},
+  {id:14,topic:"Book & Library Sections",text:"Which part of a book's cover identifies the title, author, and carries the publisher's logo (crest)?",options:["Front cover","Back cover","Spine","Fly page"],answer:2,explanation:"The Spine of a book identifies the title, author, and also carries the crest (logo) of the publisher. The front cover identifies the title and author; the back cover has general information about the author and content."},
+  {id:15,topic:"Book & Library Sections",text:"The 'Forward' (Foreword) of a book is usually written by:",options:["The main author","Another person with good knowledge of the subject","The publisher","The editor"],answer:1,explanation:"The Forward (Foreword) is an explanatory statement on the purpose of the book. It is usually written by another person other than the author who has good knowledge of the subject."},
+  {id:16,topic:"Book & Library Sections",text:"The Cataloging Section of a library uses which two major classification schemes?",options:["APA and MLA","ISBN and ISSN","LC and DDC","MARC and Dublin Core"],answer:2,explanation:"The cataloging section organizes information items by subjects using classification schemes, notably the Library of Congress (LC) and Dewey Decimal Classification (DDC)."},
+  {id:17,topic:"Book & Library Sections",text:"The Circulation Section of a library is responsible for all EXCEPT:",options:["Loaning out books","Collecting fines","Conducting orientation for new patrons","Selecting and procuring new books"],answer:3,explanation:"The Acquisition Section is responsible for selecting and procuring new books. The Circulation Section handles loaning, fines, orientation, inter-library loans, and keeping statistics of library users."},
+  {id:18,topic:"ICT & Computer Basics",text:"ICT stands for:",options:["Information and Computer Technology","Integrated Communication Technology","Information and Communication Technology","Internet Communication Technology"],answer:2,explanation:"ICT stands for Information and Communication Technology, which is described as the technology where computers and telecommunication devices are used for information gathering, processing, storage, retrieval and dissemination."},
+  {id:19,topic:"ICT & Computer Basics",text:"A computer is best defined as:",options:["A machine that only stores data","A programmable electronic device that accepts, processes, outputs and stores data","A device used only for internet browsing","An electronic typewriter"],answer:1,explanation:"A computer is a programmable, electronic device that accepts data, performs operations on that data, and stores the data for future use. It follows instructions called programs."},
+  {id:20,topic:"ICT & Computer Basics",text:"Which of the following is the correct sequence of the basic operations of a computer?",options:["Output, Input, Storage, Processing, Communication","Input, Processing, Output, Storage, Communication","Processing, Input, Output, Storage, Communication","Storage, Input, Processing, Output, Communication"],answer:1,explanation:"The five basic operations of a computer are: Input (entering data) → Processing (performing operations) → Output (presenting results) → Storage (saving data) → Communications (sending/receiving data)."},
+  {id:21,topic:"ICT & Computer Basics",text:"What is the difference between data and information?",options:["They are the same thing","Data is processed information; information is raw facts","Data is raw unorganized facts; information is data processed into a meaningful form","Information is gathered by computers; data is gathered by humans"],answer:2,explanation:"Data are raw, unorganized facts (text, graphics, audio or video). Information is data that has been processed into a meaningful form. The process of converting data into information is called information processing."},
+  {id:22,topic:"Computer Generations",text:"First-generation computers (1946–1957) were powered by:",options:["Transistors","Integrated circuits","Vacuum tubes","Microprocessors"],answer:2,explanation:"First-generation computers (1946–1957) were enormous and powered by vacuum tubes. They used a great deal of electricity, generated a lot of heat. Examples include ENIAC and UNIVAC."},
+  {id:23,topic:"Computer Generations",text:"ENIAC and UNIVAC are examples of which generation of computers?",options:["Second generation","Third generation","First generation","Fourth generation"],answer:2,explanation:"ENIAC (Electronic Numerical Integrator and Computer) and UNIVAC are examples of first-generation computers (1946–1957), which used vacuum tubes."},
+  {id:24,topic:"Computer Generations",text:"Which generation of computers introduced the use of transistors, making computers smaller and more energy-efficient?",options:["First generation","Second generation","Third generation","Fourth generation"],answer:1,explanation:"Second-generation computers (1958–1963) used transistors. They were smaller, more powerful, cheaper, more energy-efficient and more reliable than first-generation computers. Punch cards and magnetic tape were used for input and storage."},
+  {id:25,topic:"Computer Generations",text:"Integrated Circuits (ICs) on a single silicon chip characterise which generation of computers?",options:["Second generation","First generation","Third generation","Fifth generation"],answer:2,explanation:"Third-generation computers (approximately 1964–1970) used integrated circuits (ICs), which consist of transistors and electronic circuits on a single tiny silicon chip. Keyboards were used for input and monitors for output."},
+  {id:26,topic:"Computer Generations",text:"Microprocessors — which contain the entire core processing of a computer on a single chip — define which generation?",options:["Third generation","Fourth generation","Fifth generation","Second generation"],answer:1,explanation:"Fourth-generation computers (approximately 1971–present) use microprocessors. This generation also saw the development of networks and the Internet. Input devices include keyboards and mice; output includes monitors and printers."},
+  {id:27,topic:"Computer Generations",text:"Fifth-generation computers are expected to be based on:",options:["Vacuum tubes and punch cards","Transistors and magnetic tape","Artificial Intelligence (AI) and nanotechnology","Integrated circuits only"],answer:2,explanation:"Fifth-generation computers (now and future) are in their infancy. They may be based on artificial intelligence (AI), will likely use voice and touch input, and may utilize optical computers and nanotechnology."},
+  {id:28,topic:"Computer Hardware",text:"Which of the following is an INPUT device?",options:["Monitor","Printer","Scanner","Speaker"],answer:2,explanation:"Input devices are used to input data into the computer. Examples include keyboards, mice, scanners, cameras, microphones, touch pads, touch screens, and fingerprint readers. Monitors, printers, and speakers are output devices."},
+  {id:29,topic:"Computer Hardware",text:"The Central Processing Unit (CPU) and memory are classified as:",options:["Input devices","Processing devices","Output devices","Storage devices"],answer:1,explanation:"Processing devices perform calculations and control the computer's operation. The CPU (Central Processing Unit) and memory are the primary processing devices of a computer."},
+  {id:30,topic:"Computer Hardware",text:"Modems, network adapters, and routers are examples of:",options:["Storage devices","Output devices","Communication devices","Processing devices"],answer:2,explanation:"Communication devices allow users to communicate with others and to electronically access remote information. Examples include modems, network adapters, and routers."},
+  {id:31,topic:"Computer Software",text:"Which type of software starts up the computer and controls its operation?",options:["Application software","System software / Operating System","Utility software","Programming software"],answer:1,explanation:"System software refers to programs that manage computer hardware and provide a platform for running application software. The Operating System (OS) is the most important type — it starts the computer and controls its operation. Examples: Windows, Mac OS, Linux, Android."},
+  {id:32,topic:"Computer Software",text:"Microsoft Word, Excel, web browsers, and gaming applications are examples of:",options:["System software","Operating systems","Application software","Firmware"],answer:2,explanation:"Application software helps users perform specific tasks. It depends on the system software to operate. Examples include Word, Excel, browsers, gaming applications, and photography applications."},
+  {id:33,topic:"Computer Classification",text:"Which classification of computer is described as the largest, fastest and most expensive, used for intensive computational tasks?",options:["Mainframe","Mini","Super","Micro"],answer:2,explanation:"Supercomputers are the largest, fastest and most expensive computers. They are used for intensive computational tasks, generally run one program at a time as fast as possible, and can cost several million dollars. Examples: PARAM, Jaguar, Roadrunner, Titan."},
+  {id:34,topic:"Computer Classification",text:"Mainframe computers are commonly referred to as:",options:["The big brain","Big iron","Super machines","Titan computers"],answer:1,explanation:"Mainframe computers are large, general multipurpose computers with extensive processing and storage capability. They are commonly known as 'big iron' and are used by hospitals, universities, large businesses, banks, and government offices. Examples: IBM z series, IBM 370, IBM 704."},
+  {id:35,topic:"Computer Classification",text:"Tablets, smart watches, and smartphones are classified as which type of computer based on size?",options:["Mini computers","Mainframe computers","Super computers","Micro computers"],answer:3,explanation:"Micro computers are small in size but more powerful than their size suggests. They include user-friendly applications such as tablets, smart watches, and smartphones."},
+  {id:36,topic:"Computer Classification",text:"An analog computer processes data in the form of:",options:["Binary digits (0s and 1s)","Discrete values","Physical quantities in continuous form","Digital signals"],answer:2,explanation:"Analog computers process data in the form of physical quantities that are in continuous form (e.g. temperature, humidity, electrical voltage). Examples include fuel gauges and car speedometers."},
+  {id:37,topic:"Computer Classification",text:"A hybrid computer combines the features of both:",options:["Supercomputers and mainframes","Digital and analog computers","Mini and micro computers","Input and output devices"],answer:1,explanation:"A hybrid computer's operation combines the features of both digital and analog computers. It can process both discrete and continuous data. It has the speed of an analog computer and the accuracy/memory of a digital computer."},
+  {id:38,topic:"Computer Networks",text:"A computer network is defined as:",options:["A single computer connected to the internet","A collection of interconnected computers and devices that share resources and exchange data","A software program for data management","A storage system for large files"],answer:1,explanation:"A computer network is a collection of interconnected computers and devices that share resources and exchange data. Objectives include data sharing, resource sharing, communication collaboration, and centralized management."},
+  {id:39,topic:"Computer Networks",text:"Which type of network covers a very small range of a few meters, such as Bluetooth devices?",options:["LAN","MAN","WAN","PAN"],answer:3,explanation:"A Personal Area Network (PAN) is a very small network with a range of just a few meters. Examples include Bluetooth devices and mobile hotspots."},
+  {id:40,topic:"Computer Networks",text:"A Wide Area Network (WAN) covers large geographical areas. The best example of a WAN is:",options:["A school network","A city network","The Internet","A Bluetooth connection"],answer:2,explanation:"A Wide Area Network (WAN) covers large geographical areas. The Internet is the best and most well-known example of a WAN."},
+  {id:41,topic:"Library Automation",text:"Library automation is defined as the use of ICT tools to make library services more:",options:["Expensive, complex and specialised","Robust, effective and efficient","Limited, secure and restricted","Traditional, manual and paper-based"],answer:1,explanation:"Library automation is the term used to describe the use of ICT tools to make library services more robust, effective and efficient. It refers to the application of ICTs to perform traditional library operations with minimal human intervention."},
+  {id:42,topic:"Library Automation",text:"Which of the following is an example of open-source library automation software?",options:["Oracle Database","Microsoft Access","KOHA","SAP"],answer:2,explanation:"Examples of library automation software include KOHA, Evergreen, DSpace, and Greenstone. KOHA is an open-source Integrated Library System (ILS) used widely by libraries."},
+  {id:43,topic:"Library Automation",text:"MARC and Dublin Core are standard formats used in library automation for:",options:["Cataloguing metadata","Network security","Digital preservation","Copyright protection"],answer:0,explanation:"ICT tools facilitate automated cataloguing using standard metadata formats such as MARC (Machine-Readable Cataloguing) and Dublin Core. These standards ensure that catalogue records are consistent and shareable."},
+  {id:44,topic:"Library Automation",text:"Which of these is NOT listed as a challenge of library automation?",options:["High implementation cost","Lack of technical skills","Cybersecurity risks","Improved resource sharing"],answer:3,explanation:"Improved resource sharing is a BENEFIT, not a challenge, of library automation. Challenges include: high implementation cost, lack of technical skills, digital divide, cybersecurity risks, rapid technological change, unstable power supply, resistance to change, and inadequate infrastructure."},
+  {id:45,topic:"Library Automation",text:"Online Public Access Catalogue (OPAC) allows users to:",options:["Borrow books automatically without staff","Search the library catalogue electronically using computers or mobile devices","Access only printed books","Manage library finances online"],answer:1,explanation:"OPAC (Online Public Access Catalogue) allows users to search the library catalogue electronically using computers or mobile devices. It is one of the key applications of ICT in library operations."},
+  {id:46,topic:"Library Automation",text:"Which emerging technology is described as creating 'smart libraries' with intelligent library environments?",options:["Blockchain","Internet of Things (IoT)","Analogue computing","VHS technology"],answer:1,explanation:"Smart libraries integrate IoT (Internet of Things) technologies and automation to create intelligent library environments. Other emerging trends include AI, cloud computing, mobile library services, and big data analytics."},
+  {id:47,topic:"Library Automation",text:"What was the first stage of library evolution, characterised by manual catalogues (card catalogues)?",options:["Digital libraries","Virtual libraries","Automated libraries","Traditional libraries"],answer:3,explanation:"Library systems evolved through stages: Traditional libraries (manual catalogues, physical book circulation records, limited access) → Automated libraries → Digital libraries → Virtual libraries."},
+  {id:48,topic:"Library & The Law",text:"According to WIPO (2014), copyright is best defined as:",options:["A government license to publish books","A legal term describing the rights creators have over their literary and artistic works","A registration system for universities","A fee paid to access library materials"],answer:1,explanation:"Copyright according to World Intellectual Property Organization (WIPO) (2014) is a legal term used to describe the rights creators have over their literary and artistic works, such as books, music, paintings, sculpture, films, computer programs, databases, advertisements, maps and technical drawings."},
+  {id:49,topic:"Library & The Law",text:"Which of the following is NOT a work protected by copyright as listed in the course?",options:["Books, pamphlets and other writings","Photographic works","Ideas that have not been written down","Dramatic and musical works"],answer:2,explanation:"Copyright protects works such as books, lectures, dramatic works, choreographic works, musical compositions, photographic works, software, and digital content. Pure ideas that have NOT been expressed or written down are generally not protected by copyright."},
+  {id:50,topic:"Library & The Law",text:"Libraries are allowed to copy materials under 'Fair Use' for all the following EXCEPT:",options:["Research and private study","Preservation of fragile materials","Commercial resale of copies","Interlibrary loan"],answer:2,explanation:"Fair use permits reproduction for research/private study, preservation, replacement of lost items, and interlibrary loans. Commercial resale of copies is copyright infringement, not fair use."},
+  {id:51,topic:"Library & The Law",text:"Piracy is defined as:",options:["Accidental copying of a document","Borrowing books beyond the due date","Illegally reproducing work for commercial gain without the owner's permission","Sharing library materials with friends"],answer:2,explanation:"Piracy is an act of violating copyright law when people illegally reproduce work for sale — that is, for commercial gains without permission from the owner of the work."},
+  {id:52,topic:"Plagiarism",text:"Plagiarism is best described as:",options:["Citing too many sources in a paper","Presenting someone else's ideas, words or creative work as your own without proper acknowledgment","Reading many books before writing","Using the same citation style throughout a paper"],answer:1,explanation:"Plagiarism is the act of presenting someone else's ideas, words, data, or creative work as your own without proper acknowledgment. In academia, it is considered academic fraud because it involves intellectual dishonesty."},
+  {id:53,topic:"Plagiarism",text:"Which form of plagiarism involves rewriting someone's ideas in your own words WITHOUT citing the source?",options:["Direct plagiarism","Self-plagiarism","Mosaic plagiarism","Paraphrasing plagiarism"],answer:3,explanation:"Paraphrasing plagiarism involves rewriting someone's ideas in your own words without citing the source. Even though the words are different, the ideas belong to someone else and must be cited."},
+  {id:54,topic:"Plagiarism",text:"Reusing your own previously submitted work without permission or citation is called:",options:["Accidental plagiarism","Self-plagiarism","Mosaic plagiarism","Direct plagiarism"],answer:1,explanation:"Self-plagiarism is the act of reusing your own previously submitted work without permission or citation. Even though the work is yours, submitting it again as new work is dishonest."},
+  {id:55,topic:"Plagiarism",text:"Which of the following is an academic consequence of plagiarism?",options:["Loss of library membership","Revocation of degrees","Increased tuition fees","Demotion in rank"],answer:1,explanation:"Academic consequences of plagiarism include: loss of marks, failure of course, suspension or expulsion, and revocation of degrees. Professional consequences include loss of credibility, career damage, and retraction of publications."},
+  {id:56,topic:"Plagiarism",text:"Turnitin is an example of a:",options:["Open-source library system","Reference management tool","Commercial plagiarism detection software","Search engine"],answer:2,explanation:"Turnitin is a commercial plagiarism detection software. Other commercial ones listed include attributor, copyspace, iparadigms, ithenticate, plagiarism-detect, plagscan, unplag and very-guide. Free ones include chimpsky, citeplag, copytracker, plagium and seesources."},
+  {id:57,topic:"Reference Tools",text:"Which reference tool provides information on a person's life including their personality, achievements, career and hobbies?",options:["Yearbook","Gazetteer","Dictionary","Biographical source"],answer:3,explanation:"A biographical source is a book which gives an account of a person's life. It contains information on the personality, achievements, career, hobbies etc. of an individual. There are two types: individual biography and collected biography."},
+  {id:58,topic:"Reference Tools",text:"A gazetteer is best described as:",options:["A bound collection of maps","A list of persons and their phone numbers","A geographical dictionary providing basic information about geographical names and places","A book about economic policies"],answer:2,explanation:"A gazetteer is a geographical dictionary or directory that provides basic information about geographical names and places usually with descriptive or statistical details. It is consulted when a researcher wants information about the political/legal status of a country, its location or its features."},
+  {id:59,topic:"Reference Tools",text:"Which reference tool is defined as a bound collection of maps, sometimes accompanied with charts, tables and plates?",options:["Directory","Yearbook","Atlas","Handbook"],answer:2,explanation:"An atlas is a bound collection of maps, sometimes accompanied with charts, tables and plates. These may provide information about the people, culture and economy of the geographical region covered."},
+  {id:60,topic:"Reference Tools",text:"Scopus, Web of Science, and PubMed are examples of:",options:["Classification schemes","Search engines","Indexes and abstracts","Library management systems"],answer:2,explanation:"Indexes and abstracts help library users locate journal articles. An index points to where information is found; an abstract provides a summary of the content. Scopus, Web of Science, and PubMed are examples."},
+  {id:61,topic:"Reference Tools",text:"A yearbook provides current facts and statistics. Which of the following is typically found in a yearbook?",options:["Maps and geographical data only","Events of the year, statistics, and economic and social data","Legal cases and court judgments","Names and addresses of organisations"],answer:1,explanation:"Yearbooks are reference materials usually published annually. Their contents include: events of the year, statistics, and economic and social data. They are useful for historical research."},
+  {id:62,topic:"Cataloguing & Classification",text:"Cataloguing is the process of:",options:["Arranging books on shelves by colour","Describing a book in bibliographic terms including author, title, publisher and accession number","Selecting books for purchase","Binding damaged books"],answer:1,explanation:"Cataloguing is the process of describing a book in bibliographic terms. This includes the name of the author, the title, sub-title, edition statement, place of publication, publisher, the number of pages and the accession number."},
+  {id:63,topic:"Cataloguing & Classification",text:"The Library of Congress (LC) Classification Scheme was formulated in 1899 by:",options:["Melvil Dewey","S. R. Ranganathan","Herbert Putnam","Charles Ammi Cutter"],answer:2,explanation:"The Library of Congress Classification was formulated in 1899 by Herbert Putnam for the use of the Congress Library in America. It is alpha-numeric in nature (a combination of letters and numbers). Letters I, O, W, X, Y are not currently in use."},
+  {id:64,topic:"LC Classification",text:"In the Library of Congress Classification Scheme, which letter represents 'Science'?",options:["S","R","T","Q"],answer:3,explanation:"In the LC Classification: Q = Science. Other main classes include: A=General Works, B=Philosophy/Psychology/Religion, H=Social Science, K=Law, L=Education, M=Music, R=Medicine, S=Agriculture, T=Technology, U=Military Science, V=Naval Science, Z=Bibliography."},
+  {id:65,topic:"LC Classification",text:"In the LC Classification Scheme, which letter represents 'Medicine'?",options:["M","N","R","S"],answer:2,explanation:"R = Medicine in the Library of Congress Classification Scheme. M = Music, N = Fine Arts, S = Agriculture/Husbandry."},
+  {id:66,topic:"LC Classification",text:"In the LC Classification, letter 'K' represents:",options:["Knowledge Management","Law","Literature","Kinesiology"],answer:1,explanation:"K = Law in the Library of Congress Classification Scheme. The full list includes: A=General Works, B=Philosophy/Religion, H=Social Science, J=Political Science, K=Law, L=Education, P=Language and Literature."},
+  {id:67,topic:"LC Classification",text:"Which letters represent 'American History' in the Library of Congress Classification?",options:["A and B","E and F","G and H","D and E"],answer:1,explanation:"E-F = American History in the LC Classification. D = History/Topography (Except America), G = Geography/Anthropology/Recreation, H = Social Science."},
+  {id:68,topic:"LC Classification",text:"In LC Classification, letter 'T' represents:",options:["Theology","Typography","Technology","Theatre"],answer:2,explanation:"T = Technology in the Library of Congress Classification Scheme. Other related classes: U=Military Science, V=Naval Science, S=Agriculture, R=Medicine."},
+  {id:69,topic:"DDC Classification",text:"The Dewey Decimal Classification (DDC) system was first published by Melvil Dewey in:",options:["1899","1876","1964","1920"],answer:1,explanation:"Melvil Dewey first published the DDC scheme in 1876 for use in his private library. It was widely accepted by many libraries. The scheme now has 22 editions and an electronic version."},
+  {id:70,topic:"DDC Classification",text:"In the Dewey Decimal Classification, the class number '200' represents:",options:["Pure Science","Philosophy","Religion","Social Science"],answer:2,explanation:"The DDC major class divisions are: 000=General Works, 100=Philosophy, 200=Religion, 300=Social Science, 400=Languages, 500=Pure Science, 600=Technology, 700=Arts, 800=Literature, 900=History, Geography and auxiliary disciplines."},
+  {id:71,topic:"DDC Classification",text:"Which DDC number range is assigned to 'Technology'?",options:["400–499","500–599","600–699","700–799"],answer:2,explanation:"600–699 = Technology in the Dewey Decimal Classification. 400=Languages, 500=Pure Science, 700=Arts."},
+  {id:72,topic:"DDC Classification",text:"In DDC, the number '900' covers:",options:["Arts","Literature","History, Geography and auxiliary disciplines","Social Science"],answer:2,explanation:"900–999 = History, Geography and auxiliary disciplines in the Dewey Decimal Classification. 700=Arts, 800=Literature, 300=Social Science."},
+  {id:73,topic:"Internet & Online Resources",text:"The internet is best described as:",options:["A local network within a single building","A global conglomeration of interconnected computer networks serving users worldwide","A software program for storing data","A type of computer operating system"],answer:1,explanation:"The internet refers to a global or international conglomeration of interconnected computer networks serving users worldwide. The network can be of local or global scope, but are linked together by a broad array of electronic, wireless and optical networking technologies."},
+  {id:74,topic:"Internet & Online Resources",text:"When evaluating the authenticity of an internet resource, 'Currency' refers to:",options:["The cost of accessing the website","Checking whether the information is up-to-date","The number of visitors to the site","The country where the site is hosted"],answer:1,explanation:"Currency means ensuring that you check the currency (timeliness) of a research resource. An outdated site may be incomplete or incorrect. Always verify that the information is current and relevant."},
+  {id:75,topic:"Internet & Online Resources",text:"Which domain suffix typically indicates a government website?",options:[".com",".org",".gov",".edu"],answer:2,explanation:"Domain suffixes provide a clue about the purpose/audience of a website. '.gov' typically indicates a government website. '.edu' is for educational institutions, '.org' for non-profit organisations, and '.com' for commercial sites."},
+  {id:76,topic:"Digital Preservation",text:"Digital preservation is defined as the method of:",options:["Scanning books into digital format for the first time","Keeping digital material alive so it remains usable as technology advances","Deleting outdated digital files","Converting analog records to paper"],answer:1,explanation:"Digital preservation is the method of keeping digital material alive so that they remain usable as technological advances render original hardware and software specification obsolete (Harrods Librarian glossary)."},
+  {id:77,topic:"Digital Preservation",text:"'Bitstream Copying' in digital preservation is also popularly known as:",options:["Data migration","Technology preservation","Backing up data","Digital archaeology"],answer:2,explanation:"Bitstream Copying is the process of creating an exact copy of digital content in the system. It is popularly known as 'backing up data' in the community. It is not a long-term technique but is widely used for data preservation."},
+  {id:78,topic:"Study Skills",text:"According to the course material, how many hours of sleep should a student allot per every 24 hours?",options:["6 hours","7 hours","8 hours","10 hours"],answer:2,explanation:"A student should allot 8 hours of sleep per every 24 hours. The study timetable tips also recommend exercising 30–60 minutes per day for three days a week and planning for a whole week."},
+  {id:79,topic:"Study Skills",text:"When planning a study timetable, how many minutes of preview should be scheduled for each regular class?",options:["10-20 minutes","30-60 minutes","90-120 minutes","120-150 minutes"],answer:1,explanation:"According to the tips for planning a timetable: 'Have for each regular class 30-60 minutes of preview' and 'Have for each regular class a one hour of review.' You should also create 5-10 minute intervals between transitions from one subject to another."},
+  {id:80,topic:"Study Skills",text:"What is the FIRST step in conducting a research according to the course material?",options:["Collecting data","Analysing and interpreting data","Identification of the research problem","Drawing conclusions"],answer:2,explanation:"The basic steps in conducting research begin with: i) Identification of the research problems, ii) Survey of literature relating to the problem, iii) Specifying the purpose of the research, iv) Determining specific research questions or hypothesis, v) Collecting data, vi) Analysis and interpretation, vii) Result and discussion, viii) Drawing conclusions, ix) Communicating findings."}
 ];
 
 const state = {
-  answers:{}, revealed:{}, bookmarks:new Set(),
-  filter:'All', search:'',
-  shuffled:[...questions], isShuffled:false,
-  timerSecs:0, timerInterval:null
+  answers: {},
+  revealed: {},
+  bookmarks: new Set(),
+  filter: 'All',
+  search: '',
+  shuffled: [...questions],
+  isShuffled: false,
+  timerSecs: 0,
+  timerInterval: null,
 };
 
-function init(){
+function init() {
+  document.getElementById('logo-img').src = 'data:image/jpeg;base64,' + LOGO_B64;
   buildFilters();
   renderQuestions();
   startTimer();
 }
 
-function buildFilters(){
-  const topics = ['All', ...new Set(questions.map(q=>q.topic))];
-  const row = document.getElementById('filter-row');
-  row.innerHTML = topics.map(t=>`<button class="filter-pill ${t==='All'?'active':''}" onclick="setFilter('${t.replace(/'/g,"\\'")}',this)">${t}</button>`).join('');
+function buildFilters() {
+  const topics = ['All', ...new Set(questions.map(q => q.topic))];
+  const wrap = document.getElementById('filters');
+  wrap.innerHTML = topics.map(t =>
+    `<button class="f-pill${t==='All'?' active':''}" onclick="setFilter('${t}',this)">${t}</button>`
+  ).join('');
 }
 
-function setFilter(topic, btn){
-  state.filter = topic;
-  document.querySelectorAll('.filter-pill').forEach(p=>p.classList.remove('active'));
+function setFilter(t, btn) {
+  state.filter = t;
+  document.querySelectorAll('.f-pill').forEach(b => b.classList.remove('active'));
   btn.classList.add('active');
   renderQuestions();
 }
 
-function filterQuestions(){
-  state.search = document.getElementById('search-input').value.toLowerCase();
+function filterQuestions() {
+  state.search = document.getElementById('search-box').value.toLowerCase();
   renderQuestions();
 }
 
-function getVisible(){
-  return state.shuffled.filter(q=>{
-    const matchTopic = state.filter==='All' || q.topic===state.filter;
-    const matchSearch = !state.search || q.text.toLowerCase().includes(state.search) || q.options.some(o=>o.toLowerCase().includes(state.search));
+function getVisible() {
+  return state.shuffled.filter(q => {
+    const matchTopic = state.filter === 'All' || q.topic === state.filter;
+    const matchSearch = !state.search || q.text.toLowerCase().includes(state.search) ||
+      q.options.some(o => o.toLowerCase().includes(state.search));
     return matchTopic && matchSearch;
   });
 }
 
-function renderQuestions(){
+function renderQuestions() {
   const visible = getVisible();
   const list = document.getElementById('q-list');
-  document.getElementById('no-results').style.display = visible.length===0 ? 'block' : 'none';
+  const noRes = document.getElementById('no-results');
   document.getElementById('stat-showing').textContent = visible.length;
-  list.innerHTML = visible.map((q,idx)=>buildCard(q,idx)).join('');
+  if (visible.length === 0) { list.innerHTML = ''; noRes.style.display = 'block'; }
+  else { noRes.style.display = 'none'; list.innerHTML = visible.map((q,i) => buildCard(q,i)).join(''); }
   updateStats();
 }
 
-function buildCard(q, idx){
-  const answered = state.answers[q.id] !== undefined;
-  const revealed = state.revealed[q.id];
-  const isBookmarked = state.bookmarks.has(q.id);
+function buildCard(q, idx) {
+  const a = state.answers[q.id];
+  const rev = state.revealed[q.id];
+  const bk = state.bookmarks.has(q.id);
   const letters = ['A','B','C','D'];
-  const optsHtml = q.options.map((opt,i)=>{
-    let cls = 'opt-btn';
-    let disabledAttr = '';
-    if(answered || revealed){
-      disabledAttr = 'disabled';
-      if(answered){
-        if(i===q.answer) cls += ' correct';
-        else if(i===state.answers[q.id]) cls += ' wrong';
-      } else if(revealed && i===q.answer){
-        cls += ' revealed-correct';
-      }
+  const opts = q.options.map((o, i) => {
+    let cls = 'opt';
+    if (a !== undefined) {
+      if (i === q.answer) cls += ' correct';
+      else if (i === a) cls += ' wrong';
+    } else if (rev && i === q.answer) {
+      cls += ' reveal-correct';
     }
-    return `<button class="${cls}" ${disabledAttr} onclick="pickAnswer(${q.id},${i})">
-      <span class="opt-letter">${letters[i]}</span><span>${opt}</span>
-    </button>`;
+    const disabled = (a !== undefined || rev) ? 'style="pointer-events:none"' : `onclick="pickAnswer(${q.id},${i})"`;
+    return `<div class="${cls}" ${disabled}><span class="opt-letter">${letters[i]}</span><span class="opt-text">${o}</span></div>`;
   }).join('');
-
-  const showExplain = answered || revealed;
-  const footerHtml = (!answered && !revealed) ? `<div class="q-footer"><button class="reveal-btn" onclick="revealAns(${q.id})">Reveal Answer</button></div>` : '';
-
-  return `<div class="q-card ${isBookmarked?'bookmarked':''}" id="card-${q.id}">
+  const expShow = (a !== undefined || rev) ? 'show' : '';
+  const revBtn = (a === undefined && !rev) ? `<button class="reveal-btn" onclick="revealAns(${q.id})">👁 Reveal Answer</button>` : '';
+  return `<div class="q-card" id="qcard-${q.id}">
     <div class="q-meta">
-      <span class="q-num mono">Q${q.id}</span>
-      <span class="topic-badge">${q.topic}</span>
-      <span class="type-badge">Theory</span>
-      <button class="bk-btn ${isBookmarked?'active':''}" onclick="toggleBk(${q.id})">🔖</button>
+      <span class="q-num">Q${q.id}</span>
+      <span class="q-topic">${q.topic}</span>
+      <span class="q-type">Theory</span>
+      <button class="bk-btn${bk?' active':''}" onclick="toggleBk(${q.id})" title="Bookmark">🔖</button>
     </div>
-    <div class="q-text">${q.text}</div>
-    <div class="opts-grid">${optsHtml}</div>
-    ${footerHtml}
-    <div class="explain-box ${showExplain?'show':''}"><strong>Explanation:</strong> ${q.explanation}</div>
+    <p class="q-text">${q.text}</p>
+    <div class="opts-grid">${opts}</div>
+    ${revBtn}
+    <div class="explanation ${expShow}"><strong>💡 Explanation:</strong> ${q.explanation}</div>
   </div>`;
 }
 
-function pickAnswer(id, chosen){
-  if(state.answers[id] !== undefined) return;
-  state.answers[id] = chosen;
-  renderQuestions();
-  scrollToQ(id);
+function pickAnswer(id, i) {
+  if (state.answers[id] !== undefined) return;
+  state.answers[id] = i;
+  const q = questions.find(x => x.id === id);
+  const card = document.getElementById('qcard-'+id);
+  if (card) card.outerHTML = buildCard(q);
+  updateStats();
   checkDiagnostic();
 }
 
-function revealAns(id){
+function revealAns(id) {
   state.revealed[id] = true;
-  renderQuestions();
-  scrollToQ(id);
+  const q = questions.find(x => x.id === id);
+  const card = document.getElementById('qcard-'+id);
+  if (card) card.outerHTML = buildCard(q);
 }
 
-function revealAll(){
-  getVisible().forEach(q=>{
-    if(state.answers[q.id]===undefined) state.revealed[q.id]=true;
-  });
+function revealAll() {
+  questions.forEach(q => { if (state.answers[q.id] === undefined) state.revealed[q.id] = true; });
   renderQuestions();
 }
 
-function resetQuiz(){
-  state.answers = {};
-  state.revealed = {};
-  state.bookmarks = new Set();
-  state.filter = 'All';
-  state.search = '';
-  state.shuffled = [...questions];
-  state.isShuffled = false;
-  document.getElementById('search-input').value = '';
+function resetQuiz() {
+  state.answers = {}; state.revealed = {}; state.bookmarks = new Set();
+  state.filter = 'All'; state.search = ''; state.shuffled = [...questions];
+  state.isShuffled = false; state.timerSecs = 0;
+  document.getElementById('search-box').value = '';
   document.getElementById('shuffle-note').style.display = 'none';
-  buildFilters();
-  renderQuestions();
+  document.querySelectorAll('.f-pill').forEach((b,i) => b.classList.toggle('active', i===0));
+  document.getElementById('diag-bar').style.display = 'none';
   updateBookmarkPanel();
-  document.getElementById('diag-bar').classList.remove('show');
+  renderQuestions();
 }
 
-function shuffleQuestions(){
-  for(let i=state.shuffled.length-1;i>0;i--){
+function shuffleQuestions() {
+  const arr = [...state.shuffled];
+  for (let i = arr.length-1; i > 0; i--) {
     const j = Math.floor(Math.random()*(i+1));
-    [state.shuffled[i],state.shuffled[j]] = [state.shuffled[j],state.shuffled[i]];
+    [arr[i],arr[j]] = [arr[j],arr[i]];
   }
-  state.isShuffled = true;
+  state.shuffled = arr; state.isShuffled = true;
   document.getElementById('shuffle-note').style.display = 'block';
   renderQuestions();
 }
 
-function toggleBk(id){
-  if(state.bookmarks.has(id)) state.bookmarks.delete(id);
+function toggleBk(id) {
+  if (state.bookmarks.has(id)) state.bookmarks.delete(id);
   else state.bookmarks.add(id);
-  updateBookmarkPanel();
-  renderQuestions();
-}
-
-function toggleBookmarks(){
-  const card = document.getElementById('bm-card');
-  card.style.display = card.style.display==='block' ? 'none' : 'block';
+  const q = questions.find(x=>x.id===id);
+  const card = document.getElementById('qcard-'+id);
+  if (card) card.outerHTML = buildCard(q);
   updateBookmarkPanel();
 }
 
-function updateBookmarkPanel(){
+function toggleBookmarks() {
+  document.getElementById('bm-card').classList.toggle('open');
+}
+
+function updateBookmarkPanel() {
   const list = document.getElementById('bm-list');
-  if(state.bookmarks.size===0){
-    list.innerHTML = '<span style="font-size:0.78rem;color:var(--ink3);">No bookmarks yet — tap 🔖 on any question.</span>';
-    return;
+  if (state.bookmarks.size === 0) {
+    list.innerHTML = '<em style="font-size:.75rem;color:var(--ink4)">No bookmarks yet.</em>';
+  } else {
+    list.innerHTML = [...state.bookmarks].sort((a,b)=>a-b).map(id=>
+      `<span class="bm-pill" onclick="scrollToQ(${id})">Q${id}</span>`).join('');
   }
-  list.innerHTML = [...state.bookmarks].map(id=>`<span class="bm-pill" onclick="scrollToQ(${id})">Q${id}</span>`).join('');
 }
 
-function scrollToQ(id){
-  const el = document.getElementById('card-'+id);
-  if(el) el.scrollIntoView({behavior:'smooth', block:'center'});
+function scrollToQ(id) {
+  const el = document.getElementById('qcard-'+id);
+  if (el) el.scrollIntoView({behavior:'smooth', block:'center'});
 }
 
-function updateStats(){
-  const answeredIds = Object.keys(state.answers).map(Number);
-  let correct=0, wrong=0;
-  answeredIds.forEach(id=>{
-    const q = questions.find(qq=>qq.id===id);
-    if(q.answer === state.answers[id]) correct++; else wrong++;
-  });
-  const attempted = answeredIds.length;
-  const score = attempted ? Math.round((correct/attempted)*100) : 0;
+function updateStats() {
+  const answered = Object.keys(state.answers).length;
+  const correct = Object.values(state.answers).filter((a,i,arr) => {
+    const id = parseInt(Object.keys(state.answers)[i]);
+    const q = questions.find(x=>x.id===id);
+    return q && a === q.answer;
+  }).length;
+  const wrong = answered - correct;
+  const score = answered > 0 ? Math.round(correct/answered*100) : 0;
   document.getElementById('stat-correct').textContent = correct;
   document.getElementById('stat-wrong').textContent = wrong;
-  document.getElementById('stat-attempted').textContent = attempted;
+  document.getElementById('stat-attempted').textContent = answered;
   document.getElementById('stat-score').textContent = score+'%';
-  document.getElementById('progress-fill').style.width = Math.round((attempted/questions.length)*100)+'%';
-  document.getElementById('progress-label').textContent = attempted+' / '+questions.length;
+  const pct = answered/questions.length*100;
+  document.getElementById('prog-fill').style.width = pct+'%';
+  document.getElementById('prog-label').textContent = `${answered} / ${questions.length}`;
 }
 
-function checkDiagnostic(){
-  const attempted = Object.keys(state.answers).length;
-  document.getElementById('diag-bar').classList.toggle('show', attempted>=10);
+function checkDiagnostic() {
+  if (Object.keys(state.answers).length >= 10) {
+    document.getElementById('diag-bar').style.display = 'block';
+  }
 }
 
-function toggleSummary(){
-  document.getElementById('sum-body').classList.toggle('open');
-  document.getElementById('sum-toggle').classList.toggle('open');
+function toggleSummary() {
+  document.getElementById('sum-card').classList.toggle('open');
 }
 
-function openModal(){
+function openModal() {
   document.getElementById('modal-body').innerHTML = buildReport();
   document.getElementById('overlay').classList.add('open');
-  setTimeout(()=>{
-    document.querySelectorAll('.tbar-fill').forEach(el=>{
+  setTimeout(() => {
+    document.querySelectorAll('.topic-bar-fill').forEach(el => {
       el.style.width = el.dataset.pct + '%';
     });
-  },80);
+  }, 100);
 }
 
-function closeModal(){
+function closeModal() {
   document.getElementById('overlay').classList.remove('open');
 }
 
-function closeModalOutside(e){
-  if(e.target.id==='overlay') closeModal();
+function closeModalOutside(e) {
+  if (e.target === document.getElementById('overlay')) closeModal();
 }
 
-function buildReport(){
-  const answeredIds = Object.keys(state.answers).map(Number);
-  let correct=0, wrong=0;
-  answeredIds.forEach(id=>{
-    const q = questions.find(qq=>qq.id===id);
-    if(q.answer === state.answers[id]) correct++; else wrong++;
+function buildReport() {
+  const answered = Object.keys(state.answers).length;
+  const correct = Object.entries(state.answers).filter(([id,a]) => {
+    const q = questions.find(x=>x.id===parseInt(id));
+    return q && a === q.answer;
+  }).length;
+  const wrong = answered - correct;
+  const score = answered > 0 ? Math.round(correct/answered*100) : 0;
+  const topicMap = {};
+  questions.forEach(q => {
+    if (!topicMap[q.topic]) topicMap[q.topic] = {total:0,correct:0,attempted:0};
+    topicMap[q.topic].total++;
+    const a = state.answers[q.id];
+    if (a !== undefined) { topicMap[q.topic].attempted++; if (a===q.answer) topicMap[q.topic].correct++; }
   });
-  const attempted = answeredIds.length;
-  const total = questions.length;
-  const score = attempted ? Math.round((correct/attempted)*100) : 0;
-  const scoreColor = score>=70 ? 'green' : score>=50 ? 'amber' : 'red';
-
-  const topics = [...new Set(questions.map(q=>q.topic))];
-  const topicBars = topics.map(t=>{
-    const tQs = questions.filter(q=>q.topic===t);
-    const tAnswered = tQs.filter(q=>state.answers[q.id]!==undefined);
-    const tCorrect = tAnswered.filter(q=>state.answers[q.id]===q.answer);
-    const pct = tAnswered.length ? Math.round((tCorrect.length/tAnswered.length)*100) : 0;
-    const color = pct>=70?'var(--green)':pct>=40?'var(--amber)':'var(--red)';
-    return `<div class="tbar-row">
-      <div class="tbar-label"><span>${t}</span><span class="mono">${tAnswered.length?pct+'%':'—'}</span></div>
-      <div class="tbar-track"><div class="tbar-fill" data-pct="${pct}" style="background:${color};"></div></div>
+  const topicBars = Object.entries(topicMap).map(([t,v]) => {
+    const pct = v.attempted > 0 ? Math.round(v.correct/v.attempted*100) : 0;
+    const col = pct>=70?'var(--green)':pct>=40?'var(--amber)':'var(--primary)';
+    return `<div class="topic-bar-wrap">
+      <div class="topic-bar-label"><span>${t}</span><span>${pct}%</span></div>
+      <div class="topic-bar-bg"><div class="topic-bar-fill" data-pct="${pct}" style="background:${col};width:0%"></div></div>
     </div>`;
   }).join('');
-
-  const weakTopics = topics.filter(t=>{
-    const tQs = questions.filter(q=>q.topic===t);
-    const tAnswered = tQs.filter(q=>state.answers[q.id]!==undefined);
-    const tCorrect = tAnswered.filter(q=>state.answers[q.id]===q.answer);
-    const pct = tAnswered.length ? (tCorrect.length/tAnswered.length)*100 : 100;
-    return tAnswered.length>0 && pct<60;
-  });
-
-  let focusHtml = '';
-  if(weakTopics.length>0){
-    focusHtml = weakTopics.map(t=>`<div class="focus-card critical">🚨 <strong>${t}</strong> — Your accuracy here is below 60%. Revisit the relevant lecture notes and retry these questions.</div>`).join('');
-  } else if(attempted>0){
-    focusHtml = `<div class="focus-card good">✅ You're performing solidly across topics. Keep reinforcing with regular revision.</div>`;
-  } else {
-    focusHtml = `<div class="focus-card warning">⚠️ Answer a few questions to get a personalized diagnosis.</div>`;
-  }
-
-  let verdict = "Answer more questions to see your personalized verdict.";
-  if(attempted>0){
-    if(score>=80) verdict = "Excellent work! You have a strong grasp of GST 112 content. Focus on speed and consistency for the exam.";
-    else if(score>=60) verdict = "Good progress. You understand most concepts but should revisit weaker topics flagged above before the exam.";
-    else if(score>=40) verdict = "You're getting there, but several core areas need more revision. Go through the Topic Revision Summary again and retry.";
-    else verdict = "This topic needs focused revision. Start with the Topic Revision Summary, then retake the quiz to build confidence.";
-  }
-
-  return `
-    <div class="score-grid">
-      <div class="score-cell green"><div class="val">${correct}</div><div class="lbl">Correct</div></div>
-      <div class="score-cell red"><div class="val">${wrong}</div><div class="lbl">Wrong</div></div>
-      <div class="score-cell ${scoreColor==='green'?'green':scoreColor==='red'?'red':''}"><div class="val" style="color:${scoreColor==='amber'?'var(--amber)':''}">${score}%</div><div class="lbl">Score</div></div>
-      <div class="score-cell blue"><div class="val">${attempted}/${total}</div><div class="lbl">Attempted</div></div>
-    </div>
-    <h4 style="font-size:0.85rem;margin-bottom:10px;">Topic Performance</h4>
-    <div class="topic-bars">${topicBars}</div>
-    <h4 style="font-size:0.85rem;margin-bottom:10px;">Areas to Focus On</h4>
-    <div class="focus-cards">${focusHtml}</div>
-    <h4 style="font-size:0.85rem;margin-bottom:10px;">Overall Verdict</h4>
-    <div class="verdict-box">${verdict}</div>
-  `;
+  const weakTopics = Object.entries(topicMap).filter(([,v])=>v.attempted>0&&v.correct/v.attempted<0.5).map(([t])=>t);
+  const strongTopics = Object.entries(topicMap).filter(([,v])=>v.attempted>0&&v.correct/v.attempted>=0.7).map(([t])=>t);
+  const focusCards = [
+    ...weakTopics.map(t=>`<div class="focus-card crit">🚨 <strong>Needs Work:</strong> ${t} — review the notes and attempt again.</div>`),
+    ...strongTopics.map(t=>`<div class="focus-card good">✅ <strong>Strong:</strong> ${t} — keep it up!</div>`)
+  ].join('') || '<div class="focus-card warn">⚠️ Attempt more questions to see detailed analysis.</div>';
+  const verdict = score>=70?`<strong>Excellent Performance! 🎉</strong>You scored ${score}% — you have a solid understanding of the GST 108 course material. Review any weak topics before your exam.`
+    :score>=50?`<strong>Good Effort! 📚</strong>You scored ${score}%. Focus on the topics marked in red/amber above and re-attempt the quiz. You're on the right track.`
+    :`<strong>Keep Studying! 💪</strong>You scored ${score}%. Don't be discouraged — revisit the Topic Revision Summary at the top of the page and re-attempt the questions.`;
+  return `<div class="score-grid">
+    <div class="score-cell green"><div class="val">${correct}</div><div class="lbl">Correct</div></div>
+    <div class="score-cell red"><div class="val">${wrong}</div><div class="lbl">Wrong</div></div>
+    <div class="score-cell amber"><div class="val">${score}%</div><div class="lbl">Score</div></div>
+    <div class="score-cell purple"><div class="val">${answered}/${questions.length}</div><div class="lbl">Attempted</div></div>
+  </div>
+  <p class="section-hd">Performance by Topic</p>
+  ${topicBars}
+  <p class="section-hd" style="margin-top:16px">Focus Areas</p>
+  ${focusCards}
+  <div class="verdict">${verdict}</div>
+  <div class="modal-footer">
+    <button class="btn-sec" onclick="closeModal()">Close</button>
+    <button class="btn-pri" onclick="closeModal();resetQuiz()">↺ Retake Quiz</button>
+  </div>`;
 }
 
-function startTimer(){
-  state.timerInterval = setInterval(()=>{
+function startTimer() {
+  state.timerInterval = setInterval(() => {
     state.timerSecs++;
     const m = String(Math.floor(state.timerSecs/60)).padStart(2,'0');
     const s = String(state.timerSecs%60).padStart(2,'0');
     document.getElementById('timer').textContent = `⏱ ${m}:${s}`;
-  },1000);
+  }, 1000);
 }
 
-init();
+window.addEventListener('DOMContentLoaded', init);
 </script>
 </body>
 </html>
