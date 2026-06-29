@@ -1,380 +1,500 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8"/>
-<meta name="viewport" content="width=device-width,initial-scale=1"/>
-<title>GST 108 — PDFNest Quiz</title>
-<link rel="preconnect" href="https://fonts.googleapis.com"/>
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
-<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet"/>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>CSC 104 — PDFNest Quiz</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet">
 <style>
-:root{
-  --primary:#E8302A;--primary-dk:#C0251F;--primary-lt:#F05550;
-  --red8:rgba(232,48,42,.08);--red13:rgba(232,48,42,.13);--red25:rgba(232,48,42,.25);
-  --bg:#F5F5F7;--surface:#FFFFFF;--surface2:#F0F0F2;
-  --border:#E4E4E8;--border2:#D0D0D5;
-  --ink:#0F0F0F;--ink2:#3A3A3F;--ink3:#6E6E78;--ink4:#9E9EA8;
-  --green:#16A34A;--amber:#D97706;--blue:#2563EB;--purple:#7C3AED;
-  --r-card:16px;--r-input:12px;--r-pill:999px;--r-sm:8px;
-}
-@media(prefers-color-scheme:dark){
-  :root{--bg:#0F0F0F;--surface:#1A1A1A;--surface2:#242428;
-    --border:#2C2C32;--border2:#38383F;
-    --ink:#F0F0F4;--ink2:#C8C8D0;--ink3:#8E8E98;--ink4:#5E5E68;}
-}
-*,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
-body{font-family:'Inter',sans-serif;background:var(--bg);color:var(--ink);min-height:100vh;-webkit-font-smoothing:antialiased;}
-/* NAV */
-#top-nav{position:sticky;top:0;z-index:100;height:56px;background:var(--surface);border-bottom:1px solid var(--border);display:flex;align-items:center;padding:0 16px;gap:10px;}
-#back-btn{width:36px;height:36px;background:var(--surface2);border:none;border-radius:var(--r-sm);cursor:pointer;font-size:16px;display:flex;align-items:center;justify-content:center;color:var(--ink);flex-shrink:0;}
-#logo-img{width:34px;height:34px;border-radius:8px;object-fit:cover;flex-shrink:0;}
-.nav-brand{display:flex;flex-direction:column;flex:1;}
-.nav-brand strong{font-size:.85rem;color:var(--ink);}
-.nav-brand small{font-size:.7rem;color:var(--ink3);}
-.nav-right{display:flex;align-items:center;gap:8px;}
-#timer{font-family:'JetBrains Mono',monospace;font-size:.75rem;color:var(--primary);background:var(--red8);border:1px solid var(--red13);padding:4px 12px;border-radius:var(--r-pill);white-space:nowrap;}
-#bm-toggle-btn{width:36px;height:36px;background:none;border:none;cursor:pointer;font-size:18px;border-radius:var(--r-sm);}
-/* HERO */
-#hero{background:var(--surface);border-bottom:1px solid var(--border);padding:20px 20px 18px;}
-.breadcrumb{font-size:.72rem;color:var(--ink3);margin-bottom:8px;}
-.breadcrumb span{color:var(--primary);font-weight:600;}
-.tag-pill{display:inline-block;background:var(--red8);color:var(--primary);font-size:.65rem;font-weight:700;letter-spacing:.07em;padding:3px 10px;border-radius:var(--r-pill);margin-bottom:10px;text-transform:uppercase;}
-#hero h1{font-size:1.35rem;font-weight:700;line-height:1.25;margin-bottom:4px;}
-#hero h1 em{color:var(--primary);font-style:normal;}
-.hero-sub{font-size:.78rem;color:var(--ink3);margin-bottom:14px;}
-.stats-row{display:flex;flex-wrap:wrap;gap:6px;margin-bottom:12px;}
-.stat-chip{display:flex;align-items:center;gap:5px;padding:4px 10px;border-radius:var(--r-pill);font-size:.72rem;font-weight:600;border:1px solid transparent;}
-.stat-chip.blue{background:rgba(37,99,235,.08);color:var(--blue);border-color:rgba(37,99,235,.2);}
-.stat-chip.green{background:rgba(22,163,74,.08);color:var(--green);border-color:rgba(22,163,74,.2);}
-.stat-chip.red{background:var(--red8);color:var(--primary);border-color:var(--red13);}
-.stat-chip.purple{background:rgba(124,58,237,.08);color:var(--purple);border-color:rgba(124,58,237,.2);}
-.stat-chip.amber{background:rgba(217,119,6,.08);color:var(--amber);border-color:rgba(217,119,6,.2);}
-.progress-wrap{display:flex;align-items:center;gap:10px;}
-.progress-bar{flex:1;height:6px;background:var(--surface2);border-radius:var(--r-pill);overflow:hidden;}
-.progress-fill{height:100%;background:linear-gradient(90deg,var(--primary),var(--primary-lt));border-radius:var(--r-pill);transition:width .4s ease;width:0%;}
-.progress-label{font-family:'JetBrains Mono',monospace;font-size:.7rem;color:var(--ink3);white-space:nowrap;}
-/* ACTIONS */
-#actions{max-width:720px;margin:14px auto;padding:0 16px;display:flex;gap:8px;flex-wrap:wrap;}
-.btn-outline{background:none;border:1.5px solid var(--border2);color:var(--ink2);padding:8px 16px;border-radius:var(--r-input);font-size:.8rem;font-weight:600;cursor:pointer;font-family:'Inter',sans-serif;}
-.btn-outline:hover{border-color:var(--primary);color:var(--primary);}
-.btn-ghost-red{background:var(--red8);border:1.5px solid var(--red13);color:var(--primary);padding:8px 16px;border-radius:var(--r-input);font-size:.8rem;font-weight:600;cursor:pointer;font-family:'Inter',sans-serif;}
-.btn-ghost-red:hover{background:var(--red13);}
-.btn-danger{background:var(--primary);border:none;color:#fff;padding:8px 16px;border-radius:var(--r-input);font-size:.8rem;font-weight:600;cursor:pointer;font-family:'Inter',sans-serif;}
-.btn-danger:hover{background:var(--primary-dk);}
-/* MAIN */
-#main{max-width:720px;margin:0 auto;padding:0 16px 120px;}
-/* BOOKMARK CARD */
-#bm-card{background:var(--surface);border:1px solid var(--border);border-radius:var(--r-card);padding:14px;margin-bottom:12px;display:none;}
-#bm-card.open{display:block;}
-#bm-card h3{font-size:.8rem;font-weight:700;margin-bottom:10px;color:var(--ink2);}
-#bm-list{display:flex;flex-wrap:wrap;gap:6px;}
-.bm-pill{background:var(--red8);color:var(--primary);border:1px solid var(--red13);padding:3px 10px;border-radius:var(--r-pill);font-family:'JetBrains Mono',monospace;font-size:.72rem;cursor:pointer;font-weight:600;}
-.bm-pill:hover{background:var(--red13);}
-/* SUMMARY */
-#sum-card{background:var(--surface);border:1px solid var(--border);border-radius:var(--r-card);margin-bottom:12px;overflow:hidden;}
-#sum-toggle{width:100%;background:none;border:none;padding:14px 16px;display:flex;align-items:center;gap:8px;cursor:pointer;font-family:'Inter',sans-serif;color:var(--ink);}
-#sum-toggle span{font-size:.85rem;font-weight:700;flex:1;text-align:left;}
-#sum-arrow{font-size:.75rem;transition:transform .25s;color:var(--ink3);}
-#sum-card.open #sum-arrow{transform:rotate(180deg);}
-#sum-body{display:none;padding:0 16px 16px;border-top:1px solid var(--border);}
-#sum-card.open #sum-body{display:block;}
-#sum-body p{font-size:.78rem;color:var(--ink2);line-height:1.6;margin-top:12px;}
-.chips-wrap{display:flex;flex-wrap:wrap;gap:6px;margin-top:10px;}
-.chip{font-family:'JetBrains Mono',monospace;font-size:.72rem;color:var(--primary);background:var(--red8);border:1px solid var(--red13);padding:3px 9px;border-radius:var(--r-sm);}
-/* SEARCH */
-#search-wrap{position:relative;margin-bottom:12px;}
-#search-wrap::before{content:'🔍';position:absolute;left:12px;top:50%;transform:translateY(-50%);font-size:.85rem;}
-#search-box{width:100%;padding:10px 14px 10px 36px;border:1.5px solid var(--border2);border-radius:var(--r-input);background:var(--surface);color:var(--ink);font-size:.82rem;font-family:'Inter',sans-serif;outline:none;}
-#search-box:focus{border-color:var(--primary);box-shadow:0 0 0 3px var(--red8);}
-/* FILTERS */
-#filters{display:flex;flex-wrap:wrap;gap:6px;margin-bottom:12px;}
-.f-pill{background:var(--surface2);border:1.5px solid var(--border);color:var(--ink2);padding:5px 13px;border-radius:var(--r-pill);font-size:.75rem;font-weight:600;cursor:pointer;border:none;}
-.f-pill.active{background:var(--primary);color:#fff;}
-/* SHUFFLE NOTE */
-#shuffle-note{font-size:.75rem;font-style:italic;color:var(--ink3);margin-bottom:10px;display:none;}
-/* QUESTION LIST */
-#q-list{display:flex;flex-direction:column;gap:12px;}
-/* QUESTION CARD */
-.q-card{background:var(--surface);border:1.5px solid var(--border);border-radius:var(--r-card);padding:16px;transition:border-color .2s;}
-.q-meta{display:flex;align-items:center;gap:6px;margin-bottom:10px;flex-wrap:wrap;}
-.q-num{font-family:'JetBrains Mono',monospace;font-size:.7rem;font-weight:600;background:var(--surface2);padding:2px 8px;border-radius:var(--r-sm);color:var(--ink3);}
-.q-topic{font-size:.65rem;font-weight:700;background:var(--red8);color:var(--primary);border:1px solid var(--red13);padding:2px 8px;border-radius:var(--r-pill);text-transform:uppercase;letter-spacing:.04em;}
-.q-type{font-size:.65rem;font-weight:700;background:rgba(37,99,235,.08);color:var(--blue);border:1px solid rgba(37,99,235,.2);padding:2px 8px;border-radius:var(--r-pill);}
-.bk-btn{margin-left:auto;background:none;border:none;cursor:pointer;font-size:16px;opacity:.5;transition:opacity .2s;}
-.bk-btn.active{opacity:1;}
-.q-text{font-size:.88rem;font-weight:500;color:var(--ink);line-height:1.55;margin-bottom:12px;}
-.opts-grid{display:grid;grid-template-columns:1fr 1fr;gap:7px;}
-@media(max-width:480px){.opts-grid{grid-template-columns:1fr;}}
-.opt{display:flex;align-items:flex-start;gap:8px;padding:9px 11px;border-radius:var(--r-sm);border:1.5px solid var(--border);cursor:pointer;transition:all .15s;background:var(--surface);}
-.opt:hover{background:var(--red8);border-color:var(--red25);}
-.opt.correct{background:rgba(22,163,74,.1);border-color:var(--green);}
-.opt.correct .opt-letter{background:var(--green);color:#fff;}
-.opt.wrong{background:rgba(232,48,42,.08);border-color:var(--primary);}
-.opt.wrong .opt-letter{background:var(--primary);color:#fff;}
-.opt.reveal-correct{background:rgba(22,163,74,.07);border-color:var(--green);}
-.opt.reveal-correct .opt-letter{background:var(--green);color:#fff;}
-.opt-letter{font-family:'JetBrains Mono',monospace;font-size:.72rem;font-weight:600;background:var(--surface2);color:var(--ink3);min-width:22px;height:22px;display:flex;align-items:center;justify-content:center;border-radius:4px;flex-shrink:0;margin-top:1px;}
-.opt-text{font-size:.82rem;color:var(--ink2);line-height:1.4;}
-.explanation{margin-top:12px;padding:10px 12px;background:rgba(37,99,235,.06);border-left:3px solid var(--blue);border-radius:0 var(--r-sm) var(--r-sm) 0;font-size:.78rem;color:var(--ink2);line-height:1.5;display:none;}
-.explanation.show{display:block;}
-.reveal-btn{margin-top:10px;background:none;border:1.5px solid var(--border2);color:var(--ink3);padding:6px 14px;border-radius:var(--r-input);font-size:.75rem;cursor:pointer;font-family:'Inter',sans-serif;}
-.reveal-btn:hover{border-color:var(--primary);color:var(--primary);}
-/* NO RESULTS */
-#no-results{text-align:center;padding:48px 20px;color:var(--ink3);display:none;}
-#no-results p{font-size:.9rem;}
-/* DIAGNOSIS BAR */
-#diag-bar{position:fixed;bottom:0;left:0;right:0;padding:12px 16px;background:var(--surface);border-top:1px solid var(--border);display:none;z-index:90;}
-#diag-btn{width:100%;max-width:720px;margin:0 auto;display:block;background:var(--primary);color:#fff;border:none;padding:13px;border-radius:var(--r-input);font-size:.875rem;font-weight:700;cursor:pointer;font-family:'Inter',sans-serif;animation:pulse 2s infinite;}
-@keyframes pulse{0%,100%{box-shadow:0 0 0 0 rgba(232,48,42,.4);}50%{box-shadow:0 0 0 8px rgba(232,48,42,0);}}
-/* MODAL */
-#overlay{position:fixed;inset:0;background:rgba(0,0,0,.5);z-index:200;display:none;align-items:flex-end;}
-#overlay.open{display:flex;}
-#modal{background:var(--surface);border-radius:24px 24px 0 0;width:100%;max-height:88vh;overflow-y:auto;padding-bottom:24px;transform:translateY(100%);transition:transform .35s cubic-bezier(.34,1.56,.64,1);}
-#overlay.open #modal{transform:translateY(0);}
-.modal-handle{width:40px;height:4px;background:var(--border2);border-radius:var(--r-pill);margin:12px auto 0;}
-.modal-header{display:flex;align-items:center;gap:8px;padding:14px 20px;border-bottom:1px solid var(--border);position:sticky;top:0;background:var(--surface);z-index:1;}
-.modal-header h2{font-size:1rem;font-weight:700;flex:1;}
-#close-modal{background:none;border:none;font-size:1.2rem;cursor:pointer;padding:4px;border-radius:var(--r-sm);}
-#modal-body{padding:20px;}
-.score-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:20px;}
-@media(max-width:400px){.score-grid{grid-template-columns:1fr 1fr;}}
-.score-cell{padding:14px;border-radius:var(--r-card);text-align:center;}
-.score-cell.green{background:rgba(22,163,74,.1);}
-.score-cell.red{background:var(--red8);}
-.score-cell.amber{background:rgba(217,119,6,.1);}
-.score-cell.purple{background:rgba(124,58,237,.1);}
-.score-cell .val{font-size:1.5rem;font-weight:700;font-family:'JetBrains Mono',monospace;}
-.score-cell .lbl{font-size:.7rem;color:var(--ink3);margin-top:2px;}
-.score-cell.green .val{color:var(--green);}
-.score-cell.red .val{color:var(--primary);}
-.score-cell.amber .val{color:var(--amber);}
-.score-cell.purple .val{color:var(--purple);}
-.section-hd{font-size:.8rem;font-weight:700;color:var(--ink2);margin-bottom:10px;text-transform:uppercase;letter-spacing:.06em;}
-.topic-bar-wrap{margin-bottom:8px;}
-.topic-bar-label{display:flex;justify-content:space-between;font-size:.75rem;color:var(--ink2);margin-bottom:3px;}
-.topic-bar-bg{height:8px;background:var(--surface2);border-radius:var(--r-pill);overflow:hidden;}
-.topic-bar-fill{height:100%;border-radius:var(--r-pill);width:0%;transition:width .8s ease;}
-.focus-card{padding:12px 14px;border-radius:var(--r-sm);margin-bottom:8px;font-size:.8rem;line-height:1.5;}
-.focus-card.crit{background:rgba(232,48,42,.07);border-left:3px solid var(--primary);}
-.focus-card.warn{background:rgba(217,119,6,.07);border-left:3px solid var(--amber);}
-.focus-card.good{background:rgba(22,163,74,.07);border-left:3px solid var(--green);}
-.verdict{background:var(--ink);color:#F0F0F4;border-radius:var(--r-card);padding:16px;margin-top:18px;font-size:.83rem;line-height:1.6;}
-.verdict strong{display:block;font-size:1rem;margin-bottom:6px;}
-.modal-footer{display:flex;gap:8px;padding:16px 20px 0;border-top:1px solid var(--border);margin-top:16px;}
-.btn-sec{flex:1;background:var(--surface2);border:none;padding:11px;border-radius:var(--r-input);font-size:.83rem;font-weight:600;cursor:pointer;font-family:'Inter',sans-serif;color:var(--ink);}
-.btn-pri{flex:1;background:var(--primary);border:none;padding:11px;border-radius:var(--r-input);font-size:.83rem;font-weight:600;cursor:pointer;font-family:'Inter',sans-serif;color:#fff;}
+  :root {
+    --primary: #E8302A; --primary-dark: #C0251F; --primary-light: #F05550;
+    --red-bg: rgba(232,48,42,0.08); --red-bg-hover: rgba(232,48,42,0.13); --red-border: rgba(232,48,42,0.25);
+    --bg: #F5F5F7; --surface: #FFFFFF; --surface2: #F0F0F2;
+    --border: #E4E4E8; --border2: #D0D0D5;
+    --ink: #0F0F0F; --ink2: #3A3A3F; --ink3: #6E6E78; --ink4: #9E9EA8;
+    --green: #16A34A; --amber: #D97706; --blue: #2563EB; --purple: #7C3AED;
+    --r-card: 16px; --r-input: 12px; --r-pill: 999px; --r-sm: 8px;
+    --shadow-sm: 0 1px 3px rgba(0,0,0,0.07); --shadow: 0 4px 12px rgba(0,0,0,0.09); --shadow-lg: 0 12px 32px rgba(0,0,0,0.13);
+    --font: 'Inter', sans-serif; --mono: 'JetBrains Mono', monospace;
+  }
+  @media (prefers-color-scheme: dark) {
+    :root {
+      --bg: #0F0F0F; --surface: #1A1A1A; --surface2: #242424;
+      --border: #2C2C2E; --border2: #3A3A3C;
+      --ink: #F0F0F4; --ink2: #C8C8D0; --ink3: #8E8E98; --ink4: #5E5E68;
+      --red-bg: rgba(232,48,42,0.12); --red-bg-hover: rgba(232,48,42,0.18);
+    }
+  }
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  html { scroll-behavior: smooth; }
+  body { font-family: var(--font); background: var(--bg); color: var(--ink); font-size: 15px; line-height: 1.6; }
+
+  /* NAV */
+  .nav { position: sticky; top: 0; height: 56px; background: var(--surface); border-bottom: 1px solid var(--border); display: flex; align-items: center; justify-content: space-between; padding: 0 16px; z-index: 100; gap: 10px; }
+  .nav-left { display: flex; align-items: center; gap: 10px; }
+  .nav-back { width: 36px; height: 36px; border-radius: var(--r-sm); background: var(--surface2); border: none; cursor: pointer; font-size: 17px; color: var(--ink2); display: flex; align-items: center; justify-content: center; }
+  .nav-logo { width: 34px; height: 34px; border-radius: 9px; background: var(--ink); display: flex; align-items: center; justify-content: center; flex-shrink: 0; }
+  .nav-logo svg { display: block; }
+  .nav-brand { display: flex; flex-direction: column; line-height: 1.2; }
+  .nav-brand strong { font-size: 14px; font-weight: 700; }
+  .nav-brand span { font-size: 11px; color: var(--ink3); }
+  .nav-right { display: flex; align-items: center; gap: 8px; }
+  .timer-chip { font-family: var(--mono); font-size: 13px; font-weight: 700; color: var(--primary); background: var(--red-bg); border: 1px solid var(--red-border); border-radius: var(--r-pill); padding: 4px 12px; display: flex; align-items: center; gap: 5px; }
+  .bk-btn { width: 36px; height: 36px; border-radius: var(--r-sm); background: var(--surface2); border: none; cursor: pointer; font-size: 17px; display: flex; align-items: center; justify-content: center; color: var(--ink3); }
+  .bk-btn.active { background: var(--red-bg); color: var(--primary); }
+
+  /* HERO */
+  .hero { background: var(--surface); border-bottom: 1px solid var(--border); padding: 20px 16px 24px; }
+  .hero-inner { max-width: 720px; margin: 0 auto; }
+  .breadcrumb { font-size: 12px; color: var(--ink3); margin-bottom: 10px; display: flex; flex-wrap: wrap; gap: 4px; align-items: center; }
+  .breadcrumb span { color: var(--primary); font-weight: 600; }
+  .hero-tag { display: inline-block; font-size: 10px; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase; background: var(--red-bg); color: var(--primary); border-radius: var(--r-pill); padding: 3px 10px; border: 1px solid var(--red-border); margin-bottom: 10px; }
+  .hero h1 { font-size: clamp(20px, 4vw, 26px); font-weight: 700; line-height: 1.25; margin-bottom: 6px; }
+  .hero h1 em { color: var(--primary); font-style: normal; }
+  .hero-sub { font-size: 13px; color: var(--ink3); margin-bottom: 16px; }
+  .stats-row { display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 14px; }
+  .stat-chip { font-size: 12px; font-weight: 600; border-radius: var(--r-pill); padding: 4px 12px; border: 1px solid; }
+  .stat-chip.blue { color: var(--blue); background: rgba(37,99,235,0.08); border-color: rgba(37,99,235,0.22); }
+  .stat-chip.green { color: var(--green); background: rgba(22,163,74,0.08); border-color: rgba(22,163,74,0.22); }
+  .stat-chip.red { color: var(--primary); background: var(--red-bg); border-color: var(--red-border); }
+  .stat-chip.purple { color: var(--purple); background: rgba(124,58,237,0.08); border-color: rgba(124,58,237,0.22); }
+  .stat-chip.amber { color: var(--amber); background: rgba(217,119,6,0.08); border-color: rgba(217,119,6,0.22); }
+  .progress-wrap { display: flex; align-items: center; gap: 10px; }
+  .progress-bar-track { flex: 1; height: 6px; background: var(--border); border-radius: 99px; overflow: hidden; }
+  .progress-bar-fill { height: 100%; background: linear-gradient(90deg, var(--primary-dark), var(--primary-light)); border-radius: 99px; transition: width 0.4s ease; width: 0%; }
+  .progress-label { font-family: var(--mono); font-size: 12px; color: var(--ink3); white-space: nowrap; }
+
+  /* ACTIONS */
+  .actions-row { max-width: 720px; margin: 14px auto 0; padding: 0 16px; display: flex; gap: 8px; flex-wrap: wrap; }
+  .btn-outline { font-family: var(--font); font-size: 13px; font-weight: 600; padding: 8px 16px; border-radius: var(--r-pill); border: 1.5px solid var(--border2); background: var(--surface); color: var(--ink2); cursor: pointer; display: flex; align-items: center; gap: 6px; }
+  .btn-outline:hover { border-color: var(--primary); color: var(--primary); background: var(--red-bg); }
+  .btn-ghost-red { font-family: var(--font); font-size: 13px; font-weight: 600; padding: 8px 16px; border-radius: var(--r-pill); border: 1.5px solid var(--red-border); background: var(--red-bg); color: var(--primary); cursor: pointer; display: flex; align-items: center; gap: 6px; }
+  .btn-ghost-red:hover { background: var(--red-bg-hover); }
+  .btn-danger { font-family: var(--font); font-size: 13px; font-weight: 600; padding: 8px 16px; border-radius: var(--r-pill); border: none; background: var(--primary); color: #fff; cursor: pointer; display: flex; align-items: center; gap: 6px; }
+  .btn-danger:hover { background: var(--primary-dark); }
+
+  /* MAIN */
+  .main { max-width: 720px; margin: 0 auto; padding: 16px 16px 120px; }
+
+  /* BOOKMARKS */
+  #bm-card { display: none; background: var(--surface); border: 1px solid var(--border); border-radius: var(--r-card); padding: 14px 16px; margin-bottom: 14px; }
+  #bm-card.show { display: block; }
+  #bm-card h3 { font-size: 13px; font-weight: 700; margin-bottom: 10px; }
+  #bm-list { display: flex; flex-wrap: wrap; gap: 6px; }
+  .bm-pill { font-family: var(--mono); font-size: 12px; font-weight: 600; padding: 4px 10px; border-radius: var(--r-pill); background: var(--red-bg); color: var(--primary); border: 1px solid var(--red-border); cursor: pointer; }
+  .bm-pill:hover { background: var(--red-bg-hover); }
+
+  /* SUMMARY */
+  .sum-card { background: var(--surface); border: 1px solid var(--border); border-radius: var(--r-card); margin-bottom: 14px; overflow: hidden; }
+  .sum-toggle { width: 100%; display: flex; align-items: center; justify-content: space-between; padding: 14px 16px; background: none; border: none; cursor: pointer; font-family: var(--font); font-size: 14px; font-weight: 600; color: var(--ink); }
+  .sum-toggle .arrow { font-size: 12px; color: var(--ink3); transition: transform 0.25s; }
+  .sum-toggle.open .arrow { transform: rotate(180deg); }
+  #sum-body { display: none; padding: 0 16px 16px; font-size: 13px; color: var(--ink2); line-height: 1.7; }
+  #sum-body.open { display: block; }
+  #sum-body h4 { font-size: 12px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.06em; color: var(--ink3); margin: 14px 0 6px; }
+  #sum-body ul { padding-left: 18px; }
+  #sum-body li { margin-bottom: 4px; }
+  .chip { font-family: var(--mono); font-size: 11.5px; font-weight: 600; color: var(--primary); background: var(--red-bg); border-radius: 5px; padding: 1px 6px; }
+
+  /* SEARCH */
+  .search-wrap { position: relative; margin-bottom: 12px; }
+  .search-wrap .icon { position: absolute; left: 12px; top: 50%; transform: translateY(-50%); color: var(--ink4); font-size: 15px; }
+  #search-input { width: 100%; padding: 10px 12px 10px 36px; border-radius: var(--r-input); border: 1.5px solid var(--border); background: var(--surface); font-family: var(--font); font-size: 14px; color: var(--ink); outline: none; }
+  #search-input:focus { border-color: var(--primary); box-shadow: 0 0 0 3px var(--red-bg); }
+
+  /* FILTERS */
+  #filter-wrap { display: flex; flex-wrap: wrap; gap: 7px; margin-bottom: 14px; }
+  .filter-pill { font-size: 12px; font-weight: 600; padding: 5px 13px; border-radius: var(--r-pill); border: 1.5px solid var(--border2); background: var(--surface); color: var(--ink3); cursor: pointer; }
+  .filter-pill:hover { border-color: var(--primary); color: var(--primary); }
+  .filter-pill.active { background: var(--primary); border-color: var(--primary); color: #fff; }
+
+  /* SHUFFLE NOTE */
+  #shuffle-note { display: none; font-size: 12px; color: var(--ink3); font-style: italic; margin-bottom: 10px; }
+
+  /* QUESTION CARDS */
+  #q-list { display: flex; flex-direction: column; gap: 12px; }
+  .q-card { background: var(--surface); border: 1.5px solid var(--border); border-radius: var(--r-card); padding: 16px; box-shadow: var(--shadow-sm); animation: fadeUp 0.3s ease both; }
+  .q-card.bookmarked { border-color: var(--primary); }
+  @keyframes fadeUp { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
+  .card-meta { display: flex; align-items: center; gap: 7px; margin-bottom: 10px; flex-wrap: wrap; }
+  .q-num { font-family: var(--mono); font-size: 11px; font-weight: 700; background: var(--surface2); color: var(--ink3); border-radius: 6px; padding: 2px 8px; }
+  .topic-badge { font-size: 11px; font-weight: 600; color: var(--primary); background: var(--red-bg); border-radius: var(--r-pill); padding: 2px 9px; border: 1px solid var(--red-border); }
+  .type-badge { font-size: 11px; font-weight: 600; color: var(--blue); background: rgba(37,99,235,0.08); border-radius: var(--r-pill); padding: 2px 9px; border: 1px solid rgba(37,99,235,0.2); }
+  .bk-toggle { margin-left: auto; font-size: 15px; background: none; border: none; cursor: pointer; opacity: 0.4; }
+  .bk-toggle:hover, .bk-toggle.on { opacity: 1; }
+  .q-text { font-size: 13.5px; font-weight: 500; color: var(--ink); line-height: 1.55; margin-bottom: 12px; }
+  .options-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; margin-bottom: 10px; }
+  @media (max-width: 480px) { .options-grid { grid-template-columns: 1fr; } }
+  .opt { display: flex; align-items: flex-start; gap: 9px; padding: 9px 12px; border-radius: 10px; border: 1.5px solid var(--border); background: var(--bg); cursor: pointer; font-size: 13px; color: var(--ink2); line-height: 1.45; transition: border-color 0.15s, background 0.15s; }
+  .opt:hover:not(.disabled) { border-color: var(--primary); background: var(--red-bg); }
+  .opt.disabled { cursor: default; }
+  .opt.correct { border-color: var(--green); background: rgba(22,163,74,0.08); }
+  .opt.wrong { border-color: var(--primary); background: rgba(232,48,42,0.09); }
+  .opt.revealed-correct { border-color: rgba(22,163,74,0.4); background: rgba(22,163,74,0.05); }
+  .letter { font-family: var(--mono); font-size: 11px; font-weight: 700; width: 22px; height: 22px; border-radius: 6px; background: var(--surface2); display: flex; align-items: center; justify-content: center; flex-shrink: 0; color: var(--ink3); }
+  .opt.correct .letter { background: var(--green); color: #fff; }
+  .opt.wrong .letter { background: var(--primary); color: #fff; }
+  .opt.revealed-correct .letter { background: rgba(22,163,74,0.2); color: var(--green); }
+  .reveal-btn { display: inline-block; font-family: var(--font); font-size: 12px; font-weight: 600; padding: 6px 14px; border-radius: var(--r-pill); border: 1.5px solid var(--border2); background: var(--surface2); color: var(--ink3); cursor: pointer; margin-bottom: 8px; }
+  .reveal-btn:hover { border-color: var(--amber); color: var(--amber); }
+  .explanation { display: none; margin-top: 10px; padding: 10px 12px; background: var(--red-bg); border-left: 3px solid var(--primary); border-radius: 0 8px 8px 0; font-size: 12.5px; color: var(--ink2); line-height: 1.55; animation: fadeIn 0.25s ease; }
+  @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
+  .no-results { text-align: center; padding: 48px 16px; color: var(--ink3); display: none; }
+  .no-results .icon { font-size: 36px; margin-bottom: 10px; }
+
+  /* DIAGNOSIS BAR */
+  #diag-bar { position: fixed; bottom: 56px; left: 0; right: 0; display: flex; justify-content: center; padding: 10px 16px; z-index: 90; opacity: 0; pointer-events: none; transition: opacity 0.3s; }
+  #diag-bar.show { opacity: 1; pointer-events: auto; }
+  .diag-btn { background: var(--primary); color: #fff; border: none; border-radius: var(--r-pill); padding: 12px 24px; font-family: var(--font); font-size: 14px; font-weight: 700; cursor: pointer; box-shadow: var(--shadow-lg); animation: pulse 2s infinite; }
+  @keyframes pulse { 0%,100% { box-shadow: 0 0 0 0 rgba(232,48,42,0.4); } 50% { box-shadow: 0 0 0 8px rgba(232,48,42,0); } }
+
+  /* MODAL */
+  .modal-overlay { position: fixed; inset: 0; background: rgba(0,0,0,0.45); z-index: 200; display: flex; align-items: flex-end; opacity: 0; pointer-events: none; transition: opacity 0.3s; }
+  .modal-overlay.open { opacity: 1; pointer-events: auto; }
+  .modal-sheet { background: var(--surface); border-radius: 20px 20px 0 0; width: 100%; max-height: 90vh; display: flex; flex-direction: column; transform: translateY(100%); transition: transform 0.35s cubic-bezier(0.34,1.56,0.64,1); }
+  .modal-overlay.open .modal-sheet { transform: translateY(0); }
+  .modal-handle { width: 36px; height: 4px; background: var(--border2); border-radius: 99px; margin: 10px auto 0; flex-shrink: 0; }
+  .modal-header { display: flex; align-items: center; gap: 10px; padding: 14px 16px; border-bottom: 1px solid var(--border); flex-shrink: 0; }
+  .modal-header h2 { font-size: 16px; font-weight: 700; flex: 1; }
+  .modal-close { background: var(--surface2); border: none; border-radius: 8px; width: 30px; height: 30px; cursor: pointer; font-size: 16px; color: var(--ink3); display: flex; align-items: center; justify-content: center; }
+  .modal-body { overflow-y: auto; padding: 16px; flex: 1; }
+  .modal-footer { padding: 12px 16px; border-top: 1px solid var(--border); display: flex; gap: 10px; flex-shrink: 0; }
+  .modal-footer .btn-secondary { flex: 1; padding: 11px; border-radius: var(--r-pill); border: 1.5px solid var(--border2); background: var(--surface2); font-family: var(--font); font-size: 14px; font-weight: 600; cursor: pointer; color: var(--ink2); }
+  .modal-footer .btn-primary { flex: 1; padding: 11px; border-radius: var(--r-pill); border: none; background: var(--primary); color: #fff; font-family: var(--font); font-size: 14px; font-weight: 700; cursor: pointer; }
+  .score-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-bottom: 18px; }
+  @media (max-width: 400px) { .score-grid { grid-template-columns: 1fr 1fr; } }
+  .score-cell { background: var(--bg); border-radius: var(--r-card); padding: 14px; text-align: center; }
+  .score-cell .val { font-size: 28px; font-weight: 800; font-family: var(--mono); }
+  .score-cell .lbl { font-size: 11px; color: var(--ink3); margin-top: 2px; text-transform: uppercase; letter-spacing: 0.05em; }
+  .topic-bars h3 { font-size: 13px; font-weight: 700; margin-bottom: 12px; }
+  .topic-bar-item { margin-bottom: 12px; }
+  .tbi-top { display: flex; justify-content: space-between; font-size: 12px; margin-bottom: 4px; }
+  .tbi-track { height: 8px; background: var(--border); border-radius: 99px; overflow: hidden; }
+  .tbi-fill { height: 100%; border-radius: 99px; width: 0; transition: width 0.6s ease; }
+  .focus-section h3 { font-size: 13px; font-weight: 700; margin: 16px 0 10px; }
+  .focus-card { padding: 10px 13px; border-radius: var(--r-sm); margin-bottom: 8px; font-size: 12.5px; border-left: 3px solid; }
+  .focus-card.critical { border-color: var(--primary); background: rgba(232,48,42,0.07); }
+  .focus-card.warning { border-color: var(--amber); background: rgba(217,119,6,0.07); }
+  .focus-card.good { border-color: var(--green); background: rgba(22,163,74,0.07); }
+  .verdict { background: var(--ink); color: #fff; border-radius: var(--r-card); padding: 16px; margin-top: 16px; font-size: 13.5px; line-height: 1.6; }
+  @media (prefers-color-scheme: dark) { .verdict { background: #2A2A2A; } }
+
+  /* BOTTOM NAV */
+  .bottom-nav { position: fixed; bottom: 0; left: 0; right: 0; height: 56px; background: var(--surface); border-top: 1px solid var(--border); display: flex; z-index: 100; }
+  .bnav-item { flex: 1; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 2px; font-size: 10px; color: var(--ink4); cursor: pointer; border: none; background: none; font-family: var(--font); }
+  .bnav-item .icon { font-size: 20px; }
+  .bnav-item.active { color: var(--primary); }
 </style>
 </head>
 <body>
 
 <!-- NAV -->
-<nav id="top-nav">
-  <button id="back-btn" onclick="history.back()">←</button>
-  <img id="logo-img" alt="PDFNest"/>
-  <div class="nav-brand"><strong>PDFNest</strong><small>Quiz Mode</small></div>
+<nav class="nav">
+  <div class="nav-left">
+    <button class="nav-back">←</button>
+    <div class="nav-logo">
+      <svg width="22" height="22" viewBox="0 0 22 22" fill="none">
+        <rect x="4" y="2" width="12" height="15" rx="2" fill="white"/>
+        <rect x="4" y="14" width="12" height="3" rx="1" fill="#E8302A" opacity="0.7"/>
+        <path d="M7 6h8M7 9h6" stroke="#0F0F0F" stroke-width="1.5" stroke-linecap="round"/>
+        <path d="M3 18c4-2 12-2 16 0" stroke="#9E9EA8" stroke-width="1.5" stroke-linecap="round"/>
+      </svg>
+    </div>
+    <div class="nav-brand"><strong>PDFNest</strong><span>Quiz Mode</span></div>
+  </div>
   <div class="nav-right">
-    <div id="timer">⏱ 00:00</div>
-    <button id="bm-toggle-btn" onclick="toggleBookmarks()" title="Bookmarks">🔖</button>
+    <div class="timer-chip">⏱ <span id="timer">00:00</span></div>
+    <button class="bk-btn" id="bk-nav-btn" onclick="toggleBookmarks()" title="Bookmarks">🔖</button>
   </div>
 </nav>
 
 <!-- HERO -->
-<div id="hero">
-  <div class="breadcrumb">AFIT &rsaquo; 100 Level &rsaquo; General Studies &rsaquo; <span>GST 108 Quiz</span></div>
-  <div class="tag-pill">AFIT · 100 Level · General Studies</div>
-  <h1>Use of <em>Library, Study Skills &amp; ICT</em></h1>
-  <p class="hero-sub">Full Course Coverage · 80 Questions · Lecture Notes (GST 108 &amp; GST 105)</p>
-  <div class="stats-row">
-    <div class="stat-chip blue">📋 Showing: <strong id="stat-showing">80</strong></div>
-    <div class="stat-chip green">✅ Correct: <strong id="stat-correct">0</strong></div>
-    <div class="stat-chip red">❌ Wrong: <strong id="stat-wrong">0</strong></div>
-    <div class="stat-chip purple">🎯 Attempted: <strong id="stat-attempted">0</strong></div>
-    <div class="stat-chip amber">🏆 Score: <strong id="stat-score">0%</strong></div>
-  </div>
-  <div class="progress-wrap">
-    <div class="progress-bar"><div class="progress-fill" id="prog-fill"></div></div>
-    <span class="progress-label" id="prog-label">0 / 80</span>
+<div class="hero">
+  <div class="hero-inner">
+    <div class="breadcrumb">AFIT › 100 Level › Cybersecurity › <span>CSC 104 Quiz</span></div>
+    <div class="hero-tag">AFIT · 100 Level · Cybersecurity</div>
+    <h1>Introduction to <em>Artificial Intelligence</em> & Machine Learning</h1>
+    <div class="hero-sub">Weeks 1–11 · 80 questions · Lecture Notes + Course Compact</div>
+    <div class="stats-row">
+      <div class="stat-chip blue">Showing: <span id="stat-showing">80</span></div>
+      <div class="stat-chip green">Correct: <span id="stat-correct">0</span></div>
+      <div class="stat-chip red">Wrong: <span id="stat-wrong">0</span></div>
+      <div class="stat-chip purple">Attempted: <span id="stat-attempted">0</span></div>
+      <div class="stat-chip amber">Score: <span id="stat-score">0%</span></div>
+    </div>
+    <div class="progress-wrap">
+      <div class="progress-bar-track"><div class="progress-bar-fill" id="prog-fill"></div></div>
+      <div class="progress-label"><span id="prog-label">0 / 80</span></div>
+    </div>
   </div>
 </div>
 
 <!-- ACTIONS -->
-<div id="actions">
+<div class="actions-row">
   <button class="btn-outline" onclick="shuffleQuestions()">🔀 Shuffle</button>
   <button class="btn-ghost-red" onclick="revealAll()">👁 Reveal All</button>
   <button class="btn-danger" onclick="resetQuiz()">↺ Reset</button>
 </div>
 
 <!-- MAIN -->
-<div id="main">
+<div class="main">
   <!-- BOOKMARKS -->
   <div id="bm-card">
     <h3>🔖 Bookmarked Questions</h3>
-    <div id="bm-list"><em style="font-size:.75rem;color:var(--ink4)">No bookmarks yet.</em></div>
+    <div id="bm-list"><span style="color:var(--ink4);font-size:12px;">No bookmarks yet.</span></div>
   </div>
 
   <!-- TOPIC SUMMARY -->
-  <div id="sum-card">
-    <button id="sum-toggle" onclick="toggleSummary()">
-      <span>📚 Topic Revision Summary</span><span id="sum-arrow">▼</span>
+  <div class="sum-card">
+    <button class="sum-toggle" id="sum-toggle" onclick="toggleSummary()">
+      <span>📚 Topic Revision Summary</span><span class="arrow">▼</span>
     </button>
     <div id="sum-body">
-      <p><strong>Library Concepts:</strong> The word <em>library</em> derives from the Latin <em>liber</em> (book). Ranganathan's Five Laws: <em>Books are for Use · Every Reader His Book · Every Book Its Reader · Save the Time of the User · The Library is a Growing Organism</em>. Types of libraries: National, Public, School, Academic, Special.</p>
-      <div class="chips-wrap">
-        <span class="chip">liber</span><span class="chip">bibliotheca</span><span class="chip">UNESCO</span><span class="chip">Ranganathan</span><span class="chip">Apex Library</span><span class="chip">OPAC</span>
-      </div>
-      <p style="margin-top:12px"><strong>ICT &amp; Computer:</strong> ICT = information gathering, processing, storage, retrieval &amp; dissemination. Computer generations: 1st (vacuum tubes) → 2nd (transistors) → 3rd (ICs) → 4th (microprocessors) → 5th (AI). Hardware (input/processing/output/storage/communication) vs Software (system/application).</p>
-      <div class="chips-wrap">
-        <span class="chip">ENIAC</span><span class="chip">UNIVAC</span><span class="chip">CPU</span><span class="chip">RAM</span><span class="chip">OS</span><span class="chip">LAN</span><span class="chip">WAN</span><span class="chip">PAN</span><span class="chip">MAN</span>
-      </div>
-      <p style="margin-top:12px"><strong>Library Automation:</strong> Use of ICT tools to make library services efficient. Examples: KOHA, Evergreen, DSpace, Greenstone. Proprietary vs Open-source software. MARC &amp; Dublin Core = metadata standards. Evolution: Traditional → Automated → Digital → Virtual.</p>
-      <div class="chips-wrap">
-        <span class="chip">KOHA</span><span class="chip">DSpace</span><span class="chip">MARC</span><span class="chip">DDC</span><span class="chip">LC Classification</span><span class="chip">RFID</span>
-      </div>
-      <p style="margin-top:12px"><strong>Copyright &amp; Plagiarism:</strong> Copyright (WIPO 2014) = legal rights creators have over literary/artistic works. Fair Use = limited reproduction with no effect on original value. Plagiarism = presenting another's work as your own. Piracy = illegal reproduction for commercial gain.</p>
-      <div class="chips-wrap">
-        <span class="chip">WIPO</span><span class="chip">Fair Use</span><span class="chip">Plagiarism</span><span class="chip">Turnitin</span><span class="chip">Piracy</span><span class="chip">APA</span><span class="chip">MLA</span>
-      </div>
-      <p style="margin-top:12px"><strong>LC Classification Main Classes:</strong></p>
-      <div class="chips-wrap">
-        <span class="chip">A=General Works</span><span class="chip">B=Philosophy/Religion</span><span class="chip">C=History Aux</span><span class="chip">D=World History</span><span class="chip">E-F=American History</span><span class="chip">G=Geography</span><span class="chip">H=Social Science</span><span class="chip">J=Political Science</span><span class="chip">K=Law</span><span class="chip">L=Education</span><span class="chip">M=Music</span><span class="chip">N=Fine Arts</span><span class="chip">P=Language/Lit</span><span class="chip">Q=Science</span><span class="chip">R=Medicine</span><span class="chip">S=Agriculture</span><span class="chip">T=Technology</span><span class="chip">U=Military</span><span class="chip">V=Naval</span><span class="chip">Z=Bibliography</span>
-      </div>
-      <p style="margin-top:12px"><strong>DDC Main Classes:</strong> 000 General · 100 Philosophy · 200 Religion · 300 Social Science · 400 Languages · 500 Pure Science · 600 Technology · 700 Arts · 800 Literature · 900 History &amp; Geography</p>
-      <p style="margin-top:12px"><strong>Reference Tools:</strong> Dictionaries, Encyclopaedias, Biographical Sources, Yearbooks, Handbooks, Manuals, Directories, Gazetteers, Atlases, Bibliographies, Indexes &amp; Abstracts (Scopus, Web of Science, PubMed).</p>
-      <p style="margin-top:12px"><strong>Study Skills:</strong> Plan for a whole week · 8 hrs sleep · 30-60 min exercise 3 days/week · Review each class for 1 hr · Study difficult subjects at peak concentration · 5-10 min breaks between subjects.</p>
+      <h4>Week 1 — Overview of AI</h4>
+      <ul>
+        <li>AI = field of CS creating systems that perform tasks needing <span class="chip">human intelligence</span></li>
+        <li>Core capabilities: <span class="chip">learning</span>, <span class="chip">reasoning</span>, <span class="chip">problem-solving</span>, <span class="chip">perception</span>, <span class="chip">language understanding</span></li>
+        <li><span class="chip">Narrow AI</span> excels at specific tasks; <span class="chip">General AI</span> not yet achieved</li>
+        <li>AI impacts: economy, healthcare, education, transportation, security, R&D</li>
+      </ul>
+      <h4>Week 2 — Generative AI</h4>
+      <ul>
+        <li><span class="chip">Generative AI</span>: models that create new content (text, images, audio, video, 3D)</li>
+        <li><span class="chip">GAN</span>: Generator + Discriminator compete; <span class="chip">VAE</span>: Encoder → latent space → Decoder</li>
+        <li><span class="chip">Transformer Networks</span>: attention mechanism; powers <span class="chip">LLMs</span></li>
+        <li><span class="chip">Diffusion Models</span>: start with noise, gradually denoise to generate realistic data</li>
+        <li>Risks: <span class="chip">deepfakes</span>, misinformation, copyright issues</li>
+      </ul>
+      <h4>Week 3 — AI Applications</h4>
+      <ul>
+        <li><span class="chip">NLP</span>: chatbots, translation, sentiment analysis, text summarization</li>
+        <li><span class="chip">Computer Vision</span>: facial recognition, object detection, medical imaging (CNNs)</li>
+        <li><span class="chip">Robotics</span>: industrial, logistics, surgical, AMRs</li>
+        <li>Sectors: healthcare X-ray analysis, finance fraud detection, agriculture drones</li>
+      </ul>
+      <h4>Week 4 — ML Foundations</h4>
+      <ul>
+        <li>Arthur Samuel (1959): <span class="chip">coined ML</span>; Tom Mitchell (1997): T, E, P definition</li>
+        <li>Traditional programming: Data + Rules → Answers; ML: Data + Answers → Rules (<span class="chip">model</span>)</li>
+        <li>Key terms: <span class="chip">feature</span>, <span class="chip">label</span>, <span class="chip">dataset</span>, <span class="chip">training set</span>, <span class="chip">validation set</span>, <span class="chip">test set</span></li>
+        <li><span class="chip">Overfitting</span>: memorises training data; <span class="chip">Underfitting</span>: too simple, poor on all data</li>
+      </ul>
+      <h4>Week 5 — Types of ML</h4>
+      <ul>
+        <li><span class="chip">Supervised</span>: labelled data; Classification (discrete) + Regression (continuous)</li>
+        <li><span class="chip">Unsupervised</span>: unlabelled data; Clustering (K-Means, DBSCAN), Dimensionality Reduction (PCA)</li>
+        <li><span class="chip">Reinforcement Learning</span>: agent, environment, reward/penalty, policy; AlphaGo example</li>
+        <li>Binary classification = 2 classes; Multi-class = 3+ classes</li>
+      </ul>
+      <h4>Week 6 — Data in AI</h4>
+      <ul>
+        <li>"Garbage in, garbage out" — data quality = model quality</li>
+        <li>Data prep = <span class="chip">70–80%</span> of ML project time</li>
+        <li>Issues: <span class="chip">missing values</span>, <span class="chip">duplicates</span>, <span class="chip">outliers</span>, <span class="chip">inconsistent formatting</span>, <span class="chip">imbalanced data</span></li>
+        <li>Sources: databases, APIs, <span class="chip">web scraping</span>, sensors, surveys, public datasets</li>
+      </ul>
+      <h4>Week 7 — Intelligent Agents</h4>
+      <ul>
+        <li>Agent: perceives via <span class="chip">sensors</span>, acts via <span class="chip">actuators</span></li>
+        <li>Types: <span class="chip">Simple Reflex</span> → <span class="chip">Model-Based</span> → <span class="chip">Goal-Based</span> → <span class="chip">Learning Agent</span></li>
+        <li>Fully vs. partially observable environments; <span class="chip">critic</span> provides feedback in learning agents</li>
+      </ul>
+      <h4>Week 8 — ML Process</h4>
+      <ul>
+        <li>5 steps: Problem Definition → Data Prep → Model Training → Evaluation → Deployment</li>
+        <li><span class="chip">Loss function</span> quantifies error; <span class="chip">Gradient Descent</span> minimises it</li>
+        <li><span class="chip">Learning rate</span>: step size; <span class="chip">Hyperparameter tuning</span> on validation set only</li>
+        <li>Classification metrics: Accuracy, <span class="chip">Precision</span>, <span class="chip">Recall</span>, F1; Regression: <span class="chip">RMSE</span>, MAE, R²</li>
+        <li><span class="chip">K-Fold Cross-Validation</span>: more robust estimate; <span class="chip">Data Leakage</span>: serious pitfall</li>
+      </ul>
+      <h4>Week 9 — AI Algorithms</h4>
+      <ul>
+        <li><span class="chip">Rule-based systems</span>: expert systems with if-then rules</li>
+        <li>Neural network layers: <span class="chip">Input</span> → <span class="chip">Hidden</span> → <span class="chip">Output</span>; activation functions add non-linearity</li>
+        <li><span class="chip">Naive Bayes</span>: probabilistic, fast, great for text; <span class="chip">KNN</span>: classify by K nearest neighbours</li>
+        <li><span class="chip">Deep learning</span>: many hidden layers, hierarchical feature learning</li>
+      </ul>
+      <h4>Week 10 — Ethics & Societal Impact</h4>
+      <ul>
+        <li><span class="chip">AI Ethics</span>: moral compass; <span class="chip">AI Governance</span>: rules of the road</li>
+        <li>Concerns: <span class="chip">bias</span>, <span class="chip">black box problem</span>, privacy, job displacement, deepfakes, autonomous weapons</li>
+        <li>Principles: Beneficence, Fairness, Transparency, Accountability, Privacy, Human Control</li>
+        <li><span class="chip">XAI</span>: Explainable AI; <span class="chip">EU AI Act</span>: risk-based regulatory framework</li>
+      </ul>
+      <h4>Week 11 — Careers & Trends</h4>
+      <ul>
+        <li>Roles: AI/ML Engineer, Data Scientist, AI Researcher, <span class="chip">AI Ethicist</span>, Robotics Engineer, NLP Specialist, Computer Vision Engineer</li>
+        <li>IBM AI Ladder: <span class="chip">Collect</span> → <span class="chip">Organize</span> → <span class="chip">Analyze</span> → <span class="chip">Infuse</span></li>
+        <li>AI adoption considerations: business goals, data readiness, ethics, talent, ROI</li>
+      </ul>
     </div>
   </div>
 
   <!-- SEARCH -->
-  <div id="search-wrap">
-    <input id="search-box" type="text" placeholder="Search questions…" oninput="filterQuestions()"/>
+  <div class="search-wrap">
+    <span class="icon">🔍</span>
+    <input type="text" id="search-input" placeholder="Search questions..." oninput="filterQuestions()">
   </div>
 
   <!-- FILTERS -->
-  <div id="filters"></div>
-  <p id="shuffle-note">🔀 Shuffled — reset to restore original order</p>
+  <div id="filter-wrap"></div>
 
-  <!-- Q LIST -->
+  <!-- SHUFFLE NOTE -->
+  <div id="shuffle-note">🔀 Shuffled — reset to restore original order</div>
+
+  <!-- QUESTIONS -->
   <div id="q-list"></div>
-  <div id="no-results"><p>No questions match your search.</p></div>
+  <div class="no-results" id="no-results">
+    <div class="icon">🔎</div>
+    <div>No questions match your search or filter.</div>
+  </div>
 </div>
 
 <!-- DIAGNOSIS BAR -->
 <div id="diag-bar">
-  <button id="diag-btn" onclick="openModal()">📊 View My Learning Diagnosis</button>
+  <button class="diag-btn" onclick="openModal()">📊 View My Learning Diagnosis</button>
 </div>
 
 <!-- MODAL -->
-<div id="overlay" onclick="closeModalOutside(event)">
-  <div id="modal">
+<div class="modal-overlay" id="modal-overlay" onclick="closeModalOutside(event)">
+  <div class="modal-sheet">
     <div class="modal-handle"></div>
     <div class="modal-header">
-      <h2>📊 Learning Diagnosis</h2>
-      <button id="close-modal" onclick="closeModal()">✕</button>
+      <span style="font-size:20px">📊</span>
+      <h2>Learning Diagnosis</h2>
+      <button class="modal-close" onclick="closeModal()">✕</button>
     </div>
-    <div id="modal-body"></div>
+    <div class="modal-body" id="modal-body"></div>
+    <div class="modal-footer">
+      <button class="btn-secondary" onclick="closeModal()">Close</button>
+      <button class="btn-primary" onclick="resetQuiz();closeModal()">↺ Retake Quiz</button>
+    </div>
   </div>
 </div>
 
-<script>
-const LOGO_B64 = '/9j/4AAQSkZJRgABAQAAAQABAAD/2wBDAAgGBgcGBQgHBwcJCQgKDBQNDAsLDBkSEw8UHRofHh0aHBwgJC4nICIsIxwcKDcpLDAxNDQ0Hyc5PTgyPC4zNDL/2wBDAQkJCQwLDBgNDRgyIRwhMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjL/wAARCAAiACIDASIAAhEBAxEB/8QAGwAAAgIDAQAAAAAAAAAAAAAAAAYFBwMECAL/xAAuEAABBAEDAgUCBwAAAAAAAAABAAIDBAUREiExBhNBUWEUFSIyM0JScYGR/8QAGAEAAwEBAAAAAAAAAAAAAAAAAgMEAQX/xAAiEQACAgICAgMBAAAAAAAAAAABAgADERIhMUFRYXH/2gAMAwEAAhEDEQA/ALoaJrb2FMZc/n4eSFZPWNRrRlz/AAqjp2p2YLRhld49s5I8grKi7ZCmWtHJJjME7GPPJYSMjzH+lSXbFaW0Q2NkfJj3N/CuNMrxwQ8jW5LgclQ7u7vhksNqy8WI2OJa2Ic3BPxz3KSi6f07tLlJvMvuH+LDf/YKf2yqyxBHlhwXdD5LL9+2bV6R7pnZ6oaAGt8gBgBTF2eGxMO2NoafAAWp2/Z7QKjIzIZXAeJSCfPAXPbi1/d3p6k7yVE65NJ3NiPLo1KLM8zXPYHYIHBUjD3sdOC5r/ALVeRMmpY3vJJ2JHIA8lrEFmOaMPY7IPmCoVjUL1FoEVl7QPAmQf3VJiVL3KTNcQU6wSBJDI8VZBx5HqFY1W4bcnEQOIABBHn81z+pZe4uFxkPj1HxXX6Jd97VoJZXl8jW8pCf7ACjzLtaLpqNGVXg02IiMiL2tORn5Uj1KZlOLvkPLicBoHX+gpS2bsc88ULA0yyuDGczgZJ/CzD4mLk3YIWRsaPFoHAH5W14iUvUqdNs80bB4eQVUzqCWKSMHAaScDzUbU9V9mthrO5HO4nyHooqiyzOLkySSPdl73OJJJJ5klOa7ZD7cUzHlrmuBBHUIPaJKnI3WVJvJxJGf7UhStM3ZUWuxjTnPRSCp24o4GNxgYb6BW5ZKWP5Iay1xPUj/AH6K//Z';
+<!-- BOTTOM NAV -->
+<div class="bottom-nav">
+  <button class="bnav-item active"><span class="icon">🏠</span>Home</button>
+  <button class="bnav-item"><span class="icon">➕</span>Contribute</button>
+  <button class="bnav-item"><span class="icon">👤</span>Profile</button>
+</div>
 
+<script>
 const questions = [
-  {id:1,topic:"Library Concept",text:"The word 'library' is derived from which Latin word?",options:["bibliotheca","liber","lingua","lexicon"],answer:1,explanation:"The word library is derived from the Latin word 'liber' meaning book. The Latinized Greek word 'bibliotheca' is the origin of the word for library in German, Russian and Roman languages."},
-  {id:2,topic:"Library Concept",text:"UNESCO defines a library as an organized collection of published books, periodicals, and other materials whose staff can meet users' _____ needs.",options:["financial, social and political","informational, research, educational or recreational","administrative, legal and cultural","commercial, industrial and technical"],answer:1,explanation:"UNESCO defines a library as an organized collection of published books and periodicals and other reading and audio-visual materials, and the services of a staff able to provide and interpret such materials to meet the informational, research, educational or recreational needs of its users."},
-  {id:3,topic:"Library Concept",text:"Which Indian librarian and information scientist formulated the Five Laws of Library Science?",options:["Melvil Dewey","S. R. Ranganathan","Herbert Putnam","Charles Cutter"],answer:1,explanation:"Ranganathan, a famous Indian librarian and information scientist, postulated the Five Laws of Library Science: Books are for Use; Every Reader His Book; Every Book Its Reader; Save the Time of the User; The Library is a Growing Organism."},
-  {id:4,topic:"Library Concept",text:"What is Ranganathan's 5th Law of Library Science?",options:["Books are for Use","Every Book Its Reader","Save the Time of the User","The Library is a Growing Organism"],answer:3,explanation:"The 5th Law is 'The Library is a Growing Organism,' implying that libraries must continually expand their collections and services to remain relevant."},
-  {id:5,topic:"Library Concept",text:"Which of the following is NOT a type of library listed in the course material?",options:["National Library","Public Library","Commercial Library","Special Library"],answer:2,explanation:"The five types of libraries covered are: National, Public, School, Academic, and Special libraries. 'Commercial Library' is not a recognised category in the course material."},
-  {id:6,topic:"Types of Libraries",text:"The National Library is also known as which of the following?",options:["Apex Library","Public Library","Reference Library","Digital Library"],answer:0,explanation:"The National Library is also called the Apex Library. It serves as the legal depository and bibliographic center for the nation and is responsible for issuing the International Standard Book Number (ISBN)."},
-  {id:7,topic:"Types of Libraries",text:"Which type of library is primarily designed to support a school's curriculum and is targeted at nursery and primary school pupils?",options:["Academic Library","Special Library","School Library","Public Library"],answer:2,explanation:"School libraries are designed to support the school's curriculum. They provide pupils with their first library experience, pictorial books, and improve listening skills through storytelling."},
-  {id:8,topic:"Types of Libraries",text:"Academic libraries serve institutions of higher learning. Which of the following is an example given in the course material?",options:["National Library of Nigeria","Lagos City Library","AFIT Library","Ikeja Public Library"],answer:2,explanation:"Examples of academic libraries given in the material include AFIT, Kaduna Polytechnic, and Federal Colleges of Education libraries."},
-  {id:9,topic:"Types of Libraries",text:"Special libraries are also known as:",options:["Public information centres","Information centers","Digital archives","National repositories"],answer:1,explanation:"Special libraries are also known as information centers. They are not usually open to the general public and are attached to organisations, ministries, and parastatals to support the information needs of their specific users."},
-  {id:10,topic:"Types of Libraries",text:"Public libraries are often called 'the people library' and are usually maintained by:",options:["Private donations","University funds","Public funds","International grants"],answer:2,explanation:"Public libraries are established by states and located in cities and towns to meet the information needs of the general public. They are usually maintained by public funds."},
-  {id:11,topic:"Book & Library Sections",text:"UNESCO (1985) defines a book as a non-periodical publication consisting of at least how many pages (excluding the cover page)?",options:["25 pages","35 pages","49 pages","100 pages"],answer:2,explanation:"According to UNESCO (1985), a book is a non-periodical publication consisting of at least 49 pages excluding the cover page. Publications with fewer than 49 pages are called pamphlets."},
-  {id:12,topic:"Book & Library Sections",text:"A book produced in electronic format is called:",options:["Digital book","E-book","Virtual book","Soft book"],answer:1,explanation:"A book produced in electronics format is called an electronic book (e-book)."},
-  {id:13,topic:"Book & Library Sections",text:"The four main parts of a book are: Cover, Preliminaries, Body of the Text, and:",options:["Index","Subsidiaries","Appendix","Glossary only"],answer:1,explanation:"A book is divided into four parts: The Cover, The Preliminaries, The Body of the Text, and The Subsidiaries. Subsidiaries include references, bibliography, glossary, and index."},
-  {id:14,topic:"Book & Library Sections",text:"Which part of a book's cover identifies the title, author, and carries the publisher's logo (crest)?",options:["Front cover","Back cover","Spine","Fly page"],answer:2,explanation:"The Spine of a book identifies the title, author, and also carries the crest (logo) of the publisher. The front cover identifies the title and author; the back cover has general information about the author and content."},
-  {id:15,topic:"Book & Library Sections",text:"The 'Forward' (Foreword) of a book is usually written by:",options:["The main author","Another person with good knowledge of the subject","The publisher","The editor"],answer:1,explanation:"The Forward (Foreword) is an explanatory statement on the purpose of the book. It is usually written by another person other than the author who has good knowledge of the subject."},
-  {id:16,topic:"Book & Library Sections",text:"The Cataloging Section of a library uses which two major classification schemes?",options:["APA and MLA","ISBN and ISSN","LC and DDC","MARC and Dublin Core"],answer:2,explanation:"The cataloging section organizes information items by subjects using classification schemes, notably the Library of Congress (LC) and Dewey Decimal Classification (DDC)."},
-  {id:17,topic:"Book & Library Sections",text:"The Circulation Section of a library is responsible for all EXCEPT:",options:["Loaning out books","Collecting fines","Conducting orientation for new patrons","Selecting and procuring new books"],answer:3,explanation:"The Acquisition Section is responsible for selecting and procuring new books. The Circulation Section handles loaning, fines, orientation, inter-library loans, and keeping statistics of library users."},
-  {id:18,topic:"ICT & Computer Basics",text:"ICT stands for:",options:["Information and Computer Technology","Integrated Communication Technology","Information and Communication Technology","Internet Communication Technology"],answer:2,explanation:"ICT stands for Information and Communication Technology, which is described as the technology where computers and telecommunication devices are used for information gathering, processing, storage, retrieval and dissemination."},
-  {id:19,topic:"ICT & Computer Basics",text:"A computer is best defined as:",options:["A machine that only stores data","A programmable electronic device that accepts, processes, outputs and stores data","A device used only for internet browsing","An electronic typewriter"],answer:1,explanation:"A computer is a programmable, electronic device that accepts data, performs operations on that data, and stores the data for future use. It follows instructions called programs."},
-  {id:20,topic:"ICT & Computer Basics",text:"Which of the following is the correct sequence of the basic operations of a computer?",options:["Output, Input, Storage, Processing, Communication","Input, Processing, Output, Storage, Communication","Processing, Input, Output, Storage, Communication","Storage, Input, Processing, Output, Communication"],answer:1,explanation:"The five basic operations of a computer are: Input (entering data) → Processing (performing operations) → Output (presenting results) → Storage (saving data) → Communications (sending/receiving data)."},
-  {id:21,topic:"ICT & Computer Basics",text:"What is the difference between data and information?",options:["They are the same thing","Data is processed information; information is raw facts","Data is raw unorganized facts; information is data processed into a meaningful form","Information is gathered by computers; data is gathered by humans"],answer:2,explanation:"Data are raw, unorganized facts (text, graphics, audio or video). Information is data that has been processed into a meaningful form. The process of converting data into information is called information processing."},
-  {id:22,topic:"Computer Generations",text:"First-generation computers (1946–1957) were powered by:",options:["Transistors","Integrated circuits","Vacuum tubes","Microprocessors"],answer:2,explanation:"First-generation computers (1946–1957) were enormous and powered by vacuum tubes. They used a great deal of electricity, generated a lot of heat. Examples include ENIAC and UNIVAC."},
-  {id:23,topic:"Computer Generations",text:"ENIAC and UNIVAC are examples of which generation of computers?",options:["Second generation","Third generation","First generation","Fourth generation"],answer:2,explanation:"ENIAC (Electronic Numerical Integrator and Computer) and UNIVAC are examples of first-generation computers (1946–1957), which used vacuum tubes."},
-  {id:24,topic:"Computer Generations",text:"Which generation of computers introduced the use of transistors, making computers smaller and more energy-efficient?",options:["First generation","Second generation","Third generation","Fourth generation"],answer:1,explanation:"Second-generation computers (1958–1963) used transistors. They were smaller, more powerful, cheaper, more energy-efficient and more reliable than first-generation computers. Punch cards and magnetic tape were used for input and storage."},
-  {id:25,topic:"Computer Generations",text:"Integrated Circuits (ICs) on a single silicon chip characterise which generation of computers?",options:["Second generation","First generation","Third generation","Fifth generation"],answer:2,explanation:"Third-generation computers (approximately 1964–1970) used integrated circuits (ICs), which consist of transistors and electronic circuits on a single tiny silicon chip. Keyboards were used for input and monitors for output."},
-  {id:26,topic:"Computer Generations",text:"Microprocessors — which contain the entire core processing of a computer on a single chip — define which generation?",options:["Third generation","Fourth generation","Fifth generation","Second generation"],answer:1,explanation:"Fourth-generation computers (approximately 1971–present) use microprocessors. This generation also saw the development of networks and the Internet. Input devices include keyboards and mice; output includes monitors and printers."},
-  {id:27,topic:"Computer Generations",text:"Fifth-generation computers are expected to be based on:",options:["Vacuum tubes and punch cards","Transistors and magnetic tape","Artificial Intelligence (AI) and nanotechnology","Integrated circuits only"],answer:2,explanation:"Fifth-generation computers (now and future) are in their infancy. They may be based on artificial intelligence (AI), will likely use voice and touch input, and may utilize optical computers and nanotechnology."},
-  {id:28,topic:"Computer Hardware",text:"Which of the following is an INPUT device?",options:["Monitor","Printer","Scanner","Speaker"],answer:2,explanation:"Input devices are used to input data into the computer. Examples include keyboards, mice, scanners, cameras, microphones, touch pads, touch screens, and fingerprint readers. Monitors, printers, and speakers are output devices."},
-  {id:29,topic:"Computer Hardware",text:"The Central Processing Unit (CPU) and memory are classified as:",options:["Input devices","Processing devices","Output devices","Storage devices"],answer:1,explanation:"Processing devices perform calculations and control the computer's operation. The CPU (Central Processing Unit) and memory are the primary processing devices of a computer."},
-  {id:30,topic:"Computer Hardware",text:"Modems, network adapters, and routers are examples of:",options:["Storage devices","Output devices","Communication devices","Processing devices"],answer:2,explanation:"Communication devices allow users to communicate with others and to electronically access remote information. Examples include modems, network adapters, and routers."},
-  {id:31,topic:"Computer Software",text:"Which type of software starts up the computer and controls its operation?",options:["Application software","System software / Operating System","Utility software","Programming software"],answer:1,explanation:"System software refers to programs that manage computer hardware and provide a platform for running application software. The Operating System (OS) is the most important type — it starts the computer and controls its operation. Examples: Windows, Mac OS, Linux, Android."},
-  {id:32,topic:"Computer Software",text:"Microsoft Word, Excel, web browsers, and gaming applications are examples of:",options:["System software","Operating systems","Application software","Firmware"],answer:2,explanation:"Application software helps users perform specific tasks. It depends on the system software to operate. Examples include Word, Excel, browsers, gaming applications, and photography applications."},
-  {id:33,topic:"Computer Classification",text:"Which classification of computer is described as the largest, fastest and most expensive, used for intensive computational tasks?",options:["Mainframe","Mini","Super","Micro"],answer:2,explanation:"Supercomputers are the largest, fastest and most expensive computers. They are used for intensive computational tasks, generally run one program at a time as fast as possible, and can cost several million dollars. Examples: PARAM, Jaguar, Roadrunner, Titan."},
-  {id:34,topic:"Computer Classification",text:"Mainframe computers are commonly referred to as:",options:["The big brain","Big iron","Super machines","Titan computers"],answer:1,explanation:"Mainframe computers are large, general multipurpose computers with extensive processing and storage capability. They are commonly known as 'big iron' and are used by hospitals, universities, large businesses, banks, and government offices. Examples: IBM z series, IBM 370, IBM 704."},
-  {id:35,topic:"Computer Classification",text:"Tablets, smart watches, and smartphones are classified as which type of computer based on size?",options:["Mini computers","Mainframe computers","Super computers","Micro computers"],answer:3,explanation:"Micro computers are small in size but more powerful than their size suggests. They include user-friendly applications such as tablets, smart watches, and smartphones."},
-  {id:36,topic:"Computer Classification",text:"An analog computer processes data in the form of:",options:["Binary digits (0s and 1s)","Discrete values","Physical quantities in continuous form","Digital signals"],answer:2,explanation:"Analog computers process data in the form of physical quantities that are in continuous form (e.g. temperature, humidity, electrical voltage). Examples include fuel gauges and car speedometers."},
-  {id:37,topic:"Computer Classification",text:"A hybrid computer combines the features of both:",options:["Supercomputers and mainframes","Digital and analog computers","Mini and micro computers","Input and output devices"],answer:1,explanation:"A hybrid computer's operation combines the features of both digital and analog computers. It can process both discrete and continuous data. It has the speed of an analog computer and the accuracy/memory of a digital computer."},
-  {id:38,topic:"Computer Networks",text:"A computer network is defined as:",options:["A single computer connected to the internet","A collection of interconnected computers and devices that share resources and exchange data","A software program for data management","A storage system for large files"],answer:1,explanation:"A computer network is a collection of interconnected computers and devices that share resources and exchange data. Objectives include data sharing, resource sharing, communication collaboration, and centralized management."},
-  {id:39,topic:"Computer Networks",text:"Which type of network covers a very small range of a few meters, such as Bluetooth devices?",options:["LAN","MAN","WAN","PAN"],answer:3,explanation:"A Personal Area Network (PAN) is a very small network with a range of just a few meters. Examples include Bluetooth devices and mobile hotspots."},
-  {id:40,topic:"Computer Networks",text:"A Wide Area Network (WAN) covers large geographical areas. The best example of a WAN is:",options:["A school network","A city network","The Internet","A Bluetooth connection"],answer:2,explanation:"A Wide Area Network (WAN) covers large geographical areas. The Internet is the best and most well-known example of a WAN."},
-  {id:41,topic:"Library Automation",text:"Library automation is defined as the use of ICT tools to make library services more:",options:["Expensive, complex and specialised","Robust, effective and efficient","Limited, secure and restricted","Traditional, manual and paper-based"],answer:1,explanation:"Library automation is the term used to describe the use of ICT tools to make library services more robust, effective and efficient. It refers to the application of ICTs to perform traditional library operations with minimal human intervention."},
-  {id:42,topic:"Library Automation",text:"Which of the following is an example of open-source library automation software?",options:["Oracle Database","Microsoft Access","KOHA","SAP"],answer:2,explanation:"Examples of library automation software include KOHA, Evergreen, DSpace, and Greenstone. KOHA is an open-source Integrated Library System (ILS) used widely by libraries."},
-  {id:43,topic:"Library Automation",text:"MARC and Dublin Core are standard formats used in library automation for:",options:["Cataloguing metadata","Network security","Digital preservation","Copyright protection"],answer:0,explanation:"ICT tools facilitate automated cataloguing using standard metadata formats such as MARC (Machine-Readable Cataloguing) and Dublin Core. These standards ensure that catalogue records are consistent and shareable."},
-  {id:44,topic:"Library Automation",text:"Which of these is NOT listed as a challenge of library automation?",options:["High implementation cost","Lack of technical skills","Cybersecurity risks","Improved resource sharing"],answer:3,explanation:"Improved resource sharing is a BENEFIT, not a challenge, of library automation. Challenges include: high implementation cost, lack of technical skills, digital divide, cybersecurity risks, rapid technological change, unstable power supply, resistance to change, and inadequate infrastructure."},
-  {id:45,topic:"Library Automation",text:"Online Public Access Catalogue (OPAC) allows users to:",options:["Borrow books automatically without staff","Search the library catalogue electronically using computers or mobile devices","Access only printed books","Manage library finances online"],answer:1,explanation:"OPAC (Online Public Access Catalogue) allows users to search the library catalogue electronically using computers or mobile devices. It is one of the key applications of ICT in library operations."},
-  {id:46,topic:"Library Automation",text:"Which emerging technology is described as creating 'smart libraries' with intelligent library environments?",options:["Blockchain","Internet of Things (IoT)","Analogue computing","VHS technology"],answer:1,explanation:"Smart libraries integrate IoT (Internet of Things) technologies and automation to create intelligent library environments. Other emerging trends include AI, cloud computing, mobile library services, and big data analytics."},
-  {id:47,topic:"Library Automation",text:"What was the first stage of library evolution, characterised by manual catalogues (card catalogues)?",options:["Digital libraries","Virtual libraries","Automated libraries","Traditional libraries"],answer:3,explanation:"Library systems evolved through stages: Traditional libraries (manual catalogues, physical book circulation records, limited access) → Automated libraries → Digital libraries → Virtual libraries."},
-  {id:48,topic:"Library & The Law",text:"According to WIPO (2014), copyright is best defined as:",options:["A government license to publish books","A legal term describing the rights creators have over their literary and artistic works","A registration system for universities","A fee paid to access library materials"],answer:1,explanation:"Copyright according to World Intellectual Property Organization (WIPO) (2014) is a legal term used to describe the rights creators have over their literary and artistic works, such as books, music, paintings, sculpture, films, computer programs, databases, advertisements, maps and technical drawings."},
-  {id:49,topic:"Library & The Law",text:"Which of the following is NOT a work protected by copyright as listed in the course?",options:["Books, pamphlets and other writings","Photographic works","Ideas that have not been written down","Dramatic and musical works"],answer:2,explanation:"Copyright protects works such as books, lectures, dramatic works, choreographic works, musical compositions, photographic works, software, and digital content. Pure ideas that have NOT been expressed or written down are generally not protected by copyright."},
-  {id:50,topic:"Library & The Law",text:"Libraries are allowed to copy materials under 'Fair Use' for all the following EXCEPT:",options:["Research and private study","Preservation of fragile materials","Commercial resale of copies","Interlibrary loan"],answer:2,explanation:"Fair use permits reproduction for research/private study, preservation, replacement of lost items, and interlibrary loans. Commercial resale of copies is copyright infringement, not fair use."},
-  {id:51,topic:"Library & The Law",text:"Piracy is defined as:",options:["Accidental copying of a document","Borrowing books beyond the due date","Illegally reproducing work for commercial gain without the owner's permission","Sharing library materials with friends"],answer:2,explanation:"Piracy is an act of violating copyright law when people illegally reproduce work for sale — that is, for commercial gains without permission from the owner of the work."},
-  {id:52,topic:"Plagiarism",text:"Plagiarism is best described as:",options:["Citing too many sources in a paper","Presenting someone else's ideas, words or creative work as your own without proper acknowledgment","Reading many books before writing","Using the same citation style throughout a paper"],answer:1,explanation:"Plagiarism is the act of presenting someone else's ideas, words, data, or creative work as your own without proper acknowledgment. In academia, it is considered academic fraud because it involves intellectual dishonesty."},
-  {id:53,topic:"Plagiarism",text:"Which form of plagiarism involves rewriting someone's ideas in your own words WITHOUT citing the source?",options:["Direct plagiarism","Self-plagiarism","Mosaic plagiarism","Paraphrasing plagiarism"],answer:3,explanation:"Paraphrasing plagiarism involves rewriting someone's ideas in your own words without citing the source. Even though the words are different, the ideas belong to someone else and must be cited."},
-  {id:54,topic:"Plagiarism",text:"Reusing your own previously submitted work without permission or citation is called:",options:["Accidental plagiarism","Self-plagiarism","Mosaic plagiarism","Direct plagiarism"],answer:1,explanation:"Self-plagiarism is the act of reusing your own previously submitted work without permission or citation. Even though the work is yours, submitting it again as new work is dishonest."},
-  {id:55,topic:"Plagiarism",text:"Which of the following is an academic consequence of plagiarism?",options:["Loss of library membership","Revocation of degrees","Increased tuition fees","Demotion in rank"],answer:1,explanation:"Academic consequences of plagiarism include: loss of marks, failure of course, suspension or expulsion, and revocation of degrees. Professional consequences include loss of credibility, career damage, and retraction of publications."},
-  {id:56,topic:"Plagiarism",text:"Turnitin is an example of a:",options:["Open-source library system","Reference management tool","Commercial plagiarism detection software","Search engine"],answer:2,explanation:"Turnitin is a commercial plagiarism detection software. Other commercial ones listed include attributor, copyspace, iparadigms, ithenticate, plagiarism-detect, plagscan, unplag and very-guide. Free ones include chimpsky, citeplag, copytracker, plagium and seesources."},
-  {id:57,topic:"Reference Tools",text:"Which reference tool provides information on a person's life including their personality, achievements, career and hobbies?",options:["Yearbook","Gazetteer","Dictionary","Biographical source"],answer:3,explanation:"A biographical source is a book which gives an account of a person's life. It contains information on the personality, achievements, career, hobbies etc. of an individual. There are two types: individual biography and collected biography."},
-  {id:58,topic:"Reference Tools",text:"A gazetteer is best described as:",options:["A bound collection of maps","A list of persons and their phone numbers","A geographical dictionary providing basic information about geographical names and places","A book about economic policies"],answer:2,explanation:"A gazetteer is a geographical dictionary or directory that provides basic information about geographical names and places usually with descriptive or statistical details. It is consulted when a researcher wants information about the political/legal status of a country, its location or its features."},
-  {id:59,topic:"Reference Tools",text:"Which reference tool is defined as a bound collection of maps, sometimes accompanied with charts, tables and plates?",options:["Directory","Yearbook","Atlas","Handbook"],answer:2,explanation:"An atlas is a bound collection of maps, sometimes accompanied with charts, tables and plates. These may provide information about the people, culture and economy of the geographical region covered."},
-  {id:60,topic:"Reference Tools",text:"Scopus, Web of Science, and PubMed are examples of:",options:["Classification schemes","Search engines","Indexes and abstracts","Library management systems"],answer:2,explanation:"Indexes and abstracts help library users locate journal articles. An index points to where information is found; an abstract provides a summary of the content. Scopus, Web of Science, and PubMed are examples."},
-  {id:61,topic:"Reference Tools",text:"A yearbook provides current facts and statistics. Which of the following is typically found in a yearbook?",options:["Maps and geographical data only","Events of the year, statistics, and economic and social data","Legal cases and court judgments","Names and addresses of organisations"],answer:1,explanation:"Yearbooks are reference materials usually published annually. Their contents include: events of the year, statistics, and economic and social data. They are useful for historical research."},
-  {id:62,topic:"Cataloguing & Classification",text:"Cataloguing is the process of:",options:["Arranging books on shelves by colour","Describing a book in bibliographic terms including author, title, publisher and accession number","Selecting books for purchase","Binding damaged books"],answer:1,explanation:"Cataloguing is the process of describing a book in bibliographic terms. This includes the name of the author, the title, sub-title, edition statement, place of publication, publisher, the number of pages and the accession number."},
-  {id:63,topic:"Cataloguing & Classification",text:"The Library of Congress (LC) Classification Scheme was formulated in 1899 by:",options:["Melvil Dewey","S. R. Ranganathan","Herbert Putnam","Charles Ammi Cutter"],answer:2,explanation:"The Library of Congress Classification was formulated in 1899 by Herbert Putnam for the use of the Congress Library in America. It is alpha-numeric in nature (a combination of letters and numbers). Letters I, O, W, X, Y are not currently in use."},
-  {id:64,topic:"LC Classification",text:"In the Library of Congress Classification Scheme, which letter represents 'Science'?",options:["S","R","T","Q"],answer:3,explanation:"In the LC Classification: Q = Science. Other main classes include: A=General Works, B=Philosophy/Psychology/Religion, H=Social Science, K=Law, L=Education, M=Music, R=Medicine, S=Agriculture, T=Technology, U=Military Science, V=Naval Science, Z=Bibliography."},
-  {id:65,topic:"LC Classification",text:"In the LC Classification Scheme, which letter represents 'Medicine'?",options:["M","N","R","S"],answer:2,explanation:"R = Medicine in the Library of Congress Classification Scheme. M = Music, N = Fine Arts, S = Agriculture/Husbandry."},
-  {id:66,topic:"LC Classification",text:"In the LC Classification, letter 'K' represents:",options:["Knowledge Management","Law","Literature","Kinesiology"],answer:1,explanation:"K = Law in the Library of Congress Classification Scheme. The full list includes: A=General Works, B=Philosophy/Religion, H=Social Science, J=Political Science, K=Law, L=Education, P=Language and Literature."},
-  {id:67,topic:"LC Classification",text:"Which letters represent 'American History' in the Library of Congress Classification?",options:["A and B","E and F","G and H","D and E"],answer:1,explanation:"E-F = American History in the LC Classification. D = History/Topography (Except America), G = Geography/Anthropology/Recreation, H = Social Science."},
-  {id:68,topic:"LC Classification",text:"In LC Classification, letter 'T' represents:",options:["Theology","Typography","Technology","Theatre"],answer:2,explanation:"T = Technology in the Library of Congress Classification Scheme. Other related classes: U=Military Science, V=Naval Science, S=Agriculture, R=Medicine."},
-  {id:69,topic:"DDC Classification",text:"The Dewey Decimal Classification (DDC) system was first published by Melvil Dewey in:",options:["1899","1876","1964","1920"],answer:1,explanation:"Melvil Dewey first published the DDC scheme in 1876 for use in his private library. It was widely accepted by many libraries. The scheme now has 22 editions and an electronic version."},
-  {id:70,topic:"DDC Classification",text:"In the Dewey Decimal Classification, the class number '200' represents:",options:["Pure Science","Philosophy","Religion","Social Science"],answer:2,explanation:"The DDC major class divisions are: 000=General Works, 100=Philosophy, 200=Religion, 300=Social Science, 400=Languages, 500=Pure Science, 600=Technology, 700=Arts, 800=Literature, 900=History, Geography and auxiliary disciplines."},
-  {id:71,topic:"DDC Classification",text:"Which DDC number range is assigned to 'Technology'?",options:["400–499","500–599","600–699","700–799"],answer:2,explanation:"600–699 = Technology in the Dewey Decimal Classification. 400=Languages, 500=Pure Science, 700=Arts."},
-  {id:72,topic:"DDC Classification",text:"In DDC, the number '900' covers:",options:["Arts","Literature","History, Geography and auxiliary disciplines","Social Science"],answer:2,explanation:"900–999 = History, Geography and auxiliary disciplines in the Dewey Decimal Classification. 700=Arts, 800=Literature, 300=Social Science."},
-  {id:73,topic:"Internet & Online Resources",text:"The internet is best described as:",options:["A local network within a single building","A global conglomeration of interconnected computer networks serving users worldwide","A software program for storing data","A type of computer operating system"],answer:1,explanation:"The internet refers to a global or international conglomeration of interconnected computer networks serving users worldwide. The network can be of local or global scope, but are linked together by a broad array of electronic, wireless and optical networking technologies."},
-  {id:74,topic:"Internet & Online Resources",text:"When evaluating the authenticity of an internet resource, 'Currency' refers to:",options:["The cost of accessing the website","Checking whether the information is up-to-date","The number of visitors to the site","The country where the site is hosted"],answer:1,explanation:"Currency means ensuring that you check the currency (timeliness) of a research resource. An outdated site may be incomplete or incorrect. Always verify that the information is current and relevant."},
-  {id:75,topic:"Internet & Online Resources",text:"Which domain suffix typically indicates a government website?",options:[".com",".org",".gov",".edu"],answer:2,explanation:"Domain suffixes provide a clue about the purpose/audience of a website. '.gov' typically indicates a government website. '.edu' is for educational institutions, '.org' for non-profit organisations, and '.com' for commercial sites."},
-  {id:76,topic:"Digital Preservation",text:"Digital preservation is defined as the method of:",options:["Scanning books into digital format for the first time","Keeping digital material alive so it remains usable as technology advances","Deleting outdated digital files","Converting analog records to paper"],answer:1,explanation:"Digital preservation is the method of keeping digital material alive so that they remain usable as technological advances render original hardware and software specification obsolete (Harrods Librarian glossary)."},
-  {id:77,topic:"Digital Preservation",text:"'Bitstream Copying' in digital preservation is also popularly known as:",options:["Data migration","Technology preservation","Backing up data","Digital archaeology"],answer:2,explanation:"Bitstream Copying is the process of creating an exact copy of digital content in the system. It is popularly known as 'backing up data' in the community. It is not a long-term technique but is widely used for data preservation."},
-  {id:78,topic:"Study Skills",text:"According to the course material, how many hours of sleep should a student allot per every 24 hours?",options:["6 hours","7 hours","8 hours","10 hours"],answer:2,explanation:"A student should allot 8 hours of sleep per every 24 hours. The study timetable tips also recommend exercising 30–60 minutes per day for three days a week and planning for a whole week."},
-  {id:79,topic:"Study Skills",text:"When planning a study timetable, how many minutes of preview should be scheduled for each regular class?",options:["10-20 minutes","30-60 minutes","90-120 minutes","120-150 minutes"],answer:1,explanation:"According to the tips for planning a timetable: 'Have for each regular class 30-60 minutes of preview' and 'Have for each regular class a one hour of review.' You should also create 5-10 minute intervals between transitions from one subject to another."},
-  {id:80,topic:"Study Skills",text:"What is the FIRST step in conducting a research according to the course material?",options:["Collecting data","Analysing and interpreting data","Identification of the research problem","Drawing conclusions"],answer:2,explanation:"The basic steps in conducting research begin with: i) Identification of the research problems, ii) Survey of literature relating to the problem, iii) Specifying the purpose of the research, iv) Determining specific research questions or hypothesis, v) Collecting data, vi) Analysis and interpretation, vii) Result and discussion, viii) Drawing conclusions, ix) Communicating findings."}
+  // WEEK 1: Overview of AI (7)
+  {id:1,topic:"AI Overview",text:"At its core, Artificial Intelligence is best defined as:",options:["A type of database management software","The field of computer science dedicated to creating systems that can perform tasks typically requiring human intelligence","A method for speeding up internet connections","A branch of mathematics focused on pure statistics"],answer:1,explanation:"AI is the field of computer science dedicated to creating systems that can perform tasks that typically require human intelligence, such as learning, reasoning, problem-solving, perception, and language understanding."},
+  {id:2,topic:"AI Overview",text:"Which of the following is NOT listed as one of the core capabilities of AI?",options:["Learning","Reasoning","Photosynthesis","Perception"],answer:2,explanation:"The core capabilities of AI include learning, reasoning, problem-solving, perception, and language understanding. Photosynthesis is a biological process completely unrelated to AI."},
+  {id:3,topic:"AI Overview",text:"What is 'Narrow AI'?",options:["AI that has surpassed human intelligence in all domains","AI designed and trained to excel at a specific, limited task","AI that only runs on narrow-bandwidth networks","AI used exclusively in scientific research"],answer:1,explanation:"Narrow AI refers to AI systems that excel at specific, limited tasks (e.g., facial recognition or spam filtering) rather than possessing general intelligence across all domains."},
+  {id:4,topic:"AI Overview",text:"True 'General AI' — capable of performing any intellectual task a human can — is best described as:",options:["Already fully achieved by current commercial systems","A standard feature of all smartphones","Not yet achieved; most current AI is narrow AI","The same thing as a chess-playing program"],answer:2,explanation:"As of current understanding, we have not yet created truly 'general' AI. Most current AI systems are narrow AI, excelling at specific tasks rather than general intelligence."},
+  {id:5,topic:"AI Overview",text:"Which AI capability involves understanding sensory input like images, sounds, and text from the surrounding world?",options:["Reasoning","Language Understanding","Problem-solving","Perception"],answer:3,explanation:"Perception is the AI capability concerned with understanding sensory input such as images, sounds, and text from the environment."},
+  {id:6,topic:"AI Overview",text:"Which of these sectors is listed as a key area of AI's societal impact?",options:["Only the entertainment industry","Economy and industry, healthcare, education, transportation, and security/surveillance","AI has no measurable societal impact yet","Only economic impact, with no effect on healthcare or education"],answer:1,explanation:"AI's impact spans multiple sectors including economy and industry, healthcare, education, transportation, communication/entertainment, and security/surveillance, each with both benefits and challenges."},
+  {id:7,topic:"AI Overview",text:"In the spam filter example used to illustrate AI/ML concepts, what does the AI system primarily do?",options:["Physically sorts paper mail","Translates emails into other languages","Classifies emails as spam or not spam based on learned patterns","Deletes all incoming emails automatically"],answer:2,explanation:"A spam filter is a classic AI/ML application that classifies emails as spam or not spam by learning patterns from many examples of labelled emails."},
+
+  // WEEK 2: Generative AI (7)
+  {id:8,topic:"Generative AI",text:"Generative AI is best defined as a type of AI that:",options:["Only deletes outdated data from systems","Exclusively performs mathematical calculations","Can generate new, original content resembling the data it was trained on","Only translates text between human languages"],answer:2,explanation:"Generative AI refers to AI models that can generate new, original content (text, images, audio, video, 3D models) that resembles the patterns found in the data it was trained on."},
+  {id:9,topic:"Generative AI",text:"In a Generative Adversarial Network (GAN), what are the two competing components?",options:["Encoder and Decoder","Sensor and Actuator","Agent and Environment","Generator and Discriminator"],answer:3,explanation:"A GAN consists of a Generator, which creates new data samples, and a Discriminator, which tries to distinguish real data from generated (fake) data. They compete, improving each other over time."},
+  {id:10,topic:"Generative AI",text:"In a Variational Autoencoder (VAE), what does the Encoder do?",options:["Generates the final image directly without any intermediate steps","Competes against a discriminator network","Deletes irrelevant data permanently","Takes input data and turns it into a probability distribution in a compressed latent space"],answer:3,explanation:"In a VAE, the Encoder compresses input data into a probability distribution within a latent (compressed) space; the Decoder then reconstructs new data from points sampled from that space."},
+  {id:11,topic:"Generative AI",text:"Transformer Networks are particularly effective for which type of data, and use what key mechanism?",options:["Only tabular data, using 'sorting'","Static images only, using 'cropping'","Only audio data, using a mechanism called 'filtering'","Sequential data (like text), using a mechanism called 'attention'"],answer:3,explanation:"Transformer Networks excel at generating sequential data such as text, using an 'attention' mechanism that helps the model focus on important parts of the input when generating output. They underpin most modern LLMs."},
+  {id:12,topic:"Generative AI",text:"How do Diffusion Models generate realistic data?",options:["Running two competing neural networks simultaneously like a GAN","Starting with random noise and gradually removing it to create realistic data","Sorting training data alphabetically","Encrypting data for security purposes"],answer:1,explanation:"Diffusion Models learn to reverse a process that adds noise to data — starting from random noise and gradually denoising it to produce realistic outputs such as high-quality images."},
+  {id:13,topic:"Generative AI",text:"Which of the following is a commonly cited limitation/risk of Generative AI?",options:["It cannot run on modern computers at all","Misinformation and deepfakes — realistic fake content that is hard to distinguish from authentic content","It only works with numeric spreadsheet data","It is incapable of producing any text output"],answer:1,explanation:"A major ethical concern with Generative AI is its ability to create highly realistic fake images, video (deepfakes), and audio, which poses risks for misinformation and manipulation."},
+  {id:14,topic:"Generative AI",text:"Which type of content can Generative AI produce? (Select the most complete answer)",options:["Text only","Text, images, audio, video, and 3D models","Images and audio only","Only computer code"],answer:1,explanation:"Generative AI can produce a wide variety of content types including text (articles, poems, code), images, audio (music, speech), video clips, and 3D models — essentially any data type it was trained on."},
+
+  // WEEK 3: AI Applications (7)
+  {id:15,topic:"AI Applications",text:"Which AI application area focuses on enabling computers to understand, interpret, and generate human language?",options:["Computer Vision","Robotics","Reinforcement Learning","Natural Language Processing (NLP)"],answer:3,explanation:"Natural Language Processing (NLP) is the branch of AI focused on enabling computers to understand, interpret, generate, and manipulate human language, covering applications like chatbots, translation, and sentiment analysis."},
+  {id:16,topic:"AI Applications",text:"In healthcare, one widely cited AI use case is:",options:["AI replacing all hospital buildings","AI algorithms analysing medical images like X-rays/MRIs to detect diseases at early stages","AI eliminating the need for any human doctors immediately","AI being used only for hospital billing software"],answer:1,explanation:"A key healthcare use case is AI analysing medical images such as X-rays and MRIs to detect diseases like cancer at early stages, sometimes with higher accuracy than human experts."},
+  {id:17,topic:"AI Applications",text:"Which technology, revolutionised by Convolutional Neural Networks (CNNs), enables computers to 'see' and interpret images and video?",options:["Natural Language Processing","Robotics actuators","Computer Vision","Generative adversarial scheduling"],answer:2,explanation:"Computer Vision enables computers to extract meaningful information from images and video. CNNs revolutionised the field by automatically learning hierarchical features from images."},
+  {id:18,topic:"AI Applications",text:"In finance, a common real-time AI use case is:",options:["Printing physical bank statements","Manually auditing every transaction by hand","Replacing all currency with cryptocurrency","Detecting fraudulent transactions in real time"],answer:3,explanation:"Banks commonly use AI-powered systems to detect fraudulent transactions in real-time, protecting customers from financial losses."},
+  {id:19,topic:"AI Applications",text:"Which AI application area is concerned with equipping physical machines with the ability to perceive, plan, and act in the real world?",options:["Sentiment analysis","Robotics","Text summarization","Machine translation"],answer:1,explanation:"Robotics, when combined with AI, focuses on equipping physical robots with the ability to perceive their environment, plan actions, make decisions, and learn from experience."},
+  {id:20,topic:"AI Applications",text:"AI-powered drones that monitor crop health and optimise irrigation are an example of AI applied to which sector?",options:["Transportation","Entertainment","Construction only","Agriculture"],answer:3,explanation:"In agriculture, AI-powered drones can monitor crop health, identify pests and diseases, and optimise irrigation and fertilisation, increasing yields and reducing resource consumption."},
+  {id:21,topic:"AI Applications",text:"Which of the following is NOT listed as a primary application of NLP?",options:["Machine translation","Sentiment analysis","Text summarization","Manufacturing quality control"],answer:3,explanation:"Manufacturing quality control is primarily a Computer Vision and Robotics application. NLP applications include machine translation, sentiment analysis, text summarization, chatbots, and speech recognition."},
+
+  // WEEK 4: ML Foundations (8)
+  {id:22,topic:"ML Foundations",text:"Who coined the term 'Machine Learning' in 1959?",options:["Tom Mitchell","Alan Turing","Geoffrey Hinton","Arthur Samuel"],answer:3,explanation:"Arthur Samuel coined the term Machine Learning in 1959, defining it as 'the field of study that gives computers the ability to learn without being explicitly programmed.'"},
+  {id:23,topic:"ML Foundations",text:"In Tom Mitchell's (1997) formal definition of ML, the spam filter example uses T, E, and P. What does 'T' represent?",options:["The percentage of emails correctly classified","The programming language used","Classifying emails as spam or not spam","Thousands of labelled example emails"],answer:2,explanation:"In Mitchell's framework, Task (T) is the task the system performs — in the spam filter example, classifying emails as spam or not spam. Experience (E) is the labelled emails; Performance (P) is the accuracy."},
+  {id:24,topic:"ML Foundations",text:"How does Machine Learning fundamentally differ from traditional programming?",options:["ML requires no computer hardware at all","ML never uses any mathematics","In traditional programming you input data and rules to get an answer; in ML you input data and answers, and the system learns the rules","Traditional programming is always faster than ML in every case"],answer:2,explanation:"Traditional programming takes Data + Rules → Answer. Machine Learning instead takes Data + Answers → and the algorithm learns the Rules (the model) that map one to the other."},
+  {id:25,topic:"ML Foundations",text:"Which statement correctly describes the relationship between AI, ML, and Data Science?",options:["They are completely unrelated fields","AI is a subset of Machine Learning","Data Science is a subset of ML, which is a subset of nothing else","ML is a subset of AI; Data Science is a broader, overlapping interdisciplinary field that may or may not involve ML"],answer:3,explanation:"Machine Learning is a subset of AI, focused on learning from data. Data Science is an interdisciplinary field using statistics, programming, and domain knowledge; it overlaps heavily with ML but is broader."},
+  {id:26,topic:"ML Foundations",text:"What is a 'feature' in the context of a Machine Learning dataset?",options:["The correct answer the model is trying to predict","The name of the algorithm being used","The final accuracy score of the model","An individual measurable property or attribute of a data point used as input"],answer:3,explanation:"A feature (also called an input variable, attribute, or predictor) is a measurable characteristic of a data point used as input to the model — e.g., number of bedrooms when predicting house price."},
+  {id:27,topic:"ML Foundations",text:"In supervised learning, what is the key role of the 'label' attached to each training example?",options:["It is the same thing as a feature","It is the correct output or answer used to guide learning during training","Labels only exist in unsupervised learning","Labels are always numeric"],answer:1,explanation:"In supervised learning, every training example is paired with a correct label (the answer) used to guide learning — the model learns by comparing its predictions to these labels."},
+  {id:28,topic:"ML Foundations",text:"A model that performs excellently on training data but poorly on new, unseen data has most likely suffered from:",options:["Underfitting","Excellent generalisation","Insufficient hardware","Overfitting"],answer:3,explanation:"Overfitting occurs when a model learns the training data too well, including its noise, essentially memorising it rather than learning the underlying pattern — so it fails to generalise to new data."},
+  {id:29,topic:"ML Foundations",text:"A model that performs poorly on BOTH the training data and new data is most likely suffering from:",options:["Overfitting","Data leakage only","Excellent generalisation","Underfitting"],answer:3,explanation:"Underfitting occurs when a model is too simple to capture the underlying pattern, performing poorly even on the data it was trained on — like a student who did not study at all."},
+
+  // WEEK 5: Types of ML (8)
+  {id:30,topic:"Types of ML",text:"In Supervised Learning, the term 'supervised' refers to the idea that:",options:["A human watches the computer screen at all times","The algorithm supervises itself with no data","Supervision means encrypting all data","The correct answers act like a supervisor or teacher guiding the learning process"],answer:3,explanation:"The term 'supervised' reflects that the correct labels in the training data act like a supervisor or teacher, guiding the algorithm as it learns to map inputs to outputs."},
+  {id:31,topic:"Types of ML",text:"Classifying an email as 'spam' or 'not spam' is an example of:",options:["Multi-class classification","Regression","Clustering","Binary Classification"],answer:3,explanation:"This is Binary Classification — a classification problem with exactly two possible output classes (spam or not spam)."},
+  {id:32,topic:"Types of ML",text:"Classifying handwritten digits 0 through 9 (10 possible classes) is an example of:",options:["Binary classification","Linear regression","Unsupervised clustering","Multi-class classification"],answer:3,explanation:"Since there are more than two possible output categories (digits 0–9), this is Multi-class Classification."},
+  {id:33,topic:"Types of ML",text:"Predicting the exact sale price of a house (a continuous numerical value) is an example of which type of supervised learning problem?",options:["Classification","Clustering","Reinforcement Learning","Regression"],answer:3,explanation:"Regression problems predict a continuous numerical value (like a price or temperature), as opposed to classification, which predicts a discrete category."},
+  {id:34,topic:"Types of ML",text:"In Unsupervised Learning, the algorithm is given:",options:["Labelled data with explicit correct answers","Only reward signals from an environment","No data at all","Unlabelled data, and must discover hidden structure on its own"],answer:3,explanation:"In unsupervised learning, the algorithm receives unlabelled data with no supervisor providing correct answers, and must discover hidden structure, patterns, or groupings independently."},
+  {id:35,topic:"Types of ML",text:"Grouping customers into segments such as 'bargain hunters' or 'brand loyalists' without pre-defined categories is an example of:",options:["Reinforcement Learning","Linear regression","Binary classification","Clustering (an unsupervised learning technique)"],answer:3,explanation:"This is Clustering, the most common unsupervised learning task, where the algorithm groups similar data points together without being told the categories in advance — used here for customer segmentation."},
+  {id:36,topic:"Types of ML",text:"In Reinforcement Learning, an agent learns by:",options:["Memorising a fixed labelled dataset only","Avoiding any form of feedback entirely","Reading textbooks without environment interaction","Interacting with an environment and receiving rewards or penalties as feedback"],answer:3,explanation:"Reinforcement Learning is based on an agent interacting with an environment, taking actions, and receiving reward (positive) or penalty (negative) feedback, with the goal of maximising cumulative reward over time."},
+  {id:37,topic:"Types of ML",text:"AlphaGo, the program that defeated the world Go champion, is a famous application of:",options:["Unsupervised clustering","Linear regression","Simple reflex agents only","Reinforcement Learning"],answer:3,explanation:"AlphaGo, developed by DeepMind, is one of the most famous applications of Reinforcement Learning, achieving superhuman performance in Go through trial-and-error learning."},
+
+  // WEEK 6: Data in AI (7)
+  {id:38,topic:"Data in AI",text:"The phrase 'garbage in, garbage out' in AI/ML practice refers to:",options:["AI systems should be physically recycled after use","Garbage data improves model accuracy","Data quality is irrelevant to model performance","The quality of a model's output is fundamentally limited by the quality of the data it was trained on"],answer:3,explanation:"'Garbage in, garbage out' summarises the principle that a model's quality is fundamentally limited by the quality of its training data — poor, dirty, or biased data will produce poor, biased, or unreliable models."},
+  {id:39,topic:"Data in AI",text:"Approximately what proportion of total project time in a typical AI/ML project is spent on data preparation?",options:["About 5–10%","Exactly 100%","About 70–80%","Data preparation is never required"],answer:2,explanation:"Data preparation — including collection, cleaning, and feature engineering — is typically the most time-consuming phase, often accounting for 70–80% of total project time."},
+  {id:40,topic:"Data in AI",text:"Which of the following is a data quality issue that must be addressed during data cleaning?",options:["A dataset having exactly the right number of rows","A model achieving 100% accuracy","A feature being perfectly correlated with the label","Inconsistent formatting, such as 'UK', 'U.K.', and 'United Kingdom' all representing the same value"],answer:3,explanation:"Inconsistent formatting (e.g., multiple text variants representing the same real-world value) is a classic data quality issue that must be standardised during data cleaning, alongside missing values, duplicates, and outliers."},
+  {id:41,topic:"Data in AI",text:"Why is the Test Set kept completely separate and used only once, at the very end of model development?",options:["To save electricity costs","Test sets are not actually necessary in ML","Because test sets are illegal to use more than once","To give an unbiased estimate of how the model will perform on new, unseen real-world data"],answer:3,explanation:"The Test Set is held back until the very end specifically to provide an unbiased, realistic estimate of how well the model will generalise to new data, rather than data it has already seen or been tuned against."},
+  {id:42,topic:"Data in AI",text:"Which data collection method involves automated extraction of data directly from websites?",options:["Surveys","Database queries only","Sensor readings","Web scraping"],answer:3,explanation:"Web scraping is the automated extraction of data from websites, one of several common data collection methods alongside surveys, sensors/IoT devices, APIs, and public datasets."},
+  {id:43,topic:"Data in AI",text:"A dataset where 99% of records are 'non-fraud' and only 1% are 'fraud' exemplifies which data quality issue?",options:["Missing values","Duplicate records","Perfectly clean data requiring no special handling","Imbalanced data"],answer:3,explanation:"This describes imbalanced data, where one class is far more frequent than another. It requires special handling (resampling, weighting, or specialised metrics) since standard accuracy can be misleading."},
+  {id:44,topic:"Data in AI",text:"Feature engineering is best described as:",options:["Randomly selecting columns from a dataset","The process of creating, transforming, and selecting the most relevant input variables to improve model performance","Deleting all columns except the label","Renaming features for clarity only"],answer:1,explanation:"Feature engineering is the process of creating, transforming, and selecting the most relevant input variables (features) to improve model performance — it is arguably the most important skill in applied ML."},
+
+  // WEEK 7: Intelligent Agents (7)
+  {id:45,topic:"Intelligent Agents",text:"An intelligent agent is best defined as something that:",options:["Only stores data without ever acting on it","Is purely a physical robot with no software component","Cannot interact with any environment by definition","Perceives its environment through sensors and acts upon that environment through actuators to achieve goals"],answer:3,explanation:"An intelligent agent perceives its environment via sensors and acts upon it via actuators, with the aim of achieving specific goals — this perception-action loop is the foundation of agent-based AI."},
+  {id:46,topic:"Intelligent Agents",text:"Which type of agent acts only on the current percept, using simple condition-action ('if-then') rules, with no memory of the past?",options:["Learning agent","Goal-based agent","Model-based reflex agent","Simple reflex agent"],answer:3,explanation:"A Simple Reflex Agent acts purely on the current percept using condition-action rules, without any memory of past percepts or an internal model of the world."},
+  {id:47,topic:"Intelligent Agents",text:"A self-driving car that maintains an internal representation of where a vehicle in its blind spot likely is, even when it can no longer directly sense it, is best classified as:",options:["Simple reflex agent","An agent with no sensors","A purely random agent","Model-based reflex agent"],answer:3,explanation:"This is a Model-Based Reflex Agent, because it maintains an internal model representing aspects of the environment that are not currently observable, allowing it to act appropriately in partially observable situations."},
+  {id:48,topic:"Intelligent Agents",text:"A GPS navigation system that, given a destination, searches through possible routes to find one that reaches it, is best classified as:",options:["Simple reflex agent only","An agent with no internal model","A purely reflexive thermostat-type agent","Goal-based agent"],answer:3,explanation:"A Goal-Based Agent has explicit goal information (the destination) and reasons about which actions/routes will help achieve that goal, often through search and planning."},
+  {id:49,topic:"Intelligent Agents",text:"Which type of agent can improve its own performance over time through experience?",options:["Simple reflex agent","Model-based reflex agent","Goal-based agent (without learning)","Learning agent"],answer:3,explanation:"A Learning Agent is specifically defined by its ability to improve performance over time through experience, using components such as a learning element, a critic, and a problem generator."},
+  {id:50,topic:"Intelligent Agents",text:"In a learning agent's architecture, which component provides feedback on how well the agent is doing relative to a performance standard?",options:["The problem generator","The actuator only","The percept sequence","The critic"],answer:3,explanation:"The critic provides feedback on the agent's performance relative to a fixed performance standard, which the learning element then uses to make improvements."},
+  {id:51,topic:"Intelligent Agents",text:"Which correctly orders the four classic agent types from least to most sophisticated?",options:["Learning → Goal-based → Model-based → Simple reflex","All four are equally sophisticated","Goal-based → Simple reflex → Learning → Model-based","Simple reflex → Model-based reflex → Goal-based → Learning agent"],answer:3,explanation:"The classic progression is: Simple reflex (react to current percept only) → Model-based reflex (add internal state/memory) → Goal-based (add explicit goals and planning) → Learning agents (add ability to improve through experience)."},
+
+  // WEEK 8: ML Process (8)
+  {id:52,topic:"ML Process",text:"What is the first and most frequently underestimated step in the Machine Learning process?",options:["Model Evaluation","Prediction and Deployment","Hyperparameter tuning","Problem Definition"],answer:3,explanation:"Problem Definition is the most fundamental and frequently underestimated step — a poorly defined problem leads to a useless model no matter how sophisticated the ML techniques applied afterward."},
+  {id:53,topic:"ML Process",text:"Which statement best describes the overall nature of the ML process/pipeline?",options:["It is always strictly linear with no need to revisit earlier steps","It consists of exactly two stages: training and deployment","It never requires any data preparation","It is iterative — insights at later stages often require returning to earlier steps"],answer:3,explanation:"The ML process is iterative, not linear. Poor evaluation results may send you back to data preparation or model training; post-deployment monitoring may trigger a new retraining cycle."},
+  {id:54,topic:"ML Process",text:"'Data Leakage' refers to:",options:["Data physically spilling from a server room","A required step in every ML pipeline","The deliberate sharing of data with competitors","Information from outside the training set inadvertently influencing the training process, leading to overly optimistic performance estimates"],answer:3,explanation:"Data Leakage occurs when information from outside the training set inadvertently influences the training process — leading to performance estimates that look great in development but do not hold up in real deployment."},
+  {id:55,topic:"ML Process",text:"During Model Training, what is the role of the 'loss function'?",options:["It physically deletes incorrect predictions","It replaces the need for any training data","It is only used after deployment, never during training","It quantifies how wrong the model's predictions are compared to the true labels"],answer:3,explanation:"The loss function quantifies the difference between the model's predictions and the true labels; the training process (e.g., via gradient descent) adjusts parameters specifically to minimise this loss."},
+  {id:56,topic:"ML Process",text:"What does the 'learning rate' hyperparameter control during gradient descent training?",options:["The number of features in the dataset","The total size of the test set","The number of classes in a classification problem","How large a step is taken in each iteration when adjusting model parameters"],answer:3,explanation:"The learning rate controls the size of the parameter-update step on each iteration. Too large a learning rate can cause the model to overshoot the minimum; too small causes very slow convergence."},
+  {id:57,topic:"ML Process",text:"Hyperparameter tuning should always be performed using which dataset?",options:["The test set","The full combined dataset with no splitting","A randomly generated synthetic dataset only","The validation set"],answer:3,explanation:"Hyperparameter tuning is always performed using the validation set, never the test set — the test set must remain untouched until final evaluation to give an unbiased performance estimate."},
+  {id:58,topic:"ML Process",text:"Which evaluation metric is most appropriate for measuring error in a regression model, expressed in the same units as the target variable?",options:["Accuracy","F1-Score","Precision","Root Mean Squared Error (RMSE)"],answer:3,explanation:"RMSE (Root Mean Squared Error) is expressed in the same units as the target variable and is the most commonly reported regression metric. Accuracy, Precision, and F1-Score are classification metrics."},
+  {id:59,topic:"ML Process",text:"What is K-Fold Cross-Validation primarily used for?",options:["To permanently delete K% of the dataset","To replace the need for a test set entirely in all situations","To increase the learning rate automatically","To provide a more robust performance estimate by training and evaluating the model multiple times on different subsets of data"],answer:3,explanation:"K-Fold Cross-Validation divides the dataset into K folds, training the model K times (each time holding out a different fold as the test set) and averaging the results — giving a more robust performance estimate, especially with smaller datasets."},
+
+  // WEEK 9: AI Algorithms (7)
+  {id:60,topic:"AI Algorithms",text:"'Pattern recognition' in AI refers to:",options:["The process of physically printing data patterns on paper","An outdated technique no longer used in modern AI","A method exclusive to encrypting data","The process by which a system identifies regularities or recurring features in data to classify or interpret new inputs"],answer:3,explanation:"Pattern recognition is the process by which an AI system identifies regularities, structures, or recurring features in data and uses them to classify or interpret new, unseen inputs — essentially what a trained ML model does at inference time."},
+  {id:61,topic:"AI Algorithms",text:"Which type of decision-making system relies on a fixed set of human-crafted 'if-then' rules, typical of early AI approaches?",options:["Deep neural networks exclusively","Reinforcement learning policies only","Learned decision systems","Rule-based decision systems (expert systems)"],answer:3,explanation:"Rule-based decision systems (often called expert systems) use a fixed set of if-then rules crafted by human experts — an early AI approach, as opposed to systems that learn decision boundaries from data."},
+  {id:62,topic:"AI Algorithms",text:"In a neural network, what is the role of the 'hidden layer(s)'?",options:["They store the final output only, with no processing","They directly connect to the internet for data retrieval","They are only present in supervised learning, never in any other type","They are intermediate layers that progressively extract more abstract features from the input"],answer:3,explanation:"Hidden layers are intermediate layers between the input and output layers that perform complex feature extraction, learning increasingly abstract representations of the input data. More hidden layers give rise to 'deep' learning."},
+  {id:63,topic:"AI Algorithms",text:"What is the purpose of an 'activation function' within a neural network neuron?",options:["To delete unnecessary neurons after training","To increase the size of the dataset artificially","To convert the network into an unsupervised learning model","To introduce non-linearity, allowing the network to learn complex relationships"],answer:3,explanation:"An activation function introduces non-linearity into a neuron's output, which is essential for allowing the network to learn and represent complex, non-linear relationships in data rather than only straight-line patterns."},
+  {id:64,topic:"AI Algorithms",text:"Naive Bayes is a classification algorithm particularly well-suited to which kind of task?",options:["Image generation","3D model rendering","Robotic motor control","Text classification, such as spam filtering"],answer:3,explanation:"Naive Bayes uses probability theory, is very fast, and works particularly well for text classification tasks like spam filtering due to its probabilistic foundation."},
+  {id:65,topic:"AI Algorithms",text:"K-Nearest Neighbours (KNN) classifies a new data point based on:",options:["A single, randomly chosen training example","Always assigning it to the largest class regardless of similarity","An if-then rule list with no reference to other data points","The majority class among the K closest training examples to that point"],answer:3,explanation:"KNN classifies a new point based on the majority class among its K nearest (most similar) training examples — proximity in feature space determines the prediction."},
+  {id:66,topic:"AI Algorithms",text:"What distinguishes a 'deep' neural network from a standard (shallow) neural network?",options:["A deep neural network never has an output layer","Deep neural networks cannot be trained using gradient descent","There is no actual difference between the two","A deep neural network has many hidden layers, enabling it to learn increasingly abstract representations"],answer:3,explanation:"A deep neural network is distinguished by having many hidden layers (hence 'deep'), allowing it to learn increasingly abstract, hierarchical representations of the input — this is the foundation of Deep Learning."},
+
+  // WEEK 10: Ethics & Societal Impact (7)
+  {id:67,topic:"AI Ethics",text:"How do the lecture notes distinguish 'AI Ethics' from 'AI Governance'?",options:["They are identical concepts with no distinction","AI Governance refers only to government elections","AI Ethics applies only to robots, never to software","AI Ethics is the 'moral compass' guiding development; AI Governance provides the 'rules of the road' ensuring those principles are followed in practice"],answer:3,explanation:"AI Ethics refers to the principles, values, and guidelines for morally sound AI; AI Governance encompasses the frameworks, rules, and processes (by organisations and governments) that ensure those ethical principles are actually followed."},
+  {id:68,topic:"AI Ethics",text:"The 'Black Box Problem' in AI ethics refers to:",options:["A literal black storage box used to archive old hardware","A type of encryption algorithm","A specific brand of AI hardware","The difficulty of understanding how complex AI models, especially deep learning networks, arrive at their decisions"],answer:3,explanation:"The Black Box Problem describes how many advanced AI models, particularly deep learning networks, operate opaquely — making it difficult to understand or explain how they arrive at their decisions, which erodes trust and complicates error correction."},
+  {id:69,topic:"AI Ethics",text:"AI systems perpetuating or amplifying existing societal prejudices present in training data (e.g., in hiring or loan decisions) is an example of which ethical concern?",options:["Robustness and safety only","Sustainability","The Singularity","Bias and fairness"],answer:3,explanation:"Bias and fairness concerns arise when AI systems inadvertently perpetuate or amplify biases present in their training data, leading to unfair or discriminatory outcomes in areas like hiring, lending, or criminal justice."},
+  {id:70,topic:"AI Ethics",text:"Which ethical principle emphasises that AI systems should be designed to benefit humanity and avoid causing harm?",options:["Autonomous Weapons","The Singularity","Job Displacement","Beneficence and Non-Maleficence"],answer:3,explanation:"Beneficence and Non-Maleficence is the principle that AI systems should be designed and used to maximise positive impact while minimising harm to people."},
+  {id:71,topic:"AI Ethics",text:"What does 'Explainable AI (XAI)' aim to achieve?",options:["Making AI models run faster regardless of accuracy","Making AI models physically smaller in file size","Eliminating the need for any data in AI systems","Providing insights into how AI models make their decisions, to improve transparency and trust"],answer:3,explanation:"Explainable AI (XAI) techniques aim to provide insight into how AI models arrive at their outputs, directly addressing the Black Box Problem and supporting the ethical principle of transparency."},
+  {id:72,topic:"AI Ethics",text:"Regarding Generative AI specifically, which is identified as a unique ethical challenge?",options:["The complete inability of generative models to produce any text","Generative AI being immune to bias","Generative AI requiring no training data whatsoever","Copyright and intellectual property questions around training data and generated content ownership"],answer:3,explanation:"Generative AI raises specific ethical questions around copyright and intellectual property, since training often involves vast amounts of copyrighted material, and ownership of AI-generated content remains a legally evolving area."},
+  {id:73,topic:"AI Ethics",text:"Which of the following is an example of a government-level approach to enforcing AI ethics through regulation?",options:["A single company's internal ethics committee","An individual researcher's personal coding style","A university's grading policy","The European Union's AI Act, which proposes a risk-based framework for AI systems"],answer:3,explanation:"The European Union's AI Act is cited as an example of government regulation that proposes a risk-based framework for AI systems, addressing data privacy, transparency, and accountability at a national/regional policy level."},
+
+  // WEEK 11: Careers & Trends (7)
+  {id:74,topic:"AI Careers",text:"Which AI career role focuses specifically on developing guidelines and frameworks to ensure AI systems are fair, transparent, and accountable?",options:["AI/Machine Learning Engineer","Robotics Engineer","Computer Vision Engineer","AI Ethicist"],answer:3,explanation:"An AI Ethicist works to develop guidelines and frameworks ensuring AI systems are fair, transparent, and accountable, often drawing on backgrounds in philosophy, law, social sciences, or computer science with an ethics focus."},
+  {id:75,topic:"AI Careers",text:"In IBM's AI Ladder framework, which 'rung' involves deploying and operationalising AI models into real business workflows?",options:["Collect","Organize","Analyze","Infuse"],answer:3,explanation:"The 'Infuse' rung is the final stage of IBM's AI Ladder, involving deploying and operationalising trained AI models into business applications and decision-making workflows, supported by MLOps practices."},
+  {id:76,topic:"AI Careers",text:"Which key consideration is most foundational when an organisation is planning to adopt AI?",options:["Choosing the most expensive hardware available regardless of need","Skipping any ethical considerations to move faster","Avoiding all forms of staff training","Defining clear business goals and what specific problems AI should solve"],answer:3,explanation:"Defining Clear Business Goals is highlighted as a foundational consideration — organisations must clearly understand what problems they are trying to solve with AI before selecting solutions, alongside data readiness, talent, and ethics."},
+  {id:77,topic:"AI Careers",text:"A Data Scientist's role primarily focuses on:",options:["Exclusively building robotic hardware","Writing only video game code","Managing a company's physical server rooms","Extracting insights and knowledge from large datasets using statistical methods, ML, and visualization to drive business decisions"],answer:3,explanation:"A Data Scientist extracts insights and knowledge from large datasets using statistical methods, machine learning algorithms, and data visualisation, focusing on identifying trends and actionable information for decisions."},
+  {id:78,topic:"AI Careers",text:"What is a key principle underlying IBM's AI Ladder framework?",options:["AI adoption requires no data at all","Ethics should be considered only after deployment, never before","Frameworks are unnecessary for organisations adopting AI","Data is the Foundation — a strong data foundation is essential for successful AI adoption"],answer:3,explanation:"'Data is the Foundation' is a key principle of the AI Ladder, emphasising that a strong, trusted, well-organised data foundation underpins all successful AI adoption efforts."},
+  {id:79,topic:"AI Careers",text:"Which IBM AI Ladder rung focuses on organising data into a trusted, governed, business-ready foundation?",options:["Infuse","Collect","Analyze","Organize"],answer:3,explanation:"The 'Organize' rung involves data cataloguing, data quality management, data governance, and creating a business-ready data layer — ensuring data is reliable, secure, and compliant before analysis."},
+
+  // SYNTHESIS (1)
+  {id:80,topic:"Mixed Synthesis",text:"Which correctly nests these fields from broadest to narrowest, based on the 'nested dolls' analogy used in the lecture notes?",options:["Deep Learning → Machine Learning → Artificial Intelligence","Data Science → Artificial Intelligence → Machine Learning","Machine Learning → Data Science → Deep Learning","Artificial Intelligence → Machine Learning → Deep Learning"],answer:3,explanation:"The correct nesting, from broadest to narrowest, is: Artificial Intelligence (the overarching field) contains Machine Learning (a subset that learns from data), which in turn contains Deep Learning (a subset using multi-layered neural networks)."},
 ];
 
 const state = {
-  answers: {},
-  revealed: {},
-  bookmarks: new Set(),
-  filter: 'All',
-  search: '',
-  shuffled: [...questions],
-  isShuffled: false,
-  timerSecs: 0,
-  timerInterval: null,
+  answers: {}, revealed: {}, bookmarks: new Set(),
+  filter: 'All', search: '', shuffled: [...questions],
+  isShuffled: false, timerSecs: 0, timerInterval: null,
 };
 
 function init() {
-  document.getElementById('logo-img').src = 'data:image/jpeg;base64,' + LOGO_B64;
   buildFilters();
   renderQuestions();
   startTimer();
@@ -382,30 +502,29 @@ function init() {
 
 function buildFilters() {
   const topics = ['All', ...new Set(questions.map(q => q.topic))];
-  const wrap = document.getElementById('filters');
+  const wrap = document.getElementById('filter-wrap');
   wrap.innerHTML = topics.map(t =>
-    `<button class="f-pill${t==='All'?' active':''}" onclick="setFilter('${t}',this)">${t}</button>`
+    `<button class="filter-pill ${t === 'All' ? 'active' : ''}" onclick="setFilter('${t}', this)">${t}</button>`
   ).join('');
 }
 
-function setFilter(t, btn) {
-  state.filter = t;
-  document.querySelectorAll('.f-pill').forEach(b => b.classList.remove('active'));
+function setFilter(topic, btn) {
+  state.filter = topic;
+  document.querySelectorAll('.filter-pill').forEach(b => b.classList.remove('active'));
   btn.classList.add('active');
   renderQuestions();
 }
 
 function filterQuestions() {
-  state.search = document.getElementById('search-box').value.toLowerCase();
+  state.search = document.getElementById('search-input').value.toLowerCase();
   renderQuestions();
 }
 
 function getVisible() {
   return state.shuffled.filter(q => {
-    const matchTopic = state.filter === 'All' || q.topic === state.filter;
-    const matchSearch = !state.search || q.text.toLowerCase().includes(state.search) ||
-      q.options.some(o => o.toLowerCase().includes(state.search));
-    return matchTopic && matchSearch;
+    const matchFilter = state.filter === 'All' || q.topic === state.filter;
+    const matchSearch = !state.search || q.text.toLowerCase().includes(state.search) || q.options.some(o => o.toLowerCase().includes(state.search));
+    return matchFilter && matchSearch;
   });
 }
 
@@ -413,63 +532,67 @@ function renderQuestions() {
   const visible = getVisible();
   const list = document.getElementById('q-list');
   const noRes = document.getElementById('no-results');
-  document.getElementById('stat-showing').textContent = visible.length;
   if (visible.length === 0) { list.innerHTML = ''; noRes.style.display = 'block'; }
-  else { noRes.style.display = 'none'; list.innerHTML = visible.map((q,i) => buildCard(q,i)).join(''); }
+  else { noRes.style.display = 'none'; list.innerHTML = visible.map((q, i) => buildCard(q, i)).join(''); }
   updateStats();
 }
 
 function buildCard(q, idx) {
-  const a = state.answers[q.id];
+  const ans = state.answers[q.id];
   const rev = state.revealed[q.id];
   const bk = state.bookmarks.has(q.id);
-  const letters = ['A','B','C','D'];
-  const opts = q.options.map((o, i) => {
+  const answered = ans !== undefined;
+  const disabled = answered || rev;
+  let opts = q.options.map((o, i) => {
     let cls = 'opt';
-    if (a !== undefined) {
-      if (i === q.answer) cls += ' correct';
-      else if (i === a) cls += ' wrong';
-    } else if (rev && i === q.answer) {
-      cls += ' reveal-correct';
-    }
-    const disabled = (a !== undefined || rev) ? 'style="pointer-events:none"' : `onclick="pickAnswer(${q.id},${i})"`;
-    return `<div class="${cls}" ${disabled}><span class="opt-letter">${letters[i]}</span><span class="opt-text">${o}</span></div>`;
+    if (disabled) cls += ' disabled';
+    if (answered && i === ans && i === q.answer) cls += ' correct';
+    else if (answered && i === ans && i !== q.answer) cls += ' wrong';
+    else if ((answered || rev) && i === q.answer) cls += ' revealed-correct';
+    const letter = ['A','B','C','D'][i];
+    const click = disabled ? '' : `onclick="pickAnswer(${q.id}, ${i})"`;
+    return `<div class="${cls}" ${click}><div class="letter">${letter}</div><span>${o}</span></div>`;
   }).join('');
-  const expShow = (a !== undefined || rev) ? 'show' : '';
-  const revBtn = (a === undefined && !rev) ? `<button class="reveal-btn" onclick="revealAns(${q.id})">👁 Reveal Answer</button>` : '';
-  return `<div class="q-card" id="qcard-${q.id}">
-    <div class="q-meta">
-      <span class="q-num">Q${q.id}</span>
-      <span class="q-topic">${q.topic}</span>
-      <span class="q-type">Theory</span>
-      <button class="bk-btn${bk?' active':''}" onclick="toggleBk(${q.id})" title="Bookmark">🔖</button>
+
+  const showReveal = !answered && !rev ? `<button class="reveal-btn" onclick="revealAns(${q.id})">👁 Reveal Answer</button>` : '';
+  const showExp = (answered || rev) ? `<div class="explanation">💡 ${q.explanation}</div>` : '';
+
+  return `<div class="q-card ${bk ? 'bookmarked' : ''}" id="qcard-${q.id}">
+    <div class="card-meta">
+      <span class="q-num">Q${idx + 1}</span>
+      <span class="topic-badge">${q.topic}</span>
+      <span class="type-badge">Theory</span>
+      <button class="bk-toggle ${bk ? 'on' : ''}" onclick="toggleBk(${q.id})" title="Bookmark">🔖</button>
     </div>
-    <p class="q-text">${q.text}</p>
-    <div class="opts-grid">${opts}</div>
-    ${revBtn}
-    <div class="explanation ${expShow}"><strong>💡 Explanation:</strong> ${q.explanation}</div>
+    <div class="q-text">${q.text}</div>
+    <div class="options-grid">${opts}</div>
+    ${showReveal}
+    ${showExp}
   </div>`;
 }
 
-function pickAnswer(id, i) {
-  if (state.answers[id] !== undefined) return;
-  state.answers[id] = i;
-  const q = questions.find(x => x.id === id);
-  const card = document.getElementById('qcard-'+id);
-  if (card) card.outerHTML = buildCard(q);
+function pickAnswer(id, chosen) {
+  state.answers[id] = chosen;
+  reRenderCard(id);
   updateStats();
   checkDiagnostic();
 }
 
 function revealAns(id) {
   state.revealed[id] = true;
-  const q = questions.find(x => x.id === id);
-  const card = document.getElementById('qcard-'+id);
-  if (card) card.outerHTML = buildCard(q);
+  reRenderCard(id);
+}
+
+function reRenderCard(id) {
+  const visible = getVisible();
+  const idx = visible.findIndex(q => q.id === id);
+  if (idx === -1) return;
+  const el = document.getElementById(`qcard-${id}`);
+  if (el) el.outerHTML = buildCard(visible[idx], idx);
 }
 
 function revealAll() {
-  questions.forEach(q => { if (state.answers[q.id] === undefined) state.revealed[q.id] = true; });
+  getVisible().forEach(q => { if (state.answers[q.id] === undefined) state.revealed[q.id] = true; });
   renderQuestions();
 }
 
@@ -477,21 +600,20 @@ function resetQuiz() {
   state.answers = {}; state.revealed = {}; state.bookmarks = new Set();
   state.filter = 'All'; state.search = ''; state.shuffled = [...questions];
   state.isShuffled = false; state.timerSecs = 0;
-  document.getElementById('search-box').value = '';
+  document.getElementById('search-input').value = '';
   document.getElementById('shuffle-note').style.display = 'none';
-  document.querySelectorAll('.f-pill').forEach((b,i) => b.classList.toggle('active', i===0));
-  document.getElementById('diag-bar').style.display = 'none';
-  updateBookmarkPanel();
+  document.getElementById('bk-nav-btn').classList.remove('active');
+  document.getElementById('bm-card').classList.remove('show');
+  document.querySelectorAll('.filter-pill').forEach((b, i) => b.classList.toggle('active', i === 0));
   renderQuestions();
 }
 
 function shuffleQuestions() {
-  const arr = [...state.shuffled];
-  for (let i = arr.length-1; i > 0; i--) {
-    const j = Math.floor(Math.random()*(i+1));
-    [arr[i],arr[j]] = [arr[j],arr[i]];
+  for (let i = state.shuffled.length - 1; i > 0; i--) {
+    const j = Math.floor(Math.random() * (i + 1));
+    [state.shuffled[i], state.shuffled[j]] = [state.shuffled[j], state.shuffled[i]];
   }
-  state.shuffled = arr; state.isShuffled = true;
+  state.isShuffled = true;
   document.getElementById('shuffle-note').style.display = 'block';
   renderQuestions();
 }
@@ -499,137 +621,143 @@ function shuffleQuestions() {
 function toggleBk(id) {
   if (state.bookmarks.has(id)) state.bookmarks.delete(id);
   else state.bookmarks.add(id);
-  const q = questions.find(x=>x.id===id);
-  const card = document.getElementById('qcard-'+id);
-  if (card) card.outerHTML = buildCard(q);
   updateBookmarkPanel();
+  reRenderCard(id);
 }
 
 function toggleBookmarks() {
-  document.getElementById('bm-card').classList.toggle('open');
+  const card = document.getElementById('bm-card');
+  card.classList.toggle('show');
+  document.getElementById('bk-nav-btn').classList.toggle('active');
 }
 
 function updateBookmarkPanel() {
   const list = document.getElementById('bm-list');
-  if (state.bookmarks.size === 0) {
-    list.innerHTML = '<em style="font-size:.75rem;color:var(--ink4)">No bookmarks yet.</em>';
-  } else {
-    list.innerHTML = [...state.bookmarks].sort((a,b)=>a-b).map(id=>
-      `<span class="bm-pill" onclick="scrollToQ(${id})">Q${id}</span>`).join('');
-  }
+  if (state.bookmarks.size === 0) { list.innerHTML = '<span style="color:var(--ink4);font-size:12px;">No bookmarks yet.</span>'; return; }
+  const visible = getVisible();
+  list.innerHTML = [...state.bookmarks].map(id => {
+    const idx = visible.findIndex(q => q.id === id);
+    return `<button class="bm-pill" onclick="scrollToQ(${id})">Q${idx + 1 || '?'}</button>`;
+  }).join('');
 }
 
 function scrollToQ(id) {
-  const el = document.getElementById('qcard-'+id);
-  if (el) el.scrollIntoView({behavior:'smooth', block:'center'});
+  const el = document.getElementById(`qcard-${id}`);
+  if (el) el.scrollIntoView({ behavior: 'smooth', block: 'center' });
 }
 
 function updateStats() {
-  const answered = Object.keys(state.answers).length;
-  const correct = Object.values(state.answers).filter((a,i,arr) => {
-    const id = parseInt(Object.keys(state.answers)[i]);
-    const q = questions.find(x=>x.id===id);
-    return q && a === q.answer;
-  }).length;
-  const wrong = answered - correct;
-  const score = answered > 0 ? Math.round(correct/answered*100) : 0;
+  const visible = getVisible();
+  const total = visible.length;
+  let correct = 0, wrong = 0, attempted = 0;
+  visible.forEach(q => {
+    if (state.answers[q.id] !== undefined) {
+      attempted++;
+      if (state.answers[q.id] === q.answer) correct++;
+      else wrong++;
+    }
+  });
+  const score = attempted > 0 ? Math.round((correct / attempted) * 100) : 0;
+  document.getElementById('stat-showing').textContent = total;
   document.getElementById('stat-correct').textContent = correct;
   document.getElementById('stat-wrong').textContent = wrong;
-  document.getElementById('stat-attempted').textContent = answered;
-  document.getElementById('stat-score').textContent = score+'%';
-  const pct = answered/questions.length*100;
-  document.getElementById('prog-fill').style.width = pct+'%';
-  document.getElementById('prog-label').textContent = `${answered} / ${questions.length}`;
+  document.getElementById('stat-attempted').textContent = attempted;
+  document.getElementById('stat-score').textContent = score + '%';
+  const pct = total > 0 ? (attempted / total) * 100 : 0;
+  document.getElementById('prog-fill').style.width = pct + '%';
+  document.getElementById('prog-label').textContent = `${attempted} / ${total}`;
 }
 
 function checkDiagnostic() {
-  if (Object.keys(state.answers).length >= 10) {
-    document.getElementById('diag-bar').style.display = 'block';
-  }
+  const answered = Object.keys(state.answers).length;
+  const bar = document.getElementById('diag-bar');
+  if (answered >= 10) bar.classList.add('show');
 }
 
 function toggleSummary() {
-  document.getElementById('sum-card').classList.toggle('open');
+  const body = document.getElementById('sum-body');
+  const btn = document.getElementById('sum-toggle');
+  body.classList.toggle('open');
+  btn.classList.toggle('open');
 }
 
 function openModal() {
   document.getElementById('modal-body').innerHTML = buildReport();
-  document.getElementById('overlay').classList.add('open');
+  document.getElementById('modal-overlay').classList.add('open');
   setTimeout(() => {
-    document.querySelectorAll('.topic-bar-fill').forEach(el => {
-      el.style.width = el.dataset.pct + '%';
-    });
-  }, 100);
+    document.querySelectorAll('.tbi-fill').forEach(el => { el.style.width = el.dataset.pct + '%'; });
+  }, 80);
 }
 
-function closeModal() {
-  document.getElementById('overlay').classList.remove('open');
-}
-
-function closeModalOutside(e) {
-  if (e.target === document.getElementById('overlay')) closeModal();
-}
+function closeModal() { document.getElementById('modal-overlay').classList.remove('open'); }
+function closeModalOutside(e) { if (e.target === document.getElementById('modal-overlay')) closeModal(); }
 
 function buildReport() {
-  const answered = Object.keys(state.answers).length;
-  const correct = Object.entries(state.answers).filter(([id,a]) => {
-    const q = questions.find(x=>x.id===parseInt(id));
-    return q && a === q.answer;
-  }).length;
-  const wrong = answered - correct;
-  const score = answered > 0 ? Math.round(correct/answered*100) : 0;
-  const topicMap = {};
-  questions.forEach(q => {
-    if (!topicMap[q.topic]) topicMap[q.topic] = {total:0,correct:0,attempted:0};
-    topicMap[q.topic].total++;
-    const a = state.answers[q.id];
-    if (a !== undefined) { topicMap[q.topic].attempted++; if (a===q.answer) topicMap[q.topic].correct++; }
+  const all = questions;
+  let totalCorrect = 0, totalWrong = 0, totalAttempted = 0;
+  all.forEach(q => {
+    if (state.answers[q.id] !== undefined) {
+      totalAttempted++;
+      if (state.answers[q.id] === q.answer) totalCorrect++;
+      else totalWrong++;
+    }
   });
-  const topicBars = Object.entries(topicMap).map(([t,v]) => {
-    const pct = v.attempted > 0 ? Math.round(v.correct/v.attempted*100) : 0;
-    const col = pct>=70?'var(--green)':pct>=40?'var(--amber)':'var(--primary)';
-    return `<div class="topic-bar-wrap">
-      <div class="topic-bar-label"><span>${t}</span><span>${pct}%</span></div>
-      <div class="topic-bar-bg"><div class="topic-bar-fill" data-pct="${pct}" style="background:${col};width:0%"></div></div>
+  const scorePct = totalAttempted > 0 ? Math.round((totalCorrect / totalAttempted) * 100) : 0;
+  const scoreColor = scorePct >= 70 ? 'var(--green)' : scorePct >= 50 ? 'var(--amber)' : 'var(--primary)';
+
+  // Topic bars
+  const topics = [...new Set(all.map(q => q.topic))];
+  let topicBarsHtml = topics.map(t => {
+    const tqs = all.filter(q => q.topic === t);
+    const tAns = tqs.filter(q => state.answers[q.id] !== undefined);
+    const tCorr = tAns.filter(q => state.answers[q.id] === q.answer);
+    const pct = tAns.length > 0 ? Math.round((tCorr.length / tAns.length) * 100) : 0;
+    const fill = pct >= 70 ? 'var(--green)' : pct >= 50 ? 'var(--amber)' : 'var(--primary)';
+    return `<div class="topic-bar-item">
+      <div class="tbi-top"><span>${t}</span><span>${tCorr.length}/${tAns.length} · ${pct}%</span></div>
+      <div class="tbi-track"><div class="tbi-fill" data-pct="${pct}" style="background:${fill}"></div></div>
     </div>`;
   }).join('');
-  const weakTopics = Object.entries(topicMap).filter(([,v])=>v.attempted>0&&v.correct/v.attempted<0.5).map(([t])=>t);
-  const strongTopics = Object.entries(topicMap).filter(([,v])=>v.attempted>0&&v.correct/v.attempted>=0.7).map(([t])=>t);
-  const focusCards = [
-    ...weakTopics.map(t=>`<div class="focus-card crit">🚨 <strong>Needs Work:</strong> ${t} — review the notes and attempt again.</div>`),
-    ...strongTopics.map(t=>`<div class="focus-card good">✅ <strong>Strong:</strong> ${t} — keep it up!</div>`)
-  ].join('') || '<div class="focus-card warn">⚠️ Attempt more questions to see detailed analysis.</div>';
-  const verdict = score>=70?`<strong>Excellent Performance! 🎉</strong>You scored ${score}% — you have a solid understanding of the GST 108 course material. Review any weak topics before your exam.`
-    :score>=50?`<strong>Good Effort! 📚</strong>You scored ${score}%. Focus on the topics marked in red/amber above and re-attempt the quiz. You're on the right track.`
-    :`<strong>Keep Studying! 💪</strong>You scored ${score}%. Don't be discouraged — revisit the Topic Revision Summary at the top of the page and re-attempt the questions.`;
+
+  // Focus cards
+  const focusCards = topics.map(t => {
+    const tqs = all.filter(q => q.topic === t);
+    const tAns = tqs.filter(q => state.answers[q.id] !== undefined);
+    if (tAns.length === 0) return '';
+    const tCorr = tAns.filter(q => state.answers[q.id] === q.answer);
+    const pct = Math.round((tCorr.length / tAns.length) * 100);
+    if (pct < 50) return `<div class="focus-card critical">🚨 <strong>${t}</strong>: ${pct}% — Needs serious revision. Review definitions and examples.</div>`;
+    if (pct < 70) return `<div class="focus-card warning">⚠️ <strong>${t}</strong>: ${pct}% — Some gaps remain. Revisit key concepts.</div>`;
+    return `<div class="focus-card good">✅ <strong>${t}</strong>: ${pct}% — Good performance. Keep it up!</div>`;
+  }).join('');
+
+  const verdict = scorePct >= 80 ? `🎉 Excellent! You're well prepared for the exam. Keep revisiting weak spots.`
+    : scorePct >= 60 ? `📈 Good effort! You have a solid base — focus on topics below 70% and you'll be ready.`
+    : scorePct >= 40 ? `📚 Fair progress. Spend more time with the lecture notes, especially on topics you missed.`
+    : `💪 Keep going! Review your notes from the beginning and attempt the quiz again after studying.`;
+
   return `<div class="score-grid">
-    <div class="score-cell green"><div class="val">${correct}</div><div class="lbl">Correct</div></div>
-    <div class="score-cell red"><div class="val">${wrong}</div><div class="lbl">Wrong</div></div>
-    <div class="score-cell amber"><div class="val">${score}%</div><div class="lbl">Score</div></div>
-    <div class="score-cell purple"><div class="val">${answered}/${questions.length}</div><div class="lbl">Attempted</div></div>
+    <div class="score-cell"><div class="val" style="color:var(--green)">${totalCorrect}</div><div class="lbl">Correct</div></div>
+    <div class="score-cell"><div class="val" style="color:var(--primary)">${totalWrong}</div><div class="lbl">Wrong</div></div>
+    <div class="score-cell"><div class="val" style="color:${scoreColor}">${scorePct}%</div><div class="lbl">Score</div></div>
+    <div class="score-cell"><div class="val" style="color:var(--blue)">${totalAttempted}/${all.length}</div><div class="lbl">Attempted</div></div>
   </div>
-  <p class="section-hd">Performance by Topic</p>
-  ${topicBars}
-  <p class="section-hd" style="margin-top:16px">Focus Areas</p>
-  ${focusCards}
-  <div class="verdict">${verdict}</div>
-  <div class="modal-footer">
-    <button class="btn-sec" onclick="closeModal()">Close</button>
-    <button class="btn-pri" onclick="closeModal();resetQuiz()">↺ Retake Quiz</button>
-  </div>`;
+  <div class="topic-bars"><h3>📊 Performance by Topic</h3>${topicBarsHtml}</div>
+  <div class="focus-section"><h3>🎯 Areas to Focus On</h3>${focusCards || '<div style="color:var(--ink3);font-size:13px;">Answer more questions to see personalised focus areas.</div>'}</div>
+  <div class="verdict">${verdict}</div>`;
 }
 
 function startTimer() {
+  if (state.timerInterval) clearInterval(state.timerInterval);
   state.timerInterval = setInterval(() => {
     state.timerSecs++;
-    const m = String(Math.floor(state.timerSecs/60)).padStart(2,'0');
-    const s = String(state.timerSecs%60).padStart(2,'0');
-    document.getElementById('timer').textContent = `⏱ ${m}:${s}`;
+    const m = Math.floor(state.timerSecs / 60).toString().padStart(2, '0');
+    const s = (state.timerSecs % 60).toString().padStart(2, '0');
+    document.getElementById('timer').textContent = `${m}:${s}`;
   }, 1000);
 }
 
-window.addEventListener('DOMContentLoaded', init);
+init();
 </script>
 </body>
 </html>
-
